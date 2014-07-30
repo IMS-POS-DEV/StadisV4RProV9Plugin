@@ -1,0 +1,1875 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.STADIS.com/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.STADIS.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use. STADIS © 2007, International Micro Systems, Inc.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.STADIS.com/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="ValidateLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateLoginResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReturnMessage">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecurityCredentials" type="tns:SecurityCredentials" />
+      <s:complexType name="SecurityCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ChangePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangePasswordResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BeginTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionHeader" type="tns:StadisTransactionHeader" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StadisTransactionHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LocationID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegisterID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiptID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorCashier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorDiscountPct" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BeginTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BeginTransactionResult" type="tns:MessageAndKey" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageAndKey">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="tns:ReturnMessage" />
+          <s:element minOccurs="1" maxOccurs="1" name="AssignedKey" type="s1:guid" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionItem" type="tns:StadisTransactionItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StadisTransactionItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionKey" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dept" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Class" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SubClass" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cost" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tax" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AdditionalTax" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Discount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddItemResult" type="tns:MessageAndKey" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddTender">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionTender" type="tns:StadisTransactionTender" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StadisTransactionTender">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionKey" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsStadisTender" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="StadisAuthorizationID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TenderTypeID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TenderID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddTenderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddTenderResult" type="tns:MessageAndKey" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ItemKey" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteItemResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTender">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TenderKey" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteTenderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteTenderResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EndTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionHeaderTotals" type="tns:StadisTransactionHeaderTotals" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StadisTransactionHeaderTotals">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionKey" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="VendorDiscount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="VendorTax" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="VendorTip" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SubTotal" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Total" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="EndTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EndTransactionResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="tns:StadisTranHeader" />
+            <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfStadisTranItem" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tenders" type="tns:ArrayOfStadisTranTender" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StadisTranHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LocationID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegisterID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiptID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorCashier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorDiscountPct" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VendorDiscount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="VendorTax" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="VendorTip" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SubTotal" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Total" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfStadisTranItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StadisTranItem" nillable="true" type="tns:StadisTranItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StadisTranItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ItemID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dept" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Class" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SubClass" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cost" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tax" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AdditionalTax" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Discount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfStadisTranTender">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StadisTranTender" nillable="true" type="tns:StadisTranTender" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StadisTranTender">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsStadisTender" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="StadisAuthorizationID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TenderTypeID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TenderID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PostTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostTransactionResult" type="tns:MessageAndKey" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TransactionKey" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelTransactionResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReverseTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TransactionKey" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReverseTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReverseTransactionResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceiptPrintLines">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LocationID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RegisterID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReceiptID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceiptPrintLinesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReceiptPrintLinesResult" type="tns:MessageAndPrintLines" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageAndPrintLines">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="tns:ReturnMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrintLines" type="tns:ArrayOfPrintLine" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPrintLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PrintLine" nillable="true" type="tns:PrintLine" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PrintLine">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BusinessBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="TenderIDStub" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="RemainingAmount" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TenderTypeID" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BusinessBase" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:UndoableBase" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="UndoableBase" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BindableBase" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BindableBase" abstract="true" />
+      <s:element name="GetPOSInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="POSID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOSInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPOSInfoResult" type="tns:MessageAndPOSInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageAndPOSInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="tns:ReturnMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="POSInfo" type="tns:POS" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="POS">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BusinessBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="POSID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="VendorID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LocationID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TranTypeDefault" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetSaleItemsForPOS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="POSID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSaleItemsForPOSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSaleItemsForPOSResult" type="tns:MessageAndSaleItems" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageAndSaleItems">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="tns:ReturnMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="SaleItems" type="tns:ArrayOfSaleItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSaleItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SaleItem" nillable="true" type="tns:SaleItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SaleItem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BusinessBase">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="SaleItemID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DisplayOrder" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ItemType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="VendorID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Department" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Class" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SubClass" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetActionSummaryForTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TicketBarcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActionSummaryForTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetActionSummaryForTicketResult" type="tns:MessageAndActionSummary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageAndActionSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="tns:ReturnMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerInfo" type="tns:CustomerInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="ActionHeader" type="tns:ArrayOfActionHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="ActionItem" type="tns:ArrayOfActionItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="ActionTender" type="tns:ArrayOfActionTender" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomerInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActionHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActionHeader" nillable="true" type="tns:ActionHeader" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ActionHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionKey" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreateDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Action" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegisterID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorCashier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiptID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Total" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SeasonID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LocationID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActionItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActionItem" nillable="true" type="tns:ActionItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ActionItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemKey" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionKey" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActionTender">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActionTender" nillable="true" type="tns:ActionTender" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ActionTender">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TenderKey" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionKey" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="TenderType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsStadisTender" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PostedAmount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="StadisAuthorizationID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TenderID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTenderTypes">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTenderTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTenderTypesResult" type="tns:ArrayOfTenderType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTenderType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TenderType" nillable="true" type="tns:TenderType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TenderType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TenderTypeID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTicketStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TicketBarcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTicketStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTicketStatusResult" type="tns:MessageAndTicketStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageAndTicketStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="tns:ReturnMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="TicketStatus" type="tns:StadisTicketStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StadisTicketStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TicketExists" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketEventStatusID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketEventTicketStatusID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStadisRemainingAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStadisEventRemainingAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus1" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus2" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus3" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus4" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus5" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus6" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus7" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus8" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus9" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketStatus0" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketUpdateDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="TicketCustomerID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventTicketExists" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventTicketEventStatusID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventTicketEventTicketStatusID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventTicketStadisRemainingAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventTicketUpdateDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerExists" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerStadisRemainingAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerStadisEventRemainingAmount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerStatus1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerStatus2" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerUpdateDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTicketStatuses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CardCount" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTicketStatusesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTicketStatusesResult" type="tns:MessageAndTicketStatuses" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageAndTicketStatuses">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="tns:ReturnMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="TicketStatuses" type="tns:ArrayOfStadisTicketStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfStadisTicketStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StadisTicketStatus" nillable="true" type="tns:StadisTicketStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="StadisAccountCharge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChargeInput" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StadisRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegisterID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorCashier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TenderTypeID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TenderID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="StadisAccountChargeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StadisAccountChargeResult" type="tns:MessageAndStadisReply" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageAndStadisReply">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="tns:ReturnMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="StadisReply" type="tns:StadisReply" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StadisReply">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StadisAuthorizationID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TenderStatusCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TenderStatusMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountStatusCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountStatusMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChargedAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RemainingAmount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ReverseStadisAccountCharge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReverseChargeInput" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReverseStadisAccountChargeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReverseStadisAccountChargeResult" type="tns:MessageAndStadisReply" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StadisBalanceCheck">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StatusCheckInput" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StadisBalanceCheckResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StadisBalanceCheckResult" type="tns:MessageAndStadisReply" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StadisAccountChargeMM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChargeInput" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StadisAccountChargeMMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StadisAccountChargeMMResult" type="tns:MessageAndStadisReplyMM" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageAndStadisReplyMM">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="tns:ReturnMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="StadisReplyMM" type="tns:StadisReplyMM" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StadisReplyMM">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StadisAuthorizationID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TenderStatusCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TenderStatusMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountStatusCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountStatusMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChargedAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RemainingAmount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="StadisMode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketChargedAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TicketRemainingAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountChargedAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountRemainingAmount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ReverseStadisAccountChargeMM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReverseChargeInput" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReverseStadisAccountChargeMMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReverseStadisAccountChargeMMResult" type="tns:MessageAndStadisReplyMM" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StadisBalanceCheckMM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StatusCheckInput" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StadisBalanceCheckMMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StadisBalanceCheckMMResult" type="tns:MessageAndStadisReplyMM" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PurchaseGiftCards">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GiftCards" type="tns:ArrayOfStadisGiftCard" />
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="tns:StadisTranHeader" />
+            <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfStadisTranItem" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tenders" type="tns:ArrayOfStadisTranTender" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfStadisGiftCard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StadisGiftCard" nillable="true" type="tns:StadisGiftCard" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StadisGiftCard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GiftCardID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PurchaseGiftCardsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PurchaseGiftCardsResult" type="tns:MessageAndKey" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddGiftCard">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GiftCard" type="tns:StadisGiftCard" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddGiftCardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddGiftCardResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReloadGiftCard">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CardID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReloadGiftCardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReloadGiftCardResult" type="tns:MessageAndStadisReply" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActivateGiftCard">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CardID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActivateGiftCardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActivateGiftCardResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeactivateGiftCard">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CardID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReasonCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeactivateGiftCardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeactivateGiftCardResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterGiftCardTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CardID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterGiftCardTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegisterGiftCardTransactionResult" type="tns:ReturnMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ValidateLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidateLogin" />
+  </wsdl:message>
+  <wsdl:message name="ValidateLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidateLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidateLoginSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangePassword" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangePasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="BeginTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:BeginTransaction" />
+  </wsdl:message>
+  <wsdl:message name="BeginTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:BeginTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="BeginTransactionSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="AddItemSoapIn">
+    <wsdl:part name="parameters" element="tns:AddItem" />
+  </wsdl:message>
+  <wsdl:message name="AddItemSoapOut">
+    <wsdl:part name="parameters" element="tns:AddItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddItemSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="AddTenderSoapIn">
+    <wsdl:part name="parameters" element="tns:AddTender" />
+  </wsdl:message>
+  <wsdl:message name="AddTenderSoapOut">
+    <wsdl:part name="parameters" element="tns:AddTenderResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddTenderSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="DeleteItemSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteItem" />
+  </wsdl:message>
+  <wsdl:message name="DeleteItemSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteItemSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTenderSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteTender" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTenderSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteTenderResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteTenderSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="EndTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:EndTransaction" />
+  </wsdl:message>
+  <wsdl:message name="EndTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:EndTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="EndTransactionSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="PostTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:PostTransaction" />
+  </wsdl:message>
+  <wsdl:message name="PostTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:PostTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostTransactionSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="CancelTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelTransaction" />
+  </wsdl:message>
+  <wsdl:message name="CancelTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelTransactionSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="ReverseTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:ReverseTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ReverseTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:ReverseTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReverseTransactionSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptPrintLinesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReceiptPrintLines" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptPrintLinesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReceiptPrintLinesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptPrintLinesSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPOSInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPOSInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSInfoSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetSaleItemsForPOSSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSaleItemsForPOS" />
+  </wsdl:message>
+  <wsdl:message name="GetSaleItemsForPOSSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSaleItemsForPOSResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSaleItemsForPOSSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetActionSummaryForTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:GetActionSummaryForTicket" />
+  </wsdl:message>
+  <wsdl:message name="GetActionSummaryForTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:GetActionSummaryForTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetActionSummaryForTicketSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetTenderTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTenderTypes" />
+  </wsdl:message>
+  <wsdl:message name="GetTenderTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTenderTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTenderTypesSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTicketStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTicketStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketStatusSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketStatusesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTicketStatuses" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketStatusesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTicketStatusesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTicketStatusesSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="StadisAccountChargeSoapIn">
+    <wsdl:part name="parameters" element="tns:StadisAccountCharge" />
+  </wsdl:message>
+  <wsdl:message name="StadisAccountChargeSoapOut">
+    <wsdl:part name="parameters" element="tns:StadisAccountChargeResponse" />
+  </wsdl:message>
+  <wsdl:message name="StadisAccountChargeSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="ReverseStadisAccountChargeSoapIn">
+    <wsdl:part name="parameters" element="tns:ReverseStadisAccountCharge" />
+  </wsdl:message>
+  <wsdl:message name="ReverseStadisAccountChargeSoapOut">
+    <wsdl:part name="parameters" element="tns:ReverseStadisAccountChargeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReverseStadisAccountChargeSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="StadisBalanceCheckSoapIn">
+    <wsdl:part name="parameters" element="tns:StadisBalanceCheck" />
+  </wsdl:message>
+  <wsdl:message name="StadisBalanceCheckSoapOut">
+    <wsdl:part name="parameters" element="tns:StadisBalanceCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="StadisBalanceCheckSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="StadisAccountChargeMMSoapIn">
+    <wsdl:part name="parameters" element="tns:StadisAccountChargeMM" />
+  </wsdl:message>
+  <wsdl:message name="StadisAccountChargeMMSoapOut">
+    <wsdl:part name="parameters" element="tns:StadisAccountChargeMMResponse" />
+  </wsdl:message>
+  <wsdl:message name="StadisAccountChargeMMSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="ReverseStadisAccountChargeMMSoapIn">
+    <wsdl:part name="parameters" element="tns:ReverseStadisAccountChargeMM" />
+  </wsdl:message>
+  <wsdl:message name="ReverseStadisAccountChargeMMSoapOut">
+    <wsdl:part name="parameters" element="tns:ReverseStadisAccountChargeMMResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReverseStadisAccountChargeMMSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="StadisBalanceCheckMMSoapIn">
+    <wsdl:part name="parameters" element="tns:StadisBalanceCheckMM" />
+  </wsdl:message>
+  <wsdl:message name="StadisBalanceCheckMMSoapOut">
+    <wsdl:part name="parameters" element="tns:StadisBalanceCheckMMResponse" />
+  </wsdl:message>
+  <wsdl:message name="StadisBalanceCheckMMSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="PurchaseGiftCardsSoapIn">
+    <wsdl:part name="parameters" element="tns:PurchaseGiftCards" />
+  </wsdl:message>
+  <wsdl:message name="PurchaseGiftCardsSoapOut">
+    <wsdl:part name="parameters" element="tns:PurchaseGiftCardsResponse" />
+  </wsdl:message>
+  <wsdl:message name="PurchaseGiftCardsSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="AddGiftCardSoapIn">
+    <wsdl:part name="parameters" element="tns:AddGiftCard" />
+  </wsdl:message>
+  <wsdl:message name="AddGiftCardSoapOut">
+    <wsdl:part name="parameters" element="tns:AddGiftCardResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddGiftCardSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="ReloadGiftCardSoapIn">
+    <wsdl:part name="parameters" element="tns:ReloadGiftCard" />
+  </wsdl:message>
+  <wsdl:message name="ReloadGiftCardSoapOut">
+    <wsdl:part name="parameters" element="tns:ReloadGiftCardResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReloadGiftCardSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="ActivateGiftCardSoapIn">
+    <wsdl:part name="parameters" element="tns:ActivateGiftCard" />
+  </wsdl:message>
+  <wsdl:message name="ActivateGiftCardSoapOut">
+    <wsdl:part name="parameters" element="tns:ActivateGiftCardResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActivateGiftCardSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="DeactivateGiftCardSoapIn">
+    <wsdl:part name="parameters" element="tns:DeactivateGiftCard" />
+  </wsdl:message>
+  <wsdl:message name="DeactivateGiftCardSoapOut">
+    <wsdl:part name="parameters" element="tns:DeactivateGiftCardResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeactivateGiftCardSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="RegisterGiftCardTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:RegisterGiftCardTransaction" />
+  </wsdl:message>
+  <wsdl:message name="RegisterGiftCardTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:RegisterGiftCardTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegisterGiftCardTransactionSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:portType name="StadisTransactionsServiceSoap">
+    <wsdl:operation name="ValidateLogin">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Validates UserID and Password.</wsdl:documentation>
+      <wsdl:input message="tns:ValidateLoginSoapIn" />
+      <wsdl:output message="tns:ValidateLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Changes the STADIS access password.</wsdl:documentation>
+      <wsdl:input message="tns:ChangePasswordSoapIn" />
+      <wsdl:output message="tns:ChangePasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BeginTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Writes Transaction Header. Returns TransactionKey to be used in Items, Tenders and Totals.</wsdl:documentation>
+      <wsdl:input message="tns:BeginTransactionSoapIn" />
+      <wsdl:output message="tns:BeginTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Writes Transaction Item. Returns ItemKey which can be used to delete/cancel Item.</wsdl:documentation>
+      <wsdl:input message="tns:AddItemSoapIn" />
+      <wsdl:output message="tns:AddItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTender">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Writes Transaction Tender. Returns TenderKey which can be used to delete/cancel Tender.</wsdl:documentation>
+      <wsdl:input message="tns:AddTenderSoapIn" />
+      <wsdl:output message="tns:AddTenderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deletes Transaction Item.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteItemSoapIn" />
+      <wsdl:output message="tns:DeleteItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTender">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deletes Transaction Tender.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteTenderSoapIn" />
+      <wsdl:output message="tns:DeleteTenderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EndTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Completes and commits a Transaction.</wsdl:documentation>
+      <wsdl:input message="tns:EndTransactionSoapIn" />
+      <wsdl:output message="tns:EndTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">A complete Transaction in one transmission. Submits Header, Items, and Tenders in one call.</wsdl:documentation>
+      <wsdl:input message="tns:PostTransactionSoapIn" />
+      <wsdl:output message="tns:PostTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Cancels an incomplete Transaction and deletes Header, Items and Tenders.</wsdl:documentation>
+      <wsdl:input message="tns:CancelTransactionSoapIn" />
+      <wsdl:output message="tns:CancelTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReverseTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Reverses a completed Transaction.</wsdl:documentation>
+      <wsdl:input message="tns:ReverseTransactionSoapIn" />
+      <wsdl:output message="tns:ReverseTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptPrintLines">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets tender line for receipt.</wsdl:documentation>
+      <wsdl:input message="tns:GetReceiptPrintLinesSoapIn" />
+      <wsdl:output message="tns:GetReceiptPrintLinesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets POS data for handhelds.</wsdl:documentation>
+      <wsdl:input message="tns:GetPOSInfoSoapIn" />
+      <wsdl:output message="tns:GetPOSInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSaleItemsForPOS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets items sold at a POS.</wsdl:documentation>
+      <wsdl:input message="tns:GetSaleItemsForPOSSoapIn" />
+      <wsdl:output message="tns:GetSaleItemsForPOSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActionSummaryForTicket">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets a ticket / gift card history.</wsdl:documentation>
+      <wsdl:input message="tns:GetActionSummaryForTicketSoapIn" />
+      <wsdl:output message="tns:GetActionSummaryForTicketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTenderTypes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets a lookup table for tender types.</wsdl:documentation>
+      <wsdl:input message="tns:GetTenderTypesSoapIn" />
+      <wsdl:output message="tns:GetTenderTypesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">For internal use - do not use - subject to change.</wsdl:documentation>
+      <wsdl:input message="tns:GetTicketStatusSoapIn" />
+      <wsdl:output message="tns:GetTicketStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketStatuses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">For internal use - do not use - subject to change.</wsdl:documentation>
+      <wsdl:input message="tns:GetTicketStatusesSoapIn" />
+      <wsdl:output message="tns:GetTicketStatusesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StadisAccountCharge">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Charge against Stadis Account balance.</wsdl:documentation>
+      <wsdl:input message="tns:StadisAccountChargeSoapIn" />
+      <wsdl:output message="tns:StadisAccountChargeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReverseStadisAccountCharge">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Reverse a previous Stadis charge.</wsdl:documentation>
+      <wsdl:input message="tns:ReverseStadisAccountChargeSoapIn" />
+      <wsdl:output message="tns:ReverseStadisAccountChargeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StadisBalanceCheck">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Stadis Account balance.</wsdl:documentation>
+      <wsdl:input message="tns:StadisBalanceCheckSoapIn" />
+      <wsdl:output message="tns:StadisBalanceCheckSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StadisAccountChargeMM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Charge against Stadis Account balance - Mixed Mode.</wsdl:documentation>
+      <wsdl:input message="tns:StadisAccountChargeMMSoapIn" />
+      <wsdl:output message="tns:StadisAccountChargeMMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReverseStadisAccountChargeMM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Reverse a previous Stadis charge - Mixed Mode.</wsdl:documentation>
+      <wsdl:input message="tns:ReverseStadisAccountChargeMMSoapIn" />
+      <wsdl:output message="tns:ReverseStadisAccountChargeMMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StadisBalanceCheckMM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Stadis Account balance - Mixed Mode.</wsdl:documentation>
+      <wsdl:input message="tns:StadisBalanceCheckMMSoapIn" />
+      <wsdl:output message="tns:StadisBalanceCheckMMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PurchaseGiftCards">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Purchase and add gift card(s).</wsdl:documentation>
+      <wsdl:input message="tns:PurchaseGiftCardsSoapIn" />
+      <wsdl:output message="tns:PurchaseGiftCardsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddGiftCard">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add a gift card.  Should be followed by a PostTransaction.</wsdl:documentation>
+      <wsdl:input message="tns:AddGiftCardSoapIn" />
+      <wsdl:output message="tns:AddGiftCardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReloadGiftCard">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add money to gift card.</wsdl:documentation>
+      <wsdl:input message="tns:ReloadGiftCardSoapIn" />
+      <wsdl:output message="tns:ReloadGiftCardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActivateGiftCard">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Activate a gift card.</wsdl:documentation>
+      <wsdl:input message="tns:ActivateGiftCardSoapIn" />
+      <wsdl:output message="tns:ActivateGiftCardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeactivateGiftCard">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deactivate a gift card.</wsdl:documentation>
+      <wsdl:input message="tns:DeactivateGiftCardSoapIn" />
+      <wsdl:output message="tns:DeactivateGiftCardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterGiftCardTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Associate a Transaction with a Gift Card activation.</wsdl:documentation>
+      <wsdl:input message="tns:RegisterGiftCardTransactionSoapIn" />
+      <wsdl:output message="tns:RegisterGiftCardTransactionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="StadisTransactionsServiceSoap" type="tns:StadisTransactionsServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ValidateLogin">
+      <soap:operation soapAction="http://www.STADIS.com/ValidateLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ValidateLoginSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap:operation soapAction="http://www.STADIS.com/ChangePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ChangePasswordSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BeginTransaction">
+      <soap:operation soapAction="http://www.STADIS.com/BeginTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:BeginTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddItem">
+      <soap:operation soapAction="http://www.STADIS.com/AddItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddItemSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTender">
+      <soap:operation soapAction="http://www.STADIS.com/AddTender" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddTenderSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteItem">
+      <soap:operation soapAction="http://www.STADIS.com/DeleteItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DeleteItemSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTender">
+      <soap:operation soapAction="http://www.STADIS.com/DeleteTender" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DeleteTenderSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndTransaction">
+      <soap:operation soapAction="http://www.STADIS.com/EndTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:EndTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostTransaction">
+      <soap:operation soapAction="http://www.STADIS.com/PostTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:PostTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelTransaction">
+      <soap:operation soapAction="http://www.STADIS.com/CancelTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseTransaction">
+      <soap:operation soapAction="http://www.STADIS.com/ReverseTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ReverseTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptPrintLines">
+      <soap:operation soapAction="http://www.STADIS.com/GetReceiptPrintLines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetReceiptPrintLinesSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSInfo">
+      <soap:operation soapAction="http://www.STADIS.com/GetPOSInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetPOSInfoSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSaleItemsForPOS">
+      <soap:operation soapAction="http://www.STADIS.com/GetSaleItemsForPOS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSaleItemsForPOSSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActionSummaryForTicket">
+      <soap:operation soapAction="http://www.STADIS.com/GetActionSummaryForTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetActionSummaryForTicketSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTenderTypes">
+      <soap:operation soapAction="http://www.STADIS.com/GetTenderTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTenderTypesSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketStatus">
+      <soap:operation soapAction="http://www.STADIS.com/GetTicketStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTicketStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketStatuses">
+      <soap:operation soapAction="http://www.STADIS.com/GetTicketStatuses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTicketStatusesSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StadisAccountCharge">
+      <soap:operation soapAction="http://www.STADIS.com/StadisAccountCharge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:StadisAccountChargeSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseStadisAccountCharge">
+      <soap:operation soapAction="http://www.STADIS.com/ReverseStadisAccountCharge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ReverseStadisAccountChargeSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StadisBalanceCheck">
+      <soap:operation soapAction="http://www.STADIS.com/StadisBalanceCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:StadisBalanceCheckSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StadisAccountChargeMM">
+      <soap:operation soapAction="http://www.STADIS.com/StadisAccountChargeMM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:StadisAccountChargeMMSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseStadisAccountChargeMM">
+      <soap:operation soapAction="http://www.STADIS.com/ReverseStadisAccountChargeMM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ReverseStadisAccountChargeMMSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StadisBalanceCheckMM">
+      <soap:operation soapAction="http://www.STADIS.com/StadisBalanceCheckMM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:StadisBalanceCheckMMSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PurchaseGiftCards">
+      <soap:operation soapAction="http://www.STADIS.com/PurchaseGiftCards" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:PurchaseGiftCardsSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddGiftCard">
+      <soap:operation soapAction="http://www.STADIS.com/AddGiftCard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddGiftCardSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReloadGiftCard">
+      <soap:operation soapAction="http://www.STADIS.com/ReloadGiftCard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ReloadGiftCardSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActivateGiftCard">
+      <soap:operation soapAction="http://www.STADIS.com/ActivateGiftCard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ActivateGiftCardSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeactivateGiftCard">
+      <soap:operation soapAction="http://www.STADIS.com/DeactivateGiftCard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DeactivateGiftCardSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterGiftCardTransaction">
+      <soap:operation soapAction="http://www.STADIS.com/RegisterGiftCardTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:RegisterGiftCardTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="StadisTransactionsServiceSoap12" type="tns:StadisTransactionsServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ValidateLogin">
+      <soap12:operation soapAction="http://www.STADIS.com/ValidateLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ValidateLoginSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap12:operation soapAction="http://www.STADIS.com/ChangePassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ChangePasswordSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BeginTransaction">
+      <soap12:operation soapAction="http://www.STADIS.com/BeginTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:BeginTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddItem">
+      <soap12:operation soapAction="http://www.STADIS.com/AddItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddItemSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTender">
+      <soap12:operation soapAction="http://www.STADIS.com/AddTender" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddTenderSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteItem">
+      <soap12:operation soapAction="http://www.STADIS.com/DeleteItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DeleteItemSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTender">
+      <soap12:operation soapAction="http://www.STADIS.com/DeleteTender" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DeleteTenderSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndTransaction">
+      <soap12:operation soapAction="http://www.STADIS.com/EndTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:EndTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostTransaction">
+      <soap12:operation soapAction="http://www.STADIS.com/PostTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:PostTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelTransaction">
+      <soap12:operation soapAction="http://www.STADIS.com/CancelTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseTransaction">
+      <soap12:operation soapAction="http://www.STADIS.com/ReverseTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReverseTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptPrintLines">
+      <soap12:operation soapAction="http://www.STADIS.com/GetReceiptPrintLines" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetReceiptPrintLinesSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSInfo">
+      <soap12:operation soapAction="http://www.STADIS.com/GetPOSInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetPOSInfoSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSaleItemsForPOS">
+      <soap12:operation soapAction="http://www.STADIS.com/GetSaleItemsForPOS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSaleItemsForPOSSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActionSummaryForTicket">
+      <soap12:operation soapAction="http://www.STADIS.com/GetActionSummaryForTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetActionSummaryForTicketSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTenderTypes">
+      <soap12:operation soapAction="http://www.STADIS.com/GetTenderTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTenderTypesSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketStatus">
+      <soap12:operation soapAction="http://www.STADIS.com/GetTicketStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTicketStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketStatuses">
+      <soap12:operation soapAction="http://www.STADIS.com/GetTicketStatuses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTicketStatusesSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StadisAccountCharge">
+      <soap12:operation soapAction="http://www.STADIS.com/StadisAccountCharge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:StadisAccountChargeSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseStadisAccountCharge">
+      <soap12:operation soapAction="http://www.STADIS.com/ReverseStadisAccountCharge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReverseStadisAccountChargeSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StadisBalanceCheck">
+      <soap12:operation soapAction="http://www.STADIS.com/StadisBalanceCheck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:StadisBalanceCheckSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StadisAccountChargeMM">
+      <soap12:operation soapAction="http://www.STADIS.com/StadisAccountChargeMM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:StadisAccountChargeMMSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseStadisAccountChargeMM">
+      <soap12:operation soapAction="http://www.STADIS.com/ReverseStadisAccountChargeMM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReverseStadisAccountChargeMMSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StadisBalanceCheckMM">
+      <soap12:operation soapAction="http://www.STADIS.com/StadisBalanceCheckMM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:StadisBalanceCheckMMSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PurchaseGiftCards">
+      <soap12:operation soapAction="http://www.STADIS.com/PurchaseGiftCards" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:PurchaseGiftCardsSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddGiftCard">
+      <soap12:operation soapAction="http://www.STADIS.com/AddGiftCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddGiftCardSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReloadGiftCard">
+      <soap12:operation soapAction="http://www.STADIS.com/ReloadGiftCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReloadGiftCardSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActivateGiftCard">
+      <soap12:operation soapAction="http://www.STADIS.com/ActivateGiftCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ActivateGiftCardSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeactivateGiftCard">
+      <soap12:operation soapAction="http://www.STADIS.com/DeactivateGiftCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DeactivateGiftCardSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterGiftCardTransaction">
+      <soap12:operation soapAction="http://www.STADIS.com/RegisterGiftCardTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RegisterGiftCardTransactionSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StadisTransactionsService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use. STADIS © 2007, International Micro Systems, Inc.</wsdl:documentation>
+    <wsdl:port name="StadisTransactionsServiceSoap" binding="tns:StadisTransactionsServiceSoap">
+      <soap:address location="http://66.155.152.204/StadisWeb/StadisTransactions.asmx" />
+    </wsdl:port>
+    <wsdl:port name="StadisTransactionsServiceSoap12" binding="tns:StadisTransactionsServiceSoap12">
+      <soap12:address location="http://66.155.152.204/StadisWeb/StadisTransactions.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
