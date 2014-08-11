@@ -1,9 +1,9 @@
-﻿Imports BalanceCheckV4
-Imports CommonV4
+﻿Imports CommonV4
 Imports RetailPro.CustomPluginClasses
 Imports RetailPro.Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
+Imports BalanceCheckV4
 '----------------------------------------------------------------------------------------------
 '   Class: ButtonBalChk
 '    Type: SideButton - Invoice

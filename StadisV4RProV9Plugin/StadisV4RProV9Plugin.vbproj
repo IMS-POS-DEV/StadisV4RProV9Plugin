@@ -11,7 +11,7 @@
     <AssemblyName>StadisV4RProV9Plugin</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OptionExplicit>On</OptionExplicit>
     <OptionCompare>Binary</OptionCompare>
     <OptionStrict>On</OptionStrict>
@@ -47,22 +47,22 @@
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Infragistics4.Shared.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Infragistics4.Win.Misc.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Infragistics4.Win.UltraWinEditors.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Infragistics4.Win.UltraWinGrid.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
     <Reference Include="Infragistics4.Win.UltraWinStatusBar.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Misc.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
     <Reference Include="CustomPluginClasses, Version=0.9.0.0, Culture=neutral, PublicKeyToken=887ef8ee26c7ee30, processorArchitecture=MSIL">
@@ -75,7 +75,8 @@
     </Reference>
     <Reference Include="RetailPro.Plugins, Version=1.2.0.0, Culture=neutral, PublicKeyToken=d968d3c9cb1904b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\RProV9\Bin\RetailPro.Plugins.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\RetailPro.Plugins.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -98,6 +99,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Import Include="Infragistics.Win.UltraWinEditors" />
+    <Import Include="Infragistics.Win.UltraWinForm" />
+    <Import Include="Infragistics.Win.UltraWinGrid" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />

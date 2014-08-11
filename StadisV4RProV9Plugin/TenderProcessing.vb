@@ -21,7 +21,7 @@ Public Class TenderProcessing
         MyBase.Initialize()
         fEnabled = True
         fGUID = New Guid(Discover.CLASS_TenderProcessing)
-        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btTender
+        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
     End Sub  'Initialize
 
     '----------------------------------------------------------------------------------------------
@@ -29,11 +29,12 @@ Public Class TenderProcessing
     '----------------------------------------------------------------------------------------------
     Public Overrides Function PluginCapability(ACapability As Integer) As Boolean
         MessageBox.Show("PluginCapability", "DEBUG")
-        If ACapability = sbcHandleBOUIEvent Then
-            Return True
-        Else
-            Return False
-        End If
+        'If ACapability = RetailPro.Plugins.SideButtonCaps.Then Then
+        '    'sbcHandleBOUIEvent()
+        '    Return True
+        'Else
+        '    Return False
+        'End If
     End Function  'PluginCapability
 
     ''----------------------------------------------------------------------------------------------
