@@ -92,7 +92,7 @@
     </Reference>
     <Reference Include="RetailPro.Plugins">
       <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\RetailPro.Plugins.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="StarComm">
       <HintPath>..\Doc\StarComm.dll</HintPath>

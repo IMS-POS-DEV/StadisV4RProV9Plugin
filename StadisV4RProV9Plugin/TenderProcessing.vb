@@ -13,15 +13,20 @@ Imports System.Windows.Forms
 Public Class TenderProcessing
     Inherits TCustomTenderPlugin
 
+    Private Shared Ctr As Integer = 0
+
     '----------------------------------------------------------------------------------------------
     ' Called when plugin is loaded
     '----------------------------------------------------------------------------------------------
     Public Overrides Sub Initialize()
-        MessageBox.Show("Initialize EFT", "DEBUG")
+        'MessageBox.Show("Initialize EFT", "DEBUG")
         MyBase.Initialize()
         fEnabled = True
+        If fEnabled = False Then
+            MessageBox.Show("TenderPlugin disabled", "DEBUG")
+        End If
         fGUID = New Guid(Discover.CLASS_TenderProcessing)
-        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
+        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btTender
     End Sub  'Initialize
 
     '----------------------------------------------------------------------------------------------
@@ -29,17 +34,17 @@ Public Class TenderProcessing
     '----------------------------------------------------------------------------------------------
     Public Overrides Function PluginCapability(ACapability As Integer) As Boolean
         MessageBox.Show("PluginCapability", "DEBUG")
-        'If ACapability = RetailPro.Plugins.SideButtonCaps.Then Then
-        '    'sbcHandleBOUIEvent()
-        '    Return True
-        'Else
-        '    Return False
-        'End If
+        If ACapability = 0 Then
+            Return True
+        Else
+            Return False
+        End If
     End Function  'PluginCapability
 
-    ''----------------------------------------------------------------------------------------------
-    '' 
-    ''----------------------------------------------------------------------------------------------
+    'Public Function HandleBOUIEvent(ByVal ABOHandle As Integer, ByVal AEventType As String, ByVal AParameters As String, ByRef AReturnValues As String, ByRef AHandled As Boolean) As Boolean
+    '    MessageBox.Show("HandleBOUIEvent", "DEBUG")
+    'End Function  'HandleBOUIEvent
+
     'Public Overrides Function Prepare() As Boolean
     '    MessageBox.Show("Prepare", "DEBUG")
     '    Return MyBase.Prepare()
@@ -57,8 +62,12 @@ Public Class TenderProcessing
     ' 
     '----------------------------------------------------------------------------------------------
     Public Overrides Function AddTender(TenderType As Integer, ByRef Data As String) As Integer
-        MessageBox.Show("AddTender", "DEBUG")
-        Return MyBase.AddTender(TenderType, Data)
+        MessageBox.Show("AddTender " & TenderType.ToString & " " & Data, "DEBUG")
+        Dim ret As Integer = MyBase.AddTender(TenderType, Data)
+        'Ctr += 1
+        'Dim ret As Integer = Ctr
+        MessageBox.Show("ret " & ret.ToString, "DEBUG")
+        Return ret
     End Function  'AddTender
 
     ''----------------------------------------------------------------------------------------------
@@ -97,7 +106,7 @@ Public Class TenderProcessing
     ' 
     '----------------------------------------------------------------------------------------------
     Public Overrides Function RemoveTender(TenderIndex As Integer) As Boolean
-        MessageBox.Show("RemoveTender", "DEBUG")
+        MessageBox.Show("RemoveTender " & TenderIndex.ToString, "DEBUG")
         Return MyBase.RemoveTender(TenderIndex)
     End Function  'RemoveTender
 

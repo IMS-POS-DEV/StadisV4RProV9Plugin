@@ -75,7 +75,7 @@
     </Reference>
     <Reference Include="RetailPro.Plugins, Version=1.2.0.0, Culture=neutral, PublicKeyToken=d968d3c9cb1904b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\RetailPro.Plugins.dll</HintPath>
     </Reference>
     <Reference Include="System" />
