@@ -69,31 +69,98 @@ Public Class CommonRoutines
     End Function  'IsAGiftCard
 
     '------------------------------------------------------------------------------
-    ' Validate barcode length, number ranges etc., using regex pattern from config
-    '------------------------------------------------------------------------------
-    Public Shared Function ValidateScan(ByVal scanInput As String) As Boolean
-        Return Regex.IsMatch(scanInput, gScanPattern)
-    End Function  'ValidateScan
-
-    '------------------------------------------------------------------------------
     ' Strip out barcode from scanner input 
     '------------------------------------------------------------------------------
     Public Shared Function ExtractScan(ByVal scanstring As String) As String
-        'If there's a semicolon in the scan
-        If Regex.IsMatch(scanstring, ";") Then
-            Return Regex.Match(scanstring, "(?<=;)[0-9]+(?=([=\?]|$))").ToString
-            '(?<=;)        =                     preceded by a semicolon
-            '[0-9]+        = One or more numbers
-            '(?=([=\?]|$)) = and followed by an equals, a question mark, or end of line
-        Else
+        Dim extract As String = Regex.Match(scanstring, gExtractPattern).ToString
+        If extract Is Nothing OrElse extract = "" Then
             Return scanstring
+        Else
+            Return extract
         End If
     End Function  'ExtractScan
 
     '------------------------------------------------------------------------------
+    ' Validate barcode length, number ranges etc., using regex pattern from config
+    '------------------------------------------------------------------------------
+    Public Shared Function ValidateScan(ByVal scanInput As String) As Boolean
+        Return Regex.IsMatch(scanInput, gValidatePattern)
+    End Function  'ValidateScan
+
+    '------------------------------------------------------------------------------
+    ' Independent list of charges, so we can back them out, if needed
+    '------------------------------------------------------------------------------
+    Public Shared stadisChargeList As New ArrayList
+    Public Class StadisCharge
+
+        Private gTenderTypeID As Integer = 0
+        Private gTenderID As String = ""
+        Private gAmount As Decimal = 0D
+        Private gStadisAuthorizationID As String = ""
+        Private gReceiptID As String = ""
+
+        Public Property TenderTypeID() As Integer
+            Get
+                Return gTenderTypeID
+            End Get
+            Set(ByVal Value As Integer)
+                gTenderTypeID = Value
+            End Set
+        End Property
+
+        Public Property TenderID() As String
+            Get
+                Return gTenderID
+            End Get
+            Set(ByVal Value As String)
+                gTenderID = Value
+            End Set
+        End Property
+
+        Public Property Amount() As Decimal
+            Get
+                Return gAmount
+            End Get
+            Set(ByVal Value As Decimal)
+                gAmount = Value
+            End Set
+        End Property
+
+        Public Property StadisAuthorizationID() As String
+            Get
+                Return gStadisAuthorizationID
+            End Get
+            Set(ByVal Value As String)
+                gStadisAuthorizationID = Value
+            End Set
+        End Property
+
+        Public Property ReceiptID() As String
+            Get
+                Return gReceiptID
+            End Get
+            Set(ByVal Value As String)
+                gReceiptID = Value
+            End Set
+        End Property
+
+        Public Sub New(ByVal tendertypeid As Integer, ByVal tenderid As String, ByVal amt As Decimal, ByVal authid As String, ByVal recid As String)
+            gTenderTypeID = tendertypeid
+            gTenderID = tenderid
+            gAmount = amt
+            gStadisAuthorizationID = authid
+            gReceiptID = recid
+        End Sub
+
+        Public Sub New()
+        End Sub
+
+    End Class  'StadisCharge
+
+    '------------------------------------------------------------------------------
     ' Repackage Header data in Stadis format
     '------------------------------------------------------------------------------
-    Public Shared Function LoadHeaderForWSCall(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer) As StadisTranHeader
+    Public Shared Function LoadHeader(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer) As StadisTranHeader
         Dim mTransHeader As New StadisTranHeader
         With mTransHeader
             .LocationID = BOGetStrAttributeValueByName(adapter, invoiceHandle, "Store No")
@@ -115,12 +182,12 @@ Public Class CommonRoutines
             End Select
         End With
         Return mTransHeader
-    End Function  'LoadHeaderForWSCall
+    End Function  'LoadHeader
 
     '------------------------------------------------------------------------------
     ' Repackage Item data in Stadis format
     '------------------------------------------------------------------------------
-    Public Shared Function LoadItemsForWSCall(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal itemHandle As Integer) As StadisTranItem()
+    Public Shared Function LoadItems(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal itemHandle As Integer) As StadisTranItem()
         'Count items
         Dim mItemCount As Integer = 0
         BOOpen(adapter, itemHandle)
@@ -133,7 +200,6 @@ Public Class CommonRoutines
         'Build array of items to pass to web service
         Dim mTransItems(mItemCount - 1) As StadisTranItem
         Dim indx As Integer = 0
-        'BOOpen(adapter, itemHandle)
         BOFirst(adapter, itemHandle)
         While Not adapter.EOF(itemHandle)
             Dim mTransItem As New StadisTranItem
@@ -171,31 +237,92 @@ Public Class CommonRoutines
             adapter.BONext(itemHandle)
         End While
         Return mTransItems
-    End Function  'LoadItemsForWSCall
+    End Function  'LoadItems
 
     '------------------------------------------------------------------------------
     ' Repackage Tender data in Stadis format
     '------------------------------------------------------------------------------
-    Public Shared Function LoadTendersForWSCall(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal tenderHandle As Integer) As StadisTranTender()
+    Public Shared Function LoadTendersForCharge(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal tenderHandle As Integer) As StadisTranTender()
         'Count tenders
-        Dim mRProTenderCount As Integer = 0
         Dim mTenderCount As Integer = 0
         BOOpen(adapter, tenderHandle)
-        mRProTenderCount = BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_COUNT")
-        If mRProTenderCount > 0 Then
-            BOFirst(adapter, tenderHandle)
-            While Not adapter.EOF(tenderHandle)
-                mTenderCount += 1
-                adapter.BONext(tenderHandle)
-            End While
-        End If
+        BOFirst(adapter, tenderHandle)
+        While Not adapter.EOF(tenderHandle)
+            mTenderCount += 1
+            adapter.BONext(tenderHandle)
+        End While
 
         'Build array of tenders to pass to web service
-        If mRProTenderCount > 0 Then
+        If mTenderCount > 0 Then
             'Build array of tenders to pass to web service PostTransaction
             Dim mTransTenders(mTenderCount - 1) As StadisTranTender
             Dim indx As Integer = 0
-            'BOOpen(adapter, tenderHandle)
+            BOFirst(adapter, tenderHandle)
+            While Not adapter.EOF(tenderHandle)
+                Dim mTransTender As New StadisTranTender
+                With mTransTender
+                    .IsStadisTender = False
+                    .StadisAuthorizationID = " "
+                    Dim tenderType As Integer = BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_TYPE")
+                    Dim tenderTypeInStadis As Integer = ConvertRProTenderTypeToStadis(tenderType)
+                    If tenderType <> gStadisTenderType Then
+                        .TenderTypeID = tenderTypeInStadis
+                        .IsStadisTender = False
+                        .StadisAuthorizationID = ""
+                        .TenderID = ""
+                    Else
+                        Dim tender As New TenderInfo(adapter, tenderHandle)
+                        If tender.IsAStadisTender Then
+                            If tender.ShouldBeCharged Then
+                                .TenderTypeID = 1  'Ticket
+                                .IsStadisTender = True
+                                .TenderID = BOGetStrAttributeValueByName(adapter, tenderHandle, "TRANSACTION_ID")
+                            End If
+                        Else
+                            .TenderTypeID = tenderTypeInStadis
+                        End If
+                    End If
+                    .Amount = BOGetDecAttributeValueByName(adapter, tenderHandle, "AMT")
+                End With
+                mTransTenders(indx) = mTransTender
+                indx += 1
+                adapter.BONext(tenderHandle)
+            End While
+            Return mTransTenders
+        Else
+            'Build dummy tender to satisfy web service PostTransaction
+            Dim mTransTenders(0) As StadisTranTender
+            Dim mTransTender As New StadisTranTender
+            With mTransTender
+                .IsStadisTender = False
+                .StadisAuthorizationID = " "
+                .TenderTypeID = 0
+                .TenderID = ""
+                .Amount = 0D
+            End With
+            mTransTenders(0) = mTransTender
+            Return mTransTenders
+        End If
+    End Function  'LoadTendersForCharge
+
+    '------------------------------------------------------------------------------
+    ' Repackage Tender data in Stadis format
+    '------------------------------------------------------------------------------
+    Public Shared Function LoadTenders(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal tenderHandle As Integer) As StadisTranTender()
+        'Count tenders
+        Dim mTenderCount As Integer = 0
+        BOOpen(adapter, tenderHandle)
+        BOFirst(adapter, tenderHandle)
+        While Not adapter.EOF(tenderHandle)
+            mTenderCount += 1
+            adapter.BONext(tenderHandle)
+        End While
+
+        'Build array of tenders to pass to web service
+        If mTenderCount > 0 Then
+            'Build array of tenders to pass to web service PostTransaction
+            Dim mTransTenders(mTenderCount - 1) As StadisTranTender
+            Dim indx As Integer = 0
             BOFirst(adapter, tenderHandle)
             While Not adapter.EOF(tenderHandle)
                 Dim mTransTender As New StadisTranTender
@@ -261,7 +388,7 @@ Public Class CommonRoutines
             mTransTenders(0) = mTransTender
             Return mTransTenders
         End If
-    End Function  'LoadTendersForWSCall
+    End Function  'LoadTenders
 
     '----------------------------------------------------------------------------------------------
     ' Return Stadis tender type corresponding to RPro tender type

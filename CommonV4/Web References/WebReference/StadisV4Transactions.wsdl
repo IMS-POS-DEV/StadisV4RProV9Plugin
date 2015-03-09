@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.STADIS.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.STADIS.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.1. STADIS © 2014, International Micro Systems, Inc.  *** Updated 6/17/2014 at 11:00 for GetActionSummary changes. ***</wsdl:documentation>
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.1. STADIS © 2014, International Micro Systems, Inc.  *** Updated 8/7/2014 at 4:15 for StadiV3/StadisV4Dev rename and scriptservice. ***</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://www.STADIS.com/">
       <s:import namespace="http://microsoft.com/wsdl/types/" />
@@ -1631,7 +1631,7 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="StadisV4TransactionsService">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.1. STADIS © 2014, International Micro Systems, Inc.  *** Updated 6/17/2014 at 11:00 for GetActionSummary changes. ***</wsdl:documentation>
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.1. STADIS © 2014, International Micro Systems, Inc.  *** Updated 8/7/2014 at 4:15 for StadiV3/StadisV4Dev rename and scriptservice. ***</wsdl:documentation>
     <wsdl:port name="StadisV4TransactionsServiceSoap" binding="tns:StadisV4TransactionsServiceSoap">
       <soap:address location="http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx" />
     </wsdl:port>

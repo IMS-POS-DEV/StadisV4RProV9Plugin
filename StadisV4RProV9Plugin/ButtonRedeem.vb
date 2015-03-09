@@ -93,6 +93,10 @@ Public Class ButtonRedeem
         Try
             ' Get installation settings - standard first, then overrides, if any
             Dim mis As MessageAndInstallationSettings = CommonRoutines.StadisAPI.GetInstallationSettings("All")
+            If mis.ReturnMessage.ReturnCode < 0 Then
+                MessageBox.Show("Unable to access InstallationSettings.", "STADIS")
+                Exit Sub
+            End If
             SetSettingsFor(mis, "RPro9WS")
             If gOverrideSettingComponent <> "" Then
                 SetSettingsFor(mis, gOverrideSettingComponent)
@@ -108,7 +112,7 @@ Public Class ButtonRedeem
             gRedeemButtonEnabled = False
             gReturnButtonEnabled = False
             gReloadButtonEnabled = False
-            MessageBox.Show("Unable to access InstallationSettings.", "STADIS")
+            MessageBox.Show("Unable to access InstallationSettings." & vbCrLf & ex.Message, "STADIS")
             Exit Sub
         End Try
 
@@ -211,7 +215,11 @@ Public Class ButtonRedeem
                             Case "PostNonStadisTransactions"
                                 gPostNonStadisTransactions = CBool(.SettingValue)
                             Case "ScanPattern"
-                                gScanPattern = .SettingValue
+                                gValidatePattern = .SettingValue
+                            Case "ExtractPattern"
+                                gExtractPattern = .SettingValue
+                            Case "ValidatePattern"
+                                gValidatePattern = .SettingValue
                             Case "GiftCardEvents"
                                 gGiftCardEvents = .SettingValue
                             Case "IssueGiftCardForReturn"

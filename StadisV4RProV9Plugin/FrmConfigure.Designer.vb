@@ -23,45 +23,46 @@ Partial Class FrmConfigure
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim Appearance5 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmConfigure))
+        Dim Appearance1 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo12 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Exit and discard any changes.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance17 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance27 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo11 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Save these settings.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance18 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance6 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim UltraToolTipInfo10 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Internet address of the Stadis Web Service.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
+        Dim Appearance26 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance25 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim UltraToolTipInfo9 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Identifies which set of Installation Settings to load for this workstation.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance32 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim UltraToolTipInfo10 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Internet address of the Stadis Web Service.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
         Dim Appearance23 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim UltraToolTipInfo8 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("UserID for the Stadis system.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
+        Dim UltraToolTipInfo9 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Identifies which set of Installation Settings to load for this workstation.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
         Dim Appearance24 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance21 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim UltraToolTipInfo8 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("UserID for the Stadis system.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
+        Dim Appearance22 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance19 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo7 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Password for the Stadis system.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance22 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance14 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance20 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance18 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance17 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo6 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Not implemented.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance21 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance16 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo5 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Not implemented.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance15 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo4 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Version of the Stadis plugin.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance11 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance3 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo1 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("ID of Vendor", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance9 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance5 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo2 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("IMS-assigned Site ID", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
         Dim Appearance7 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo3 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Identifies location", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
+        Dim Appearance14 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance13 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance3 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance1 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance10 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance8 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance4 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance12 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance15 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance16 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance26 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance9 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance10 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance11 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance4 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance6 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance8 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Me.UltraPictureBox3 = New Infragistics.Win.UltraWinEditors.UltraPictureBox()
         Me.btnCancel = New Infragistics.Win.Misc.UltraButton()
         Me.btnSave = New Infragistics.Win.Misc.UltraButton()
@@ -109,7 +110,7 @@ Partial Class FrmConfigure
         '
         Me.UltraPictureBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.UltraPictureBox3.BorderShadowColor = System.Drawing.Color.Empty
-        Me.UltraPictureBox3.DefaultImage = Global.StadisV4RProV9Plugin.My.Resources.Resources.STADIS_LOGO140x90
+        Me.UltraPictureBox3.DefaultImage = CType(resources.GetObject("UltraPictureBox3.DefaultImage"), System.Drawing.Image)
         Me.UltraPictureBox3.Location = New System.Drawing.Point(12, 4)
         Me.UltraPictureBox3.Name = "UltraPictureBox3"
         Me.UltraPictureBox3.Size = New System.Drawing.Size(95, 61)
@@ -117,11 +118,11 @@ Partial Class FrmConfigure
         '
         'btnCancel
         '
-        Appearance5.FontData.BoldAsString = "True"
-        Appearance5.FontData.SizeInPoints = 12.0!
-        Appearance5.ForeColor = System.Drawing.Color.Teal
-        Appearance5.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete24
-        Me.btnCancel.Appearance = Appearance5
+        Appearance1.FontData.BoldAsString = "True"
+        Appearance1.FontData.SizeInPoints = 12.0!
+        Appearance1.ForeColor = System.Drawing.Color.Teal
+        Appearance1.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete24
+        Me.btnCancel.Appearance = Appearance1
         Me.btnCancel.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnCancel.Location = New System.Drawing.Point(330, 460)
         Me.btnCancel.Name = "btnCancel"
@@ -134,11 +135,11 @@ Partial Class FrmConfigure
         '
         'btnSave
         '
-        Appearance17.FontData.BoldAsString = "True"
-        Appearance17.FontData.SizeInPoints = 12.0!
-        Appearance17.ForeColor = System.Drawing.Color.Teal
-        Appearance17.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check24
-        Me.btnSave.Appearance = Appearance17
+        Appearance27.FontData.BoldAsString = "True"
+        Appearance27.FontData.SizeInPoints = 12.0!
+        Appearance27.ForeColor = System.Drawing.Color.Teal
+        Appearance27.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check24
+        Me.btnSave.Appearance = Appearance27
         Me.btnSave.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnSave.Location = New System.Drawing.Point(177, 460)
         Me.btnSave.Name = "btnSave"
@@ -151,11 +152,11 @@ Partial Class FrmConfigure
         '
         'lblStadisWebServiceURL
         '
-        Appearance18.FontData.BoldAsString = "True"
-        Appearance18.FontData.SizeInPoints = 10.0!
-        Appearance18.ForeColor = System.Drawing.Color.Teal
-        Appearance18.TextHAlignAsString = "Right"
-        Me.lblStadisWebServiceURL.Appearance = Appearance18
+        Appearance26.FontData.BoldAsString = "True"
+        Appearance26.FontData.SizeInPoints = 10.0!
+        Appearance26.ForeColor = System.Drawing.Color.Teal
+        Appearance26.TextHAlignAsString = "Right"
+        Me.lblStadisWebServiceURL.Appearance = Appearance26
         Me.lblStadisWebServiceURL.Location = New System.Drawing.Point(27, 166)
         Me.lblStadisWebServiceURL.Name = "lblStadisWebServiceURL"
         Me.lblStadisWebServiceURL.Size = New System.Drawing.Size(144, 23)
@@ -164,10 +165,10 @@ Partial Class FrmConfigure
         '
         'txtStadisWebServiceURL
         '
-        Appearance6.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance6.FontData.BoldAsString = "True"
-        Appearance6.FontData.SizeInPoints = 10.0!
-        Me.txtStadisWebServiceURL.Appearance = Appearance6
+        Appearance25.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance25.FontData.BoldAsString = "True"
+        Appearance25.FontData.SizeInPoints = 10.0!
+        Me.txtStadisWebServiceURL.Appearance = Appearance25
         Me.txtStadisWebServiceURL.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtStadisWebServiceURL.Location = New System.Drawing.Point(177, 162)
         Me.txtStadisWebServiceURL.Name = "txtStadisWebServiceURL"
@@ -178,10 +179,10 @@ Partial Class FrmConfigure
         '
         'txtOverrideSettingID
         '
-        Appearance25.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance25.FontData.BoldAsString = "True"
-        Appearance25.FontData.SizeInPoints = 10.0!
-        Me.txtOverrideSettingID.Appearance = Appearance25
+        Appearance23.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance23.FontData.BoldAsString = "True"
+        Appearance23.FontData.SizeInPoints = 10.0!
+        Me.txtOverrideSettingID.Appearance = Appearance23
         Me.txtOverrideSettingID.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtOverrideSettingID.Location = New System.Drawing.Point(177, 252)
         Me.txtOverrideSettingID.Name = "txtOverrideSettingID"
@@ -192,11 +193,11 @@ Partial Class FrmConfigure
         '
         'lblOverrideSettingID
         '
-        Appearance32.FontData.BoldAsString = "True"
-        Appearance32.FontData.SizeInPoints = 10.0!
-        Appearance32.ForeColor = System.Drawing.Color.Teal
-        Appearance32.TextHAlignAsString = "Right"
-        Me.lblOverrideSettingID.Appearance = Appearance32
+        Appearance24.FontData.BoldAsString = "True"
+        Appearance24.FontData.SizeInPoints = 10.0!
+        Appearance24.ForeColor = System.Drawing.Color.Teal
+        Appearance24.TextHAlignAsString = "Right"
+        Me.lblOverrideSettingID.Appearance = Appearance24
         Me.lblOverrideSettingID.Location = New System.Drawing.Point(27, 256)
         Me.lblOverrideSettingID.Name = "lblOverrideSettingID"
         Me.lblOverrideSettingID.Size = New System.Drawing.Size(144, 23)
@@ -205,10 +206,10 @@ Partial Class FrmConfigure
         '
         'txtStadisUserID
         '
-        Appearance23.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance23.FontData.BoldAsString = "True"
-        Appearance23.FontData.SizeInPoints = 10.0!
-        Me.txtStadisUserID.Appearance = Appearance23
+        Appearance21.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance21.FontData.BoldAsString = "True"
+        Appearance21.FontData.SizeInPoints = 10.0!
+        Me.txtStadisUserID.Appearance = Appearance21
         Me.txtStadisUserID.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtStadisUserID.Location = New System.Drawing.Point(177, 192)
         Me.txtStadisUserID.Name = "txtStadisUserID"
@@ -219,11 +220,11 @@ Partial Class FrmConfigure
         '
         'lblStadisUserID
         '
-        Appearance24.FontData.BoldAsString = "True"
-        Appearance24.FontData.SizeInPoints = 10.0!
-        Appearance24.ForeColor = System.Drawing.Color.Teal
-        Appearance24.TextHAlignAsString = "Right"
-        Me.lblStadisUserID.Appearance = Appearance24
+        Appearance22.FontData.BoldAsString = "True"
+        Appearance22.FontData.SizeInPoints = 10.0!
+        Appearance22.ForeColor = System.Drawing.Color.Teal
+        Appearance22.TextHAlignAsString = "Right"
+        Me.lblStadisUserID.Appearance = Appearance22
         Me.lblStadisUserID.Location = New System.Drawing.Point(27, 196)
         Me.lblStadisUserID.Name = "lblStadisUserID"
         Me.lblStadisUserID.Size = New System.Drawing.Size(144, 23)
@@ -247,11 +248,11 @@ Partial Class FrmConfigure
         '
         'lblStadisPassword
         '
-        Appearance22.FontData.BoldAsString = "True"
-        Appearance22.FontData.SizeInPoints = 10.0!
-        Appearance22.ForeColor = System.Drawing.Color.Teal
-        Appearance22.TextHAlignAsString = "Right"
-        Me.lblStadisPassword.Appearance = Appearance22
+        Appearance20.FontData.BoldAsString = "True"
+        Appearance20.FontData.SizeInPoints = 10.0!
+        Appearance20.ForeColor = System.Drawing.Color.Teal
+        Appearance20.TextHAlignAsString = "Right"
+        Me.lblStadisPassword.Appearance = Appearance20
         Me.lblStadisPassword.Location = New System.Drawing.Point(11, 226)
         Me.lblStadisPassword.Name = "lblStadisPassword"
         Me.lblStadisPassword.Size = New System.Drawing.Size(160, 23)
@@ -260,11 +261,11 @@ Partial Class FrmConfigure
         '
         'UltraLabel5
         '
-        Appearance14.FontData.BoldAsString = "True"
-        Appearance14.FontData.SizeInPoints = 10.0!
-        Appearance14.ForeColor = System.Drawing.Color.Teal
-        Appearance14.TextHAlignAsString = "Right"
-        Me.UltraLabel5.Appearance = Appearance14
+        Appearance18.FontData.BoldAsString = "True"
+        Appearance18.FontData.SizeInPoints = 10.0!
+        Appearance18.ForeColor = System.Drawing.Color.Teal
+        Appearance18.TextHAlignAsString = "Right"
+        Me.UltraLabel5.Appearance = Appearance18
         Me.UltraLabel5.Location = New System.Drawing.Point(59, 389)
         Me.UltraLabel5.Name = "UltraLabel5"
         Me.UltraLabel5.Size = New System.Drawing.Size(112, 23)
@@ -273,10 +274,10 @@ Partial Class FrmConfigure
         '
         'chkLog
         '
-        Appearance20.FontData.BoldAsString = "True"
-        Appearance20.FontData.SizeInPoints = 10.0!
-        Appearance20.ForeColor = System.Drawing.Color.Teal
-        Me.chkLog.Appearance = Appearance20
+        Appearance17.FontData.BoldAsString = "True"
+        Appearance17.FontData.SizeInPoints = 10.0!
+        Appearance17.ForeColor = System.Drawing.Color.Teal
+        Me.chkLog.Appearance = Appearance17
         Me.chkLog.Location = New System.Drawing.Point(177, 387)
         Me.chkLog.Name = "chkLog"
         Me.chkLog.Size = New System.Drawing.Size(162, 20)
@@ -287,10 +288,10 @@ Partial Class FrmConfigure
         '
         'chkNetworkChecking
         '
-        Appearance21.FontData.BoldAsString = "True"
-        Appearance21.FontData.SizeInPoints = 10.0!
-        Appearance21.ForeColor = System.Drawing.Color.Teal
-        Me.chkNetworkChecking.Appearance = Appearance21
+        Appearance16.FontData.BoldAsString = "True"
+        Appearance16.FontData.SizeInPoints = 10.0!
+        Appearance16.ForeColor = System.Drawing.Color.Teal
+        Me.chkNetworkChecking.Appearance = Appearance16
         Me.chkNetworkChecking.Location = New System.Drawing.Point(176, 413)
         Me.chkNetworkChecking.Name = "chkNetworkChecking"
         Me.chkNetworkChecking.Size = New System.Drawing.Size(162, 20)
@@ -301,11 +302,11 @@ Partial Class FrmConfigure
         '
         'lblHAVer
         '
-        Appearance2.FontData.BoldAsString = "True"
-        Appearance2.FontData.SizeInPoints = 12.0!
-        Appearance2.ForeColor = System.Drawing.Color.MidnightBlue
-        Appearance2.TextHAlignAsString = "Right"
-        Me.lblHAVer.Appearance = Appearance2
+        Appearance15.FontData.BoldAsString = "True"
+        Appearance15.FontData.SizeInPoints = 12.0!
+        Appearance15.ForeColor = System.Drawing.Color.MidnightBlue
+        Appearance15.TextHAlignAsString = "Right"
+        Me.lblHAVer.Appearance = Appearance15
         Me.lblHAVer.BackColorInternal = System.Drawing.Color.Transparent
         Me.lblHAVer.Location = New System.Drawing.Point(326, 32)
         Me.lblHAVer.Name = "lblHAVer"
@@ -321,10 +322,10 @@ Partial Class FrmConfigure
         '
         'txtVendorID
         '
-        Appearance11.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance11.FontData.BoldAsString = "True"
-        Appearance11.FontData.SizeInPoints = 10.0!
-        Me.txtVendorID.Appearance = Appearance11
+        Appearance3.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance3.FontData.BoldAsString = "True"
+        Appearance3.FontData.SizeInPoints = 10.0!
+        Me.txtVendorID.Appearance = Appearance3
         Me.txtVendorID.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtVendorID.Location = New System.Drawing.Point(177, 101)
         Me.txtVendorID.Name = "txtVendorID"
@@ -335,10 +336,10 @@ Partial Class FrmConfigure
         '
         'txtSiteID
         '
-        Appearance9.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance9.FontData.BoldAsString = "True"
-        Appearance9.FontData.SizeInPoints = 10.0!
-        Me.txtSiteID.Appearance = Appearance9
+        Appearance5.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance5.FontData.BoldAsString = "True"
+        Appearance5.FontData.SizeInPoints = 10.0!
+        Me.txtSiteID.Appearance = Appearance5
         Me.txtSiteID.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtSiteID.Location = New System.Drawing.Point(177, 71)
         Me.txtSiteID.Name = "txtSiteID"
@@ -363,10 +364,10 @@ Partial Class FrmConfigure
         '
         'cbOPOS
         '
-        Appearance13.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance13.FontData.BoldAsString = "True"
-        Appearance13.FontData.SizeInPoints = 10.0!
-        Me.cbOPOS.Appearance = Appearance13
+        Appearance14.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance14.FontData.BoldAsString = "True"
+        Appearance14.FontData.SizeInPoints = 10.0!
+        Me.cbOPOS.Appearance = Appearance14
         Me.cbOPOS.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.cbOPOS.Location = New System.Drawing.Point(177, 282)
         Me.cbOPOS.Name = "cbOPOS"
@@ -375,10 +376,10 @@ Partial Class FrmConfigure
         '
         'cbRaster
         '
-        Appearance3.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance3.FontData.BoldAsString = "True"
-        Appearance3.FontData.SizeInPoints = 10.0!
-        Me.cbRaster.Appearance = Appearance3
+        Appearance13.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance13.FontData.BoldAsString = "True"
+        Appearance13.FontData.SizeInPoints = 10.0!
+        Me.cbRaster.Appearance = Appearance13
         Me.cbRaster.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.cbRaster.Location = New System.Drawing.Point(177, 314)
         Me.cbRaster.Name = "cbRaster"
@@ -387,10 +388,10 @@ Partial Class FrmConfigure
         '
         'cbPrinter
         '
-        Appearance1.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance1.FontData.BoldAsString = "True"
-        Appearance1.FontData.SizeInPoints = 10.0!
-        Me.cbPrinter.Appearance = Appearance1
+        Appearance12.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance12.FontData.BoldAsString = "True"
+        Appearance12.FontData.SizeInPoints = 10.0!
+        Me.cbPrinter.Appearance = Appearance12
         Me.cbPrinter.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.cbPrinter.Location = New System.Drawing.Point(177, 346)
         Me.cbPrinter.Name = "cbPrinter"
@@ -399,11 +400,11 @@ Partial Class FrmConfigure
         '
         'lblPrinter
         '
-        Appearance10.FontData.BoldAsString = "True"
-        Appearance10.FontData.SizeInPoints = 10.0!
-        Appearance10.ForeColor = System.Drawing.Color.Teal
-        Appearance10.TextHAlignAsString = "Right"
-        Me.lblPrinter.Appearance = Appearance10
+        Appearance9.FontData.BoldAsString = "True"
+        Appearance9.FontData.SizeInPoints = 10.0!
+        Appearance9.ForeColor = System.Drawing.Color.Teal
+        Appearance9.TextHAlignAsString = "Right"
+        Me.lblPrinter.Appearance = Appearance9
         Me.lblPrinter.Location = New System.Drawing.Point(27, 350)
         Me.lblPrinter.Name = "lblPrinter"
         Me.lblPrinter.Size = New System.Drawing.Size(144, 23)
@@ -412,11 +413,11 @@ Partial Class FrmConfigure
         '
         'lblRaster
         '
-        Appearance8.FontData.BoldAsString = "True"
-        Appearance8.FontData.SizeInPoints = 10.0!
-        Appearance8.ForeColor = System.Drawing.Color.Teal
-        Appearance8.TextHAlignAsString = "Right"
-        Me.lblRaster.Appearance = Appearance8
+        Appearance10.FontData.BoldAsString = "True"
+        Appearance10.FontData.SizeInPoints = 10.0!
+        Appearance10.ForeColor = System.Drawing.Color.Teal
+        Appearance10.TextHAlignAsString = "Right"
+        Me.lblRaster.Appearance = Appearance10
         Me.lblRaster.Location = New System.Drawing.Point(27, 318)
         Me.lblRaster.Name = "lblRaster"
         Me.lblRaster.Size = New System.Drawing.Size(144, 23)
@@ -425,11 +426,11 @@ Partial Class FrmConfigure
         '
         'lblOPOS
         '
-        Appearance4.FontData.BoldAsString = "True"
-        Appearance4.FontData.SizeInPoints = 10.0!
-        Appearance4.ForeColor = System.Drawing.Color.Teal
-        Appearance4.TextHAlignAsString = "Right"
-        Me.lblOPOS.Appearance = Appearance4
+        Appearance11.FontData.BoldAsString = "True"
+        Appearance11.FontData.SizeInPoints = 10.0!
+        Appearance11.ForeColor = System.Drawing.Color.Teal
+        Appearance11.TextHAlignAsString = "Right"
+        Me.lblOPOS.Appearance = Appearance11
         Me.lblOPOS.Location = New System.Drawing.Point(47, 286)
         Me.lblOPOS.Name = "lblOPOS"
         Me.lblOPOS.Size = New System.Drawing.Size(124, 23)
@@ -438,11 +439,11 @@ Partial Class FrmConfigure
         '
         'lblVendorID
         '
-        Appearance12.FontData.BoldAsString = "True"
-        Appearance12.FontData.SizeInPoints = 10.0!
-        Appearance12.ForeColor = System.Drawing.Color.Teal
-        Appearance12.TextHAlignAsString = "Right"
-        Me.lblVendorID.Appearance = Appearance12
+        Appearance4.FontData.BoldAsString = "True"
+        Appearance4.FontData.SizeInPoints = 10.0!
+        Appearance4.ForeColor = System.Drawing.Color.Teal
+        Appearance4.TextHAlignAsString = "Right"
+        Me.lblVendorID.Appearance = Appearance4
         Me.lblVendorID.Location = New System.Drawing.Point(75, 105)
         Me.lblVendorID.Name = "lblVendorID"
         Me.lblVendorID.Size = New System.Drawing.Size(96, 23)
@@ -451,11 +452,11 @@ Partial Class FrmConfigure
         '
         'lblSiteID
         '
-        Appearance15.FontData.BoldAsString = "True"
-        Appearance15.FontData.SizeInPoints = 10.0!
-        Appearance15.ForeColor = System.Drawing.Color.Teal
-        Appearance15.TextHAlignAsString = "Right"
-        Me.lblSiteID.Appearance = Appearance15
+        Appearance6.FontData.BoldAsString = "True"
+        Appearance6.FontData.SizeInPoints = 10.0!
+        Appearance6.ForeColor = System.Drawing.Color.Teal
+        Appearance6.TextHAlignAsString = "Right"
+        Me.lblSiteID.Appearance = Appearance6
         Me.lblSiteID.Location = New System.Drawing.Point(75, 75)
         Me.lblSiteID.Name = "lblSiteID"
         Me.lblSiteID.Size = New System.Drawing.Size(96, 23)
@@ -464,11 +465,11 @@ Partial Class FrmConfigure
         '
         'lblLocationID
         '
-        Appearance16.FontData.BoldAsString = "True"
-        Appearance16.FontData.SizeInPoints = 10.0!
-        Appearance16.ForeColor = System.Drawing.Color.Teal
-        Appearance16.TextHAlignAsString = "Right"
-        Me.lblLocationID.Appearance = Appearance16
+        Appearance8.FontData.BoldAsString = "True"
+        Appearance8.FontData.SizeInPoints = 10.0!
+        Appearance8.ForeColor = System.Drawing.Color.Teal
+        Appearance8.TextHAlignAsString = "Right"
+        Me.lblLocationID.Appearance = Appearance8
         Me.lblLocationID.Location = New System.Drawing.Point(59, 135)
         Me.lblLocationID.Name = "lblLocationID"
         Me.lblLocationID.Size = New System.Drawing.Size(112, 23)
@@ -477,11 +478,11 @@ Partial Class FrmConfigure
         '
         'UltraLabel1
         '
-        Appearance26.FontData.BoldAsString = "True"
-        Appearance26.FontData.SizeInPoints = 10.0!
-        Appearance26.ForeColor = System.Drawing.Color.Teal
-        Appearance26.TextHAlignAsString = "Left"
-        Me.UltraLabel1.Appearance = Appearance26
+        Appearance2.FontData.BoldAsString = "True"
+        Appearance2.FontData.SizeInPoints = 10.0!
+        Appearance2.ForeColor = System.Drawing.Color.Teal
+        Appearance2.TextHAlignAsString = "Left"
+        Me.UltraLabel1.Appearance = Appearance2
         Me.UltraLabel1.Location = New System.Drawing.Point(436, 256)
         Me.UltraLabel1.Name = "UltraLabel1"
         Me.UltraLabel1.Size = New System.Drawing.Size(80, 23)

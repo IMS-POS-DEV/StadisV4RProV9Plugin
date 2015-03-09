@@ -827,7 +827,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -875,7 +875,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -968,7 +968,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1014,7 +1014,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1515,7 +1515,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1620,7 +1620,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1701,7 +1701,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1866,7 +1866,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1911,7 +1911,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1992,7 +1992,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2025,7 +2025,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2058,7 +2058,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2129,7 +2129,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(ReceiptLine)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2149,7 +2149,7 @@ Namespace WebReference
      System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfInstallationSetting)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2171,7 +2171,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2241,7 +2241,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
     Public Enum RuleSeverity
@@ -2274,7 +2274,7 @@ Namespace WebReference
      System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfInstallationSetting)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2295,7 +2295,7 @@ Namespace WebReference
      System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfInstallationSetting)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2316,7 +2316,7 @@ Namespace WebReference
      System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfInstallationSetting)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2327,7 +2327,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(TicketStatus)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2337,7 +2337,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3008,7 +3008,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(SaleItem)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3018,7 +3018,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3377,7 +3377,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3387,7 +3387,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3470,7 +3470,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3480,7 +3480,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3550,7 +3550,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3583,7 +3583,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3616,7 +3616,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3649,7 +3649,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3814,7 +3814,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3931,7 +3931,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -4120,7 +4120,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -4297,7 +4297,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -4558,7 +4558,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _

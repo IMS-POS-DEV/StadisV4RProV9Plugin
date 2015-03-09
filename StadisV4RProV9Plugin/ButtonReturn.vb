@@ -215,7 +215,7 @@ Public Class ButtonReturn
                 .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
                 .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
             End With
-            Dim sy As StadisReply() = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeaderForWSCall(fAdapter, "Receipt", invoiceHandle), CommonRoutines.LoadItemsForWSCall(fAdapter, "Receipt", invoiceHandle, itemHandle), CommonRoutines.LoadTendersForWSCall(fAdapter, "Receipt", invoiceHandle, tenderHandle))
+            Dim sy As StadisReply() = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeader(fAdapter, "Receipt", invoiceHandle), CommonRoutines.LoadItems(fAdapter, "Receipt", invoiceHandle, itemHandle), CommonRoutines.LoadTenders(fAdapter, "Receipt", invoiceHandle, tenderHandle))
             Select Case sy(0).ReturnCode
                 Case 0, -2
                     'All statuses good - or customer inactive - Update Rpro with AuthID

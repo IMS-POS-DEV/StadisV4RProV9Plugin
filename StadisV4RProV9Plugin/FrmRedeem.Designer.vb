@@ -23,27 +23,27 @@ Partial Class FrmRedeem
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim Appearance17 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim UltraToolTipInfo3 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Process these tenders and charge Stadis account.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance4 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance1 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance3 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance12 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance7 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance6 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim UltraToolTipInfo3 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Process these tenders and charge Stadis account.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
         Dim Appearance5 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance9 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance11 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance10 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance6 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance7 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance8 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance18 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim UltraToolTipInfo1 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Leave without processing.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
+        Dim Appearance9 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance10 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance11 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance12 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance13 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance14 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim Appearance16 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim UltraToolTipInfo2 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Amount to be paid on the Invoice.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
         Dim Appearance15 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance16 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim UltraToolTipInfo1 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Leave without processing.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
+        Dim Appearance4 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance3 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance18 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim UltraToolTipInfo2 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Amount to be paid on the Invoice.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
+        Dim Appearance17 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmRedeem))
         Me.btnOK = New Infragistics.Win.Misc.UltraButton()
         Me.grdTenders = New Infragistics.Win.UltraWinGrid.UltraGrid()
@@ -64,11 +64,11 @@ Partial Class FrmRedeem
         '
         'btnOK
         '
-        Appearance17.FontData.BoldAsString = "True"
-        Appearance17.FontData.SizeInPoints = 10.0!
-        Appearance17.ForeColor = System.Drawing.Color.Teal
-        Appearance17.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check24
-        Me.btnOK.Appearance = Appearance17
+        Appearance1.FontData.BoldAsString = "True"
+        Appearance1.FontData.SizeInPoints = 10.0!
+        Appearance1.ForeColor = System.Drawing.Color.Teal
+        Appearance1.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check24
+        Me.btnOK.Appearance = Appearance1
         Me.btnOK.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnOK.Location = New System.Drawing.Point(230, 477)
         Me.btnOK.Name = "btnOK"
@@ -82,57 +82,57 @@ Partial Class FrmRedeem
         '
         'grdTenders
         '
-        Appearance4.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Appearance4.BorderColor = System.Drawing.SystemColors.InactiveCaption
-        Me.grdTenders.DisplayLayout.Appearance = Appearance4
+        Appearance5.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Appearance5.BorderColor = System.Drawing.SystemColors.InactiveCaption
+        Me.grdTenders.DisplayLayout.Appearance = Appearance5
         Me.grdTenders.DisplayLayout.BorderStyle = Infragistics.Win.UIElementBorderStyle.Solid
         Me.grdTenders.DisplayLayout.CaptionVisible = Infragistics.Win.DefaultableBoolean.[False]
-        Appearance1.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Appearance1.BackColor2 = System.Drawing.SystemColors.ControlDark
-        Appearance1.BackGradientStyle = Infragistics.Win.GradientStyle.Vertical
-        Appearance1.BorderColor = System.Drawing.SystemColors.Window
-        Me.grdTenders.DisplayLayout.GroupByBox.Appearance = Appearance1
-        Appearance2.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.grdTenders.DisplayLayout.GroupByBox.BandLabelAppearance = Appearance2
+        Appearance6.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Appearance6.BackColor2 = System.Drawing.SystemColors.ControlDark
+        Appearance6.BackGradientStyle = Infragistics.Win.GradientStyle.Vertical
+        Appearance6.BorderColor = System.Drawing.SystemColors.Window
+        Me.grdTenders.DisplayLayout.GroupByBox.Appearance = Appearance6
+        Appearance7.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.grdTenders.DisplayLayout.GroupByBox.BandLabelAppearance = Appearance7
         Me.grdTenders.DisplayLayout.GroupByBox.BorderStyle = Infragistics.Win.UIElementBorderStyle.Solid
-        Appearance3.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Appearance3.BackColor2 = System.Drawing.SystemColors.Control
-        Appearance3.BackGradientStyle = Infragistics.Win.GradientStyle.Horizontal
-        Appearance3.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.grdTenders.DisplayLayout.GroupByBox.PromptAppearance = Appearance3
+        Appearance8.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Appearance8.BackColor2 = System.Drawing.SystemColors.Control
+        Appearance8.BackGradientStyle = Infragistics.Win.GradientStyle.Horizontal
+        Appearance8.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.grdTenders.DisplayLayout.GroupByBox.PromptAppearance = Appearance8
         Me.grdTenders.DisplayLayout.MaxColScrollRegions = 1
         Me.grdTenders.DisplayLayout.MaxRowScrollRegions = 1
-        Appearance12.BackColor = System.Drawing.SystemColors.Window
-        Appearance12.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.grdTenders.DisplayLayout.Override.ActiveCellAppearance = Appearance12
-        Appearance7.BackColor = System.Drawing.SystemColors.Highlight
-        Appearance7.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.grdTenders.DisplayLayout.Override.ActiveRowAppearance = Appearance7
+        Appearance9.BackColor = System.Drawing.SystemColors.Window
+        Appearance9.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.grdTenders.DisplayLayout.Override.ActiveCellAppearance = Appearance9
+        Appearance10.BackColor = System.Drawing.SystemColors.Highlight
+        Appearance10.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.grdTenders.DisplayLayout.Override.ActiveRowAppearance = Appearance10
         Me.grdTenders.DisplayLayout.Override.BorderStyleCell = Infragistics.Win.UIElementBorderStyle.Dotted
         Me.grdTenders.DisplayLayout.Override.BorderStyleRow = Infragistics.Win.UIElementBorderStyle.Dotted
-        Appearance6.BackColor = System.Drawing.SystemColors.Window
-        Me.grdTenders.DisplayLayout.Override.CardAreaAppearance = Appearance6
-        Appearance5.BorderColor = System.Drawing.Color.Silver
-        Appearance5.TextTrimming = Infragistics.Win.TextTrimming.EllipsisCharacter
-        Me.grdTenders.DisplayLayout.Override.CellAppearance = Appearance5
+        Appearance11.BackColor = System.Drawing.SystemColors.Window
+        Me.grdTenders.DisplayLayout.Override.CardAreaAppearance = Appearance11
+        Appearance12.BorderColor = System.Drawing.Color.Silver
+        Appearance12.TextTrimming = Infragistics.Win.TextTrimming.EllipsisCharacter
+        Me.grdTenders.DisplayLayout.Override.CellAppearance = Appearance12
         Me.grdTenders.DisplayLayout.Override.CellClickAction = Infragistics.Win.UltraWinGrid.CellClickAction.EditAndSelectText
         Me.grdTenders.DisplayLayout.Override.CellPadding = 0
-        Appearance9.BackColor = System.Drawing.SystemColors.Control
-        Appearance9.BackColor2 = System.Drawing.SystemColors.ControlDark
-        Appearance9.BackGradientAlignment = Infragistics.Win.GradientAlignment.Element
-        Appearance9.BackGradientStyle = Infragistics.Win.GradientStyle.Horizontal
-        Appearance9.BorderColor = System.Drawing.SystemColors.Window
-        Me.grdTenders.DisplayLayout.Override.GroupByRowAppearance = Appearance9
-        Appearance11.TextHAlignAsString = "Left"
-        Me.grdTenders.DisplayLayout.Override.HeaderAppearance = Appearance11
+        Appearance13.BackColor = System.Drawing.SystemColors.Control
+        Appearance13.BackColor2 = System.Drawing.SystemColors.ControlDark
+        Appearance13.BackGradientAlignment = Infragistics.Win.GradientAlignment.Element
+        Appearance13.BackGradientStyle = Infragistics.Win.GradientStyle.Horizontal
+        Appearance13.BorderColor = System.Drawing.SystemColors.Window
+        Me.grdTenders.DisplayLayout.Override.GroupByRowAppearance = Appearance13
+        Appearance14.TextHAlignAsString = "Left"
+        Me.grdTenders.DisplayLayout.Override.HeaderAppearance = Appearance14
         Me.grdTenders.DisplayLayout.Override.HeaderClickAction = Infragistics.Win.UltraWinGrid.HeaderClickAction.SortMulti
         Me.grdTenders.DisplayLayout.Override.HeaderStyle = Infragistics.Win.HeaderStyle.WindowsXPCommand
-        Appearance10.BackColor = System.Drawing.SystemColors.Window
-        Appearance10.BorderColor = System.Drawing.Color.Silver
-        Me.grdTenders.DisplayLayout.Override.RowAppearance = Appearance10
+        Appearance15.BackColor = System.Drawing.SystemColors.Window
+        Appearance15.BorderColor = System.Drawing.Color.Silver
+        Me.grdTenders.DisplayLayout.Override.RowAppearance = Appearance15
         Me.grdTenders.DisplayLayout.Override.RowSelectors = Infragistics.Win.DefaultableBoolean.[False]
-        Appearance8.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.grdTenders.DisplayLayout.Override.TemplateAddRowAppearance = Appearance8
+        Appearance16.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.grdTenders.DisplayLayout.Override.TemplateAddRowAppearance = Appearance16
         Me.grdTenders.DisplayLayout.ScrollBounds = Infragistics.Win.UltraWinGrid.ScrollBounds.ScrollToFill
         Me.grdTenders.DisplayLayout.ScrollStyle = Infragistics.Win.UltraWinGrid.ScrollStyle.Immediate
         Me.grdTenders.Location = New System.Drawing.Point(13, 78)
@@ -143,11 +143,11 @@ Partial Class FrmRedeem
         '
         'btnCancel
         '
-        Appearance18.FontData.BoldAsString = "True"
-        Appearance18.FontData.SizeInPoints = 10.0!
-        Appearance18.ForeColor = System.Drawing.Color.Teal
-        Appearance18.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete24
-        Me.btnCancel.Appearance = Appearance18
+        Appearance2.FontData.BoldAsString = "True"
+        Appearance2.FontData.SizeInPoints = 10.0!
+        Appearance2.ForeColor = System.Drawing.Color.Teal
+        Appearance2.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete24
+        Me.btnCancel.Appearance = Appearance2
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnCancel.Location = New System.Drawing.Point(412, 477)
@@ -162,12 +162,12 @@ Partial Class FrmRedeem
         '
         'UltraLabel1
         '
-        Appearance13.FontData.BoldAsString = "True"
-        Appearance13.FontData.Name = "Arial Black"
-        Appearance13.FontData.SizeInPoints = 14.0!
-        Appearance13.ForeColor = System.Drawing.Color.Teal
-        Appearance13.TextHAlignAsString = "Center"
-        Me.UltraLabel1.Appearance = Appearance13
+        Appearance4.FontData.BoldAsString = "True"
+        Appearance4.FontData.Name = "Arial Black"
+        Appearance4.FontData.SizeInPoints = 14.0!
+        Appearance4.ForeColor = System.Drawing.Color.Teal
+        Appearance4.TextHAlignAsString = "Center"
+        Me.UltraLabel1.Appearance = Appearance4
         Me.UltraLabel1.Location = New System.Drawing.Point(148, 14)
         Me.UltraLabel1.Name = "UltraLabel1"
         Me.UltraLabel1.Size = New System.Drawing.Size(448, 23)
@@ -176,11 +176,11 @@ Partial Class FrmRedeem
         '
         'sbStatusBar
         '
-        Appearance14.FontData.BoldAsString = "True"
-        Appearance14.FontData.SizeInPoints = 10.0!
-        Appearance14.ForeColor = System.Drawing.Color.Teal
-        Appearance14.TextHAlignAsString = "Center"
-        Me.sbStatusBar.Appearance = Appearance14
+        Appearance3.FontData.BoldAsString = "True"
+        Appearance3.FontData.SizeInPoints = 10.0!
+        Appearance3.ForeColor = System.Drawing.Color.Teal
+        Appearance3.TextHAlignAsString = "Center"
+        Me.sbStatusBar.Appearance = Appearance3
         Me.sbStatusBar.BorderStyle = Infragistics.Win.UIElementBorderStyle.RaisedSoft
         Me.sbStatusBar.Location = New System.Drawing.Point(0, 543)
         Me.sbStatusBar.Name = "sbStatusBar"
@@ -190,14 +190,14 @@ Partial Class FrmRedeem
         '
         'lblRemainingAmount
         '
-        Appearance16.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance16.FontData.BoldAsString = "True"
-        Appearance16.FontData.Name = "Arial"
-        Appearance16.FontData.SizeInPoints = 16.0!
-        Appearance16.ForeColor = System.Drawing.Color.Teal
-        Appearance16.TextHAlignAsString = "Right"
-        Appearance16.TextVAlignAsString = "Bottom"
-        Me.lblRemainingAmount.Appearance = Appearance16
+        Appearance18.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance18.FontData.BoldAsString = "True"
+        Appearance18.FontData.Name = "Arial"
+        Appearance18.FontData.SizeInPoints = 16.0!
+        Appearance18.ForeColor = System.Drawing.Color.Teal
+        Appearance18.TextHAlignAsString = "Right"
+        Appearance18.TextVAlignAsString = "Bottom"
+        Me.lblRemainingAmount.Appearance = Appearance18
         Me.lblRemainingAmount.BorderStyleInner = Infragistics.Win.UIElementBorderStyle.InsetSoft
         Me.lblRemainingAmount.Location = New System.Drawing.Point(612, 38)
         Me.lblRemainingAmount.Name = "lblRemainingAmount"
@@ -210,13 +210,13 @@ Partial Class FrmRedeem
         '
         'UltraLabel3
         '
-        Appearance15.FontData.BoldAsString = "True"
-        Appearance15.FontData.ItalicAsString = "True"
-        Appearance15.FontData.Name = "Arial"
-        Appearance15.FontData.SizeInPoints = 12.0!
-        Appearance15.ForeColor = System.Drawing.Color.Teal
-        Appearance15.TextHAlignAsString = "Right"
-        Me.UltraLabel3.Appearance = Appearance15
+        Appearance17.FontData.BoldAsString = "True"
+        Appearance17.FontData.ItalicAsString = "True"
+        Appearance17.FontData.Name = "Arial"
+        Appearance17.FontData.SizeInPoints = 12.0!
+        Appearance17.ForeColor = System.Drawing.Color.Teal
+        Appearance17.TextHAlignAsString = "Right"
+        Me.UltraLabel3.Appearance = Appearance17
         Me.UltraLabel3.Location = New System.Drawing.Point(449, 55)
         Me.UltraLabel3.Name = "UltraLabel3"
         Me.UltraLabel3.Size = New System.Drawing.Size(161, 23)

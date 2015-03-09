@@ -20,9 +20,9 @@ Public Class FrmBalChk
     Private totlAvail As Decimal
     Private sScanTimeStamp As String
 
-    Private OPOSPrinter As New POS.Devices.OPOSPOSPrinter
-    Private mStarComm As New StarComm
-    Private WithEvents mWinPrint As New Printing.PrintDocument
+    'Private OPOSPrinter As New POS.Devices.OPOSPOSPrinter
+    'Private mStarComm As New StarComm
+    'Private WithEvents mWinPrint As New Printing.PrintDocument
 
     Private Const LF As Char = Chr(10)
 
@@ -55,10 +55,10 @@ Public Class FrmBalChk
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 
-            If gIsPrintingEnabled = False Then
-                btnPrint.Visible = False
-                tblMenu.ColumnStyles(1).Width = 0
-            End If
+            'If gIsPrintingEnabled = False Then
+            btnPrint.Visible = False
+            tblMenu.ColumnStyles(1).Width = 0
+            'End If
 
             If gIsMergeFunctionEnabled = False Then
                 btnMerge.Visible = False
@@ -149,90 +149,90 @@ Public Class FrmBalChk
 
 #Region " Print Routines "
 
-    Private Sub PrintBalanceToWindows()
-        Windows.Forms.Cursor.Current = Cursors.WaitCursor
-        sbStatus.Text = "Printing Balance..."
-        Dim balancePrint As New BalancePrint
-        With balancePrint
-            .SetParameterValue(0, "N/A")
-            .SetParameterValue(1, gStadisTenderText)
-            .SetParameterValue(2, "xxxxxxxxxx" & Mid(Trim(txtInput.Text), Len(Trim(txtInput.Text)) - 3, 4))
-            .SetParameterValue(3, totlBalance.ToString("""$""#,##0.00"))
-            .PrintOptions.PrinterName = gWindowsPrinterName
-            .PrintToPrinter(1, True, 1, 1)
-        End With
-        sbStatus.Text = "Ready..."
-        Windows.Forms.Cursor.Current = Cursors.Default
-    End Sub  'PrintBalanceToWindows
+    'Private Sub PrintBalanceToWindows()
+    '    Windows.Forms.Cursor.Current = Cursors.WaitCursor
+    '    sbStatus.Text = "Printing Balance..."
+    '    Dim balancePrint As New BalancePrint
+    '    With balancePrint
+    '        .SetParameterValue(0, "N/A")
+    '        .SetParameterValue(1, gStadisTenderText)
+    '        .SetParameterValue(2, "xxxxxxxxxx" & Mid(Trim(txtInput.Text), Len(Trim(txtInput.Text)) - 3, 4))
+    '        .SetParameterValue(3, totlBalance.ToString("""$""#,##0.00"))
+    '        .PrintOptions.PrinterName = gWindowsPrinterName
+    '        .PrintToPrinter(1, True, 1, 1)
+    '    End With
+    '    sbStatus.Text = "Ready..."
+    '    Windows.Forms.Cursor.Current = Cursors.Default
+    'End Sub  'PrintBalanceToWindows
 
-    Private Sub PrintBalanceToStarRaster()
-        Application.DoEvents()
-        StarC.Visible = True
-        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
-        Try
-            With StarC
-                .ShowSpooler = True
-                .Protocol = StarComm.Protocols.SC_Spooler
-                .SpoolPrinter = gRasterPrinterName
-                .StarComm_Command(SC_INITIALISE)
-                .StarComm_InitializePrintJob()
-                .StarComm_Command(SC_EMPHASIZE_ON)
-                .StarComm_Command(SC_HEIGHT_X1)
-                .StarComm_Command(SC_INVERT_OFF)
-                .StarComm_Command(SC_UNDERLINE_OFF)
-                .StarComm_Command(SC_UPPERLINE_OFF)
-                .StarComm_Command(SC_WIDTH_X2)
-                .StarComm_Output("  BALANCE STATEMENT" & LF & LF)
-                .StarComm_Command(SC_EMPHASIZE_OFF)
-                .StarComm_Command(SC_WIDTH_X1)
+    'Private Sub PrintBalanceToStarRaster()
+    '    Application.DoEvents()
+    '    StarC.Visible = True
+    '    Dim ESC As String = Mid(Chr(&H1B), 1, 1)
+    '    Try
+    '        With StarC
+    '            .ShowSpooler = True
+    '            .Protocol = StarComm.Protocols.SC_Spooler
+    '            .SpoolPrinter = gRasterPrinterName
+    '            .StarComm_Command(SC_INITIALISE)
+    '            .StarComm_InitializePrintJob()
+    '            .StarComm_Command(SC_EMPHASIZE_ON)
+    '            .StarComm_Command(SC_HEIGHT_X1)
+    '            .StarComm_Command(SC_INVERT_OFF)
+    '            .StarComm_Command(SC_UNDERLINE_OFF)
+    '            .StarComm_Command(SC_UPPERLINE_OFF)
+    '            .StarComm_Command(SC_WIDTH_X2)
+    '            .StarComm_Output("  BALANCE STATEMENT" & LF & LF)
+    '            .StarComm_Command(SC_EMPHASIZE_OFF)
+    '            .StarComm_Command(SC_WIDTH_X1)
 
-                .StarComm_Output(LF)
-                .StarComm_Output("----------------------------------------" & LF)
-                .StarComm_Command(SC_HEIGHT_X2)
-                .StarComm_Command(SC_EMPHASIZE_ON)
-                .StarComm_Output(Space(CInt((40 - Len("BALANCE AS OF " & sScanTimeStamp)) / 2)) & "BALANCE AS OF " & sScanTimeStamp & LF)
-                .StarComm_Command(SC_WIDTH_X2)
-                .StarComm_Output(Space(CInt((20 - Len(totlBalance)) / 2)) & totlBalance.ToString("""$""#,##0.00") & LF)
-                .StarComm_Command(SC_HEIGHT_X1)
-                .StarComm_Command(SC_WIDTH_X1)
-                .StarComm_Output(LF & LF)
-                .StarComm_Command(SC_FEED_FULL_CUT)
-                .StarComm_Print()
-            End With
-        Catch ex As Exception
-            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Balance")
-        End Try
-        StarC.Visible = False
-    End Sub  'PrintBalanceToStarRaster
+    '            .StarComm_Output(LF)
+    '            .StarComm_Output("----------------------------------------" & LF)
+    '            .StarComm_Command(SC_HEIGHT_X2)
+    '            .StarComm_Command(SC_EMPHASIZE_ON)
+    '            .StarComm_Output(Space(CInt((40 - Len("BALANCE AS OF " & sScanTimeStamp)) / 2)) & "BALANCE AS OF " & sScanTimeStamp & LF)
+    '            .StarComm_Command(SC_WIDTH_X2)
+    '            .StarComm_Output(Space(CInt((20 - Len(totlBalance)) / 2)) & totlBalance.ToString("""$""#,##0.00") & LF)
+    '            .StarComm_Command(SC_HEIGHT_X1)
+    '            .StarComm_Command(SC_WIDTH_X1)
+    '            .StarComm_Output(LF & LF)
+    '            .StarComm_Command(SC_FEED_FULL_CUT)
+    '            .StarComm_Print()
+    '        End With
+    '    Catch ex As Exception
+    '        MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Balance")
+    '    End Try
+    '    StarC.Visible = False
+    'End Sub  'PrintBalanceToStarRaster
 
-    Private Sub PrintBalanceToOPOS()
-        sbStatus.Text = "Printing..."
-        Application.DoEvents()
-        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
-        Try
-            With OPOSPrinter
-                .Open(gOPOSPrinterName)
-                .ClaimDevice(10000)
-                .DeviceEnabled = True
-                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_TRANSACTION)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|2C" & ESC & "|bC" & "BALANCE STATEMENT" & LF & LF)
-                .PrintNormal(PTR_S_RECEIPT, LF)
-                .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|3C" & "BALANCE AS OF " & sScanTimeStamp & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|4C" & totlBalance.ToString("""$""#,##0.00") & LF)
-                .PrintNormal(PTR_S_RECEIPT, LF & LF)
-                .PrintNormal(PTR_S_RECEIPT, Chr(&H1BS) + "|100fP")
-                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_NORMAL)
-                .DeviceEnabled = False
-                .ReleaseDevice()
-                .Close()
-            End With
-        Catch ex As Exception
-            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Balance")
-            sbStatus.Text = "Ready..."
-        End Try
-        sbStatus.Text = "Ready..."
-    End Sub  'PrintBalanceToOPOS
+    'Private Sub PrintBalanceToOPOS()
+    '    sbStatus.Text = "Printing..."
+    '    Application.DoEvents()
+    '    Dim ESC As String = Mid(Chr(&H1B), 1, 1)
+    '    Try
+    '        With OPOSPrinter
+    '            .Open(gOPOSPrinterName)
+    '            .ClaimDevice(10000)
+    '            .DeviceEnabled = True
+    '            .TransactionPrint(PTR_S_RECEIPT, PTR_TP_TRANSACTION)
+    '            .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|2C" & ESC & "|bC" & "BALANCE STATEMENT" & LF & LF)
+    '            .PrintNormal(PTR_S_RECEIPT, LF)
+    '            .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
+    '            .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|3C" & "BALANCE AS OF " & sScanTimeStamp & LF)
+    '            .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|4C" & totlBalance.ToString("""$""#,##0.00") & LF)
+    '            .PrintNormal(PTR_S_RECEIPT, LF & LF)
+    '            .PrintNormal(PTR_S_RECEIPT, Chr(&H1BS) + "|100fP")
+    '            .TransactionPrint(PTR_S_RECEIPT, PTR_TP_NORMAL)
+    '            .DeviceEnabled = False
+    '            .ReleaseDevice()
+    '            .Close()
+    '        End With
+    '    Catch ex As Exception
+    '        MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Balance")
+    '        sbStatus.Text = "Ready..."
+    '    End Try
+    '    sbStatus.Text = "Ready..."
+    'End Sub  'PrintBalanceToOPOS
 
 #End Region  'Print Routines
 

@@ -41,7 +41,7 @@ Public Module GlobalValues
     Public gAskForTicketOnRedeem As Boolean = False
     Public gDefaultCustomerID As String = "99999"
     Public gFeeOrTenderForIssueOffset As String = "Offset"
-    Public gFormLogoImage As String = "Stadis32.bmp"
+    Public gFormLogoImage As String = "stadislogo.png"
     Public gGiftCardEvents As String = "9999;8888;7777;6666;5555"
     Public gImageTransparentColor As System.Drawing.Color = Drawing.Color.Magenta
     Public gIsMergeFunctionEnabled As Boolean = False
@@ -50,7 +50,14 @@ Public Module GlobalValues
     Public gIssueGiftCardForReturn As Boolean = False
     Public gPostNonStadisTransactions As Boolean = False
     Public gReturnGiftCardALU As String = ""
-    Public gScanPattern As String = "(1[47][0-9]{12}$)|([01][0-9]{7}$)"
+    Public gExtractPattern As String = "(?<=[;\*])[0-9]+(?=([=\?]|$))"
+    '        '(?<=[;\*])    = preceded by a semicolon
+    '        '[0-9]+        = One or more numbers  <-- Extract
+    '        '(?=([=\?]|$)) = and followed by an equals, a question mark, or end of line
+    Public gValidatePattern As String = "(1[47][0-9]{12}$*)|([01][0-9]{7}$*)"
+    '        '(1[47][0-9]{12}$*)    = 1, followed by a 4 or 7, followed by 12 more numbers, followed by an optional end of line
+    '        '|                     = Or
+    '        '([01][0-9]{7}$*)      = 0 or 1, followed by 7 more numbers, followed by an optional end of line
     Public gShowSVActionGrid As Boolean = False
     Public gTenderTypeForStadis As String = "GiftCard"
     Public gVendorID As String = ""
@@ -59,31 +66,31 @@ Public Module GlobalValues
     Public gBalChkButtonCaption As String = "Bal Check"
     Public gBalChkButtonEnabled As Boolean = False
     Public gBalChkButtonHint As String = "Check balance on gift card / ticket."
-    Public gBalChkButtonImage As String = "Stadis32.bmp"
+    Public gBalChkButtonImage As String = "stadis32.bmp"
 
     Public gIssueButtonActive As Boolean = False
     Public gIssueButtonCaption As String = "Issue"
     Public gIssueButtonEnabled As Boolean = False
     Public gIssueButtonHint As String = "Issue STADIS Gift Card(s)."
-    Public gIssueButtonImage As String = "Stadis32.bmp"
+    Public gIssueButtonImage As String = "stadis32.bmp"
 
     Public gRedeemButtonActive As Boolean = False
     Public gRedeemButtonCaption As String = "Redeem"
     Public gRedeemButtonEnabled As Boolean = False
     Public gRedeemButtonHint As String = "Redeem a STADIS gift card or ticket."
-    Public gRedeemButtonImage As String = "Stadis32.bmp"
+    Public gRedeemButtonImage As String = "stadis32.bmp"
 
     Public gReloadButtonActive As Boolean = False
     Public gReloadButtonCaption As String = "Reload"
     Public gReloadButtonEnabled As Boolean = False
     Public gReloadButtonHint As String = "Reload STADIS gift card or ticket."
-    Public gReloadButtonImage As String = "Stadis32.bmp"
+    Public gReloadButtonImage As String = "stadis32.bmp"
 
     Public gReturnButtonActive As Boolean = False
     Public gReturnButtonCaption As String = "Return"
     Public gReturnButtonEnabled As Boolean = False
     Public gReturnButtonHint As String = "Issue STADIS gift card for item return."
-    Public gReturnButtonImage As String = "Stadis32.bmp"
+    Public gReturnButtonImage As String = "stadis32.bmp"
 
     '----------------------------------------------------------------------------------------------
     ' Populated during initialization

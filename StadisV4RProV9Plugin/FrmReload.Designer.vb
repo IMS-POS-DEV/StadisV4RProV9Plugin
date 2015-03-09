@@ -22,37 +22,37 @@ Partial Class FrmReload
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim Appearance7 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
-        Dim Appearance18 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
+        Me.components = New System.ComponentModel.Container()
+        Dim Appearance1 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo6 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Leave without processing.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance17 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
+        Dim Appearance11 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo5 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Add this item to the Receipt.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmReload))
-        Dim Appearance8 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
+        Dim Appearance10 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo4 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Scan or enter number of gift card that is being reloaded.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance9 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
-        Dim Appearance10 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
-        Dim Appearance6 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
+        Dim Appearance9 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance7 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance8 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo3 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Funds currently available on the above gift card.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance11 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
-        Dim Appearance5 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
+        Dim Appearance5 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance6 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo2 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Amount being added to the gift card.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Dim Appearance13 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
-        Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
+        Dim Appearance3 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance4 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim UltraToolTipInfo1 As Infragistics.Win.UltraWinToolTip.UltraToolTipInfo = New Infragistics.Win.UltraWinToolTip.UltraToolTipInfo("Funds available on the gift card after the reload.", Infragistics.Win.ToolTipImage.[Default], Nothing, Infragistics.Win.DefaultableBoolean.[Default])
-        Me.UltraLabel1 = New Infragistics.Win.Misc.UltraLabel
-        Me.btnCancel = New Infragistics.Win.Misc.UltraButton
-        Me.btnOK = New Infragistics.Win.Misc.UltraButton
-        Me.pbLogo = New Infragistics.Win.UltraWinEditors.UltraPictureBox
-        Me.txtGiftCardID = New Infragistics.Win.UltraWinEditors.UltraTextEditor
-        Me.UltraLabel2 = New Infragistics.Win.Misc.UltraLabel
-        Me.UltraLabel3 = New Infragistics.Win.Misc.UltraLabel
-        Me.txtCurrentBalance = New Infragistics.Win.UltraWinEditors.UltraTextEditor
-        Me.UltraLabel4 = New Infragistics.Win.Misc.UltraLabel
-        Me.txtAmount = New Infragistics.Win.UltraWinEditors.UltraTextEditor
-        Me.UltraLabel5 = New Infragistics.Win.Misc.UltraLabel
-        Me.txtBalanceAfter = New Infragistics.Win.UltraWinEditors.UltraTextEditor
+        Me.UltraLabel1 = New Infragistics.Win.Misc.UltraLabel()
+        Me.btnCancel = New Infragistics.Win.Misc.UltraButton()
+        Me.btnOK = New Infragistics.Win.Misc.UltraButton()
+        Me.pbLogo = New Infragistics.Win.UltraWinEditors.UltraPictureBox()
+        Me.txtGiftCardID = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
+        Me.UltraLabel2 = New Infragistics.Win.Misc.UltraLabel()
+        Me.UltraLabel3 = New Infragistics.Win.Misc.UltraLabel()
+        Me.txtCurrentBalance = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
+        Me.UltraLabel4 = New Infragistics.Win.Misc.UltraLabel()
+        Me.txtAmount = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
+        Me.UltraLabel5 = New Infragistics.Win.Misc.UltraLabel()
+        Me.txtBalanceAfter = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
         Me.UltraToolTipManager1 = New Infragistics.Win.UltraWinToolTip.UltraToolTipManager(Me.components)
         CType(Me.txtGiftCardID, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtCurrentBalance, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,12 +62,12 @@ Partial Class FrmReload
         '
         'UltraLabel1
         '
-        Appearance7.FontData.BoldAsString = "True"
-        Appearance7.FontData.Name = "Arial Black"
-        Appearance7.FontData.SizeInPoints = 14.0!
-        Appearance7.ForeColor = System.Drawing.Color.Teal
-        Appearance7.TextHAlignAsString = "Center"
-        Me.UltraLabel1.Appearance = Appearance7
+        Appearance1.FontData.BoldAsString = "True"
+        Appearance1.FontData.Name = "Arial Black"
+        Appearance1.FontData.SizeInPoints = 14.0!
+        Appearance1.ForeColor = System.Drawing.Color.Teal
+        Appearance1.TextHAlignAsString = "Center"
+        Me.UltraLabel1.Appearance = Appearance1
         Me.UltraLabel1.Location = New System.Drawing.Point(175, 19)
         Me.UltraLabel1.Name = "UltraLabel1"
         Me.UltraLabel1.Size = New System.Drawing.Size(279, 23)
@@ -76,11 +76,11 @@ Partial Class FrmReload
         '
         'btnCancel
         '
-        Appearance18.FontData.BoldAsString = "True"
-        Appearance18.FontData.SizeInPoints = 10.0!
-        Appearance18.ForeColor = System.Drawing.Color.Teal
-        Appearance18.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete24
-        Me.btnCancel.Appearance = Appearance18
+        Appearance2.FontData.BoldAsString = "True"
+        Appearance2.FontData.SizeInPoints = 10.0!
+        Appearance2.ForeColor = System.Drawing.Color.Teal
+        Appearance2.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete24
+        Me.btnCancel.Appearance = Appearance2
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnCancel.Location = New System.Drawing.Point(354, 306)
@@ -95,11 +95,11 @@ Partial Class FrmReload
         '
         'btnOK
         '
-        Appearance17.FontData.BoldAsString = "True"
-        Appearance17.FontData.SizeInPoints = 10.0!
-        Appearance17.ForeColor = System.Drawing.Color.Teal
-        Appearance17.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check24
-        Me.btnOK.Appearance = Appearance17
+        Appearance11.FontData.BoldAsString = "True"
+        Appearance11.FontData.SizeInPoints = 10.0!
+        Appearance11.ForeColor = System.Drawing.Color.Teal
+        Appearance11.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check24
+        Me.btnOK.Appearance = Appearance11
         Me.btnOK.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnOK.Location = New System.Drawing.Point(172, 306)
         Me.btnOK.Name = "btnOK"
@@ -123,11 +123,11 @@ Partial Class FrmReload
         '
         'txtGiftCardID
         '
-        Appearance8.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance8.FontData.BoldAsString = "True"
-        Appearance8.FontData.SizeInPoints = 14.0!
-        Appearance8.ForeColor = System.Drawing.Color.Black
-        Me.txtGiftCardID.Appearance = Appearance8
+        Appearance10.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance10.FontData.BoldAsString = "True"
+        Appearance10.FontData.SizeInPoints = 14.0!
+        Appearance10.ForeColor = System.Drawing.Color.Black
+        Me.txtGiftCardID.Appearance = Appearance10
         Me.txtGiftCardID.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtGiftCardID.Location = New System.Drawing.Point(247, 88)
         Me.txtGiftCardID.Name = "txtGiftCardID"
@@ -152,12 +152,12 @@ Partial Class FrmReload
         '
         'UltraLabel3
         '
-        Appearance10.FontData.BoldAsString = "False"
-        Appearance10.FontData.Name = "Arial Black"
-        Appearance10.FontData.SizeInPoints = 12.0!
-        Appearance10.ForeColor = System.Drawing.Color.Teal
-        Appearance10.TextHAlignAsString = "Right"
-        Me.UltraLabel3.Appearance = Appearance10
+        Appearance7.FontData.BoldAsString = "False"
+        Appearance7.FontData.Name = "Arial Black"
+        Appearance7.FontData.SizeInPoints = 12.0!
+        Appearance7.ForeColor = System.Drawing.Color.Teal
+        Appearance7.TextHAlignAsString = "Right"
+        Me.UltraLabel3.Appearance = Appearance7
         Me.UltraLabel3.Location = New System.Drawing.Point(23, 138)
         Me.UltraLabel3.Name = "UltraLabel3"
         Me.UltraLabel3.Size = New System.Drawing.Size(218, 23)
@@ -166,12 +166,12 @@ Partial Class FrmReload
         '
         'txtCurrentBalance
         '
-        Appearance6.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance6.FontData.BoldAsString = "True"
-        Appearance6.FontData.SizeInPoints = 14.0!
-        Appearance6.ForeColor = System.Drawing.Color.Teal
-        Appearance6.TextHAlignAsString = "Right"
-        Me.txtCurrentBalance.Appearance = Appearance6
+        Appearance8.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance8.FontData.BoldAsString = "True"
+        Appearance8.FontData.SizeInPoints = 14.0!
+        Appearance8.ForeColor = System.Drawing.Color.Teal
+        Appearance8.TextHAlignAsString = "Right"
+        Me.txtCurrentBalance.Appearance = Appearance8
         Me.txtCurrentBalance.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtCurrentBalance.Location = New System.Drawing.Point(247, 133)
         Me.txtCurrentBalance.Name = "txtCurrentBalance"
@@ -184,12 +184,12 @@ Partial Class FrmReload
         '
         'UltraLabel4
         '
-        Appearance11.FontData.BoldAsString = "False"
-        Appearance11.FontData.Name = "Arial Black"
-        Appearance11.FontData.SizeInPoints = 12.0!
-        Appearance11.ForeColor = System.Drawing.Color.Teal
-        Appearance11.TextHAlignAsString = "Right"
-        Me.UltraLabel4.Appearance = Appearance11
+        Appearance5.FontData.BoldAsString = "False"
+        Appearance5.FontData.Name = "Arial Black"
+        Appearance5.FontData.SizeInPoints = 12.0!
+        Appearance5.ForeColor = System.Drawing.Color.Teal
+        Appearance5.TextHAlignAsString = "Right"
+        Me.UltraLabel4.Appearance = Appearance5
         Me.UltraLabel4.Location = New System.Drawing.Point(23, 183)
         Me.UltraLabel4.Name = "UltraLabel4"
         Me.UltraLabel4.Size = New System.Drawing.Size(218, 23)
@@ -198,12 +198,12 @@ Partial Class FrmReload
         '
         'txtAmount
         '
-        Appearance5.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance5.FontData.BoldAsString = "True"
-        Appearance5.FontData.SizeInPoints = 14.0!
-        Appearance5.ForeColor = System.Drawing.Color.Black
-        Appearance5.TextHAlignAsString = "Right"
-        Me.txtAmount.Appearance = Appearance5
+        Appearance6.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance6.FontData.BoldAsString = "True"
+        Appearance6.FontData.SizeInPoints = 14.0!
+        Appearance6.ForeColor = System.Drawing.Color.Black
+        Appearance6.TextHAlignAsString = "Right"
+        Me.txtAmount.Appearance = Appearance6
         Me.txtAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtAmount.Location = New System.Drawing.Point(247, 178)
         Me.txtAmount.Name = "txtAmount"
@@ -214,12 +214,12 @@ Partial Class FrmReload
         '
         'UltraLabel5
         '
-        Appearance13.FontData.BoldAsString = "False"
-        Appearance13.FontData.Name = "Arial Black"
-        Appearance13.FontData.SizeInPoints = 12.0!
-        Appearance13.ForeColor = System.Drawing.Color.Teal
-        Appearance13.TextHAlignAsString = "Right"
-        Me.UltraLabel5.Appearance = Appearance13
+        Appearance3.FontData.BoldAsString = "False"
+        Appearance3.FontData.Name = "Arial Black"
+        Appearance3.FontData.SizeInPoints = 12.0!
+        Appearance3.ForeColor = System.Drawing.Color.Teal
+        Appearance3.TextHAlignAsString = "Right"
+        Me.UltraLabel5.Appearance = Appearance3
         Me.UltraLabel5.Location = New System.Drawing.Point(23, 228)
         Me.UltraLabel5.Name = "UltraLabel5"
         Me.UltraLabel5.Size = New System.Drawing.Size(218, 23)
@@ -228,12 +228,12 @@ Partial Class FrmReload
         '
         'txtBalanceAfter
         '
-        Appearance2.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance2.FontData.BoldAsString = "True"
-        Appearance2.FontData.SizeInPoints = 14.0!
-        Appearance2.ForeColor = System.Drawing.Color.Teal
-        Appearance2.TextHAlignAsString = "Right"
-        Me.txtBalanceAfter.Appearance = Appearance2
+        Appearance4.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance4.FontData.BoldAsString = "True"
+        Appearance4.FontData.SizeInPoints = 14.0!
+        Appearance4.ForeColor = System.Drawing.Color.Teal
+        Appearance4.TextHAlignAsString = "Right"
+        Me.txtBalanceAfter.Appearance = Appearance4
         Me.txtBalanceAfter.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtBalanceAfter.Location = New System.Drawing.Point(247, 223)
         Me.txtBalanceAfter.Name = "txtBalanceAfter"
