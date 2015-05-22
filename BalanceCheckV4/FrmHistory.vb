@@ -549,14 +549,14 @@ Public Class FrmHistory
 
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
         If gWindowsPrinterName <> "DISABLED" Then PrintToWindows()
-        If gOPOSPrinterName <> "DISABLED" Then PrintToOPOS()
-        If gRasterPrinterName <> "DISABLED" Then PrintToRaster()
+        'If gOPOSPrinterName <> "DISABLED" Then PrintToOPOS()
+        'If gRasterPrinterName <> "DISABLED" Then PrintToRaster()
     End Sub  'btnPrint_Click
 
     Private Sub btnPrintAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintAll.Click
         If gWindowsPrinterName <> "DISABLED" Then PrintAllToWindows()
-        If gOPOSPrinterName <> "DISABLED" Then PrintAllToOPOS()
-        If gRasterPrinterName <> "DISABLED" Then PrintAllToRaster()
+        'If gOPOSPrinterName <> "DISABLED" Then PrintAllToOPOS()
+        'If gRasterPrinterName <> "DISABLED" Then PrintAllToRaster()
     End Sub  'btnPrintAll_Click
 
     Private Sub btnFinished_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFinished.Click
@@ -776,274 +776,274 @@ Public Class FrmHistory
 
 #End Region  'Print to Windows
 
-#Region " Print to Raster "
+    '#Region " Print to Raster "
 
-    Private Sub PrintToRaster()
-        lblPrint.Visible = True
-        Application.DoEvents()
-        lblPrint.Refresh()
-        StarC.Visible = True
-        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
-        Try
-            With StarC
-                .ShowSpooler = True
-                .Protocol = StarComm.Protocols.SC_Spooler
-                .SpoolPrinter = gRasterPrinterName
-                .StarComm_Command(SC_INITIALISE)
-                .StarComm_InitializePrintJob()
-                .StarComm_Command(SC_EMPHASIZE_ON)
-                .StarComm_Command(SC_HEIGHT_X1)
-                .StarComm_Command(SC_INVERT_OFF)
-                .StarComm_Command(SC_UNDERLINE_OFF)
-                .StarComm_Command(SC_UPPERLINE_OFF)
-                .StarComm_Command(SC_WIDTH_X2)
-                .StarComm_Output(" ** NOT A RECEIPT **" & LF & LF)
-                .StarComm_Command(SC_EMPHASIZE_OFF)
-                .StarComm_Command(SC_WIDTH_X1)
-                Dim i As Integer
-                For i = 0 To lstReceipt.Items.Count - 1
-                    If CBool(InStr(lstReceipt.Items(i).ToString, "TOTAL:", CompareMethod.Text)) Then
-                        .StarComm_Command(SC_HEIGHT_X2)
-                        .StarComm_Output(CStr(lstReceipt.Items(i)) & LF)
-                        .StarComm_Command(SC_HEIGHT_X1)
-                    Else
-                        .StarComm_Output(CStr(lstReceipt.Items(i)) & LF)
-                    End If
-                Next
-                .StarComm_Output(LF)
-                .StarComm_Output("----------------------------------------" & LF)
-                .StarComm_Command(SC_HEIGHT_X2)
-                .StarComm_Command(SC_EMPHASIZE_ON)
-                .StarComm_Output(Space(CInt((40 - Len("BALANCE AS OF " & mScanTimeStamp)) / 2)) & "BALANCE AS OF " & mScanTimeStamp & LF)
-                .StarComm_Command(SC_WIDTH_X2)
-                .StarComm_Output(Space(CInt((20 - Len(mBalance)) / 2)) & mBalance & LF)
-                .StarComm_Command(SC_HEIGHT_X1)
-                .StarComm_Command(SC_WIDTH_X1)
-                .StarComm_Output("   * THIS IS NOT AN ACTUAL RECEIPT *" & LF)
-                .StarComm_Output("* MAY NOT BE USED FOR REFUNDS/EXCHANGES *" & LF)
-                .StarComm_Command(SC_FEED_FULL_CUT)
-                .StarComm_Print()
-            End With
-        Catch ex As Exception
-            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
-            lblPrint.Visible = False
-        End Try
-        StarC.Visible = False
-        lblPrint.Visible = False
-    End Sub  'PrintToStar
+    '    Private Sub PrintToRaster()
+    '        lblPrint.Visible = True
+    '        Application.DoEvents()
+    '        lblPrint.Refresh()
+    '        StarC.Visible = True
+    '        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
+    '        Try
+    '            With StarC
+    '                .ShowSpooler = True
+    '                .Protocol = StarComm.Protocols.SC_Spooler
+    '                .SpoolPrinter = gRasterPrinterName
+    '                .StarComm_Command(SC_INITIALISE)
+    '                .StarComm_InitializePrintJob()
+    '                .StarComm_Command(SC_EMPHASIZE_ON)
+    '                .StarComm_Command(SC_HEIGHT_X1)
+    '                .StarComm_Command(SC_INVERT_OFF)
+    '                .StarComm_Command(SC_UNDERLINE_OFF)
+    '                .StarComm_Command(SC_UPPERLINE_OFF)
+    '                .StarComm_Command(SC_WIDTH_X2)
+    '                .StarComm_Output(" ** NOT A RECEIPT **" & LF & LF)
+    '                .StarComm_Command(SC_EMPHASIZE_OFF)
+    '                .StarComm_Command(SC_WIDTH_X1)
+    '                Dim i As Integer
+    '                For i = 0 To lstReceipt.Items.Count - 1
+    '                    If CBool(InStr(lstReceipt.Items(i).ToString, "TOTAL:", CompareMethod.Text)) Then
+    '                        .StarComm_Command(SC_HEIGHT_X2)
+    '                        .StarComm_Output(CStr(lstReceipt.Items(i)) & LF)
+    '                        .StarComm_Command(SC_HEIGHT_X1)
+    '                    Else
+    '                        .StarComm_Output(CStr(lstReceipt.Items(i)) & LF)
+    '                    End If
+    '                Next
+    '                .StarComm_Output(LF)
+    '                .StarComm_Output("----------------------------------------" & LF)
+    '                .StarComm_Command(SC_HEIGHT_X2)
+    '                .StarComm_Command(SC_EMPHASIZE_ON)
+    '                .StarComm_Output(Space(CInt((40 - Len("BALANCE AS OF " & mScanTimeStamp)) / 2)) & "BALANCE AS OF " & mScanTimeStamp & LF)
+    '                .StarComm_Command(SC_WIDTH_X2)
+    '                .StarComm_Output(Space(CInt((20 - Len(mBalance)) / 2)) & mBalance & LF)
+    '                .StarComm_Command(SC_HEIGHT_X1)
+    '                .StarComm_Command(SC_WIDTH_X1)
+    '                .StarComm_Output("   * THIS IS NOT AN ACTUAL RECEIPT *" & LF)
+    '                .StarComm_Output("* MAY NOT BE USED FOR REFUNDS/EXCHANGES *" & LF)
+    '                .StarComm_Command(SC_FEED_FULL_CUT)
+    '                .StarComm_Print()
+    '            End With
+    '        Catch ex As Exception
+    '            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
+    '            lblPrint.Visible = False
+    '        End Try
+    '        StarC.Visible = False
+    '        lblPrint.Visible = False
+    '    End Sub  'PrintToStar
 
-    Private Sub PrintAllToRaster()
-        Dim sQuantity As Integer
-        Dim sDescription As String
-        Dim sPrice As Double
-        Dim sExtPrice As Double
-        Dim sGrandTotal As Double
-        Dim sTenderAmount As Double
-        Dim sTenderType As String
-        lblPrint.Visible = True
-        Application.DoEvents()
-        lblPrint.Refresh()
-        StarC.Visible = True
-        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
-        Try
-            With StarC
-                .ShowSpooler = True
-                .Protocol = StarComm.Protocols.SC_Spooler
-                .SpoolPrinter = gRasterPrinterName
-                .StarComm_Command(SC_INITIALISE)
-                .StarComm_InitializePrintJob()
-                .StarComm_Command(SC_WIDTH_X2)
-                .StarComm_Command(SC_EMPHASIZE_ON)
-                .StarComm_Output("** NOT A RECEIPT **" & LF)
-                .StarComm_Command(SC_WIDTH_X1)
-                .StarComm_Output(Space(CInt((40 - Len("History for " & gStadisTenderText & "#:")) / 2)) & "History for " & gStadisTenderText & "#:" & LF)
-                .StarComm_Command(SC_WIDTH_X2)
-                .StarComm_Command(SC_HEIGHT_X2)
-                .StarComm_Output(Space(CInt((20 - Len("xxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4))) / 2)) & "xxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4) & LF & LF)
-                .StarComm_Command(SC_EMPHASIZE_OFF)
-                .StarComm_Command(SC_HEIGHT_X1)
-                .StarComm_Command(SC_WIDTH_X1)
-                Dim t As Integer
-                For t = 0 To grdTran.Rows.Count - 1
-                    .StarComm_Output("========================================" & LF)
-                    .StarComm_Output("Date/Time : " & CDate(grdTran.Rows(t).Cells("CreateDate").Value).ToString & LF)
-                    .StarComm_Output("Location  : " & CStr(grdTran.Rows(t).Cells("LocationID").Value) & LF)
-                    .StarComm_Output("Register #: " & CStr(grdTran.Rows(t).Cells("RegisterID").Value) & LF)
-                    .StarComm_Output("Receipt  #: " & CStr(grdTran.Rows(t).Cells("ReceiptID").Value) & LF)
-                    .StarComm_Output("Cashier   : " & CStr(grdTran.Rows(t).Cells("VendorCashier").Value) & LF)
-                    sGrandTotal = CDbl(grdTran.Rows(t).Cells("Total").Value)
-                    .StarComm_Output("----------------------------------------" & LF)
-                    .StarComm_Output("  Qty  Description               Price" & LF)
-                    .StarComm_Output("----------------------------------------" & LF)
-                    For Each iRow As DSTran.ItemRow In ds.Item
-                        If iRow.TransactionKey = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
-                            sQuantity = iRow.Quantity
-                            sDescription = Trim(iRow.Description)
-                            sPrice = CDbl(iRow.Price)
-                            sExtPrice = sPrice * sQuantity
-                            If Len(iRow.Description) > 20 Then
-                                .StarComm_Output(Space(7 - Len(sQuantity)) & sQuantity & Space(3) & Mid(sDescription, 1, 20) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
-                            Else
-                                .StarComm_Output(Space(7 - Len(sQuantity)) & sQuantity & Space(3) & sDescription & Space(20 - Len(sDescription)) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
-                            End If
-                        End If
-                    Next
-                    .StarComm_Output("----------------------------------------" & LF)
-                    .StarComm_Output("                  TOTAL: " & Space(13 - Len("$" & sGrandTotal.ToString("0.00"))) & sGrandTotal.ToString("""$""#,##0.00") & LF)
-                    .StarComm_Output("----------------------------------------" & LF)
-                    For Each tRow As DSTran.TenderRow In ds.Tender
-                        If tRow.TransactionKey = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
-                            sTenderType = Trim(tRow.TenderType)
-                            sTenderAmount = CDbl(tRow.PostedAmount)
-                            .StarComm_Output(Space(23 - Len(sTenderType)) & sTenderType & ": " & Space(13 - Len(sTenderAmount.ToString("""$""#,##0.00"))) & sTenderAmount.ToString("""$""#,##0.00") & LF)
-                        End If
-                    Next
-                Next
-                .StarComm_Output(LF)
-                .StarComm_Output("----------------------------------------" & LF)
-                .StarComm_Command(SC_HEIGHT_X2)
-                .StarComm_Command(SC_EMPHASIZE_ON)
-                .StarComm_Output(Space(CInt((40 - Len("BALANCE AS OF " & mScanTimeStamp)) / 2)) & "BALANCE AS OF " & mScanTimeStamp & LF)
-                .StarComm_Command(SC_WIDTH_X2)
-                .StarComm_Output(Space(CInt((20 - Len(mBalance)) / 2)) & mBalance & LF)
-                .StarComm_Command(SC_HEIGHT_X1)
-                .StarComm_Command(SC_WIDTH_X1)
-                .StarComm_Output("   * THIS IS NOT AN ACTUAL RECEIPT *" & LF)
-                .StarComm_Output("* MAY NOT BE USED FOR REFUNDS/EXCHANGES *" & LF)
-                .StarComm_Command(SC_FEED_FULL_CUT)
-                .StarComm_Print()
-            End With
-        Catch ex As Exception
-            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
-            lblPrint.Visible = False
-        End Try
-        lblPrint.Visible = False
-        StarC.Visible = False
-    End Sub  'PrintAllToRaster
+    '    Private Sub PrintAllToRaster()
+    '        Dim sQuantity As Integer
+    '        Dim sDescription As String
+    '        Dim sPrice As Double
+    '        Dim sExtPrice As Double
+    '        Dim sGrandTotal As Double
+    '        Dim sTenderAmount As Double
+    '        Dim sTenderType As String
+    '        lblPrint.Visible = True
+    '        Application.DoEvents()
+    '        lblPrint.Refresh()
+    '        StarC.Visible = True
+    '        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
+    '        Try
+    '            With StarC
+    '                .ShowSpooler = True
+    '                .Protocol = StarComm.Protocols.SC_Spooler
+    '                .SpoolPrinter = gRasterPrinterName
+    '                .StarComm_Command(SC_INITIALISE)
+    '                .StarComm_InitializePrintJob()
+    '                .StarComm_Command(SC_WIDTH_X2)
+    '                .StarComm_Command(SC_EMPHASIZE_ON)
+    '                .StarComm_Output("** NOT A RECEIPT **" & LF)
+    '                .StarComm_Command(SC_WIDTH_X1)
+    '                .StarComm_Output(Space(CInt((40 - Len("History for " & gStadisTenderText & "#:")) / 2)) & "History for " & gStadisTenderText & "#:" & LF)
+    '                .StarComm_Command(SC_WIDTH_X2)
+    '                .StarComm_Command(SC_HEIGHT_X2)
+    '                .StarComm_Output(Space(CInt((20 - Len("xxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4))) / 2)) & "xxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4) & LF & LF)
+    '                .StarComm_Command(SC_EMPHASIZE_OFF)
+    '                .StarComm_Command(SC_HEIGHT_X1)
+    '                .StarComm_Command(SC_WIDTH_X1)
+    '                Dim t As Integer
+    '                For t = 0 To grdTran.Rows.Count - 1
+    '                    .StarComm_Output("========================================" & LF)
+    '                    .StarComm_Output("Date/Time : " & CDate(grdTran.Rows(t).Cells("CreateDate").Value).ToString & LF)
+    '                    .StarComm_Output("Location  : " & CStr(grdTran.Rows(t).Cells("LocationID").Value) & LF)
+    '                    .StarComm_Output("Register #: " & CStr(grdTran.Rows(t).Cells("RegisterID").Value) & LF)
+    '                    .StarComm_Output("Receipt  #: " & CStr(grdTran.Rows(t).Cells("ReceiptID").Value) & LF)
+    '                    .StarComm_Output("Cashier   : " & CStr(grdTran.Rows(t).Cells("VendorCashier").Value) & LF)
+    '                    sGrandTotal = CDbl(grdTran.Rows(t).Cells("Total").Value)
+    '                    .StarComm_Output("----------------------------------------" & LF)
+    '                    .StarComm_Output("  Qty  Description               Price" & LF)
+    '                    .StarComm_Output("----------------------------------------" & LF)
+    '                    For Each iRow As DSTran.ItemRow In ds.Item
+    '                        If iRow.TransactionKey = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
+    '                            sQuantity = iRow.Quantity
+    '                            sDescription = Trim(iRow.Description)
+    '                            sPrice = CDbl(iRow.Price)
+    '                            sExtPrice = sPrice * sQuantity
+    '                            If Len(iRow.Description) > 20 Then
+    '                                .StarComm_Output(Space(7 - Len(sQuantity)) & sQuantity & Space(3) & Mid(sDescription, 1, 20) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
+    '                            Else
+    '                                .StarComm_Output(Space(7 - Len(sQuantity)) & sQuantity & Space(3) & sDescription & Space(20 - Len(sDescription)) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
+    '                            End If
+    '                        End If
+    '                    Next
+    '                    .StarComm_Output("----------------------------------------" & LF)
+    '                    .StarComm_Output("                  TOTAL: " & Space(13 - Len("$" & sGrandTotal.ToString("0.00"))) & sGrandTotal.ToString("""$""#,##0.00") & LF)
+    '                    .StarComm_Output("----------------------------------------" & LF)
+    '                    For Each tRow As DSTran.TenderRow In ds.Tender
+    '                        If tRow.TransactionKey = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
+    '                            sTenderType = Trim(tRow.TenderType)
+    '                            sTenderAmount = CDbl(tRow.PostedAmount)
+    '                            .StarComm_Output(Space(23 - Len(sTenderType)) & sTenderType & ": " & Space(13 - Len(sTenderAmount.ToString("""$""#,##0.00"))) & sTenderAmount.ToString("""$""#,##0.00") & LF)
+    '                        End If
+    '                    Next
+    '                Next
+    '                .StarComm_Output(LF)
+    '                .StarComm_Output("----------------------------------------" & LF)
+    '                .StarComm_Command(SC_HEIGHT_X2)
+    '                .StarComm_Command(SC_EMPHASIZE_ON)
+    '                .StarComm_Output(Space(CInt((40 - Len("BALANCE AS OF " & mScanTimeStamp)) / 2)) & "BALANCE AS OF " & mScanTimeStamp & LF)
+    '                .StarComm_Command(SC_WIDTH_X2)
+    '                .StarComm_Output(Space(CInt((20 - Len(mBalance)) / 2)) & mBalance & LF)
+    '                .StarComm_Command(SC_HEIGHT_X1)
+    '                .StarComm_Command(SC_WIDTH_X1)
+    '                .StarComm_Output("   * THIS IS NOT AN ACTUAL RECEIPT *" & LF)
+    '                .StarComm_Output("* MAY NOT BE USED FOR REFUNDS/EXCHANGES *" & LF)
+    '                .StarComm_Command(SC_FEED_FULL_CUT)
+    '                .StarComm_Print()
+    '            End With
+    '        Catch ex As Exception
+    '            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
+    '            lblPrint.Visible = False
+    '        End Try
+    '        lblPrint.Visible = False
+    '        StarC.Visible = False
+    '    End Sub  'PrintAllToRaster
 
-#End Region  'Print to Raster
+    '#End Region  'Print to Raster
 
-#Region " Print to OPOS "
+    '#Region " Print to OPOS "
 
-    Private Sub PrintToOPOS()
-        lblPrint.Visible = True
-        Application.DoEvents()
-        lblPrint.Refresh()
-        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
-        Try
-            With OPOSPrinter
-                .Open(gOPOSPrinterName)
-                .ClaimDevice(10000)
-                .DeviceEnabled = True
-                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_TRANSACTION)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|2C" & ESC & "|bC" & "** NOT A RECEIPT **" & LF & LF)
-                Dim i As Integer
-                For i = 0 To lstReceipt.Items.Count - 1
-                    If CBool(InStr(lstReceipt.Items(i).ToString, "TOTAL:", CompareMethod.Text)) Then
-                        .PrintNormal(PTR_S_RECEIPT, ESC & "|3C" & ESC & "|bC" & lstReceipt.Items(i).ToString & LF)
-                    Else
-                        .PrintNormal(PTR_S_RECEIPT, lstReceipt.Items(i).ToString & LF)
-                    End If
-                Next
-                .PrintNormal(PTR_S_RECEIPT, LF)
-                .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|3C" & "BALANCE AS OF " & mScanTimeStamp & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|4C" & mBalance & LF)
-                .PrintNormal(PTR_S_RECEIPT, LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* THIS IS NOT AN ACTUAL RECEIPT *" & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* MAY NOT BE USED FOR REFUNDS/EXCHANGES *" & LF)
-                .PrintNormal(PTR_S_RECEIPT, LF & LF)
-                .PrintNormal(PTR_S_RECEIPT, Chr(&H1BS) + "|100fP")
-                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_NORMAL)
-                .DeviceEnabled = False
-                .ReleaseDevice()
-                .Close()
-            End With
-        Catch ex As Exception
-            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
-            lblPrint.Visible = False
-        End Try
-        lblPrint.Visible = False
-    End Sub  'PrintToOPOS
+    '    Private Sub PrintToOPOS()
+    '        lblPrint.Visible = True
+    '        Application.DoEvents()
+    '        lblPrint.Refresh()
+    '        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
+    '        Try
+    '            With OPOSPrinter
+    '                .Open(gOPOSPrinterName)
+    '                .ClaimDevice(10000)
+    '                .DeviceEnabled = True
+    '                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_TRANSACTION)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|2C" & ESC & "|bC" & "** NOT A RECEIPT **" & LF & LF)
+    '                Dim i As Integer
+    '                For i = 0 To lstReceipt.Items.Count - 1
+    '                    If CBool(InStr(lstReceipt.Items(i).ToString, "TOTAL:", CompareMethod.Text)) Then
+    '                        .PrintNormal(PTR_S_RECEIPT, ESC & "|3C" & ESC & "|bC" & lstReceipt.Items(i).ToString & LF)
+    '                    Else
+    '                        .PrintNormal(PTR_S_RECEIPT, lstReceipt.Items(i).ToString & LF)
+    '                    End If
+    '                Next
+    '                .PrintNormal(PTR_S_RECEIPT, LF)
+    '                .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|3C" & "BALANCE AS OF " & mScanTimeStamp & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|4C" & mBalance & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* THIS IS NOT AN ACTUAL RECEIPT *" & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* MAY NOT BE USED FOR REFUNDS/EXCHANGES *" & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, LF & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, Chr(&H1BS) + "|100fP")
+    '                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_NORMAL)
+    '                .DeviceEnabled = False
+    '                .ReleaseDevice()
+    '                .Close()
+    '            End With
+    '        Catch ex As Exception
+    '            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
+    '            lblPrint.Visible = False
+    '        End Try
+    '        lblPrint.Visible = False
+    '    End Sub  'PrintToOPOS
 
-    Private Sub PrintAllToOPOS()
-        Dim sQuantity As Integer
-        Dim sDescription As String
-        Dim sPrice As Double
-        Dim sExtPrice As Double
-        Dim sGrandTotal As Double
-        Dim sTenderAmount As Double
-        Dim sTenderType As String
-        lblPrint.Visible = True
-        Application.DoEvents()
-        lblPrint.Refresh()
-        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
-        Try
-            With OPOSPrinter
-                .Open(gOPOSPrinterName)
-                .ClaimDevice(10000)
-                .DeviceEnabled = True
-                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_TRANSACTION)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|2C" & ESC & "|bC" & "** NOT A RECEIPT **" & LF & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "History for " & gSTADISTenderText & "#:" & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|4C" & ESC & "|bC" & "xxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4) & LF & LF)
-                Dim t As Integer
-                For t = 0 To grdTran.Rows.Count - 1
-                    .PrintNormal(PTR_S_RECEIPT, "========================================" & LF)
-                    .PrintNormal(PTR_S_RECEIPT, "Date/Time : " & CDate(grdTran.Rows(t).Cells("CreateDate").Value).ToString & LF)
-                    .PrintNormal(PTR_S_RECEIPT, "Location  : " & grdTran.Rows(t).Cells("LocationID").Value.ToString & LF)
-                    .PrintNormal(PTR_S_RECEIPT, "Register #: " & grdTran.Rows(t).Cells("RegisterID").Value.ToString & LF)
-                    .PrintNormal(PTR_S_RECEIPT, "Receipt  #: " & grdTran.Rows(t).Cells("ReceiptID").Value.ToString & LF)
-                    .PrintNormal(PTR_S_RECEIPT, "Cashier   : " & grdTran.Rows(t).Cells("VendorCashier").Value.ToString & LF)
-                    sGrandTotal = CDbl(grdTran.Rows(t).Cells("Total").Value)
-                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-                    .PrintNormal(PTR_S_RECEIPT, "  Qty  Description               Price" & LF)
-                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-                    For Each iRow As DataRow In ds.Item
-                        If iRow.Item("TransactionKey").ToString = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
-                            sQuantity = CInt(iRow.Item("Quantity"))
-                            sDescription = Trim(iRow.Item("Description").ToString)
-                            sPrice = CDbl(iRow.Item("Price"))
-                            sExtPrice = sPrice * sQuantity
-                            If Len(iRow.Item("Description")) > 20 Then
-                                .PrintNormal(PTR_S_RECEIPT, Space(7 - Len(sQuantity)) & sQuantity & Space(3) & Mid(sDescription, 1, 20) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
-                            Else
-                                .PrintNormal(PTR_S_RECEIPT, Space(7 - Len(sQuantity)) & sQuantity & Space(3) & sDescription & Space(20 - Len(sDescription)) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
-                            End If
-                        End If
-                    Next
-                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-                    .PrintNormal(PTR_S_RECEIPT, "                  TOTAL: " & Space(13 - Len(sGrandTotal.ToString("""$""#,##0.00"))) & sGrandTotal.ToString("""$""#,##0.00") & LF)
-                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-                    For Each tRow As DataRow In ds.Tender
-                        If tRow.Item("TransactionKey").ToString = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
-                            sTenderType = Trim(CStr(tRow.Item("TenderType")))
-                            sTenderAmount = CDbl(tRow.Item("PostedAmount"))
-                            .PrintNormal(PTR_S_RECEIPT, Space(23 - Len(sTenderType)) & sTenderType & ": " & Space(13 - Len(sTenderAmount.ToString("""$""#,##0.00"))) & sTenderAmount.ToString("""$""#,##0.00") & LF)
-                        End If
-                    Next
-                Next
-                .PrintNormal(PTR_S_RECEIPT, LF)
-                .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|3C" & "BALANCE AS OF " & mScanTimeStamp & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|4C" & mBalance & LF)
-                .PrintNormal(PTR_S_RECEIPT, LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* THIS IS NOT AN ACTUAL RECEIPT *" & LF)
-                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* MAY NOT BE USED FOR REFUNDS/EXCHANGES *")
-                .PrintNormal(PTR_S_RECEIPT, LF & LF)
-                .PrintNormal(PTR_S_RECEIPT, Chr(&H1BS) + "|100fP")
-                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_NORMAL)
-                .DeviceEnabled = False
-                .ReleaseDevice()
-                .Close()
-            End With
-        Catch ex As Exception
-            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
-            lblPrint.Visible = False
-        End Try
-        lblPrint.Visible = False
-    End Sub  'PrintAllToOPOS
+    '    Private Sub PrintAllToOPOS()
+    '        Dim sQuantity As Integer
+    '        Dim sDescription As String
+    '        Dim sPrice As Double
+    '        Dim sExtPrice As Double
+    '        Dim sGrandTotal As Double
+    '        Dim sTenderAmount As Double
+    '        Dim sTenderType As String
+    '        lblPrint.Visible = True
+    '        Application.DoEvents()
+    '        lblPrint.Refresh()
+    '        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
+    '        Try
+    '            With OPOSPrinter
+    '                .Open(gOPOSPrinterName)
+    '                .ClaimDevice(10000)
+    '                .DeviceEnabled = True
+    '                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_TRANSACTION)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|2C" & ESC & "|bC" & "** NOT A RECEIPT **" & LF & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "History for " & gSTADISTenderText & "#:" & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|4C" & ESC & "|bC" & "xxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4) & LF & LF)
+    '                Dim t As Integer
+    '                For t = 0 To grdTran.Rows.Count - 1
+    '                    .PrintNormal(PTR_S_RECEIPT, "========================================" & LF)
+    '                    .PrintNormal(PTR_S_RECEIPT, "Date/Time : " & CDate(grdTran.Rows(t).Cells("CreateDate").Value).ToString & LF)
+    '                    .PrintNormal(PTR_S_RECEIPT, "Location  : " & grdTran.Rows(t).Cells("LocationID").Value.ToString & LF)
+    '                    .PrintNormal(PTR_S_RECEIPT, "Register #: " & grdTran.Rows(t).Cells("RegisterID").Value.ToString & LF)
+    '                    .PrintNormal(PTR_S_RECEIPT, "Receipt  #: " & grdTran.Rows(t).Cells("ReceiptID").Value.ToString & LF)
+    '                    .PrintNormal(PTR_S_RECEIPT, "Cashier   : " & grdTran.Rows(t).Cells("VendorCashier").Value.ToString & LF)
+    '                    sGrandTotal = CDbl(grdTran.Rows(t).Cells("Total").Value)
+    '                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
+    '                    .PrintNormal(PTR_S_RECEIPT, "  Qty  Description               Price" & LF)
+    '                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
+    '                    For Each iRow As DataRow In ds.Item
+    '                        If iRow.Item("TransactionKey").ToString = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
+    '                            sQuantity = CInt(iRow.Item("Quantity"))
+    '                            sDescription = Trim(iRow.Item("Description").ToString)
+    '                            sPrice = CDbl(iRow.Item("Price"))
+    '                            sExtPrice = sPrice * sQuantity
+    '                            If Len(iRow.Item("Description")) > 20 Then
+    '                                .PrintNormal(PTR_S_RECEIPT, Space(7 - Len(sQuantity)) & sQuantity & Space(3) & Mid(sDescription, 1, 20) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
+    '                            Else
+    '                                .PrintNormal(PTR_S_RECEIPT, Space(7 - Len(sQuantity)) & sQuantity & Space(3) & sDescription & Space(20 - Len(sDescription)) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
+    '                            End If
+    '                        End If
+    '                    Next
+    '                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
+    '                    .PrintNormal(PTR_S_RECEIPT, "                  TOTAL: " & Space(13 - Len(sGrandTotal.ToString("""$""#,##0.00"))) & sGrandTotal.ToString("""$""#,##0.00") & LF)
+    '                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
+    '                    For Each tRow As DataRow In ds.Tender
+    '                        If tRow.Item("TransactionKey").ToString = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
+    '                            sTenderType = Trim(CStr(tRow.Item("TenderType")))
+    '                            sTenderAmount = CDbl(tRow.Item("PostedAmount"))
+    '                            .PrintNormal(PTR_S_RECEIPT, Space(23 - Len(sTenderType)) & sTenderType & ": " & Space(13 - Len(sTenderAmount.ToString("""$""#,##0.00"))) & sTenderAmount.ToString("""$""#,##0.00") & LF)
+    '                        End If
+    '                    Next
+    '                Next
+    '                .PrintNormal(PTR_S_RECEIPT, LF)
+    '                .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|3C" & "BALANCE AS OF " & mScanTimeStamp & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|4C" & mBalance & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* THIS IS NOT AN ACTUAL RECEIPT *" & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* MAY NOT BE USED FOR REFUNDS/EXCHANGES *")
+    '                .PrintNormal(PTR_S_RECEIPT, LF & LF)
+    '                .PrintNormal(PTR_S_RECEIPT, Chr(&H1BS) + "|100fP")
+    '                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_NORMAL)
+    '                .DeviceEnabled = False
+    '                .ReleaseDevice()
+    '                .Close()
+    '            End With
+    '        Catch ex As Exception
+    '            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
+    '            lblPrint.Visible = False
+    '        End Try
+    '        lblPrint.Visible = False
+    '    End Sub  'PrintAllToOPOS
 
-#End Region  'Print to OPOS
+    '#End Region  'Print to OPOS
 
 End Class  'FrmHistory

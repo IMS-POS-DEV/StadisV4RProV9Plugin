@@ -171,7 +171,7 @@ Public Class CommonRoutines
             .VendorDiscountPct = BOGetStrAttributeValueByName(adapter, invoiceHandle, "Discount Percent")
             .VendorDiscount = BOGetDecAttributeValueByName(adapter, invoiceHandle, "Discount Amount")
             .VendorTax = BOGetDecAttributeValueByName(adapter, invoiceHandle, "Tax Total")
-            .VendorTip = 0
+            .VendorTip = 0D
             Select Case invoiceType
                 Case "Receipt"
                     .SubTotal = BOGetDecAttributeValueByName(adapter, invoiceHandle, "Subtotal")
@@ -219,6 +219,16 @@ Public Class CommonRoutines
                 .Dept = ""
                 .Class = ""
                 .SubClass = ""
+                Dim DCS() As String = BOGetStrAttributeValueByName(adapter, itemHandle, "DCS Code").Split(" "c)
+                If DCS.Length > 0 Then
+                    .Dept = DCS(0)
+                End If
+                If DCS.Length > 2 Then
+                    .Class = DCS(2)
+                End If
+                If DCS.Length > 4 Then
+                    .SubClass = DCS(4)
+                End If
                 Select Case invoiceType
                     Case "Receipt"
                         .Quantity = BOGetIntAttributeValueByName(adapter, itemHandle, "Qty")

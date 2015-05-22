@@ -86,8 +86,8 @@ Public Class ButtonRedeem
         gStadisPassword = My.Settings.StadisPassword
         gLog = My.Settings.Log
         gNetworkChecking = My.Settings.NetworkChecking
-        gOPOSPrinterName = My.Settings.OPOSPrinterName
-        gRasterPrinterName = My.Settings.RasterPrinterName
+        'gOPOSPrinterName = My.Settings.OPOSPrinterName
+        'gRasterPrinterName = My.Settings.RasterPrinterName
         gWindowsPrinterName = My.Settings.WindowsPrinterName
 
         Try

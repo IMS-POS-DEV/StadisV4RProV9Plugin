@@ -8,6 +8,7 @@ Public Module GlobalValues
     ' used to create the settings if they don't exist.  Settings are stored in the user's app data.
     '----------------------------------------------------------------------------------------------
     Public gSiteID As String = ""
+    Public gWSID As String = ""
     Public gLocationID As String = ""
     Public gStadisWebServiceURL As String = "http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx"
     Public gOverrideSettingComponent As String = ""
@@ -16,11 +17,10 @@ Public Module GlobalValues
     Public gLog As Boolean = False
     Public gNetworkChecking As Boolean = False
 
-    Public gOPOSPrinterName As String
-    Public gRasterPrinterName As String
+    'Public gOPOSPrinterName As String
+    'Public gRasterPrinterName As String
     Public gWindowsPrinterName As String
 
-    Public gWSID As String
     Public gReportServerURL As String
     Public gReportFolder As String
     Public gReportName As String

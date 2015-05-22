@@ -26,19 +26,19 @@ Public Class FrmConfigure
     End Sub  'DisplayVersionNumber
 
     Private Sub LoadPrinterDropdowns()
-        cbOPOS.Items.Add("Disabled")
-        cbRaster.Items.Add("Disabled")
+        'cbOPOS.Items.Add("Disabled")
+        'cbRaster.Items.Add("Disabled")
         cbPrinter.Items.Add("Disabled")
-        Dim mOPOSKey As RegistryKey = Registry.LocalMachine.CreateSubKey("SOFTWARE\OLEforRetail\ServiceOPOS\POSPrinter")
-        For Each mKey As String In mOPOSKey.GetSubKeyNames
-            cbOPOS.Items.Add(mKey)
-        Next
+        'Dim mOPOSKey As RegistryKey = Registry.LocalMachine.CreateSubKey("SOFTWARE\OLEforRetail\ServiceOPOS\POSPrinter")
+        'For Each mKey As String In mOPOSKey.GetSubKeyNames
+        '    cbOPOS.Items.Add(mKey)
+        'Next
         For Each mPrinter As String In PrinterSettings.InstalledPrinters
-            cbRaster.Items.Add(mPrinter)
+            'cbRaster.Items.Add(mPrinter)
             cbPrinter.Items.Add(mPrinter)
         Next
-        cbOPOS.SelectedIndex = 0
-        cbRaster.SelectedIndex = 0
+        'cbOPOS.SelectedIndex = 0
+        'cbRaster.SelectedIndex = 0
         cbPrinter.SelectedIndex = 0
     End Sub  'LoadPrinterDropdowns
 
@@ -50,8 +50,8 @@ Public Class FrmConfigure
         txtStadisUserID.Text = My.Settings.StadisUserID
         txtStadisPassword.Text = My.Settings.StadisPassword
         txtOverrideSettingID.Text = My.Settings.OverrideSettingID
-        cbOPOS.Text = My.Settings.OPOSPrinterName
-        cbRaster.Text = My.Settings.RasterPrinterName
+        'cbOPOS.Text = My.Settings.OPOSPrinterName
+        'cbRaster.Text = My.Settings.RasterPrinterName
         cbPrinter.Text = My.Settings.WindowsPrinterName
         chkLog.Checked = My.Settings.Log
         chkNetworkChecking.Checked = My.Settings.NetworkChecking
@@ -76,10 +76,10 @@ Public Class FrmConfigure
         gStadisPassword = txtStadisPassword.Text
         My.Settings.OverrideSettingID = txtOverrideSettingID.Text
         gOverrideSettingComponent = txtOverrideSettingID.Text
-        My.Settings.OPOSPrinterName = cbOPOS.Text
-        gOPOSPrinterName = cbOPOS.Text
-        My.Settings.RasterPrinterName = cbRaster.Text
-        gRasterPrinterName = cbRaster.Text
+        'My.Settings.OPOSPrinterName = cbOPOS.Text
+        'gOPOSPrinterName = cbOPOS.Text
+        'My.Settings.RasterPrinterName = cbRaster.Text
+        'gRasterPrinterName = cbRaster.Text
         My.Settings.WindowsPrinterName = cbPrinter.Text
         gWindowsPrinterName = cbPrinter.Text
         My.Settings.Log = chkLog.Checked

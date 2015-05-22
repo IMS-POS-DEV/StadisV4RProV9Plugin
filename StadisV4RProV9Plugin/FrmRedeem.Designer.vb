@@ -78,7 +78,7 @@ Partial Class FrmRedeem
         Me.btnOK.Text = "OK"
         UltraToolTipInfo3.ToolTipText = "Process these tenders and charge Stadis account."
         Me.UltraToolTipManager1.SetUltraToolTip(Me.btnOK, UltraToolTipInfo3)
-        Me.btnOK.UseOsThemes = Infragistics.Win.DefaultableBoolean.[False]
+        Me.btnOK.UseOsThemes = Infragistics.Win.DefaultableBoolean.[True]
         '
         'grdTenders
         '
@@ -158,7 +158,7 @@ Partial Class FrmRedeem
         Me.btnCancel.Text = "Cancel"
         UltraToolTipInfo1.ToolTipText = "Leave without processing."
         Me.UltraToolTipManager1.SetUltraToolTip(Me.btnCancel, UltraToolTipInfo1)
-        Me.btnCancel.UseOsThemes = Infragistics.Win.DefaultableBoolean.[False]
+        Me.btnCancel.UseOsThemes = Infragistics.Win.DefaultableBoolean.[True]
         '
         'UltraLabel1
         '

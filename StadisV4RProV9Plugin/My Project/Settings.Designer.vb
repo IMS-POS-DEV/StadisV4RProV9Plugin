@@ -150,16 +150,6 @@ Namespace My
             End Set
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=STADIS1;Initial Catalog=STADISV3;Integrated Security=True")>  _
-        Public ReadOnly Property STADIS_V3ConnectionString() As String
-            Get
-                Return CType(Me("STADIS_V3ConnectionString"),String)
-            End Get
-        End Property
-        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.100.14/StadisWeb/StadisTransactions.asmx")>  _
