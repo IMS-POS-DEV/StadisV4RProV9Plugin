@@ -26,17 +26,17 @@ Public Class FrmBalChk
 
     Private Const LF As Char = Chr(10)
 
-    Private Const SC_EMPHASIZE_ON As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_EMPHASIZE_ON
-    Private Const SC_EMPHASIZE_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_EMPHASIZE_OFF
-    Private Const SC_FEED_FULL_CUT As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_FEED_FULL_CUT
-    Private Const SC_HEIGHT_X1 As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_HEIGHT_X1
-    Private Const SC_HEIGHT_X2 As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_HEIGHT_X2
-    Private Const SC_INITIALISE As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_INITIALISE
-    Private Const SC_WIDTH_X1 As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_WIDTH_X1
-    Private Const SC_WIDTH_X2 As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_WIDTH_X2
-    Private Const SC_INVERT_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_INVERT_OFF
-    Private Const SC_UNDERLINE_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_UNDERLINE_OFF
-    Private Const SC_UPPERLINE_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_UPPERLINE_OFF
+    'Private Const SC_EMPHASIZE_ON As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_EMPHASIZE_ON
+    'Private Const SC_EMPHASIZE_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_EMPHASIZE_OFF
+    'Private Const SC_FEED_FULL_CUT As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_FEED_FULL_CUT
+    'Private Const SC_HEIGHT_X1 As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_HEIGHT_X1
+    'Private Const SC_HEIGHT_X2 As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_HEIGHT_X2
+    'Private Const SC_INITIALISE As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_INITIALISE
+    'Private Const SC_WIDTH_X1 As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_WIDTH_X1
+    'Private Const SC_WIDTH_X2 As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_WIDTH_X2
+    'Private Const SC_INVERT_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_INVERT_OFF
+    'Private Const SC_UNDERLINE_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_UNDERLINE_OFF
+    'Private Const SC_UPPERLINE_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_UPPERLINE_OFF
 
     Private mAdapter As RetailPro.Plugins.IPluginAdapter
     Friend Property Adapter() As RetailPro.Plugins.IPluginAdapter

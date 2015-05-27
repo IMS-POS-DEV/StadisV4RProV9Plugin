@@ -61,7 +61,6 @@ Partial Class FrmBalChk
         Me.lblBackAvail = New System.Windows.Forms.Label()
         Me.lblTotlAvail = New System.Windows.Forms.Label()
         Me.lblMainAvail = New System.Windows.Forms.Label()
-        Me.StarC = New StarComm()
         Me.cmSysT.SuspendLayout()
         CType(Me.pbInfo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbInactive, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -477,36 +476,12 @@ Partial Class FrmBalChk
         Me.lblMainAvail.Text = "$0.00"
         Me.lblMainAvail.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'StarC
-        '
-        Me.StarC.BaudRate = StarComm.BaudRates.SC_9600
-        Me.StarC.DataBits = StarComm.DataBitTypes.SC_DATABITS_8
-        Me.StarC.Location = New System.Drawing.Point(528, 206)
-        Me.StarC.Name = "StarC"
-        Me.StarC.OutputFile = ""
-        Me.StarC.ParallelPortNum = 1
-        Me.StarC.Parity = StarComm.ParityTypes.SC_PARITY_NONE
-        Me.StarC.PrinterIP = "192.168.1.1"
-        Me.StarC.Protocol = StarComm.Protocols.SC_DirectParallel
-        Me.StarC.SerialPortNum = 1
-        Me.StarC.ShowDirectParallel = True
-        Me.StarC.ShowDirectSerial = True
-        Me.StarC.ShowFileOutput = False
-        Me.StarC.ShowSpooler = True
-        Me.StarC.ShowTCPIP = False
-        Me.StarC.Size = New System.Drawing.Size(250, 120)
-        Me.StarC.SpoolPrinter = "Lexmark C543"
-        Me.StarC.TabIndex = 48
-        Me.StarC.TCPPort = 9100
-        Me.StarC.Visible = False
-        '
         'FrmBalChk
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(549, 523)
-        Me.Controls.Add(Me.StarC)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblBackAvail)
         Me.Controls.Add(Me.lblTotlAvail)
@@ -585,5 +560,4 @@ Partial Class FrmBalChk
     Friend WithEvents lblTotlAvail As System.Windows.Forms.Label
     Friend WithEvents lblMainAvail As System.Windows.Forms.Label
     Friend WithEvents btnPrint As System.Windows.Forms.Button
-    Friend WithEvents StarC As StarComm
 End Class

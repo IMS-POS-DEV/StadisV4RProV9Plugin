@@ -76,7 +76,7 @@ Public Class Discover
     '    Plugin Manifest file:
     '      6)  In VB the "ServerName" that you will place in the manifest file should be 
     '          the same as the "Root Namespace" Applications Tab. In this case it should 
-    '          Look like this "VBInvoiceSideButton.Discover". This can be confusing when you 
+    '          Look like this "StadisV4RProV9Plugin.Discover". This can be confusing when you 
     '          have a "Project name", "Assembly name", "Local Namespace". If you put the wrong
     '          server name in the manifet file, Retail Pro will complain. To be sure what 
     '          RetailPro is looking for, you can search the Registry for "YourServerName". 

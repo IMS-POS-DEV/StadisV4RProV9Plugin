@@ -145,7 +145,6 @@ Partial Class FrmHistory
         Me.lblPrint = New System.Windows.Forms.Label()
         Me.UltraTabControl1 = New Infragistics.Win.UltraWinTabControl.UltraTabControl()
         Me.UltraTabSharedControlsPage1 = New Infragistics.Win.UltraWinTabControl.UltraTabSharedControlsPage()
-        Me.StarC = New StarComm()
         Me.btnPrintAll = New System.Windows.Forms.Button()
         Me.btnPrint = New System.Windows.Forms.Button()
         Me.btnFinished = New System.Windows.Forms.Button()
@@ -614,29 +613,6 @@ Partial Class FrmHistory
         Me.UltraTabSharedControlsPage1.Name = "UltraTabSharedControlsPage1"
         Me.UltraTabSharedControlsPage1.Size = New System.Drawing.Size(512, 479)
         '
-        'StarC
-        '
-        Me.StarC.BaudRate = StarComm.BaudRates.SC_9600
-        Me.StarC.DataBits = StarComm.DataBitTypes.SC_DATABITS_8
-        Me.StarC.Location = New System.Drawing.Point(898, 371)
-        Me.StarC.Name = "StarC"
-        Me.StarC.OutputFile = ""
-        Me.StarC.ParallelPortNum = 1
-        Me.StarC.Parity = StarComm.ParityTypes.SC_PARITY_NONE
-        Me.StarC.PrinterIP = "192.168.1.1"
-        Me.StarC.Protocol = StarComm.Protocols.SC_DirectParallel
-        Me.StarC.SerialPortNum = 1
-        Me.StarC.ShowDirectParallel = True
-        Me.StarC.ShowDirectSerial = True
-        Me.StarC.ShowFileOutput = False
-        Me.StarC.ShowSpooler = True
-        Me.StarC.ShowTCPIP = False
-        Me.StarC.Size = New System.Drawing.Size(250, 120)
-        Me.StarC.SpoolPrinter = "Lexmark C543"
-        Me.StarC.TabIndex = 54
-        Me.StarC.TCPPort = 9100
-        Me.StarC.Visible = False
-        '
         'btnPrintAll
         '
         Me.btnPrintAll.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -698,7 +674,6 @@ Partial Class FrmHistory
         Me.ClientSize = New System.Drawing.Size(902, 610)
         Me.Controls.Add(Me.lblPrint)
         Me.Controls.Add(Me.UltraTabControl1)
-        Me.Controls.Add(Me.StarC)
         Me.Controls.Add(Me.btnPrintAll)
         Me.Controls.Add(Me.btnPrint)
         Me.Controls.Add(Me.btnFinished)
@@ -742,7 +717,6 @@ Partial Class FrmHistory
     Friend WithEvents lblTicketBarcodeHdr As Infragistics.Win.Misc.UltraLabel
     Friend WithEvents UltraTabPageControl2 As Infragistics.Win.UltraWinTabControl.UltraTabPageControl
     Friend WithEvents grdAction As Infragistics.Win.UltraWinGrid.UltraGrid
-    Friend WithEvents StarC As StarComm
     Friend WithEvents btnPrintAll As System.Windows.Forms.Button
     Friend WithEvents btnPrint As System.Windows.Forms.Button
     Friend WithEvents btnFinished As System.Windows.Forms.Button
