@@ -906,28 +906,6 @@ Friend Class FrmRedeem
     Private Sub DoCharge(ByVal aRow As Infragistics.Win.UltraWinGrid.UltraGridRow)
         aRow.Cells("IsCharged").Value = False
         Try
-
-            'Add tender to RPro
-            Try
-                CommonRoutines.BORefreshRecord(mAdapter, 0)
-                CommonRoutines.BOOpen(mAdapter, mTenderHandle)
-                aRow.Cells("IsAddedToRPro").Value = True
-                CommonRoutines.BOInsert(mAdapter, mTenderHandle)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE", gStadisTenderType)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AMT", CDec(aRow.Cells("TenderAmount").Value))
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TRANSACTION_ID", CStr(aRow.Cells("TenderID").Value))
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK", "@TK#" & CStr(aRow.Cells("TenderID").Value))
-                If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_TYPE", 1)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_PRESENT", 1)
-                End If
-                CommonRoutines.BOPost(mAdapter, mTenderHandle)
-            Catch ex As Exception
-                MessageBox.Show("Error while adding STADIS tender(s)." & vbCrLf & ex.Message, "STADIS")
-            End Try
-
             'Build StadisRequest and do charge
             Dim sr As New StadisRequest
             With sr
@@ -967,16 +945,31 @@ Friend Class FrmRedeem
                                 aRow.Cells("StatusMessage").Value = "Depleted"
                                 aRow.Cells("TenderAmount").Value = sy.ChargedAmount
                             End If
-                            'Update RPro
+                            'Add tender to RPro
                             Try
-                                CommonRoutines.BOEdit(mAdapter, mTenderHandle)
+                                CommonRoutines.BORefreshRecord(mAdapter, 0)
+                                CommonRoutines.BOOpen(mAdapter, mTenderHandle)
+                                aRow.Cells("IsAddedToRPro").Value = True
+                                CommonRoutines.BOInsert(mAdapter, mTenderHandle)
+                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE", gStadisTenderType)
                                 CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AMT", sy.ChargedAmount)
+                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TRANSACTION_ID", CStr(aRow.Cells("TenderID").Value))
                                 Dim paddedRemAmt As String = Space(8 - Len(sy.FromSVAccountBalance.ToString("#0.00"))) & sy.FromSVAccountBalance.ToString("#0.00")
                                 CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AUTH", sy.StadisAuthorizationID & "\" & paddedRemAmt)
                                 CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK", CStr(aRow.Cells("TenderType").Value) & "#" & CStr(aRow.Cells("TenderID").Value))
+                                If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
+                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
+                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_TYPE", 1)
+                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_PRESENT", 1)
+                                End If
                                 CommonRoutines.BOPost(mAdapter, mTenderHandle)
                             Catch ex As Exception
-                                MessageBox.Show("Error while updating STADIS tender(s)." & vbCrLf & ex.Message, "STADIS")
+                                If sy.StadisAuthorizationID.Length = 6 Then
+                                    DoReverse(sy.StadisAuthorizationID)
+                                End If
+                                MessageBox.Show("Error while adding STADIS tender." & vbCrLf & ex.Message, "STADIS")
+                                Exit Sub
                             End Try
                         Case -1, -3, -99
                             aRow.Cells("TenderID").Value = ""
@@ -1021,11 +1014,11 @@ Friend Class FrmRedeem
                         CommonRoutines.BORefreshRecord(mAdapter, 0)
                         CommonRoutines.BOOpen(mAdapter, mTenderHandle)
                         CommonRoutines.BOInsert(mAdapter, mTenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE", gStadisTenderType)
+                        CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE", "PRO")
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AMT", sy.ChargedAmount)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TRANSACTION_ID", sy.TenderID)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK", "@PR#" & sy.TenderID)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AUTH", sy.StadisAuthorizationID & "\   $0.00")
+                        CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK", "@PR#" & sy.TenderID)
                         If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
