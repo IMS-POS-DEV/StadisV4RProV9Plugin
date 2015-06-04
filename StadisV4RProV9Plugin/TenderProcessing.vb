@@ -8,8 +8,8 @@ Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
 '   Class: TenderProcessing
-'    Type: 
-' Purpose: 
+'    Type: Tender / CancelTransaction
+' Purpose: Called when various tender events occur.  The only one we handle here is CancelTransaction.
 '----------------------------------------------------------------------------------------------
 <GuidAttribute(Discover.CLASS_TenderProcessing)> _
 Public Class TenderProcessing
@@ -89,7 +89,7 @@ Public Class TenderProcessing
     'End Function  'IsTenderActiveInBatch
 
     '----------------------------------------------------------------------------------------------
-    ' 
+    ' Use the list we were keeping to back out charges.
     '----------------------------------------------------------------------------------------------
     Public Overrides Function CancelTransaction() As Boolean
 

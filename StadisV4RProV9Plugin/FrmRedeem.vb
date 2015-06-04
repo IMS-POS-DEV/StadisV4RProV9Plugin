@@ -926,7 +926,7 @@ Friend Class FrmRedeem
             Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), CommonRoutines.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), CommonRoutines.LoadTendersForCharge(mAdapter, "Receipt", mInvoiceHandle, mTenderHandle))
             For Each sy As StadisReply In sys
                 If sy.TenderTypeID = 1 Then   'Ticket
-                    'Create our own list of Stadis tenders, so we can check in PrintUpdate for deletes
+                    'Update our own list of Stadis tenders, so we can check in PrintUpdate for deletes
                     Dim sc As New StadisCharge(sy.TenderTypeID, sy.TenderID, sy.ChargedAmount, sy.StadisAuthorizationID, sr.ReceiptID)
                     stadisChargeList.Add(sc)
                     If CommonRoutines.IsAGiftCard(sy.EventID) Then

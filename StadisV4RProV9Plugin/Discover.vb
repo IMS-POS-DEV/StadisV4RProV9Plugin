@@ -35,13 +35,15 @@ Public Class Discover
         Return classIDs
     End Function  'PluginGUIDs
 
+    ' Retail Pro's Notes:
+    '
     '   A Note on VB Namespaces:
     '   Do not create a namespace here, set your Namespace in "MyProject" -> "Application" tab
     '   "Root Namespace". While it is perfectly legal to create "Local" Namespace here, your 
     '   COM server will be Registered in Windows as "RootNamespace.LocalNamespace.Discover"
     '   RetailPro will complain because it is looking for the format of "ServerName.DiscoverClassName"
     '   
-    '   This is note pertains to step #4 below, having the IDE register your plugin for you. 
+    '   This note pertains to step #4 below, having the IDE register your plugin for you. 
     '   Please see the Microsoft help files for guidance if you are going to register it 
     '   yourself with the Gacutil and RegAsm utilities. 
     '
