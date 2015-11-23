@@ -1,9 +1,9 @@
 ﻿Imports CommonV4
 Imports CommonV4.CommonRoutines
 Imports CommonV4.WebReference
-Imports System
 Imports RetailPro.CustomPluginClasses
 Imports RetailPro.Plugins
+Imports System
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
@@ -29,6 +29,7 @@ Public Class TenderProcessing
         End If
         fGUID = New Guid(Discover.CLASS_TenderProcessing)
         fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btTender
+
     End Sub  'Initialize
 
     '----------------------------------------------------------------------------------------------
@@ -42,6 +43,44 @@ Public Class TenderProcessing
             Return False
         End If
     End Function  'PluginCapability
+
+    '----------------------------------------------------------------------------------------------
+    ' Use the list we were keeping to back out charges.
+    '----------------------------------------------------------------------------------------------
+    Public Overrides Function CancelTransaction() As Boolean
+
+        ' Get pointers to receipt components
+        Dim invoiceHandle As Integer = 0
+        Dim itemHandle As Integer = fAdapter.GetReferenceBOForAttribute(invoiceHandle, "Items")
+        Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(invoiceHandle, "Tenders")
+
+        'Back out all charges
+        Dim rproReceiptID As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+        For Each sc As StadisCharge In stadisChargeList
+            Dim sr As New StadisRequest
+            With sr
+                .SiteID = gSiteID
+                .TenderTypeID = sc.TenderTypeID
+                .TenderID = sc.TenderID
+                .Amount = sc.Amount
+                .ReferenceNumber = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+                '.CustomerID =  
+                .VendorID = gVendorID
+                .LocationID = gLocationID
+                .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
+                .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+                .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
+            End With
+            Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
+            If sys(0).ReturnCode < 0 Then
+                MsgBox(sys(0).ReturnMessage, MsgBoxStyle.Critical, "Error while reversing Stadis charge.TenderID = " & sc.TenderID & ", AuthID = " & sc.StadisAuthorizationID & ".")
+            End If
+        Next
+        stadisChargeList.Clear()
+        Return MyBase.CancelTransaction()
+    End Function  'CancelTransaction
+
+#Region " Not Used "
 
     'Public Function HandleBOUIEvent(ByVal ABOHandle As Integer, ByVal AEventType As String, ByVal AParameters As String, ByRef AReturnValues As String, ByRef AHandled As Boolean) As Boolean
     '    MessageBox.Show("HandleBOUIEvent", "DEBUG")
@@ -87,42 +126,6 @@ Public Class TenderProcessing
     '    MessageBox.Show("IsTenderActiveInBatch", "DEBUG")
     '    Return MyBase.IsTenderActiveInBatch(TenderID)
     'End Function  'IsTenderActiveInBatch
-
-    '----------------------------------------------------------------------------------------------
-    ' Use the list we were keeping to back out charges.
-    '----------------------------------------------------------------------------------------------
-    Public Overrides Function CancelTransaction() As Boolean
-
-        ' Get pointers to receipt components
-        Dim invoiceHandle As Integer = 0
-        Dim itemHandle As Integer = fAdapter.GetReferenceBOForAttribute(invoiceHandle, "Items")
-        Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(invoiceHandle, "Tenders")
-
-        'Back out all charges
-        Dim rproReceiptID As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-        For Each sc As StadisCharge In stadisChargeList
-            Dim sr As New StadisRequest
-            With sr
-                .SiteID = gSiteID
-                .TenderTypeID = sc.TenderTypeID
-                .TenderID = sc.TenderID
-                .Amount = sc.Amount
-                .ReferenceNumber = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-                '.CustomerID =  
-                .VendorID = gVendorID
-                .LocationID = gLocationID
-                .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
-                .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-                .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
-            End With
-            Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
-            If sys(0).ReturnCode < 0 Then
-                MsgBox(sys(0).ReturnMessage, MsgBoxStyle.Critical, "Error while reversing Stadis charge.TenderID = " & sc.TenderID & ", AuthID = " & sc.StadisAuthorizationID & ".")
-            End If
-        Next
-        stadisChargeList.Clear()
-        Return MyBase.CancelTransaction()
-    End Function  'CancelTransaction
 
     ''----------------------------------------------------------------------------------------------
     '' 
@@ -203,5 +206,7 @@ Public Class TenderProcessing
     '    MessageBox.Show("StartTransaction", "DEBUG")
     '    Return MyBase.StartTransaction()
     'End Function  'StartTransaction
+
+#End Region  'Not Used
 
 End Class  'TenderProcessing

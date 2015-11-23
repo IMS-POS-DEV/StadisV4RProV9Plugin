@@ -68,14 +68,9 @@
     <Reference Include="Infragistics4.Shared.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="MSXML, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d968d3c9cb1904b5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\RProV9\Bin\MSXML.dll</HintPath>
-    </Reference>
-    <Reference Include="RetailPro.Plugins, Version=1.2.0.0, Culture=neutral, PublicKeyToken=d968d3c9cb1904b5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="RetailPro.Plugins">
       <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\RetailPro.Plugins.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -263,16 +258,6 @@
     <None Include="Resources\stadis32.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BalanceCheckV4\BalanceCheckV4.vbproj">
-      <Project>{CF257B48-3056-4172-9156-03369ABA1342}</Project>
-      <Name>BalanceCheckV4</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonV4\CommonV4.vbproj">
-      <Project>{8C70B7DD-CCF2-406D-A707-29DE73EEBFD6}</Project>
-      <Name>CommonV4</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -282,6 +267,16 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BalanceCheckV4\BalanceCheckV4.vbproj">
+      <Project>{cf257b48-3056-4172-9156-03369aba1342}</Project>
+      <Name>BalanceCheckV4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonV4\CommonV4.vbproj">
+      <Project>{8c70b7dd-ccf2-406d-a707-29de73eebfd6}</Project>
+      <Name>CommonV4</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

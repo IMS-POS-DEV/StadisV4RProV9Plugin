@@ -97,7 +97,8 @@ Public Class ButtonRedeem
                 MessageBox.Show("Unable to access InstallationSettings.", "STADIS")
                 Exit Sub
             End If
-            SetSettingsFor(mis, "RPro9WS")
+            SetSettingsFor(mis, "Site")
+            SetSettingsFor(mis, gStandardSettingComponent)
             If gOverrideSettingComponent <> "" Then
                 SetSettingsFor(mis, gOverrideSettingComponent)
             End If
@@ -172,143 +173,142 @@ Public Class ButtonRedeem
 
     End Sub  'LoadSettings
 
-    Private Sub SetSettingsFor(ByRef mis As MessageAndInstallationSettings, ByVal setComponentName As String)
+    Private Sub SetSettingsFor(ByRef mis As MessageAndInstallationSettings, ByVal loadComponentName As String)
         For Each setting As InstallationSetting In mis.InstallationSettings
             With setting
-                Select Case .ComponentName
-                    Case "Site"
-                        Select Case .SettingName
-                            Case "StadisVersion"
-                                gStadisVersion = .SettingValue
-                            Case "StadisRelease"
-                                gStadisRelease = .SettingValue
-                            Case "SiteSVType"
-                                gSiteSVType = .SettingValue
-                        End Select
-                    Case setComponentName
-                        Select Case .SettingName
-                            Case "TenderTypeForStadis"
-                                gTenderTypeForStadis = .SettingValue
-                            Case "FeeOrTenderForIssueOffset"
-                                gFeeOrTenderForIssueOffset = .SettingValue
-                            Case "VendorID"
-                                gVendorID = .SettingValue
-                            Case "FormLogoImage"
-                                gFormLogoImage = .SettingValue
-                            Case "ImageTransparentColor"
-                                Try
-                                    Dim rgb() As String = .SettingValue.Split(","c)
-                                    If rgb.Count = 3 Then
-                                        gImageTransparentColor = Drawing.Color.FromArgb(CInt(rgb(0)), CInt(rgb(1)), CInt(rgb(2)))
-                                    End If
-                                Catch ex As Exception
+                If .ComponentName = loadComponentName Then
+                    Select Case .SettingName
+                        'Site settings
+                        Case "StadisVersion"
+                            gStadisVersion = .SettingValue
+                        Case "StadisRelease"
+                            gStadisRelease = .SettingValue
+                        Case "SiteSVType"
+                            gSiteSVType = .SettingValue
 
-                                End Try
-                            Case "AskForTicketOnRedeem"
-                                gAskForTicketOnRedeem = CBool(.SettingValue)
-                            Case "AskForTicketOnIssue"
-                                gAskForTicketOnIssue = CBool(.SettingValue)
-                            Case "DefaultCustomerID"
-                                gDefaultCustomerID = .SettingValue
-                            Case "AllowReturnCreditToCard"
-                                gAllowReturnCreditToCard = CBool(.SettingValue)
-                            Case "PostNonStadisTransactions"
-                                gPostNonStadisTransactions = CBool(.SettingValue)
-                            Case "ScanPattern"
-                                gValidatePattern = .SettingValue
-                            Case "ExtractPattern"
-                                gExtractPattern = .SettingValue
-                            Case "ValidatePattern"
-                                gValidatePattern = .SettingValue
-                            Case "GiftCardEvents"
-                                gGiftCardEvents = .SettingValue
-                            Case "IssueGiftCardForReturn"
-                                gIssueGiftCardForReturn = CBool(.SettingValue)
-                            Case "IsPrintingEnabled"
-                                gIsPrintingEnabled = CBool(.SettingValue)
-                            Case "StadisTenderText"
-                                gSTADISTenderText = .SettingValue
-                            Case "IsMergeFunctionEnabled"
-                                gIsMergeFunctionEnabled = CBool(.SettingValue)
-                            Case "ShowSVActionGrid"
-                                gShowSVActionGrid = CBool(.SettingValue)
-
-                            Case "BalChkButtonActive"
-                                gBalChkButtonActive = CBool(.SettingValue)
-                                If gBalChkButtonActive = True Then
-                                    gBalChkButtonEnabled = True
-                                Else
-                                    gBalChkButtonEnabled = False
+                            'RPro settings
+                        Case "TenderTypeForStadis"
+                            gTenderTypeForStadis = .SettingValue
+                        Case "FeeOrTenderForIssueOffset"
+                            gFeeOrTenderForIssueOffset = .SettingValue
+                        Case "VendorID"
+                            gVendorID = .SettingValue
+                        Case "FormLogoImage"
+                            gFormLogoImage = .SettingValue
+                        Case "ImageTransparentColor"
+                            Try
+                                Dim rgb() As String = .SettingValue.Split(","c)
+                                If rgb.Count = 3 Then
+                                    gImageTransparentColor = Drawing.Color.FromArgb(CInt(rgb(0)), CInt(rgb(1)), CInt(rgb(2)))
                                 End If
-                            Case "BalChkButtonCaption"
-                                gBalChkButtonCaption = .SettingValue
-                            Case "BalChkButtonImage"
-                                gBalChkButtonImage = .SettingValue
-                            Case "BalChkButtonHint"
-                                gBalChkButtonHint = .SettingValue
+                            Catch ex As Exception
 
-                            Case "IssueButtonActive"
-                                gIssueButtonActive = CBool(.SettingValue)
-                                If gIssueButtonActive = True Then
-                                    gIssueButtonEnabled = True
-                                Else
-                                    gIssueButtonEnabled = False
-                                End If
-                            Case "IssueButtonEnabled"
-                                gIssueButtonEnabled = CBool(.SettingValue)
-                            Case "IssueButtonCaption"
-                                gIssueButtonCaption = .SettingValue
-                            Case "IssueButtonImage"
-                                gIssueButtonImage = .SettingValue
-                            Case "IssueButtonHint"
-                                gIssueButtonHint = .SettingValue
+                            End Try
+                        Case "AskForTicketOnRedeem"
+                            gAskForTicketOnRedeem = CBool(.SettingValue)
+                        Case "AskForTicketOnIssue"
+                            gAskForTicketOnIssue = CBool(.SettingValue)
+                        Case "DefaultCustomerID"
+                            gDefaultCustomerID = .SettingValue
+                        Case "AllowReturnCreditToCard"
+                            gAllowReturnCreditToCard = CBool(.SettingValue)
+                        Case "PostNonStadisTransactions"
+                            gPostNonStadisTransactions = CBool(.SettingValue)
+                        Case "ScanPattern"
+                            gValidatePattern = .SettingValue
+                        Case "ExtractPattern"
+                            gExtractPattern = .SettingValue
+                        Case "ValidatePattern"
+                            gValidatePattern = .SettingValue
+                        Case "GiftCardEvents"
+                            gGiftCardEvents = .SettingValue
+                        Case "IssueGiftCardForReturn"
+                            gIssueGiftCardForReturn = CBool(.SettingValue)
+                        Case "IsPrintingEnabled"
+                            gIsPrintingEnabled = CBool(.SettingValue)
+                        Case "StadisTenderText"
+                            gStadisTenderText = .SettingValue
+                        Case "IsMergeFunctionEnabled"
+                            gIsMergeFunctionEnabled = CBool(.SettingValue)
+                        Case "ShowSVActionGrid"
+                            gShowSVActionGrid = CBool(.SettingValue)
 
-                            Case "RedeemButtonActive"
-                                gRedeemButtonActive = CBool(.SettingValue)
-                                If gRedeemButtonActive = True Then
-                                    gRedeemButtonEnabled = True
-                                Else
-                                    gRedeemButtonEnabled = False
-                                End If
-                            Case "RedeemSideButtonEnabled"
-                                gRedeemButtonEnabled = CBool(.SettingValue)
-                            Case "RedeemButtonCaption"
-                                gRedeemButtonCaption = .SettingValue
-                            Case "RedeemButtonImage"
-                                gRedeemButtonImage = .SettingValue
-                            Case "RedeemButtonHint"
-                                gRedeemButtonHint = .SettingValue
+                        Case "BalChkButtonActive"
+                            gBalChkButtonActive = CBool(.SettingValue)
+                            If gBalChkButtonActive = True Then
+                                gBalChkButtonEnabled = True
+                            Else
+                                gBalChkButtonEnabled = False
+                            End If
+                        Case "BalChkButtonCaption"
+                            gBalChkButtonCaption = .SettingValue
+                        Case "BalChkButtonImage"
+                            gBalChkButtonImage = .SettingValue
+                        Case "BalChkButtonHint"
+                            gBalChkButtonHint = .SettingValue
 
-                            Case "ReturnButtonActive"
-                                gReturnButtonActive = CBool(.SettingValue)
-                                gReturnButtonEnabled = False
-                            Case "ReturnButtonEnabled"
-                                gReturnButtonEnabled = CBool(.SettingValue)
-                            Case "ReturnButtonCaption"
-                                gReturnButtonCaption = .SettingValue
-                            Case "ReturnButtonImage"
-                                gReturnButtonImage = .SettingValue
-                            Case "ReturnButtonHint"
-                                gReturnButtonHint = .SettingValue
+                        Case "IssueButtonActive"
+                            gIssueButtonActive = CBool(.SettingValue)
+                            If gIssueButtonActive = True Then
+                                gIssueButtonEnabled = True
+                            Else
+                                gIssueButtonEnabled = False
+                            End If
+                        Case "IssueButtonEnabled"
+                            gIssueButtonEnabled = CBool(.SettingValue)
+                        Case "IssueButtonCaption"
+                            gIssueButtonCaption = .SettingValue
+                        Case "IssueButtonImage"
+                            gIssueButtonImage = .SettingValue
+                        Case "IssueButtonHint"
+                            gIssueButtonHint = .SettingValue
 
-                            Case "ReloadButtonActive"
-                                gReloadButtonActive = CBool(.SettingValue)
-                                If gReloadButtonActive = True Then
-                                    gReloadButtonEnabled = True
-                                Else
-                                    gReloadButtonEnabled = False
-                                End If
-                            Case "ReloadButtonEnabled"
-                                gReloadButtonEnabled = CBool(.SettingValue)
-                            Case "ReloadButtonCaption"
-                                gReloadButtonCaption = .SettingValue
-                            Case "ReloadButtonImage"
-                                gReloadButtonImage = .SettingValue
-                            Case "ReloadButtonHint"
-                                gReloadButtonHint = .SettingValue
+                        Case "RedeemButtonActive"
+                            gRedeemButtonActive = CBool(.SettingValue)
+                            If gRedeemButtonActive = True Then
+                                gRedeemButtonEnabled = True
+                            Else
+                                gRedeemButtonEnabled = False
+                            End If
+                        Case "RedeemSideButtonEnabled"
+                            gRedeemButtonEnabled = CBool(.SettingValue)
+                        Case "RedeemButtonCaption"
+                            gRedeemButtonCaption = .SettingValue
+                        Case "RedeemButtonImage"
+                            gRedeemButtonImage = .SettingValue
+                        Case "RedeemButtonHint"
+                            gRedeemButtonHint = .SettingValue
 
-                        End Select
-                End Select
+                        Case "ReturnButtonActive"
+                            gReturnButtonActive = CBool(.SettingValue)
+                            gReturnButtonEnabled = False
+                        Case "ReturnButtonEnabled"
+                            gReturnButtonEnabled = CBool(.SettingValue)
+                        Case "ReturnButtonCaption"
+                            gReturnButtonCaption = .SettingValue
+                        Case "ReturnButtonImage"
+                            gReturnButtonImage = .SettingValue
+                        Case "ReturnButtonHint"
+                            gReturnButtonHint = .SettingValue
+
+                        Case "ReloadButtonActive"
+                            gReloadButtonActive = CBool(.SettingValue)
+                            If gReloadButtonActive = True Then
+                                gReloadButtonEnabled = True
+                            Else
+                                gReloadButtonEnabled = False
+                            End If
+                        Case "ReloadButtonEnabled"
+                            gReloadButtonEnabled = CBool(.SettingValue)
+                        Case "ReloadButtonCaption"
+                            gReloadButtonCaption = .SettingValue
+                        Case "ReloadButtonImage"
+                            gReloadButtonImage = .SettingValue
+                        Case "ReloadButtonHint"
+                            gReloadButtonHint = .SettingValue
+
+                    End Select
+                End If
             End With
         Next
     End Sub  'SetSettingsFor

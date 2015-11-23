@@ -18,20 +18,20 @@ Public Class Discover
     Public Const CLASS_ButtonReturn As String = "DDF40097-F0A7-4482-AAE2-5063F053717F"
     Public Const CLASS_ButtonBalChk As String = "20E62D4C-A4F6-4e3c-8012-B2450C9980B8"
     Public Const CLASS_ButtonReload As String = "286028C9-64CA-4743-A845-4EF380882079"
-    Public Const CLASS_TenderProcessing As String = "DDF465F6-400e-4c4e-8EB1-E18B3A9465A8"
     Public Const CLASS_PrintUpdateStadisProcessing As String = "1AE665F6-3DDB-4c4e-8EB1-E18B3A9465A8"
     Public Const CLASS_Configure As String = "2C6467F5-5011-43ce-8361-7F9E9044D293"
+    Public Const CLASS_TenderProcessing As String = "DDF465F6-400e-4c4e-8EB1-E18B3A9465A8"
 
     Public Overrides Function PluginGUIDs() As Object
-        Dim classIDs(8) As String
+        Dim classIDs(7) As String
         classIDs(0) = CLASS_ButtonRedeem
         classIDs(1) = CLASS_ButtonIssue
         classIDs(2) = CLASS_ButtonReturn
         classIDs(3) = CLASS_ButtonBalChk
         classIDs(4) = CLASS_ButtonReload
-        classIDs(5) = CLASS_TenderProcessing
-        classIDs(6) = CLASS_PrintUpdateStadisProcessing
-        classIDs(7) = CLASS_Configure
+        classIDs(5) = CLASS_PrintUpdateStadisProcessing
+        classIDs(6) = CLASS_Configure
+        classIDs(7) = CLASS_TenderProcessing
         Return classIDs
     End Function  'PluginGUIDs
 

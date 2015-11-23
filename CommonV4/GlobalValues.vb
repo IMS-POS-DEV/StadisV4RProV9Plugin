@@ -11,6 +11,7 @@ Public Module GlobalValues
     Public gWSID As String = ""
     Public gLocationID As String = ""
     Public gStadisWebServiceURL As String = "http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx"
+    Public gStandardSettingComponent As String = "RPro9WS"
     Public gOverrideSettingComponent As String = ""
     Public gStadisUserID As String = "Test1"
     Public gStadisPassword As String = "password"

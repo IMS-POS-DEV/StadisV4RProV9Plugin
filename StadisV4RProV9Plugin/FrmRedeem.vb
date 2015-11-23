@@ -1,13 +1,13 @@
 ﻿Imports CommonV4
 Imports CommonV4.CommonRoutines
 Imports CommonV4.WebReference
-Imports Infragistics.Win
-Imports Infragistics.Win.UltraWinGrid
 Imports RetailPro.CustomPluginClasses
 Imports RetailPro.Plugins
 Imports System.Drawing
 Imports System.Text
 Imports System.Text.RegularExpressions
+Imports Infragistics.Win
+Imports Infragistics.Win.UltraWinGrid
 '----------------------------------------------------------------------------------------------
 '   Class: FrmRedeem
 '    Type: Windows Form
@@ -106,8 +106,9 @@ Friend Class FrmRedeem
         grdTenders.Refresh()
         grdTenders.BeginInvoke(New MethodInvoker(AddressOf ActivateGridEditMode))
         grdTenders.Focus()
+
         Dim aRow As UltraGridRow = grdTenders.Rows(0)
-        aRow = aRow.GetChild(Infragistics.Win.UltraWinGrid.ChildRow.Last)
+        aRow = aRow.GetChild(Infragistics.Win.UltraWinGrid.ChildRow.First)
         grdTenders.ActiveRow = aRow
         grdTenders.ActiveCell = grdTenders.ActiveRow.Cells("TenderID")
         grdTenders.PerformAction(UltraGridAction.ToggleCellSel, False, False)
@@ -157,7 +158,11 @@ Friend Class FrmRedeem
             End If
             CommonRoutines.BOOpen(mAdapter, mTenderHandle)
             Dim retcode As Integer = mAdapter.BOFirst(mTenderHandle)
-            If retcode <> RetailPro.Plugins.PluginError.peSuccess Then Exit Sub
+            'If retcode <> RetailPro.Plugins.PluginError.peSuccess Then Exit Sub
+            If retcode <> RetailPro.Plugins.PluginError.peSuccess Then
+                MessageBox.Show("Error while loading STADIS tender(s)." & vbCrLf & "RPro retcode = " & retcode.ToString, "STADIS")
+                Exit Sub
+            End If
             While Not mAdapter.EOF(mTenderHandle)
                 Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE")
                 If tenderType = gStadisTenderType Then
@@ -737,13 +742,29 @@ Friend Class FrmRedeem
                             Case False
                                 grdTenders.PerformAction(UltraGridAction.ExitEditMode, False, False)
                                 TabToField("TenderAmount")
-                                RemoveHandler grdTenders.AfterExitEditMode, AddressOf grdTenders_AfterExitEditMode
+                                'RemoveHandler grdTenders.AfterExitEditMode, AddressOf grdTenders_AfterExitEditMode
                                 RemoveHandler grdTenders.AfterCellUpdate, AddressOf grdTenders_AfterCellUpdate
                                 .ActiveRow.Cells("TenderAmount").Value = mRemainingAmountDue
                                 .ActiveRow.Update()
-                                AddHandler grdTenders.AfterExitEditMode, AddressOf grdTenders_AfterExitEditMode
+                                'AddHandler grdTenders.AfterExitEditMode, AddressOf grdTenders_AfterExitEditMode
                                 AddHandler grdTenders.AfterCellUpdate, AddressOf grdTenders_AfterCellUpdate
-                                grdTenders.PerformAction(UltraGridAction.EnterEditMode, False, False)
+                                '
+                                CalculateTenderTotal()
+                                If lastRow Then
+                                    grdTenders.PerformAction(UltraGridAction.ExitEditMode, False, False)
+                                    If mRemainingAmountDue = 0D Then
+                                        JumpToOKButton()
+                                    Else
+                                        AddLineToTendersGrid()
+                                        TabToField("TenderID")
+                                        grdTenders.PerformAction(UltraGridAction.EnterEditMode, False, False)
+                                    End If
+                                Else
+                                    TabToField("TenderID")
+                                    grdTenders.PerformAction(UltraGridAction.EnterEditMode, False, False)
+                                End If
+                                '
+                                'grdTenders.PerformAction(UltraGridAction.EnterEditMode, False, False)
                         End Select
                     Case "TenderAmount"
                         If IsDBNull(.ActiveCell.Text) OrElse .ActiveCell.Text = "" Then
@@ -793,6 +814,61 @@ Friend Class FrmRedeem
         grdTenders.PerformAction(UltraGridAction.ExitEditMode, False, False)
         btnOK.Focus()
     End Sub  'JumpToOKButton
+
+    '------------------------------------------------------------------------------
+    ' Catch changes to already charged tenders
+    '------------------------------------------------------------------------------
+    Private Sub grdTenders_BeforeCellUpdate(sender As Object, e As BeforeCellUpdateEventArgs) Handles grdTenders.BeforeCellUpdate
+        If Not (e.Cell.Column.Key = "TenderID" OrElse e.Cell.Column.Key = "TenderAmount") Then
+            Exit Sub
+        End If
+        SyncLock Me
+            If mBusy Then
+                Return
+            End If
+            mBusy = True
+        End SyncLock
+        Try
+            If CBool(e.Cell.Row.Cells("IsCharged").Value) = True Then
+                'Build StadisRequest and do reverse
+                Dim sr As New StadisRequest
+                With sr
+                    .SiteID = gSiteID
+                    .ReferenceNumber = CStr(e.Cell.Row.Cells("ReferenceNumber").Value)
+                    .StadisAuthorizationID = CStr(e.Cell.Row.Cells("StadisAuthorizationID").Value)
+                    .VendorID = mVendorID
+                    .LocationID = mLocationID
+                    .RegisterID = mRegisterID
+                    .ReceiptID = mReceiptID
+                    .VendorCashier = mVendorCashier
+                End With
+                Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
+                If sys(0).ReturnCode < 0 Then
+                    MsgBox("Unable to back out previously entered value.", MsgBoxStyle.Exclamation, "STADIS")
+                End If
+                'ToDo adjust RPro
+                Dim invoiceHandle As Integer = 0
+                Dim tenderHandle As Integer = mAdapter.GetReferenceBOForAttribute(invoiceHandle, "Tenders")
+                Dim tenderID As String = ""
+                CommonRoutines.BORefreshRecord(mAdapter, 0)
+                CommonRoutines.BOOpen(mAdapter, tenderHandle)
+                CommonRoutines.BOFirst(mAdapter, tenderHandle)
+                While Not mAdapter.EOF(tenderHandle)
+                    tenderID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID")
+                    If tenderID = CStr(e.Cell.Row.Cells("TenderID").Value) Then
+                        CommonRoutines.BODelete(mAdapter, tenderHandle)
+                        mBusy = False
+                        Exit Sub
+                    End If
+                    mAdapter.BONext(tenderHandle)
+                End While
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            mBusy = False
+        End Try
+    End Sub  'grdTenders_BeforeCellUpdate
 
     '------------------------------------------------------------------------------
     ' Process Tender scans and do STADIS validation
@@ -896,14 +972,14 @@ Friend Class FrmRedeem
                     'Dim id As String = .Cells("TenderID").Text
                     'Dim amt As Decimal = CDec(.Cells("TenderAmount").Value)
                     'MsgBox("Charge " & id & " " & amt.ToString)
-                    DoCharge(grdTenders.ActiveRow)
+                    DoSVAccountCharge(grdTenders.ActiveRow)
                 End If
             End With
         End If
     End Sub
 
     'Private Sub DoCharge(ByVal e As Infragistics.Win.UltraWinGrid.CellEventArgs)
-    Private Sub DoCharge(ByVal aRow As Infragistics.Win.UltraWinGrid.UltraGridRow)
+    Private Sub DoSVAccountCharge(ByVal aRow As Infragistics.Win.UltraWinGrid.UltraGridRow)
         aRow.Cells("IsCharged").Value = False
         Try
             'Build StadisRequest and do charge
@@ -966,7 +1042,7 @@ Friend Class FrmRedeem
                                 CommonRoutines.BOPost(mAdapter, mTenderHandle)
                             Catch ex As Exception
                                 If sy.StadisAuthorizationID.Length = 6 Then
-                                    DoReverse(sy.StadisAuthorizationID)
+                                    DoSVAccountReverse(sy.StadisAuthorizationID)
                                 End If
                                 MessageBox.Show("Error while adding STADIS tender." & vbCrLf & ex.Message, "STADIS")
                                 Exit Sub
@@ -1035,18 +1111,18 @@ Friend Class FrmRedeem
             'MessageBox.Show("J", "DEBUG")
             MsgBox(ex.Message.ToString(), , "SVAccountCharge")
         End Try
-    End Sub  'DoCharge
+    End Sub  'DoSVAccountCharge
 
     Private Sub grdTenders_BeforeRowsDeleted(sender As Object, e As BeforeRowsDeletedEventArgs) Handles grdTenders.BeforeRowsDeleted
         If CInt(e.Rows(0).Cells("TenderTypeID").Value) = 1 Then
             Dim authID As String = Trim(CStr(e.Rows(0).Cells("StadisAuthorizationID").Value))
             If authID <> "" Then
-                DoReverse(authID)
+                DoSVAccountReverse(authID)
             End If
         End If
     End Sub  'AddHeaderAndTotalRecsToTendersTable
 
-    Private Sub DoReverse(ByVal AuthID As String)
+    Private Sub DoSVAccountReverse(ByVal AuthID As String)
         Dim invoiceHandle As Integer = 0
         Dim sr As New StadisRequest
         With sr
@@ -1070,7 +1146,7 @@ Friend Class FrmRedeem
             MsgBox("Unable to reverse charge for StadisAuthorizationID " & AuthID, MsgBoxStyle.Exclamation, "Reverse Charge")
         Else
         End If
-    End Sub  'DoReverse
+    End Sub  'DoSVAccountReverse
 
 #End Region  'Tenders Grid
 
