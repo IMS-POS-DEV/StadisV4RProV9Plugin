@@ -57,7 +57,7 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx")>  _
         Public ReadOnly Property Common_WebReference_StadisTransactionsService() As String
             Get
                 Return CType(Me("Common_WebReference_StadisTransactionsService"),String)

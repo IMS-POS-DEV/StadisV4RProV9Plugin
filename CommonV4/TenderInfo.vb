@@ -21,6 +21,7 @@ Public Class TenderInfo
     Private mShouldBeCharged As Boolean = False
     Private mIsAGiftCard As Boolean = False
     Private mIsATicket As Boolean = False
+    Private mIsAPromo As Boolean = False
 
     Public Property StadisOpCode() As String
         Get
@@ -112,6 +113,15 @@ Public Class TenderInfo
         End Set
     End Property
 
+    Public Property IsAPromo() As Boolean
+        Get
+            Return mIsAPromo
+        End Get
+        Set(ByVal value As Boolean)
+            mIsAPromo = value
+        End Set
+    End Property
+
 #End Region  'Data Declarations
 
 #Region " Methods "
@@ -131,6 +141,7 @@ Public Class TenderInfo
                     ShouldBeCharged = True
                     IsAGiftCard = True
                     'IsATicket = False
+                    'IsAPromo = False
                 Case "@TK"
                     IsAStadisTender = True
                     IsAStadisRedeem = True
@@ -141,6 +152,18 @@ Public Class TenderInfo
                     ShouldBeCharged = True
                     'IsAGiftCard = False
                     IsATicket = True
+                    'IsAPromo = False
+                Case "@PR"
+                    IsAStadisTender = True
+                    IsAStadisRedeem = True
+                    'IsAReturn = False
+                    'IsAReturnCredToNewGiftCard = False
+                    'IsAReload = False
+                    'IsAnOffset = False
+                    ShouldBeCharged = True
+                    'IsAGiftCard = False
+                    'IsATicket = False
+                    IsAPromo = True
                 Case "@OF"
                     IsAStadisTender = True
                     'IsAStadisRedeem = False
@@ -151,6 +174,7 @@ Public Class TenderInfo
                     'ShouldBeCharged = False
                     'IsAGiftCard = False
                     'IsATicket = False
+                    'IsAPromo = False
                 Case "@GL"
                     IsAStadisTender = True
                     'IsAStadisRedeem = False
@@ -161,6 +185,7 @@ Public Class TenderInfo
                     ShouldBeCharged = True
                     IsAGiftCard = True
                     'IsATicket = False
+                    'IsAPromo = False
                 Case "@TL"
                     IsAStadisTender = True
                     'IsAStadisRedeem = False
@@ -171,6 +196,7 @@ Public Class TenderInfo
                     ShouldBeCharged = True
                     'IsAGiftCard = False
                     IsATicket = True
+                    'IsAPromo = False
                 Case "@GR"
                     IsAStadisTender = True
                     'IsAStadisRedeem = False
@@ -181,6 +207,7 @@ Public Class TenderInfo
                     ShouldBeCharged = True
                     IsAGiftCard = True
                     'IsATicket = False
+                    'IsAPromo = False
                 Case "@TR"
                     IsAStadisTender = True
                     'IsAStadisRedeem = False
@@ -191,6 +218,7 @@ Public Class TenderInfo
                     ShouldBeCharged = True
                     'IsAGiftCard = False
                     IsATicket = True
+                    'IsAPromo = False
                 Case "@RI"
                     IsAStadisTender = True
                     'IsAStadisRedeem = False
@@ -201,6 +229,7 @@ Public Class TenderInfo
                     'ShouldBeCharged = False
                     'IsAGiftCard = False
                     'IsATicket = False
+                    'IsAPromo = False
                 Case "@RA"
                     IsAStadisTender = True
                     'IsAStadisRedeem = False
@@ -211,6 +240,7 @@ Public Class TenderInfo
                     'ShouldBeCharged = False
                     'IsAGiftCard = False
                     'IsATicket = False
+                    'IsAPromo = False
             End Select
         End If
     End Sub

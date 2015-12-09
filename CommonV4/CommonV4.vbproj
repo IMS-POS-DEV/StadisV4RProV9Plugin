@@ -142,10 +142,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx">
+    <WebReferenceUrl Include="http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\WebReference\</RelPath>
-      <UpdateFromURL>http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx</UpdateFromURL>
+      <UpdateFromURL>http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

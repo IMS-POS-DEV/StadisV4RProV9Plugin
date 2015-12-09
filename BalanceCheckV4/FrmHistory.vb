@@ -674,7 +674,7 @@ Public Class FrmHistory
     Private Sub grdAction_ClickCellButton(ByVal sender As Object, ByVal e As Infragistics.Win.UltraWinGrid.CellEventArgs) Handles grdAction.ClickCellButton
         If e.Cell.Column Is grdAction.DisplayLayout.Bands(0).Columns("Rev") Then
             Dim dr As DialogResult = MessageBox.Show( _
-                    "Reverse StadisAction?", _
+                    "Reverse SVAction?", _
                     "Confirm", _
                     MessageBoxButtons.YesNo, _
                     MessageBoxIcon.Question)

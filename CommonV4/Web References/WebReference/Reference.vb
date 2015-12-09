@@ -34,6 +34,10 @@ Namespace WebReference
         
         Private securityCredentialsValueField As SecurityCredentials
         
+        Private ValidateLoginOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private ChangePasswordOperationCompleted As System.Threading.SendOrPostCallback
+        
         Private SVAccountBalanceCheckOperationCompleted As System.Threading.SendOrPostCallback
         
         Private SVAccountBalanceCheckPromotionOperationCompleted As System.Threading.SendOrPostCallback
@@ -70,6 +74,26 @@ Namespace WebReference
         
         Private GetTicketStatusOperationCompleted As System.Threading.SendOrPostCallback
         
+        Private SVTicketTransferOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCAddUserProfileOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCGetUserProfileOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCUpdateUserProfileOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCOrderGiftCardsOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCGetGiftCardOrdersOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCGetGiftCardOrderOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCUpdateGiftCardOrderOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCFulfillGiftCardOrderOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCGetCardsForUserOperationCompleted As System.Threading.SendOrPostCallback
+        
         Private GCPurchaseOperationCompleted As System.Threading.SendOrPostCallback
         
         Private GCIssueActivateOperationCompleted As System.Threading.SendOrPostCallback
@@ -77,6 +101,8 @@ Namespace WebReference
         Private GCDeactivateOperationCompleted As System.Threading.SendOrPostCallback
         
         Private GCReloadOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private GCRegisterCardOperationCompleted As System.Threading.SendOrPostCallback
         
         Private useDefaultCredentialsSetExplicitly As Boolean
         
@@ -124,6 +150,12 @@ Namespace WebReference
                 Me.useDefaultCredentialsSetExplicitly = true
             End Set
         End Property
+        
+        '''<remarks/>
+        Public Event ValidateLoginCompleted As ValidateLoginCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event ChangePasswordCompleted As ChangePasswordCompletedEventHandler
         
         '''<remarks/>
         Public Event SVAccountBalanceCheckCompleted As SVAccountBalanceCheckCompletedEventHandler
@@ -180,6 +212,36 @@ Namespace WebReference
         Public Event GetTicketStatusCompleted As GetTicketStatusCompletedEventHandler
         
         '''<remarks/>
+        Public Event SVTicketTransferCompleted As SVTicketTransferCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCAddUserProfileCompleted As GCAddUserProfileCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCGetUserProfileCompleted As GCGetUserProfileCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCUpdateUserProfileCompleted As GCUpdateUserProfileCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCOrderGiftCardsCompleted As GCOrderGiftCardsCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCGetGiftCardOrdersCompleted As GCGetGiftCardOrdersCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCGetGiftCardOrderCompleted As GCGetGiftCardOrderCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCUpdateGiftCardOrderCompleted As GCUpdateGiftCardOrderCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCFulfillGiftCardOrderCompleted As GCFulfillGiftCardOrderCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCGetCardsForUserCompleted As GCGetCardsForUserCompletedEventHandler
+        
+        '''<remarks/>
         Public Event GCPurchaseCompleted As GCPurchaseCompletedEventHandler
         
         '''<remarks/>
@@ -190,6 +252,65 @@ Namespace WebReference
         
         '''<remarks/>
         Public Event GCReloadCompleted As GCReloadCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event GCRegisterCardCompleted As GCRegisterCardCompletedEventHandler
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/ValidateLogin", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function ValidateLogin(ByVal UserID As String, ByVal Password As String) As ReturnMessage
+            Dim results() As Object = Me.Invoke("ValidateLogin", New Object() {UserID, Password})
+            Return CType(results(0),ReturnMessage)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub ValidateLoginAsync(ByVal UserID As String, ByVal Password As String)
+            Me.ValidateLoginAsync(UserID, Password, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub ValidateLoginAsync(ByVal UserID As String, ByVal Password As String, ByVal userState As Object)
+            If (Me.ValidateLoginOperationCompleted Is Nothing) Then
+                Me.ValidateLoginOperationCompleted = AddressOf Me.OnValidateLoginOperationCompleted
+            End If
+            Me.InvokeAsync("ValidateLogin", New Object() {UserID, Password}, Me.ValidateLoginOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnValidateLoginOperationCompleted(ByVal arg As Object)
+            If (Not (Me.ValidateLoginCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent ValidateLoginCompleted(Me, New ValidateLoginCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/ChangePassword", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function ChangePassword(ByVal UserID As String, ByVal OldPassword As String, ByVal NewPassword As String) As ReturnMessage
+            Dim results() As Object = Me.Invoke("ChangePassword", New Object() {UserID, OldPassword, NewPassword})
+            Return CType(results(0),ReturnMessage)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub ChangePasswordAsync(ByVal UserID As String, ByVal OldPassword As String, ByVal NewPassword As String)
+            Me.ChangePasswordAsync(UserID, OldPassword, NewPassword, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub ChangePasswordAsync(ByVal UserID As String, ByVal OldPassword As String, ByVal NewPassword As String, ByVal userState As Object)
+            If (Me.ChangePasswordOperationCompleted Is Nothing) Then
+                Me.ChangePasswordOperationCompleted = AddressOf Me.OnChangePasswordOperationCompleted
+            End If
+            Me.InvokeAsync("ChangePassword", New Object() {UserID, OldPassword, NewPassword}, Me.ChangePasswordOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnChangePasswordOperationCompleted(ByVal arg As Object)
+            If (Not (Me.ChangePasswordCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent ChangePasswordCompleted(Me, New ChangePasswordCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
         
         '''<remarks/>
         <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
@@ -670,28 +791,308 @@ Namespace WebReference
         '''<remarks/>
         <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
          System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GetTicketStatus", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
-        Public Function GetTicketStatus(ByVal StatusRequest As StadisRequest) As TicketStatus
-            Dim results() As Object = Me.Invoke("GetTicketStatus", New Object() {StatusRequest})
+        Public Function GetTicketStatus(ByVal Request As StadisRequest) As TicketStatus
+            Dim results() As Object = Me.Invoke("GetTicketStatus", New Object() {Request})
             Return CType(results(0),TicketStatus)
         End Function
         
         '''<remarks/>
-        Public Overloads Sub GetTicketStatusAsync(ByVal StatusRequest As StadisRequest)
-            Me.GetTicketStatusAsync(StatusRequest, Nothing)
+        Public Overloads Sub GetTicketStatusAsync(ByVal Request As StadisRequest)
+            Me.GetTicketStatusAsync(Request, Nothing)
         End Sub
         
         '''<remarks/>
-        Public Overloads Sub GetTicketStatusAsync(ByVal StatusRequest As StadisRequest, ByVal userState As Object)
+        Public Overloads Sub GetTicketStatusAsync(ByVal Request As StadisRequest, ByVal userState As Object)
             If (Me.GetTicketStatusOperationCompleted Is Nothing) Then
                 Me.GetTicketStatusOperationCompleted = AddressOf Me.OnGetTicketStatusOperationCompleted
             End If
-            Me.InvokeAsync("GetTicketStatus", New Object() {StatusRequest}, Me.GetTicketStatusOperationCompleted, userState)
+            Me.InvokeAsync("GetTicketStatus", New Object() {Request}, Me.GetTicketStatusOperationCompleted, userState)
         End Sub
         
         Private Sub OnGetTicketStatusOperationCompleted(ByVal arg As Object)
             If (Not (Me.GetTicketStatusCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
                 RaiseEvent GetTicketStatusCompleted(Me, New GetTicketStatusCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/SVTicketTransfer", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function SVTicketTransfer(ByVal Request As StadisRequest) As StadisReply
+            Dim results() As Object = Me.Invoke("SVTicketTransfer", New Object() {Request})
+            Return CType(results(0),StadisReply)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub SVTicketTransferAsync(ByVal Request As StadisRequest)
+            Me.SVTicketTransferAsync(Request, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub SVTicketTransferAsync(ByVal Request As StadisRequest, ByVal userState As Object)
+            If (Me.SVTicketTransferOperationCompleted Is Nothing) Then
+                Me.SVTicketTransferOperationCompleted = AddressOf Me.OnSVTicketTransferOperationCompleted
+            End If
+            Me.InvokeAsync("SVTicketTransfer", New Object() {Request}, Me.SVTicketTransferOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnSVTicketTransferOperationCompleted(ByVal arg As Object)
+            If (Not (Me.SVTicketTransferCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent SVTicketTransferCompleted(Me, New SVTicketTransferCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCAddUserProfile", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCAddUserProfile(ByVal Request As StadisRequest, ByVal StadisUser As StadisUserInfo) As StadisReply
+            Dim results() As Object = Me.Invoke("GCAddUserProfile", New Object() {Request, StadisUser})
+            Return CType(results(0),StadisReply)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCAddUserProfileAsync(ByVal Request As StadisRequest, ByVal StadisUser As StadisUserInfo)
+            Me.GCAddUserProfileAsync(Request, StadisUser, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCAddUserProfileAsync(ByVal Request As StadisRequest, ByVal StadisUser As StadisUserInfo, ByVal userState As Object)
+            If (Me.GCAddUserProfileOperationCompleted Is Nothing) Then
+                Me.GCAddUserProfileOperationCompleted = AddressOf Me.OnGCAddUserProfileOperationCompleted
+            End If
+            Me.InvokeAsync("GCAddUserProfile", New Object() {Request, StadisUser}, Me.GCAddUserProfileOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCAddUserProfileOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCAddUserProfileCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCAddUserProfileCompleted(Me, New GCAddUserProfileCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCGetUserProfile", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCGetUserProfile(ByVal Request As StadisRequest, ByVal StadisUser As StadisUserInfo) As StadisUserInfo
+            Dim results() As Object = Me.Invoke("GCGetUserProfile", New Object() {Request, StadisUser})
+            Return CType(results(0),StadisUserInfo)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCGetUserProfileAsync(ByVal Request As StadisRequest, ByVal StadisUser As StadisUserInfo)
+            Me.GCGetUserProfileAsync(Request, StadisUser, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCGetUserProfileAsync(ByVal Request As StadisRequest, ByVal StadisUser As StadisUserInfo, ByVal userState As Object)
+            If (Me.GCGetUserProfileOperationCompleted Is Nothing) Then
+                Me.GCGetUserProfileOperationCompleted = AddressOf Me.OnGCGetUserProfileOperationCompleted
+            End If
+            Me.InvokeAsync("GCGetUserProfile", New Object() {Request, StadisUser}, Me.GCGetUserProfileOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCGetUserProfileOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCGetUserProfileCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCGetUserProfileCompleted(Me, New GCGetUserProfileCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCUpdateUserProfile", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCUpdateUserProfile(ByVal Request As StadisRequest, ByVal StadisUser As StadisUserInfo) As StadisReply
+            Dim results() As Object = Me.Invoke("GCUpdateUserProfile", New Object() {Request, StadisUser})
+            Return CType(results(0),StadisReply)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCUpdateUserProfileAsync(ByVal Request As StadisRequest, ByVal StadisUser As StadisUserInfo)
+            Me.GCUpdateUserProfileAsync(Request, StadisUser, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCUpdateUserProfileAsync(ByVal Request As StadisRequest, ByVal StadisUser As StadisUserInfo, ByVal userState As Object)
+            If (Me.GCUpdateUserProfileOperationCompleted Is Nothing) Then
+                Me.GCUpdateUserProfileOperationCompleted = AddressOf Me.OnGCUpdateUserProfileOperationCompleted
+            End If
+            Me.InvokeAsync("GCUpdateUserProfile", New Object() {Request, StadisUser}, Me.GCUpdateUserProfileOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCUpdateUserProfileOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCUpdateUserProfileCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCUpdateUserProfileCompleted(Me, New GCUpdateUserProfileCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCOrderGiftCards", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCOrderGiftCards(ByVal Request As StadisRequest, ByVal Header As StadisTranHeader, ByVal Items() As StadisTranItem, ByVal Tenders() As StadisTranTender, ByVal GiftCardOrder As GiftCardOrder) As StadisReply
+            Dim results() As Object = Me.Invoke("GCOrderGiftCards", New Object() {Request, Header, Items, Tenders, GiftCardOrder})
+            Return CType(results(0),StadisReply)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCOrderGiftCardsAsync(ByVal Request As StadisRequest, ByVal Header As StadisTranHeader, ByVal Items() As StadisTranItem, ByVal Tenders() As StadisTranTender, ByVal GiftCardOrder As GiftCardOrder)
+            Me.GCOrderGiftCardsAsync(Request, Header, Items, Tenders, GiftCardOrder, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCOrderGiftCardsAsync(ByVal Request As StadisRequest, ByVal Header As StadisTranHeader, ByVal Items() As StadisTranItem, ByVal Tenders() As StadisTranTender, ByVal GiftCardOrder As GiftCardOrder, ByVal userState As Object)
+            If (Me.GCOrderGiftCardsOperationCompleted Is Nothing) Then
+                Me.GCOrderGiftCardsOperationCompleted = AddressOf Me.OnGCOrderGiftCardsOperationCompleted
+            End If
+            Me.InvokeAsync("GCOrderGiftCards", New Object() {Request, Header, Items, Tenders, GiftCardOrder}, Me.GCOrderGiftCardsOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCOrderGiftCardsOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCOrderGiftCardsCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCOrderGiftCardsCompleted(Me, New GCOrderGiftCardsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCGetGiftCardOrders", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCGetGiftCardOrders() As GCOrder()
+            Dim results() As Object = Me.Invoke("GCGetGiftCardOrders", New Object(-1) {})
+            Return CType(results(0),GCOrder())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCGetGiftCardOrdersAsync()
+            Me.GCGetGiftCardOrdersAsync(Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCGetGiftCardOrdersAsync(ByVal userState As Object)
+            If (Me.GCGetGiftCardOrdersOperationCompleted Is Nothing) Then
+                Me.GCGetGiftCardOrdersOperationCompleted = AddressOf Me.OnGCGetGiftCardOrdersOperationCompleted
+            End If
+            Me.InvokeAsync("GCGetGiftCardOrders", New Object(-1) {}, Me.GCGetGiftCardOrdersOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCGetGiftCardOrdersOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCGetGiftCardOrdersCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCGetGiftCardOrdersCompleted(Me, New GCGetGiftCardOrdersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCGetGiftCardOrder", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCGetGiftCardOrder(ByVal orderid As System.Guid) As GiftCardOrder
+            Dim results() As Object = Me.Invoke("GCGetGiftCardOrder", New Object() {orderid})
+            Return CType(results(0),GiftCardOrder)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCGetGiftCardOrderAsync(ByVal orderid As System.Guid)
+            Me.GCGetGiftCardOrderAsync(orderid, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCGetGiftCardOrderAsync(ByVal orderid As System.Guid, ByVal userState As Object)
+            If (Me.GCGetGiftCardOrderOperationCompleted Is Nothing) Then
+                Me.GCGetGiftCardOrderOperationCompleted = AddressOf Me.OnGCGetGiftCardOrderOperationCompleted
+            End If
+            Me.InvokeAsync("GCGetGiftCardOrder", New Object() {orderid}, Me.GCGetGiftCardOrderOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCGetGiftCardOrderOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCGetGiftCardOrderCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCGetGiftCardOrderCompleted(Me, New GCGetGiftCardOrderCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCUpdateGiftCardOrder", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCUpdateGiftCardOrder(ByVal gco As GiftCardOrder) As StadisReply
+            Dim results() As Object = Me.Invoke("GCUpdateGiftCardOrder", New Object() {gco})
+            Return CType(results(0),StadisReply)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCUpdateGiftCardOrderAsync(ByVal gco As GiftCardOrder)
+            Me.GCUpdateGiftCardOrderAsync(gco, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCUpdateGiftCardOrderAsync(ByVal gco As GiftCardOrder, ByVal userState As Object)
+            If (Me.GCUpdateGiftCardOrderOperationCompleted Is Nothing) Then
+                Me.GCUpdateGiftCardOrderOperationCompleted = AddressOf Me.OnGCUpdateGiftCardOrderOperationCompleted
+            End If
+            Me.InvokeAsync("GCUpdateGiftCardOrder", New Object() {gco}, Me.GCUpdateGiftCardOrderOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCUpdateGiftCardOrderOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCUpdateGiftCardOrderCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCUpdateGiftCardOrderCompleted(Me, New GCUpdateGiftCardOrderCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCFulfillGiftCardOrder", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCFulfillGiftCardOrder(ByVal Request As StadisRequest, ByVal GiftCards() As StadisGiftCard) As StadisReply
+            Dim results() As Object = Me.Invoke("GCFulfillGiftCardOrder", New Object() {Request, GiftCards})
+            Return CType(results(0),StadisReply)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCFulfillGiftCardOrderAsync(ByVal Request As StadisRequest, ByVal GiftCards() As StadisGiftCard)
+            Me.GCFulfillGiftCardOrderAsync(Request, GiftCards, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCFulfillGiftCardOrderAsync(ByVal Request As StadisRequest, ByVal GiftCards() As StadisGiftCard, ByVal userState As Object)
+            If (Me.GCFulfillGiftCardOrderOperationCompleted Is Nothing) Then
+                Me.GCFulfillGiftCardOrderOperationCompleted = AddressOf Me.OnGCFulfillGiftCardOrderOperationCompleted
+            End If
+            Me.InvokeAsync("GCFulfillGiftCardOrder", New Object() {Request, GiftCards}, Me.GCFulfillGiftCardOrderOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCFulfillGiftCardOrderOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCFulfillGiftCardOrderCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCFulfillGiftCardOrderCompleted(Me, New GCFulfillGiftCardOrderCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCGetCardsForUser", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCGetCardsForUser(ByVal Request As StadisRequest) As Ticket()
+            Dim results() As Object = Me.Invoke("GCGetCardsForUser", New Object() {Request})
+            Return CType(results(0),Ticket())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCGetCardsForUserAsync(ByVal Request As StadisRequest)
+            Me.GCGetCardsForUserAsync(Request, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCGetCardsForUserAsync(ByVal Request As StadisRequest, ByVal userState As Object)
+            If (Me.GCGetCardsForUserOperationCompleted Is Nothing) Then
+                Me.GCGetCardsForUserOperationCompleted = AddressOf Me.OnGCGetCardsForUserOperationCompleted
+            End If
+            Me.InvokeAsync("GCGetCardsForUser", New Object() {Request}, Me.GCGetCardsForUserOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCGetCardsForUserOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCGetCardsForUserCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCGetCardsForUserCompleted(Me, New GCGetCardsForUserCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -804,6 +1205,34 @@ Namespace WebReference
             If (Not (Me.GCReloadCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
                 RaiseEvent GCReloadCompleted(Me, New GCReloadCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/GCRegisterCard", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function GCRegisterCard(ByVal Request As StadisRequest) As StadisReply
+            Dim results() As Object = Me.Invoke("GCRegisterCard", New Object() {Request})
+            Return CType(results(0),StadisReply)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub GCRegisterCardAsync(ByVal Request As StadisRequest)
+            Me.GCRegisterCardAsync(Request, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub GCRegisterCardAsync(ByVal Request As StadisRequest, ByVal userState As Object)
+            If (Me.GCRegisterCardOperationCompleted Is Nothing) Then
+                Me.GCRegisterCardOperationCompleted = AddressOf Me.OnGCRegisterCardOperationCompleted
+            End If
+            Me.InvokeAsync("GCRegisterCard", New Object() {Request}, Me.GCRegisterCardOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnGCRegisterCardOperationCompleted(ByVal arg As Object)
+            If (Not (Me.GCRegisterCardCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent GCRegisterCardCompleted(Me, New GCRegisterCardCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -963,6 +1392,825 @@ Namespace WebReference
             End Get
             Set
                 Me.amountField = value
+            End Set
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
+     System.SerializableAttribute(),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
+    Partial Public Class GCOrder
+        
+        Private giftCardOrderIDField As System.Guid
+        
+        Private giftCardOrderNumberField As String
+        
+        Private customerIDField As String
+        
+        Private customerNameField As String
+        
+        Private orderStatusField As String
+        
+        Private orderDateField As String
+        
+        '''<remarks/>
+        Public Property GiftCardOrderID() As System.Guid
+            Get
+                Return Me.giftCardOrderIDField
+            End Get
+            Set
+                Me.giftCardOrderIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property GiftCardOrderNumber() As String
+            Get
+                Return Me.giftCardOrderNumberField
+            End Get
+            Set
+                Me.giftCardOrderNumberField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property CustomerID() As String
+            Get
+                Return Me.customerIDField
+            End Get
+            Set
+                Me.customerIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property CustomerName() As String
+            Get
+                Return Me.customerNameField
+            End Get
+            Set
+                Me.customerNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property OrderStatus() As String
+            Get
+                Return Me.orderStatusField
+            End Get
+            Set
+                Me.orderStatusField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property OrderDate() As String
+            Get
+                Return Me.orderDateField
+            End Get
+            Set
+                Me.orderDateField = value
+            End Set
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
+     System.SerializableAttribute(),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
+    Partial Public Class GiftCardOrder
+        
+        Private giftCardOrderIDField As System.Guid
+        
+        Private giftCardOrderNumberField As String
+        
+        Private orderStatusField As String
+        
+        Private orderEmailedField As Boolean
+        
+        Private orderFulfilledField As Boolean
+        
+        Private orderFulfilledDateField As Date
+        
+        Private orderFulfilledByField As String
+        
+        Private customerIDField As String
+        
+        Private transactionKeyField As System.Guid
+        
+        Private cardNoListField As String
+        
+        Private stadisInfoField As String
+        
+        Private eftVendorField As String
+        
+        Private eftTokenField As String
+        
+        Private eftAuthIDField As String
+        
+        Private eftInfo1Field As String
+        
+        Private eftInfo2Field As String
+        
+        Private billingFirstNameField As String
+        
+        Private billingMiddleNameField As String
+        
+        Private billingLastNameField As String
+        
+        Private billingAddress1Field As String
+        
+        Private billingAddress2Field As String
+        
+        Private billingCityField As String
+        
+        Private billingStateField As String
+        
+        Private billingZipCodeField As String
+        
+        Private billingHomePhoneField As String
+        
+        Private billingCellPhoneField As String
+        
+        Private billingEmail1Field As String
+        
+        Private billingEmail2Field As String
+        
+        Private shippingFirstNameField As String
+        
+        Private shippingMiddleNameField As String
+        
+        Private shippingLastNameField As String
+        
+        Private shippingAddress1Field As String
+        
+        Private shippingAddress2Field As String
+        
+        Private shippingCityField As String
+        
+        Private shippingStateField As String
+        
+        Private shippingZipCodeField As String
+        
+        Private shippingHomePhoneField As String
+        
+        Private shippingCellPhoneField As String
+        
+        Private shippingEmail1Field As String
+        
+        Private shippingEmail2Field As String
+        
+        Private orderDateField As Date
+        
+        '''<remarks/>
+        Public Property GiftCardOrderID() As System.Guid
+            Get
+                Return Me.giftCardOrderIDField
+            End Get
+            Set
+                Me.giftCardOrderIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property GiftCardOrderNumber() As String
+            Get
+                Return Me.giftCardOrderNumberField
+            End Get
+            Set
+                Me.giftCardOrderNumberField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property OrderStatus() As String
+            Get
+                Return Me.orderStatusField
+            End Get
+            Set
+                Me.orderStatusField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property OrderEmailed() As Boolean
+            Get
+                Return Me.orderEmailedField
+            End Get
+            Set
+                Me.orderEmailedField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property OrderFulfilled() As Boolean
+            Get
+                Return Me.orderFulfilledField
+            End Get
+            Set
+                Me.orderFulfilledField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property OrderFulfilledDate() As Date
+            Get
+                Return Me.orderFulfilledDateField
+            End Get
+            Set
+                Me.orderFulfilledDateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property OrderFulfilledBy() As String
+            Get
+                Return Me.orderFulfilledByField
+            End Get
+            Set
+                Me.orderFulfilledByField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property CustomerID() As String
+            Get
+                Return Me.customerIDField
+            End Get
+            Set
+                Me.customerIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property TransactionKey() As System.Guid
+            Get
+                Return Me.transactionKeyField
+            End Get
+            Set
+                Me.transactionKeyField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property CardNoList() As String
+            Get
+                Return Me.cardNoListField
+            End Get
+            Set
+                Me.cardNoListField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisInfo() As String
+            Get
+                Return Me.stadisInfoField
+            End Get
+            Set
+                Me.stadisInfoField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EftVendor() As String
+            Get
+                Return Me.eftVendorField
+            End Get
+            Set
+                Me.eftVendorField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EftToken() As String
+            Get
+                Return Me.eftTokenField
+            End Get
+            Set
+                Me.eftTokenField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EftAuthID() As String
+            Get
+                Return Me.eftAuthIDField
+            End Get
+            Set
+                Me.eftAuthIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EftInfo1() As String
+            Get
+                Return Me.eftInfo1Field
+            End Get
+            Set
+                Me.eftInfo1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EftInfo2() As String
+            Get
+                Return Me.eftInfo2Field
+            End Get
+            Set
+                Me.eftInfo2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingFirstName() As String
+            Get
+                Return Me.billingFirstNameField
+            End Get
+            Set
+                Me.billingFirstNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingMiddleName() As String
+            Get
+                Return Me.billingMiddleNameField
+            End Get
+            Set
+                Me.billingMiddleNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingLastName() As String
+            Get
+                Return Me.billingLastNameField
+            End Get
+            Set
+                Me.billingLastNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingAddress1() As String
+            Get
+                Return Me.billingAddress1Field
+            End Get
+            Set
+                Me.billingAddress1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingAddress2() As String
+            Get
+                Return Me.billingAddress2Field
+            End Get
+            Set
+                Me.billingAddress2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingCity() As String
+            Get
+                Return Me.billingCityField
+            End Get
+            Set
+                Me.billingCityField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingState() As String
+            Get
+                Return Me.billingStateField
+            End Get
+            Set
+                Me.billingStateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingZipCode() As String
+            Get
+                Return Me.billingZipCodeField
+            End Get
+            Set
+                Me.billingZipCodeField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingHomePhone() As String
+            Get
+                Return Me.billingHomePhoneField
+            End Get
+            Set
+                Me.billingHomePhoneField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingCellPhone() As String
+            Get
+                Return Me.billingCellPhoneField
+            End Get
+            Set
+                Me.billingCellPhoneField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingEmail1() As String
+            Get
+                Return Me.billingEmail1Field
+            End Get
+            Set
+                Me.billingEmail1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property BillingEmail2() As String
+            Get
+                Return Me.billingEmail2Field
+            End Get
+            Set
+                Me.billingEmail2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingFirstName() As String
+            Get
+                Return Me.shippingFirstNameField
+            End Get
+            Set
+                Me.shippingFirstNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingMiddleName() As String
+            Get
+                Return Me.shippingMiddleNameField
+            End Get
+            Set
+                Me.shippingMiddleNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingLastName() As String
+            Get
+                Return Me.shippingLastNameField
+            End Get
+            Set
+                Me.shippingLastNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingAddress1() As String
+            Get
+                Return Me.shippingAddress1Field
+            End Get
+            Set
+                Me.shippingAddress1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingAddress2() As String
+            Get
+                Return Me.shippingAddress2Field
+            End Get
+            Set
+                Me.shippingAddress2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingCity() As String
+            Get
+                Return Me.shippingCityField
+            End Get
+            Set
+                Me.shippingCityField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingState() As String
+            Get
+                Return Me.shippingStateField
+            End Get
+            Set
+                Me.shippingStateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingZipCode() As String
+            Get
+                Return Me.shippingZipCodeField
+            End Get
+            Set
+                Me.shippingZipCodeField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingHomePhone() As String
+            Get
+                Return Me.shippingHomePhoneField
+            End Get
+            Set
+                Me.shippingHomePhoneField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingCellPhone() As String
+            Get
+                Return Me.shippingCellPhoneField
+            End Get
+            Set
+                Me.shippingCellPhoneField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingEmail1() As String
+            Get
+                Return Me.shippingEmail1Field
+            End Get
+            Set
+                Me.shippingEmail1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ShippingEmail2() As String
+            Get
+                Return Me.shippingEmail2Field
+            End Get
+            Set
+                Me.shippingEmail2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property OrderDate() As Date
+            Get
+                Return Me.orderDateField
+            End Get
+            Set
+                Me.orderDateField = value
+            End Set
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
+     System.SerializableAttribute(),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
+    Partial Public Class StadisUserInfo
+        
+        Private userIDField As String
+        
+        Private passwordField As String
+        
+        Private userGroupField As String
+        
+        Private firstNameField As String
+        
+        Private lastNameField As String
+        
+        Private address1Field As String
+        
+        Private address2Field As String
+        
+        Private cityField As String
+        
+        Private stateField As String
+        
+        Private zipCodeField As String
+        
+        Private phone1Field As String
+        
+        Private phone2Field As String
+        
+        Private eMail1Field As String
+        
+        Private eMail2Field As String
+        
+        Private faceBookAcctField As String
+        
+        Private twitterAcctField As String
+        
+        Private externalAppID3Field As String
+        
+        Private externalAppID4Field As String
+        
+        Private externalAppID5Field As String
+        
+        '''<remarks/>
+        Public Property UserID() As String
+            Get
+                Return Me.userIDField
+            End Get
+            Set
+                Me.userIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Password() As String
+            Get
+                Return Me.passwordField
+            End Get
+            Set
+                Me.passwordField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UserGroup() As String
+            Get
+                Return Me.userGroupField
+            End Get
+            Set
+                Me.userGroupField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property FirstName() As String
+            Get
+                Return Me.firstNameField
+            End Get
+            Set
+                Me.firstNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property LastName() As String
+            Get
+                Return Me.lastNameField
+            End Get
+            Set
+                Me.lastNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Address1() As String
+            Get
+                Return Me.address1Field
+            End Get
+            Set
+                Me.address1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Address2() As String
+            Get
+                Return Me.address2Field
+            End Get
+            Set
+                Me.address2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property City() As String
+            Get
+                Return Me.cityField
+            End Get
+            Set
+                Me.cityField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property State() As String
+            Get
+                Return Me.stateField
+            End Get
+            Set
+                Me.stateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ZipCode() As String
+            Get
+                Return Me.zipCodeField
+            End Get
+            Set
+                Me.zipCodeField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Phone1() As String
+            Get
+                Return Me.phone1Field
+            End Get
+            Set
+                Me.phone1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Phone2() As String
+            Get
+                Return Me.phone2Field
+            End Get
+            Set
+                Me.phone2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EMail1() As String
+            Get
+                Return Me.eMail1Field
+            End Get
+            Set
+                Me.eMail1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EMail2() As String
+            Get
+                Return Me.eMail2Field
+            End Get
+            Set
+                Me.eMail2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property FaceBookAcct() As String
+            Get
+                Return Me.faceBookAcctField
+            End Get
+            Set
+                Me.faceBookAcctField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property TwitterAcct() As String
+            Get
+                Return Me.twitterAcctField
+            End Get
+            Set
+                Me.twitterAcctField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ExternalAppID3() As String
+            Get
+                Return Me.externalAppID3Field
+            End Get
+            Set
+                Me.externalAppID3Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ExternalAppID4() As String
+            Get
+                Return Me.externalAppID4Field
+            End Get
+            Set
+                Me.externalAppID4Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ExternalAppID5() As String
+            Get
+                Return Me.externalAppID5Field
+            End Get
+            Set
+                Me.externalAppID5Field = value
             End Set
         End Property
     End Class
@@ -2139,7 +3387,9 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfTicketStatus)),  _
+    <System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfTicket)),  _
+     System.Xml.Serialization.XmlIncludeAttribute(GetType(Ticket)),  _
+     System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfTicketStatus)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(TicketStatus)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfReceiptLine)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(ReceiptLine)),  _
@@ -2264,6 +3514,8 @@ Namespace WebReference
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BindableBase)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(UndoableBase)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBase)),  _
+     System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfTicket)),  _
+     System.Xml.Serialization.XmlIncludeAttribute(GetType(Ticket)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfTicketStatus)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(TicketStatus)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfReceiptLine)),  _
@@ -2285,6 +3537,8 @@ Namespace WebReference
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(UndoableBase)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBase)),  _
+     System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfTicket)),  _
+     System.Xml.Serialization.XmlIncludeAttribute(GetType(Ticket)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfTicketStatus)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(TicketStatus)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfReceiptLine)),  _
@@ -2306,6 +3560,8 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBase)),  _
+     System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfTicket)),  _
+     System.Xml.Serialization.XmlIncludeAttribute(GetType(Ticket)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfTicketStatus)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(TicketStatus)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfReceiptLine)),  _
@@ -2323,6 +3579,1107 @@ Namespace WebReference
      System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
     Partial Public MustInherit Class UndoableBase
         Inherits BindableBase
+    End Class
+    
+    '''<remarks/>
+    <System.Xml.Serialization.XmlIncludeAttribute(GetType(Ticket)),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
+     System.SerializableAttribute(),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
+    Partial Public MustInherit Class BusinessBaseOfTicket
+        Inherits BusinessBase
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234"),  _
+     System.SerializableAttribute(),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
+    Partial Public Class Ticket
+        Inherits BusinessBaseOfTicket
+        
+        Private ticketBarcodeField As String
+        
+        Private seasonIDField As String
+        
+        Private eventIDField As String
+        
+        Private customerIDField As String
+        
+        Private venueLevelIDField As String
+        
+        Private venueSectionField As String
+        
+        Private venueRowField As String
+        
+        Private venueSeatField As String
+        
+        Private stadisLevelIDField As String
+        
+        Private accessLevelField As Integer
+        
+        Private uDF_Level1Field As String
+        
+        Private uDF_Level2Field As String
+        
+        Private uDF_Level3Field As String
+        
+        Private status1Field As Integer
+        
+        Private status2Field As Integer
+        
+        Private status3Field As Integer
+        
+        Private status4Field As Integer
+        
+        Private status5Field As Integer
+        
+        Private status6Field As Integer
+        
+        Private status7Field As Integer
+        
+        Private status8Field As Integer
+        
+        Private status9Field As Integer
+        
+        Private status0Field As Integer
+        
+        Private priceLevelField As Integer
+        
+        Private priceLevelNameField As String
+        
+        Private priceLevelDescField As String
+        
+        Private priceTypeField As String
+        
+        Private priceTypeNameField As String
+        
+        Private priceTypeDescField As String
+        
+        Private priceField As Decimal
+        
+        Private taxField As Decimal
+        
+        Private charge1Field As Decimal
+        
+        Private charge2Field As Decimal
+        
+        Private charge3Field As Decimal
+        
+        Private stadisInitialAmountField As Decimal
+        
+        Private stadisSupplAmountField As Decimal
+        
+        Private stadisRemainingAmountField As Decimal
+        
+        Private stadisLimitAmountField As Decimal
+        
+        Private stadisEventRemainingAmountField As Decimal
+        
+        Private stadisActiveDateField As Date
+        
+        Private stadisInactiveDateField As Date
+        
+        Private ticketTypeField As Integer
+        
+        Private ticketTypeDescField As String
+        
+        Private uDF1Field As String
+        
+        Private uDF2Field As String
+        
+        Private uDF3Field As String
+        
+        Private uDF4Field As String
+        
+        Private uDF5Field As String
+        
+        Private usedInfo1Field As Integer
+        
+        Private usedInfo2Field As Integer
+        
+        Private usedInfo3Field As Integer
+        
+        Private usedInfo4Field As Integer
+        
+        Private usedInfo5Field As Integer
+        
+        Private usedDate1Field As Date
+        
+        Private usedDate2Field As Date
+        
+        Private usedDate3Field As Date
+        
+        Private usedDate4Field As Date
+        
+        Private usedDate5Field As Date
+        
+        Private usedGate1Field As String
+        
+        Private usedGate2Field As String
+        
+        Private usedGate3Field As String
+        
+        Private usedGate4Field As String
+        
+        Private usedGate5Field As String
+        
+        Private flag1Field As Boolean
+        
+        Private flag2Field As Boolean
+        
+        Private flag3Field As Boolean
+        
+        Private flag4Field As Boolean
+        
+        Private flag5Field As Boolean
+        
+        Private uDF_InitialAmountField As Decimal
+        
+        Private uDF_RemainingAmountField As Decimal
+        
+        Private uDF_UnusedAmountField As Decimal
+        
+        Private uDF_AmountStartField As Date
+        
+        Private uDF_AmountEndField As Date
+        
+        Private uDF_InitialCreditsField As Decimal
+        
+        Private uDF_RemainingCreditsField As Decimal
+        
+        Private uDF_UnusedCreditsField As Decimal
+        
+        Private uDF_CreditsStartField As Date
+        
+        Private uDF_CreditsEndField As Date
+        
+        Private uDF_InitialPointsField As Decimal
+        
+        Private uDF_RemainingPointsField As Decimal
+        
+        Private uDF_UnusedPointsField As Decimal
+        
+        Private uDF_PointsStartField As Date
+        
+        Private uDF_PointsEndField As Date
+        
+        Private eventStatusIDField As Integer
+        
+        Private eventTicketStatusIDField As Integer
+        
+        Private isArchivedField As Boolean
+        
+        Private createDateField As Date
+        
+        Private updateDateField As Date
+        
+        Private returnCodeField As Integer
+        
+        Private returnMessageField As String
+        
+        '''<remarks/>
+        Public Property TicketBarcode() As String
+            Get
+                Return Me.ticketBarcodeField
+            End Get
+            Set
+                Me.ticketBarcodeField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property SeasonID() As String
+            Get
+                Return Me.seasonIDField
+            End Get
+            Set
+                Me.seasonIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EventID() As String
+            Get
+                Return Me.eventIDField
+            End Get
+            Set
+                Me.eventIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property CustomerID() As String
+            Get
+                Return Me.customerIDField
+            End Get
+            Set
+                Me.customerIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VenueLevelID() As String
+            Get
+                Return Me.venueLevelIDField
+            End Get
+            Set
+                Me.venueLevelIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VenueSection() As String
+            Get
+                Return Me.venueSectionField
+            End Get
+            Set
+                Me.venueSectionField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VenueRow() As String
+            Get
+                Return Me.venueRowField
+            End Get
+            Set
+                Me.venueRowField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VenueSeat() As String
+            Get
+                Return Me.venueSeatField
+            End Get
+            Set
+                Me.venueSeatField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisLevelID() As String
+            Get
+                Return Me.stadisLevelIDField
+            End Get
+            Set
+                Me.stadisLevelIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property AccessLevel() As Integer
+            Get
+                Return Me.accessLevelField
+            End Get
+            Set
+                Me.accessLevelField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_Level1() As String
+            Get
+                Return Me.uDF_Level1Field
+            End Get
+            Set
+                Me.uDF_Level1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_Level2() As String
+            Get
+                Return Me.uDF_Level2Field
+            End Get
+            Set
+                Me.uDF_Level2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_Level3() As String
+            Get
+                Return Me.uDF_Level3Field
+            End Get
+            Set
+                Me.uDF_Level3Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status1() As Integer
+            Get
+                Return Me.status1Field
+            End Get
+            Set
+                Me.status1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status2() As Integer
+            Get
+                Return Me.status2Field
+            End Get
+            Set
+                Me.status2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status3() As Integer
+            Get
+                Return Me.status3Field
+            End Get
+            Set
+                Me.status3Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status4() As Integer
+            Get
+                Return Me.status4Field
+            End Get
+            Set
+                Me.status4Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status5() As Integer
+            Get
+                Return Me.status5Field
+            End Get
+            Set
+                Me.status5Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status6() As Integer
+            Get
+                Return Me.status6Field
+            End Get
+            Set
+                Me.status6Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status7() As Integer
+            Get
+                Return Me.status7Field
+            End Get
+            Set
+                Me.status7Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status8() As Integer
+            Get
+                Return Me.status8Field
+            End Get
+            Set
+                Me.status8Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status9() As Integer
+            Get
+                Return Me.status9Field
+            End Get
+            Set
+                Me.status9Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status0() As Integer
+            Get
+                Return Me.status0Field
+            End Get
+            Set
+                Me.status0Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property PriceLevel() As Integer
+            Get
+                Return Me.priceLevelField
+            End Get
+            Set
+                Me.priceLevelField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property PriceLevelName() As String
+            Get
+                Return Me.priceLevelNameField
+            End Get
+            Set
+                Me.priceLevelNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property PriceLevelDesc() As String
+            Get
+                Return Me.priceLevelDescField
+            End Get
+            Set
+                Me.priceLevelDescField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property PriceType() As String
+            Get
+                Return Me.priceTypeField
+            End Get
+            Set
+                Me.priceTypeField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property PriceTypeName() As String
+            Get
+                Return Me.priceTypeNameField
+            End Get
+            Set
+                Me.priceTypeNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property PriceTypeDesc() As String
+            Get
+                Return Me.priceTypeDescField
+            End Get
+            Set
+                Me.priceTypeDescField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Price() As Decimal
+            Get
+                Return Me.priceField
+            End Get
+            Set
+                Me.priceField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Tax() As Decimal
+            Get
+                Return Me.taxField
+            End Get
+            Set
+                Me.taxField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Charge1() As Decimal
+            Get
+                Return Me.charge1Field
+            End Get
+            Set
+                Me.charge1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Charge2() As Decimal
+            Get
+                Return Me.charge2Field
+            End Get
+            Set
+                Me.charge2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Charge3() As Decimal
+            Get
+                Return Me.charge3Field
+            End Get
+            Set
+                Me.charge3Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisInitialAmount() As Decimal
+            Get
+                Return Me.stadisInitialAmountField
+            End Get
+            Set
+                Me.stadisInitialAmountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisSupplAmount() As Decimal
+            Get
+                Return Me.stadisSupplAmountField
+            End Get
+            Set
+                Me.stadisSupplAmountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisRemainingAmount() As Decimal
+            Get
+                Return Me.stadisRemainingAmountField
+            End Get
+            Set
+                Me.stadisRemainingAmountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisLimitAmount() As Decimal
+            Get
+                Return Me.stadisLimitAmountField
+            End Get
+            Set
+                Me.stadisLimitAmountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisEventRemainingAmount() As Decimal
+            Get
+                Return Me.stadisEventRemainingAmountField
+            End Get
+            Set
+                Me.stadisEventRemainingAmountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisActiveDate() As Date
+            Get
+                Return Me.stadisActiveDateField
+            End Get
+            Set
+                Me.stadisActiveDateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisInactiveDate() As Date
+            Get
+                Return Me.stadisInactiveDateField
+            End Get
+            Set
+                Me.stadisInactiveDateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property TicketType() As Integer
+            Get
+                Return Me.ticketTypeField
+            End Get
+            Set
+                Me.ticketTypeField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property TicketTypeDesc() As String
+            Get
+                Return Me.ticketTypeDescField
+            End Get
+            Set
+                Me.ticketTypeDescField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF1() As String
+            Get
+                Return Me.uDF1Field
+            End Get
+            Set
+                Me.uDF1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF2() As String
+            Get
+                Return Me.uDF2Field
+            End Get
+            Set
+                Me.uDF2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF3() As String
+            Get
+                Return Me.uDF3Field
+            End Get
+            Set
+                Me.uDF3Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF4() As String
+            Get
+                Return Me.uDF4Field
+            End Get
+            Set
+                Me.uDF4Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF5() As String
+            Get
+                Return Me.uDF5Field
+            End Get
+            Set
+                Me.uDF5Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedInfo1() As Integer
+            Get
+                Return Me.usedInfo1Field
+            End Get
+            Set
+                Me.usedInfo1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedInfo2() As Integer
+            Get
+                Return Me.usedInfo2Field
+            End Get
+            Set
+                Me.usedInfo2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedInfo3() As Integer
+            Get
+                Return Me.usedInfo3Field
+            End Get
+            Set
+                Me.usedInfo3Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedInfo4() As Integer
+            Get
+                Return Me.usedInfo4Field
+            End Get
+            Set
+                Me.usedInfo4Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedInfo5() As Integer
+            Get
+                Return Me.usedInfo5Field
+            End Get
+            Set
+                Me.usedInfo5Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedDate1() As Date
+            Get
+                Return Me.usedDate1Field
+            End Get
+            Set
+                Me.usedDate1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedDate2() As Date
+            Get
+                Return Me.usedDate2Field
+            End Get
+            Set
+                Me.usedDate2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedDate3() As Date
+            Get
+                Return Me.usedDate3Field
+            End Get
+            Set
+                Me.usedDate3Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedDate4() As Date
+            Get
+                Return Me.usedDate4Field
+            End Get
+            Set
+                Me.usedDate4Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedDate5() As Date
+            Get
+                Return Me.usedDate5Field
+            End Get
+            Set
+                Me.usedDate5Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedGate1() As String
+            Get
+                Return Me.usedGate1Field
+            End Get
+            Set
+                Me.usedGate1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedGate2() As String
+            Get
+                Return Me.usedGate2Field
+            End Get
+            Set
+                Me.usedGate2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedGate3() As String
+            Get
+                Return Me.usedGate3Field
+            End Get
+            Set
+                Me.usedGate3Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedGate4() As String
+            Get
+                Return Me.usedGate4Field
+            End Get
+            Set
+                Me.usedGate4Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UsedGate5() As String
+            Get
+                Return Me.usedGate5Field
+            End Get
+            Set
+                Me.usedGate5Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Flag1() As Boolean
+            Get
+                Return Me.flag1Field
+            End Get
+            Set
+                Me.flag1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Flag2() As Boolean
+            Get
+                Return Me.flag2Field
+            End Get
+            Set
+                Me.flag2Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Flag3() As Boolean
+            Get
+                Return Me.flag3Field
+            End Get
+            Set
+                Me.flag3Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Flag4() As Boolean
+            Get
+                Return Me.flag4Field
+            End Get
+            Set
+                Me.flag4Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Flag5() As Boolean
+            Get
+                Return Me.flag5Field
+            End Get
+            Set
+                Me.flag5Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_InitialAmount() As Decimal
+            Get
+                Return Me.uDF_InitialAmountField
+            End Get
+            Set
+                Me.uDF_InitialAmountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_RemainingAmount() As Decimal
+            Get
+                Return Me.uDF_RemainingAmountField
+            End Get
+            Set
+                Me.uDF_RemainingAmountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_UnusedAmount() As Decimal
+            Get
+                Return Me.uDF_UnusedAmountField
+            End Get
+            Set
+                Me.uDF_UnusedAmountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_AmountStart() As Date
+            Get
+                Return Me.uDF_AmountStartField
+            End Get
+            Set
+                Me.uDF_AmountStartField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_AmountEnd() As Date
+            Get
+                Return Me.uDF_AmountEndField
+            End Get
+            Set
+                Me.uDF_AmountEndField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_InitialCredits() As Decimal
+            Get
+                Return Me.uDF_InitialCreditsField
+            End Get
+            Set
+                Me.uDF_InitialCreditsField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_RemainingCredits() As Decimal
+            Get
+                Return Me.uDF_RemainingCreditsField
+            End Get
+            Set
+                Me.uDF_RemainingCreditsField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_UnusedCredits() As Decimal
+            Get
+                Return Me.uDF_UnusedCreditsField
+            End Get
+            Set
+                Me.uDF_UnusedCreditsField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_CreditsStart() As Date
+            Get
+                Return Me.uDF_CreditsStartField
+            End Get
+            Set
+                Me.uDF_CreditsStartField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_CreditsEnd() As Date
+            Get
+                Return Me.uDF_CreditsEndField
+            End Get
+            Set
+                Me.uDF_CreditsEndField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_InitialPoints() As Decimal
+            Get
+                Return Me.uDF_InitialPointsField
+            End Get
+            Set
+                Me.uDF_InitialPointsField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_RemainingPoints() As Decimal
+            Get
+                Return Me.uDF_RemainingPointsField
+            End Get
+            Set
+                Me.uDF_RemainingPointsField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_UnusedPoints() As Decimal
+            Get
+                Return Me.uDF_UnusedPointsField
+            End Get
+            Set
+                Me.uDF_UnusedPointsField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_PointsStart() As Date
+            Get
+                Return Me.uDF_PointsStartField
+            End Get
+            Set
+                Me.uDF_PointsStartField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UDF_PointsEnd() As Date
+            Get
+                Return Me.uDF_PointsEndField
+            End Get
+            Set
+                Me.uDF_PointsEndField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EventStatusID() As Integer
+            Get
+                Return Me.eventStatusIDField
+            End Get
+            Set
+                Me.eventStatusIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EventTicketStatusID() As Integer
+            Get
+                Return Me.eventTicketStatusIDField
+            End Get
+            Set
+                Me.eventTicketStatusIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property IsArchived() As Boolean
+            Get
+                Return Me.isArchivedField
+            End Get
+            Set
+                Me.isArchivedField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property CreateDate() As Date
+            Get
+                Return Me.createDateField
+            End Get
+            Set
+                Me.createDateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property UpdateDate() As Date
+            Get
+                Return Me.updateDateField
+            End Get
+            Set
+                Me.updateDateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ReturnCode() As Integer
+            Get
+                Return Me.returnCodeField
+            End Get
+            Set
+                Me.returnCodeField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ReturnMessage() As String
+            Get
+                Return Me.returnMessageField
+            End Get
+            Set
+                Me.returnMessageField = value
+            End Set
+        End Property
     End Class
     
     '''<remarks/>
@@ -2395,6 +4752,8 @@ Namespace WebReference
         
         Private eventTicketExistsField As Boolean
         
+        Private eventTicketSVTypeField As String
+        
         Private eventTicketEventStatusIDField As Integer
         
         Private eventTicketEventTicketStatusIDField As Integer
@@ -2402,6 +4761,8 @@ Namespace WebReference
         Private eventTicketEventIDField As String
         
         Private eventTicketSVAccountIDField As Integer
+        
+        Private eventTicketIsPromotionEligibleField As Boolean
         
         Private eventTicketUpdateDateField As Date
         
@@ -2450,6 +4811,8 @@ Namespace WebReference
         Private sVA2ReplSVAccountIDField As Integer
         
         Private sVA2UpdateDateField As Date
+        
+        Private sVATotalAvailableField As Decimal
         
         Private returnCodeField As Integer
         
@@ -2706,6 +5069,16 @@ Namespace WebReference
         End Property
         
         '''<remarks/>
+        Public Property EventTicketSVType() As String
+            Get
+                Return Me.eventTicketSVTypeField
+            End Get
+            Set
+                Me.eventTicketSVTypeField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
         Public Property EventTicketEventStatusID() As Integer
             Get
                 Return Me.eventTicketEventStatusIDField
@@ -2742,6 +5115,16 @@ Namespace WebReference
             End Get
             Set
                 Me.eventTicketSVAccountIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property EventTicketIsPromotionEligible() As Boolean
+            Get
+                Return Me.eventTicketIsPromotionEligibleField
+            End Get
+            Set
+                Me.eventTicketIsPromotionEligibleField = value
             End Set
         End Property
         
@@ -2982,6 +5365,16 @@ Namespace WebReference
             End Get
             Set
                 Me.sVA2UpdateDateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property SVATotalAvailable() As Decimal
+            Get
+                Return Me.sVATotalAvailableField
+            End Get
+            Set
+                Me.sVATotalAvailableField = value
             End Set
         End Property
         
@@ -4748,6 +7141,60 @@ Namespace WebReference
     
     '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub ValidateLoginCompletedEventHandler(ByVal sender As Object, ByVal e As ValidateLoginCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class ValidateLoginCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As ReturnMessage
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),ReturnMessage)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub ChangePasswordCompletedEventHandler(ByVal sender As Object, ByVal e As ChangePasswordCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class ChangePasswordCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As ReturnMessage
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),ReturnMessage)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
     Public Delegate Sub SVAccountBalanceCheckCompletedEventHandler(ByVal sender As Object, ByVal e As SVAccountBalanceCheckCompletedEventArgs)
     
     '''<remarks/>
@@ -5234,6 +7681,276 @@ Namespace WebReference
     
     '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub SVTicketTransferCompletedEventHandler(ByVal sender As Object, ByVal e As SVTicketTransferCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class SVTicketTransferCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As StadisReply
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),StadisReply)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCAddUserProfileCompletedEventHandler(ByVal sender As Object, ByVal e As GCAddUserProfileCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCAddUserProfileCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As StadisReply
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),StadisReply)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCGetUserProfileCompletedEventHandler(ByVal sender As Object, ByVal e As GCGetUserProfileCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCGetUserProfileCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As StadisUserInfo
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),StadisUserInfo)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCUpdateUserProfileCompletedEventHandler(ByVal sender As Object, ByVal e As GCUpdateUserProfileCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCUpdateUserProfileCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As StadisReply
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),StadisReply)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCOrderGiftCardsCompletedEventHandler(ByVal sender As Object, ByVal e As GCOrderGiftCardsCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCOrderGiftCardsCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As StadisReply
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),StadisReply)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCGetGiftCardOrdersCompletedEventHandler(ByVal sender As Object, ByVal e As GCGetGiftCardOrdersCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCGetGiftCardOrdersCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As GCOrder()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),GCOrder())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCGetGiftCardOrderCompletedEventHandler(ByVal sender As Object, ByVal e As GCGetGiftCardOrderCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCGetGiftCardOrderCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As GiftCardOrder
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),GiftCardOrder)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCUpdateGiftCardOrderCompletedEventHandler(ByVal sender As Object, ByVal e As GCUpdateGiftCardOrderCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCUpdateGiftCardOrderCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As StadisReply
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),StadisReply)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCFulfillGiftCardOrderCompletedEventHandler(ByVal sender As Object, ByVal e As GCFulfillGiftCardOrderCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCFulfillGiftCardOrderCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As StadisReply
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),StadisReply)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCGetCardsForUserCompletedEventHandler(ByVal sender As Object, ByVal e As GCGetCardsForUserCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCGetCardsForUserCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Ticket()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Ticket())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
     Public Delegate Sub GCPurchaseCompletedEventHandler(ByVal sender As Object, ByVal e As GCPurchaseCompletedEventArgs)
     
     '''<remarks/>
@@ -5322,6 +8039,33 @@ Namespace WebReference
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCReloadCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As StadisReply
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),StadisReply)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209")>  _
+    Public Delegate Sub GCRegisterCardCompletedEventHandler(ByVal sender As Object, ByVal e As GCRegisterCardCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.34209"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class GCRegisterCardCompletedEventArgs
         Inherits System.ComponentModel.AsyncCompletedEventArgs
         
         Private results() As Object
