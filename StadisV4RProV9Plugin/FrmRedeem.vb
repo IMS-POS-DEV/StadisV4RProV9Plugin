@@ -108,7 +108,7 @@ Friend Class FrmRedeem
         grdTenders.Focus()
 
         Dim aRow As UltraGridRow = grdTenders.Rows(0)
-        aRow = aRow.GetChild(Infragistics.Win.UltraWinGrid.ChildRow.First)
+        'aRow = aRow.GetChild(Infragistics.Win.UltraWinGrid.ChildRow.First)
         grdTenders.ActiveRow = aRow
         grdTenders.ActiveCell = grdTenders.ActiveRow.Cells("TenderID")
         grdTenders.PerformAction(UltraGridAction.ToggleCellSel, False, False)

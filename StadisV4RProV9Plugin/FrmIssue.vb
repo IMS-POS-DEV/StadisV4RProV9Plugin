@@ -1197,8 +1197,11 @@ Friend Class FrmIssue
                 If Trim(aRow.GiftCardID) <> "" Then
                     CommonRoutines.BOInsert(mAdapter, itemHandle)
                     CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Lookup ALU", gGCI.GiftCardInfo(aRow.GCInfoIndex).RProLookupALU)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & aRow.GiftCardID & "\" & aRow.IorA & "\" & mCustomerID & "\" & aRow.Amount)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note2", aRow.GiftCardID)
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & aRow.GiftCardID & "\" & aRow.IorA & "\" & mCustomerID & "\" & aRow.Amount.ToString("""$""#,##0.00"))
+                    Dim len As Integer = aRow.GiftCardID.Length
+                    Dim lastfour As String = aRow.GiftCardID.Substring(len - 4, 4)
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note2", lastfour)
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note3", aRow.Amount.ToString("""$""#,##0.00"))
                     CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Quantity", 1)
                     CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Price", 0D)
                     CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
@@ -1212,7 +1215,7 @@ Friend Class FrmIssue
                         Dim fee As Decimal = CommonRoutines.BOGetDecAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt")
                         fee += mGiftCardTotal
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt", fee)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, invoiceHandle, "Fee Name", "STADIS")
+                        'CommonRoutines.BOSetAttributeValueByName(mAdapter, invoiceHandle, "Fee Name", "STADIS")
                     End If
                 Case "Tender"
                     Dim tenderHandle As Integer = mAdapter.GetReferenceBOForAttribute(0, "Tenders")

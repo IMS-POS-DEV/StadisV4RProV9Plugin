@@ -15,7 +15,7 @@ Public Class Configure
     '----------------------------------------------------------------------------------------------
     Public Overrides Sub Initialize()
         MyBase.Initialize()
-        fDescription = "STADIS Workstation Preferences"
+        fDescription = "STADIS V4 Workstation Preferences"
         fEnabled = True
         fGUID = New Guid(Discover.CLASS_Configure)
     End Sub  'Initialize

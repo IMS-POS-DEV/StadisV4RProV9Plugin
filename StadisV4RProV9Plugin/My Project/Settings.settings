@@ -26,8 +26,8 @@
     <Setting Name="WindowsPrinterName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Disabled</Value>
     </Setting>
-    <Setting Name="StadisWebServiceURL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://192.168.100.14/StadisWeb/StadisTransactions.asmx</Value>
+    <Setting Name="StadisV4WebServiceURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx</Value>
     </Setting>
     <Setting Name="SiteID" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

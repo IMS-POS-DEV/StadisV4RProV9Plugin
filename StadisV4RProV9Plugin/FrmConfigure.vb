@@ -46,7 +46,7 @@ Public Class FrmConfigure
         txtSiteID.Text = My.Settings.SiteID
         txtVendorID.Text = My.Settings.VendorID
         txtLocationID.Text = My.Settings.LocationID
-        txtStadisWebServiceURL.Text = My.Settings.StadisWebServiceURL
+        txtStadisWebServiceURL.Text = My.Settings.StadisV4WebServiceURL
         txtStadisUserID.Text = My.Settings.StadisUserID
         txtStadisPassword.Text = My.Settings.StadisPassword
         txtOverrideSettingID.Text = My.Settings.OverrideSettingID
@@ -68,8 +68,8 @@ Public Class FrmConfigure
         gVendorID = txtVendorID.Text
         My.Settings.LocationID = txtLocationID.Text
         gLocationID = txtLocationID.Text
-        My.Settings.StadisWebServiceURL = txtStadisWebServiceURL.Text
-        gStadisWebServiceURL = txtStadisWebServiceURL.Text
+        My.Settings.StadisV4WebServiceURL = txtStadisWebServiceURL.Text
+        gStadisV4WebServiceURL = txtStadisWebServiceURL.Text
         My.Settings.StadisUserID = txtStadisUserID.Text
         gStadisUserID = txtStadisUserID.Text
         My.Settings.StadisPassword = txtStadisPassword.Text

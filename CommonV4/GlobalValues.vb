@@ -10,7 +10,7 @@ Public Module GlobalValues
     Public gSiteID As String = ""
     Public gWSID As String = ""
     Public gLocationID As String = ""
-    Public gStadisWebServiceURL As String = "http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx"
+    Public gStadisV4WebServiceURL As String = "http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx"
     Public gStandardSettingComponent As String = "RPro9WS"
     Public gOverrideSettingComponent As String = ""
     Public gStadisUserID As String = "Test1"
@@ -34,7 +34,7 @@ Public Module GlobalValues
     ' of installation settings for different vendors.
     '----------------------------------------------------------------------------------------------
     Public gSiteSVType As String = "Ticket"
-    Public gStadisVersion As String = "3"
+    Public gStadisVersion As String = "4"
     Public gStadisRelease As String = "0"
 
     Public gAllowReturnCreditToCard As Boolean = False
@@ -51,8 +51,8 @@ Public Module GlobalValues
     Public gIssueGiftCardForReturn As Boolean = False
     Public gPostNonStadisTransactions As Boolean = False
     Public gReturnGiftCardALU As String = ""
-    Public gExtractPattern As String = "(?<=[;\*])[0-9]+(?=([=\?]|$))"
-    '        '(?<=[;\*])    = preceded by a semicolon
+    Public gExtractPattern As String = "(?<=[;\*]*)[0-9]+(?=([=\?]|$))"
+    '        '(?<=[;\*]*)   = optionally preceded by a semicolon
     '        '[0-9]+        = One or more numbers  <-- Extract
     '        '(?=([=\?]|$)) = and followed by an equals, a question mark, or end of line
     Public gValidatePattern As String = "(1[47][0-9]{12}$*)|([01][0-9]{7}$*)"

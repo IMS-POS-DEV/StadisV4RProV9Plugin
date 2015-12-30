@@ -150,15 +150,15 @@ Namespace My
             End Set
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.100.14/StadisWeb/StadisTransactions.asmx")>  _
-        Public Property StadisWebServiceURL() As String
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx")> _
+        Public Property StadisV4WebServiceURL() As String
             Get
-                Return CType(Me("StadisWebServiceURL"),String)
+                Return CType(Me("StadisV4WebServiceURL"), String)
             End Get
-            Set
-                Me("StadisWebServiceURL") = value
+            Set(value As String)
+                Me("StadisV4WebServiceURL") = value
             End Set
         End Property
         

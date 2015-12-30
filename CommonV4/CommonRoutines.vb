@@ -30,7 +30,7 @@ Public Class CommonRoutines
             cred.Password = gStadisPassword
             ' Provide the credentials to the service proxy
             mService.SecurityCredentialsValue = cred
-            mService.Url = gStadisWebServiceURL
+            mService.Url = gStadisV4WebServiceURL
         End If
         'Provide the service proxy for use
         Return mService

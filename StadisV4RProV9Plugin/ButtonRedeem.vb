@@ -80,7 +80,7 @@ Public Class ButtonRedeem
         gFirstTimeThrough = False
 
         ' Get WS settings
-        gStadisWebServiceURL = My.Settings.StadisWebServiceURL
+        gStadisV4WebServiceURL = My.Settings.StadisV4WebServiceURL
         gOverrideSettingComponent = My.Settings.OverrideSettingID
         gStadisUserID = My.Settings.StadisUserID
         gStadisPassword = My.Settings.StadisPassword

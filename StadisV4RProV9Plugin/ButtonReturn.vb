@@ -144,8 +144,11 @@ Public Class ButtonReturn
             CommonRoutines.BOOpen(fAdapter, itemHandle)
             CommonRoutines.BOInsert(fAdapter, itemHandle)
             CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Lookup ALU", gReturnGiftCardALU)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note1", "STADIS\" & giftCardID & "\" & itemType & "\ \" & amtDueToCust)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note2", giftCardID)
+            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note1", "STADIS\" & giftCardID & "\" & itemType & "\ \" & amtDueToCust.ToString("""$""#,##0.00"))
+            Dim len As Integer = giftCardID.Length
+            Dim lastfour As String = giftCardID.Substring(len - 4, 4)
+            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note2", lastfour)
+            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note3", amtDueToCust.ToString("""$""#,##0.00"))
             CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Quantity", 1)
             CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Price", 0D)
             CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Tax Amount", 0D)
