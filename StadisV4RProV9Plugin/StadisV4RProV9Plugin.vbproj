@@ -32,7 +32,8 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\..\..\..\..\..\RetailPro9\Plugins\</OutputPath>
-    <DocumentationFile>StadisV4RProV9Plugin.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
@@ -42,7 +43,8 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>StadisV4RProV9Plugin.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>

@@ -18,6 +18,8 @@ Friend Class FrmReload
     Private mEventID As String = ""
     Private mCustomerID As String = ""
     Private mRemainingAmount As Decimal = 0D
+    Private mTenderHasBeenCharged As Boolean = False
+    Private mAuthID As String = ""
     Const Active As Integer = 1
     Const Pending As Integer = 3
 
@@ -76,6 +78,7 @@ Friend Class FrmReload
             Exit Sub
         End If
 
+        'Get TicketStatus
         Dim invoiceHandle As Integer = 0
         Dim sr As New StadisRequest
         With sr
@@ -90,9 +93,7 @@ Friend Class FrmReload
             .ReceiptID = ""
             .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Cashier")
         End With
-
         Dim status As TicketStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
-        'Dim mTicketStatus As MessageAndTicketStatus = CommonRoutines.StadisAPI.GetTicketStatus(txtGiftCardID.Text)
         If status.ReturnCode < 0 Then
             If status.ReturnCode <> -3 Then
                 MsgBox("Unable to validate card...", MsgBoxStyle.Exclamation, "GiftCard")
@@ -102,15 +103,15 @@ Friend Class FrmReload
             End If
         End If
 
-        'Dim status As StadisTicketStatus = mTicketStatus.TicketStatus
         If status.TicketExists = False AndAlso status.EventTicketExists = True Then
             MsgBox("No matching Ticket for EventTicket...", MsgBoxStyle.Information, "GiftCard")
             txtGiftCardID.Text = ""
             txtGiftCardID.Focus()
             Exit Sub
         End If
+
         If status.TicketExists = True Then
-            mGiftCardALU = status.CustomerStatus1
+            mGiftCardALU = "GiftReload"
             mEventID = status.CustomerStatus2
             mCustomerID = status.TicketCustomerID
             mRemainingAmount = status.SVA1Balance
@@ -212,30 +213,6 @@ Friend Class FrmReload
             Dim giftCardID As String = txtGiftCardID.Text
             Dim amount As Decimal = CDec(txtAmount.Text)
             Dim invoiceHandle As Integer = 0
-            'Create a tender with an offsetting negative balance
-            Dim tenderHandle As Integer = mAdapter.GetReferenceBOForAttribute(0, "Tenders")
-            CommonRoutines.BOOpen(mAdapter, tenderHandle)
-            If amount > 0D Then
-                CommonRoutines.BOInsert(mAdapter, tenderHandle)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gStadisTenderType)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - amount)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID", txtGiftCardID.Text)
-                If CommonRoutines.IsAGiftCard(mEventID) Then
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@GL #" & txtGiftCardID.Text)
-                Else
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@TL #" & txtGiftCardID.Text)
-                End If
-                If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_PRESENT", 1)
-                End If
-                CommonRoutines.BOPost(mAdapter, tenderHandle)
-            Else
-                MessageBox.Show("No reload amount entered.", "STADIS")
-                Exit Sub
-            End If
             'Create an item
             Dim itemHandle As Integer = mAdapter.GetReferenceBOForAttribute(invoiceHandle, "Items")
             CommonRoutines.BOOpen(mAdapter, itemHandle)
@@ -247,6 +224,41 @@ Friend Class FrmReload
             CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
             CommonRoutines.BOPost(mAdapter, itemHandle)
             CommonRoutines.BORefreshRecord(mAdapter, invoiceHandle)
+            'Create a fee or a tender with an offsetting negative balance
+            If amount > 0D Then
+                Select Case gFeeOrTenderForReloadOffset
+                    Case "Fee"
+                        CommonRoutines.BOOpen(mAdapter, invoiceHandle)
+                        Dim fee As Decimal = CommonRoutines.BOGetDecAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt")
+                        fee += amount
+                        CommonRoutines.BOSetAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt", fee)
+                    Case "Tender"
+                        Dim tenderHandle As Integer = mAdapter.GetReferenceBOForAttribute(0, "Tenders")
+                        CommonRoutines.BOOpen(mAdapter, tenderHandle)
+                        CommonRoutines.BOInsert(mAdapter, tenderHandle)
+                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gStadisTenderType)
+                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - amount)
+                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID", txtGiftCardID.Text)
+                        If CommonRoutines.IsAGiftCard(mEventID) Then
+                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@GL #" & txtGiftCardID.Text)
+                        Else
+                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@TL #" & txtGiftCardID.Text)
+                        End If
+                        If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
+                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
+                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)
+                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_PRESENT", 1)
+                        End If
+                        CommonRoutines.BOPost(mAdapter, tenderHandle)
+                        CommonRoutines.BORefreshRecord(mAdapter, invoiceHandle)
+                    Case Else
+                        MessageBox.Show("Invalid offset option specified.", "STADIS")
+                End Select
+            Else
+                MessageBox.Show("No reload amount entered.", "STADIS")
+                Exit Sub
+            End If
         Catch ex As Exception
             MessageBox.Show("Error while adding STADIS gift card(s)." & vbCrLf & ex.Message, "STADIS")
         End Try

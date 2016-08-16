@@ -191,6 +191,8 @@ Public Class ButtonRedeem
                             gTenderTypeForStadis = .SettingValue
                         Case "FeeOrTenderForIssueOffset"
                             gFeeOrTenderForIssueOffset = .SettingValue
+                        Case "FeeOrTenderForReloadOffset"
+                            gFeeOrTenderForReloadOffset = .SettingValue
                         Case "VendorID"
                             gVendorID = .SettingValue
                         Case "FormLogoImage"

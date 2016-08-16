@@ -41,7 +41,8 @@ Public Module GlobalValues
     Public gAskForTicketOnIssue As Boolean = False
     Public gAskForTicketOnRedeem As Boolean = False
     Public gDefaultCustomerID As String = "99999"
-    Public gFeeOrTenderForIssueOffset As String = "Offset"
+    Public gFeeOrTenderForIssueOffset As String = "Tender"
+    Public gFeeOrTenderForReloadOffset As String = "Tender"
     Public gFormLogoImage As String = "stadislogo.png"
     Public gGiftCardEvents As String = "9999;8888;7777;6666;5555"
     Public gImageTransparentColor As System.Drawing.Color = Drawing.Color.Magenta

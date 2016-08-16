@@ -97,7 +97,7 @@ Public Class CommonRoutines
         Private gTenderID As String = ""
         Private gAmount As Decimal = 0D
         Private gStadisAuthorizationID As String = ""
-        Private gReceiptID As String = ""
+        Private gMatchFound As Boolean = False
 
         Public Property TenderTypeID() As Integer
             Get
@@ -135,21 +135,20 @@ Public Class CommonRoutines
             End Set
         End Property
 
-        Public Property ReceiptID() As String
+        Public Property MatchFound() As Boolean
             Get
-                Return gReceiptID
+                Return gMatchFound
             End Get
-            Set(ByVal Value As String)
-                gReceiptID = Value
+            Set(ByVal Value As Boolean)
+                gMatchFound = Value
             End Set
         End Property
 
-        Public Sub New(ByVal tendertypeid As Integer, ByVal tenderid As String, ByVal amt As Decimal, ByVal authid As String, ByVal recid As String)
+        Public Sub New(ByVal tendertypeid As Integer, ByVal tenderid As String, ByVal amt As Decimal, ByVal authid As String)
             gTenderTypeID = tendertypeid
             gTenderID = tenderid
             gAmount = amt
             gStadisAuthorizationID = authid
-            gReceiptID = recid
         End Sub
 
         Public Sub New()
@@ -161,13 +160,14 @@ Public Class CommonRoutines
     ' Repackage Header data in Stadis format
     '------------------------------------------------------------------------------
     Public Shared Function LoadHeader(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer) As StadisTranHeader
-        'ToDo Remove when debugged
+        ''Debug code
         'Dim itemCount As Integer = BOGetIntAttributeValueByName(adapter, invoiceHandle, "Item Count")
         'Dim tenderCount As Integer = BOGetIntAttributeValueByName(adapter, invoiceHandle, "Tender Count")
         'MsgBox("Items: " & itemCount.ToString & ", Tenders: " & tenderCount.ToString, MsgBoxStyle.Exclamation, "Load")
 
         Dim mTransHeader As New StadisTranHeader
         With mTransHeader
+            .TransactionKey = Guid.NewGuid
             .LocationID = BOGetStrAttributeValueByName(adapter, invoiceHandle, "Store No")
             .RegisterID = BOGetStrAttributeValueByName(adapter, invoiceHandle, "Invoice Workstion")
             .ReceiptID = BOGetStrAttributeValueByName(adapter, invoiceHandle, "Invoice Number")

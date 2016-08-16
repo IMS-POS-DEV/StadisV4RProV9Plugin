@@ -32,8 +32,8 @@
               <xs:element name="LineNumber" msprop:Generator_ColumnVarNameInTable="columnLineNumber" msprop:Generator_ColumnPropNameInRow="LineNumber" msprop:Generator_ColumnPropNameInTable="LineNumberColumn" msprop:Generator_UserColumnName="LineNumber" type="xs:short" minOccurs="0" />
               <xs:element name="TenderID" msdata:Caption="Ticket" msprop:Generator_ColumnVarNameInTable="columnTenderID" msprop:Generator_ColumnPropNameInRow="TenderID" msprop:Generator_ColumnPropNameInTable="TenderIDColumn" msprop:Generator_UserColumnName="TenderID" type="xs:string" minOccurs="0" />
               <xs:element name="StatusMessage" msprop:Generator_ColumnVarNameInTable="columnStatusMessage" msprop:Generator_ColumnPropNameInRow="StatusMessage" msprop:Generator_ColumnPropNameInTable="StatusMessageColumn" msprop:Generator_UserColumnName="StatusMessage" type="xs:string" minOccurs="0" />
-              <xs:element name="PreChargeBalance" msdata:Caption="Ttype" msprop:Generator_ColumnVarNameInTable="columnPreChargeBalance" msprop:Generator_ColumnPropNameInRow="PreChargeBalance" msprop:Generator_ColumnPropNameInTable="PreChargeBalanceColumn" msprop:Generator_UserColumnName="PreChargeBalance" type="xs:decimal" minOccurs="0" />
-              <xs:element name="RemainingBalance" msprop:Generator_ColumnVarNameInTable="columnRemainingBalance" msprop:Generator_ColumnPropNameInRow="RemainingBalance" msprop:Generator_ColumnPropNameInTable="RemainingBalanceColumn" msprop:Generator_UserColumnName="RemainingBalance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AvailableAmount" msdata:Caption="Ttype" msprop:Generator_ColumnVarNameInTable="columnAvailableAmount" msprop:Generator_ColumnPropNameInRow="AvailableAmount" msprop:Generator_ColumnPropNameInTable="AvailableAmountColumn" msprop:Generator_UserColumnName="AvailableAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BalanceAfter" msprop:Generator_ColumnVarNameInTable="columnBalanceAfter" msprop:Generator_ColumnPropNameInRow="BalanceAfter" msprop:Generator_ColumnPropNameInTable="BalanceAfterColumn" msprop:Generator_UserColumnName="BalanceAfter" type="xs:decimal" minOccurs="0" />
               <xs:element name="TenderAmount" msprop:Generator_ColumnVarNameInTable="columnTenderAmount" msprop:Generator_ColumnPropNameInRow="TenderAmount" msprop:Generator_ColumnPropNameInTable="TenderAmountColumn" msprop:Generator_UserColumnName="TenderAmount" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -56,8 +56,8 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Header_Tender" msdata:parent="Header" msdata:child="Tender" msdata:parentkey="ID" msdata:childkey="ID" msprop:Generator_UserChildTable="Tender" msprop:Generator_ChildPropName="GetTenderRows" msprop:Generator_UserRelationName="Header_Tender" msprop:Generator_RelationVarName="relationHeader_Tender" msprop:Generator_UserParentTable="Header" msprop:Generator_ParentPropName="HeaderRow" />
-      <msdata:Relationship name="Header_Total" msdata:parent="Header" msdata:child="Total" msdata:parentkey="ID" msdata:childkey="ID" msprop:Generator_UserChildTable="Total" msprop:Generator_ChildPropName="GetTotalRows" msprop:Generator_UserRelationName="Header_Total" msprop:Generator_RelationVarName="relationHeader_Total" msprop:Generator_UserParentTable="Header" msprop:Generator_ParentPropName="HeaderRow" />
+      <msdata:Relationship name="Header_Tender" msdata:parent="Header" msdata:child="Tender" msdata:parentkey="ID" msdata:childkey="ID" msprop:Generator_UserChildTable="Tender" msprop:Generator_ChildPropName="GetTenderRows" msprop:Generator_UserRelationName="Header_Tender" msprop:Generator_ParentPropName="HeaderRow" msprop:Generator_RelationVarName="relationHeader_Tender" msprop:Generator_UserParentTable="Header" />
+      <msdata:Relationship name="Header_Total" msdata:parent="Header" msdata:child="Total" msdata:parentkey="ID" msdata:childkey="ID" msprop:Generator_UserChildTable="Total" msprop:Generator_ChildPropName="GetTotalRows" msprop:Generator_UserRelationName="Header_Total" msprop:Generator_ParentPropName="HeaderRow" msprop:Generator_RelationVarName="relationHeader_Total" msprop:Generator_UserParentTable="Header" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

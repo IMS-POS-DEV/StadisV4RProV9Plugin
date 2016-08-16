@@ -795,13 +795,13 @@ Friend Class FrmIssue
             .UpdateData()
             Dim indx As Integer = CInt(.ActiveRow.Cells("GCInfoIndex").Value)
             If .ActiveCell IsNot Nothing Then
-                Dim giftCardIDEntered As Boolean = False
+                Dim wasGiftCardIDEntered As Boolean = False
                 If Trim(CStr(.ActiveRow.Cells("GiftCardID").Text)) <> "" Then
-                    giftCardIDEntered = True
+                    wasGiftCardIDEntered = True
                 End If
-                Dim giftCardTypeEntered As Boolean = False
+                Dim wasGiftCardTypeEntered As Boolean = False
                 If Trim(CStr(.ActiveRow.Cells("GiftCardType").Text)) <> "" Then
-                    giftCardTypeEntered = True
+                    wasGiftCardTypeEntered = True
                 End If
                 Dim isActivate As Boolean = False
                 If .ActiveRow.Cells("IorA").Text = "A" Then
@@ -809,9 +809,9 @@ Friend Class FrmIssue
                 End If
                 Select Case .ActiveCell.Column.Key
                     Case "GiftCardID"
-                        Select Case giftCardIDEntered
+                        Select Case wasGiftCardIDEntered
                             Case True
-                                Select Case giftCardTypeEntered
+                                Select Case wasGiftCardTypeEntered
                                     Case True   'Type entered
                                         Select Case isActivate
                                             Case True
@@ -850,9 +850,9 @@ Friend Class FrmIssue
                                 ' Stay in GiftCardID field
                         End Select
                     Case "GiftCardType"
-                        Select Case giftCardTypeEntered
+                        Select Case wasGiftCardTypeEntered
                             Case True
-                                Select Case giftCardIDEntered
+                                Select Case wasGiftCardIDEntered
                                     Case True
                                         Select Case isActivate
                                             Case True
@@ -877,9 +877,9 @@ Friend Class FrmIssue
                                 ' Stay in GiftCardType field
                         End Select
                     Case "AddAmount"
-                        Select Case giftCardIDEntered
+                        Select Case wasGiftCardIDEntered
                             Case True
-                                Select Case giftCardTypeEntered
+                                Select Case wasGiftCardTypeEntered
                                     Case True
                                         If LastRowOfGrid(grdGiftCards) Then
                                             AddANewLine()
@@ -1187,6 +1187,17 @@ Friend Class FrmIssue
     ' Take entries in GiftCards grid and add them as items to Retail Pro
     '------------------------------------------------------------------------------
     Private Sub AddOurItemsAndTenderToRPro()
+        'Preliminary checks
+        For Each aRow As DSGiftCard.GiftCardRow In mGiftCards.GiftCard.Rows
+            If Trim(aRow.GiftCardID) = "" Then
+                MessageBox.Show("Card with missing number ID.", "STADIS")
+                Exit Sub
+            End If
+            If aRow.Amount = 0D Then
+                MessageBox.Show("Card with missing amount.", "STADIS")
+                Exit Sub
+            End If
+        Next
         Try
             'Create an item for each Gift Card
             Dim invoiceHandle As Integer = 0
@@ -1194,19 +1205,17 @@ Friend Class FrmIssue
             Dim itemHandle As Integer = mAdapter.GetReferenceBOForAttribute(invoiceHandle, "Items")
             CommonRoutines.BOOpen(mAdapter, itemHandle)
             For Each aRow As DSGiftCard.GiftCardRow In mGiftCards.GiftCard.Rows
-                If Trim(aRow.GiftCardID) <> "" Then
-                    CommonRoutines.BOInsert(mAdapter, itemHandle)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Lookup ALU", gGCI.GiftCardInfo(aRow.GCInfoIndex).RProLookupALU)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & aRow.GiftCardID & "\" & aRow.IorA & "\" & mCustomerID & "\" & aRow.Amount.ToString("""$""#,##0.00"))
-                    Dim len As Integer = aRow.GiftCardID.Length
-                    Dim lastfour As String = aRow.GiftCardID.Substring(len - 4, 4)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note2", lastfour)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note3", aRow.Amount.ToString("""$""#,##0.00"))
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Quantity", 1)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Price", 0D)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
-                    CommonRoutines.BOPost(mAdapter, itemHandle)
-                End If
+                CommonRoutines.BOInsert(mAdapter, itemHandle)
+                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Lookup ALU", gGCI.GiftCardInfo(aRow.GCInfoIndex).RProLookupALU)
+                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & aRow.GiftCardID & "\" & aRow.IorA & "\" & mCustomerID & "\" & aRow.Amount.ToString("""$""#,##0.00"))
+                Dim len As Integer = aRow.GiftCardID.Length
+                Dim lastfour As String = aRow.GiftCardID.Substring(len - 4, 4)
+                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note2", lastfour)
+                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note3", aRow.Amount.ToString("""$""#,##0.00"))
+                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Quantity", 1)
+                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Price", 0D)
+                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
+                CommonRoutines.BOPost(mAdapter, itemHandle)
             Next
             Select Case gFeeOrTenderForIssueOffset
                 Case "Fee"

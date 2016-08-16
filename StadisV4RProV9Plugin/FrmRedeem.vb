@@ -64,10 +64,13 @@ Friend Class FrmRedeem
     Private Sub FrmRedeem_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         GetReceiptFields()
         SetUpGridAndConnectToTendersDataset()
-        If Trim(gFormLogoImage) <> "" Then
+    End Sub  'FrmRedeem_Load
+
+    Private Sub FrmRedeem_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
+        If Trim(gFormLogoImage) <> "stadislogo.png" Then
             pbLogo.Image = New Bitmap(gFormLogoImage)
         End If
-    End Sub  'FrmRedeem_Load
+    End Sub  'FrmRedeem_Paint
 
     '----------------------------------------------------------------------------------------------
     ' Get Amount Due from RPro and initialize fields used to ID transaction (RegisterID, etc.)
@@ -101,18 +104,10 @@ Friend Class FrmRedeem
         MakeGridEnterActLikeTab()
         AddHeaderAndTotalRecsToTendersTable()
         grdTenders.DataSource = mTenders
-        RenumberLines()
         CalculateTenderTotal()
+        RenumberLines()
         grdTenders.Refresh()
         grdTenders.BeginInvoke(New MethodInvoker(AddressOf ActivateGridEditMode))
-        grdTenders.Focus()
-
-        Dim aRow As UltraGridRow = grdTenders.Rows(0)
-        'aRow = aRow.GetChild(Infragistics.Win.UltraWinGrid.ChildRow.First)
-        grdTenders.ActiveRow = aRow
-        grdTenders.ActiveCell = grdTenders.ActiveRow.Cells("TenderID")
-        grdTenders.PerformAction(UltraGridAction.ToggleCellSel, False, False)
-        grdTenders.PerformAction(UltraGridAction.EnterEditMode, False, False)
     End Sub  'SetUpGridAndConnectToTendersDataset
 
     '----------------------------------------------------------------------------------------------
@@ -183,8 +178,8 @@ Friend Class FrmRedeem
                         .TenderID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mTenderHandle, "TRANSACTION_ID")
                         .StatusMessage = ""
                         .TenderAmount = CommonRoutines.BOGetDecAttributeValueByName(mAdapter, mTenderHandle, "AMT")
-                        .PreChargeBalance = 0D
-                        .RemainingBalance = 0D
+                        .AvailableAmount = 0D
+                        .BalanceAfter = 0D
                     End With
                     Dim alreadyEntered As Boolean = False
                     For Each dr1 As DSTender.TenderRow In DSTender.Tender
@@ -356,8 +351,8 @@ Friend Class FrmRedeem
                     .Columns("LineNumber").SortIndicator = SortIndicator.Disabled
                     .Columns("TenderID").SortIndicator = SortIndicator.Disabled
                     .Columns("StatusMessage").SortIndicator = SortIndicator.Disabled
-                    .Columns("PreChargeBalance").SortIndicator = SortIndicator.Disabled
-                    .Columns("RemainingBalance").SortIndicator = SortIndicator.Disabled
+                    .Columns("AvailableAmount").SortIndicator = SortIndicator.Disabled
+                    .Columns("BalanceAfter").SortIndicator = SortIndicator.Disabled
                     .Columns("TenderAmount").SortIndicator = SortIndicator.Disabled
 
                     With .Columns("Del")
@@ -407,13 +402,13 @@ Friend Class FrmRedeem
                         .TabStop = False
                         .Width = 100
                     End With
-                    With .Columns("PreChargeBalance")
+                    With .Columns("AvailableAmount")
                         '.PerformAutoResize()
                         .CellActivation = Infragistics.Win.UltraWinGrid.Activation.NoEdit
                         .CellAppearance.ForeColor = Drawing.Color.Teal
                         .CellAppearance.TextHAlign = Infragistics.Win.HAlign.Right
                         .Format = "C2"
-                        .Header.Caption = "Pre-Charge" & vbCrLf & "Balance"
+                        .Header.Caption = "Available" & vbCrLf & "Amount"
                         .Header.VisiblePosition = 4
                         .InvalidValueBehavior = InvalidValueBehavior.RevertValueAndRetainFocus
                         .MaxWidth = 100
@@ -421,13 +416,13 @@ Friend Class FrmRedeem
                         .TabStop = False
                         .Width = 100
                     End With
-                    With .Columns("RemainingBalance")
+                    With .Columns("BalanceAfter")
                         '.PerformAutoResize()
                         .CellActivation = Infragistics.Win.UltraWinGrid.Activation.NoEdit
                         .CellAppearance.ForeColor = Drawing.Color.Teal
                         .CellAppearance.TextHAlign = Infragistics.Win.HAlign.Right
                         .Format = "C2"
-                        .Header.Caption = "Remaining" & vbCrLf & "Balance"
+                        .Header.Caption = "Balance" & vbCrLf & "After Chg"
                         .Header.VisiblePosition = 5
                         .InvalidValueBehavior = InvalidValueBehavior.RevertValueAndRetainFocus
                         .MaxWidth = 100
@@ -564,7 +559,7 @@ Friend Class FrmRedeem
                 ' set column widths based on Band(1)
                 With grdTenders.DisplayLayout.Bands(1)
                     e.Row.Cells("ID").Column.Width = .Columns("ID").Width
-                    e.Row.Cells("Description").Column.Width = .Columns("Del").Width + .Columns("LineNumber").Width + .Columns("TenderID").Width + .Columns("StatusMessage").Width + .Columns("PreChargeBalance").Width + .Columns("RemainingBalance").Width
+                    e.Row.Cells("Description").Column.Width = .Columns("Del").Width + .Columns("LineNumber").Width + .Columns("TenderID").Width + .Columns("StatusMessage").Width + .Columns("AvailableAmount").Width + .Columns("BalanceAfter").Width
                     e.Row.Cells("Total").Column.Width = .Columns("TenderAmount").Width
                 End With
         End Select
@@ -585,8 +580,8 @@ Friend Class FrmRedeem
             .TenderID = ""
             .StatusMessage = ""
             .TenderAmount = 0D
-            .PreChargeBalance = 0D
-            .RemainingBalance = 0D
+            .AvailableAmount = 0D
+            .BalanceAfter = 0D
         End With
         mTenders.Tender.Rows.Add(dr)
     End Sub  'AddLineToTendersGrid
@@ -601,6 +596,19 @@ Friend Class FrmRedeem
         mTenders.Tender(thisRow.Index).Delete()
         If mTenders.Tender.Count = 0 Then
             AddLineToTendersGrid()
+        End If
+        If CBool(thisRow.Cells("IsCharged").Value) = True Then
+            Dim sr As New StadisRequest
+            With sr
+                .SiteID = gSiteID
+                .StadisAuthorizationID = CStr(thisRow.Cells("StadisAuthorizationID").Value)
+                .VendorID = gVendorID
+                .LocationID = gLocationID
+            End With
+            Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
+            If sys(0).ReturnCode < 0 Then
+                MessageBox.Show("Unable to back out Stadis charge.", "STADIS")
+            End If
         End If
         CalculateTenderTotal()
         RenumberLines()
@@ -706,28 +714,13 @@ Friend Class FrmRedeem
             If .ActiveCell IsNot Nothing Then
 
                 'Set flags
-                Dim tenderIDEntered As Boolean
-                If Trim(CStr(.ActiveRow.Cells("TenderID").Text)) = "" Then
-                    tenderIDEntered = False
-                Else
-                    tenderIDEntered = True
-                End If
-                Dim tenderAmountEntered As Boolean
-                If CDec(.ActiveRow.Cells("TenderAmount").Value) = 0D Then
-                    tenderAmountEntered = False
-                Else
-                    tenderAmountEntered = True
-                End If
-                Dim lastRow As Boolean
-                If .ActiveRow.Index = mTenders.Tender.Count - 1 Then
-                    lastRow = True
-                Else
-                    lastRow = False
-                End If
+                Dim isTenderIDEntered As Boolean = If(Trim(CStr(.ActiveRow.Cells("TenderID").Text)) = "", False, True)
+                Dim isTenderAmountEntered As Boolean = If(CDec(.ActiveRow.Cells("TenderAmount").Value) = 0D, False, True)
+                Dim isLastRow As Boolean = If(.ActiveRow.Index = mTenders.Tender.Count - 1, True, False)
 
                 Select Case .ActiveCell.Column.Key
                     Case "TenderID"
-                        Select Case tenderAmountEntered
+                        Select Case isTenderAmountEntered
                             Case True
                                 With .ActiveRow
                                     If CBool(.Cells("IsCharged").Value) = False Then
@@ -735,10 +728,10 @@ Friend Class FrmRedeem
                                         DoSVAccountCharge(grdTenders.ActiveRow)
                                     End If
                                 End With
-                                If lastRow Then
+                                If isLastRow Then
                                     grdTenders.PerformAction(UltraGridAction.ExitEditMode, False, False)
                                     CalculateTenderTotal()
-                                    If tenderIDEntered = False AndAlso mRemainingAmountDue = 0D Then
+                                    If isTenderIDEntered = False AndAlso mRemainingAmountDue = 0D Then
                                         JumpToOKButton()
                                     Else
                                         AddLineToTendersGrid()
@@ -751,15 +744,13 @@ Friend Class FrmRedeem
                             Case False
                                 grdTenders.PerformAction(UltraGridAction.ExitEditMode, False, False)
                                 TabToField("TenderAmount")
-                                'RemoveHandler grdTenders.AfterExitEditMode, AddressOf grdTenders_AfterExitEditMode
-                                RemoveHandler grdTenders.AfterCellUpdate, AddressOf grdTenders_AfterCellUpdate
+                                'RemoveHandler grdTenders.AfterCellUpdate, AddressOf grdTenders_AfterCellUpdate
                                 .ActiveRow.Cells("TenderAmount").Value = mRemainingAmountDue
                                 .ActiveRow.Update()
-                                'AddHandler grdTenders.AfterExitEditMode, AddressOf grdTenders_AfterExitEditMode
-                                AddHandler grdTenders.AfterCellUpdate, AddressOf grdTenders_AfterCellUpdate
+                                'AddHandler grdTenders.AfterCellUpdate, AddressOf grdTenders_AfterCellUpdate
                                 '
                                 CalculateTenderTotal()
-                                If lastRow Then
+                                If isLastRow Then
                                     grdTenders.PerformAction(UltraGridAction.ExitEditMode, False, False)
                                     If mRemainingAmountDue = 0D Then
                                         JumpToOKButton()
@@ -780,7 +771,7 @@ Friend Class FrmRedeem
                             .ActiveCell.Value = 0D
                         End If
                         CalculateTenderTotal()
-                        Select Case tenderIDEntered
+                        Select Case isTenderIDEntered
                             Case True
                                 With .ActiveRow
                                     If CBool(.Cells("IsCharged").Value) = False Then
@@ -788,7 +779,7 @@ Friend Class FrmRedeem
                                         DoSVAccountCharge(grdTenders.ActiveRow)
                                     End If
                                 End With
-                                If lastRow Then
+                                If isLastRow Then
                                     grdTenders.PerformAction(UltraGridAction.ExitEditMode, False, False)
                                     If mRemainingAmountDue = 0D Then
                                         JumpToOKButton()
@@ -801,7 +792,7 @@ Friend Class FrmRedeem
                                     TabToField("TenderID")
                                 End If
                             Case False
-                                If tenderAmountEntered = False Then
+                                If isTenderAmountEntered = False Then
                                     JumpToOKButton()
                                 Else
                                     grdTenders.PerformAction(UltraGridAction.PrevCellByTab, False, False)
@@ -843,7 +834,7 @@ Friend Class FrmRedeem
             End If
             mBusy = True
         End SyncLock
-        'ToDo Remove when debugged
+        'Debugging code
         'Dim itemCount As Integer = BOGetIntAttributeValueByName(Adapter, 0, "Item Count")
         'Dim tenderCount As Integer = BOGetIntAttributeValueByName(Adapter, 0, "Tender Count")
         'MsgBox("Items: " & itemCount.ToString & ", Tenders: " & tenderCount.ToString, MsgBoxStyle.Exclamation, "Before")
@@ -864,7 +855,7 @@ Friend Class FrmRedeem
                 If sys(0).ReturnCode < 0 Then
                     MsgBox("Unable to back out previously entered value.", MsgBoxStyle.Exclamation, "STADIS")
                 End If
-                'ToDo adjust RPro
+                'Adjust RPro
                 Dim invoiceHandle As Integer = 0
                 Dim tenderHandle As Integer = mAdapter.GetReferenceBOForAttribute(invoiceHandle, "Tenders")
                 Dim tenderID As String = ""
@@ -947,6 +938,32 @@ Friend Class FrmRedeem
 
                     CalculateTenderTotal()
 
+                    'Check ticket status
+                    Dim sr As New StadisRequest
+                    With sr
+                        .SiteID = gSiteID
+                        .TenderTypeID = 1
+                        .TenderID = CStr(e.Cell.Value)
+                        .Amount = 0
+                        .ReferenceNumber = ""
+                        .VendorID = gVendorID
+                        .LocationID = gLocationID
+                        .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Workstion")
+                        .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
+                        .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Cashier")
+                    End With
+                    Dim ts As TicketStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
+                    If ts.ReturnCode < 0 Then
+                        MsgBox("Unable to validate card...", MsgBoxStyle.Exclamation, "GiftCard")
+                        e.Cell.Value = ""
+                        Exit Select
+                    End If
+                    e.Cell.Row.Cells("AvailableAmount").Value = ts.SVATotalAvailable
+                    If ts.SVATotalAvailable < CDec(e.Cell.Row.Cells("TenderAmount").Value) Then
+                        e.Cell.Row.Cells("TenderAmount").Value = ts.SVATotalAvailable
+                    End If
+                    e.Cell.Row.Cells("BalanceAfter").Value = ts.SVA1Balance - CDec(e.Cell.Row.Cells("TenderAmount").Value)
+
                     'Exit if TenderAmount hasn't been entered
                     If CDec(e.Cell.Row.Cells("TenderAmount").Value) = 0D Then
                         mBusy = False
@@ -974,9 +991,35 @@ Friend Class FrmRedeem
                         Exit Sub
                     End If
 
+                    'Check ticket status
+                    Dim sr As New StadisRequest
+                    With sr
+                        .SiteID = gSiteID
+                        .TenderTypeID = 1
+                        .TenderID = CStr(e.Cell.Row.Cells("TenderID").Value)
+                        .Amount = 0
+                        .ReferenceNumber = ""
+                        .VendorID = gVendorID
+                        .LocationID = gLocationID
+                        .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Workstion")
+                        .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
+                        .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Cashier")
+                    End With
+                    Dim ts As TicketStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
+                    If ts.ReturnCode < 0 Then
+                        MsgBox("Unable to validate card...", MsgBoxStyle.Exclamation, "GiftCard")
+                        e.Cell.Value = ""
+                        Exit Select
+                    End If
+                    e.Cell.Row.Cells("AvailableAmount").Value = ts.SVATotalAvailable
+                    If ts.SVATotalAvailable < CDec(e.Cell.Row.Cells("TenderAmount").Value) Then
+                        e.Cell.Row.Cells("TenderAmount").Value = ts.SVATotalAvailable
+                    End If
+                    e.Cell.Row.Cells("BalanceAfter").Value = ts.SVA1Balance - CDec(e.Cell.Row.Cells("TenderAmount").Value)
+
             End Select  'for column
             grdTenders.PerformAction(UltraGridAction.ExitEditMode, False, False)
-            'ToDo Remove when debugged
+            ''Debug code
             'Dim itemCount As Integer = BOGetIntAttributeValueByName(Adapter, 0, "Item Count")
             'Dim tenderCount As Integer = BOGetIntAttributeValueByName(Adapter, 0, "Tender Count")
             'MsgBox("Items: " & itemCount.ToString & ", Tenders: " & tenderCount.ToString, MsgBoxStyle.Exclamation, "After")
@@ -1008,12 +1051,32 @@ Friend Class FrmRedeem
         Try
             CommonRoutines.BORefreshRecord(mAdapter, 0)
             CommonRoutines.BOOpen(mAdapter, mTenderHandle)
+
+            If Adapter.BOIsAttributeInList(mTenderHandle, "EFTDATA8") = False Then
+                Dim result As Integer = Adapter.BOIncludeAttrIntoList(mTenderHandle, "EFTDATA8", True, False)
+            End If
+            If Adapter.BOIsAttributeInInstance(mTenderHandle, "EFTDATA8") = False Then
+                Dim result As Integer = Adapter.BOIncludeAttrIntoInstance(mTenderHandle, "EFTDATA8", True, False)
+            End If
+
+            If Adapter.BOIsAttributeInList(mTenderHandle, "EFTDATA9") = False Then
+                Dim result As Integer = Adapter.BOIncludeAttrIntoList(mTenderHandle, "EFTDATA9", True, False)
+            End If
+            If Adapter.BOIsAttributeInInstance(mTenderHandle, "EFTDATA9") = False Then
+                Dim result As Integer = Adapter.BOIncludeAttrIntoInstance(mTenderHandle, "EFTDATA9", True, False)
+            End If
+
             aRow.Cells("IsAddedToRPro").Value = True
             CommonRoutines.BOInsert(mAdapter, mTenderHandle)
             CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE", gStadisTenderType)
             CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AMT", CDec(aRow.Cells("TenderAmount").Value))
             CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TRANSACTION_ID", CStr(aRow.Cells("TenderID").Value))
             CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK", CStr(aRow.Cells("TenderType").Value) & "#" & CStr(aRow.Cells("TenderID").Value))
+            Dim id As String = CStr(aRow.Cells("TenderID").Value)
+            Dim len As Integer = id.Length
+            Dim lastfour As String = id.Substring(len - 4, 4)
+            CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "DOC_NO", lastfour)
+            CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "EFTDATA8", lastfour)
             If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
                 CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
                 CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
@@ -1021,7 +1084,7 @@ Friend Class FrmRedeem
                 CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_PRESENT", 1)
             End If
             CommonRoutines.BOPost(mAdapter, mTenderHandle)
-            'ToDo Remove when debugged
+            ''Debug code
             'CommonRoutines.BORefreshRecord(mAdapter, 0)
             'Dim itemCount As Integer = BOGetIntAttributeValueByName(mAdapter, 0, "Item Count")
             'Dim tenderCount1 As Integer = BOGetIntAttributeValueByName(mAdapter, 0, "Tender Count")
@@ -1056,7 +1119,7 @@ Friend Class FrmRedeem
             For Each sy As StadisReply In sys
                 If sy.TenderTypeID = 1 Then   'Ticket
                     'Update our own list of Stadis tenders, so we can check in PrintUpdate for deletes
-                    Dim sc As New StadisCharge(sy.TenderTypeID, sy.TenderID, sy.ChargedAmount, sy.StadisAuthorizationID, sr.ReceiptID)
+                    Dim sc As New StadisCharge(sy.TenderTypeID, sy.TenderID, sy.ChargedAmount, sy.StadisAuthorizationID)
                     stadisChargeList.Add(sc)
                     If CommonRoutines.IsAGiftCard(sy.EventID) Then
                         aRow.Cells("TenderType").Value = "@GC"
@@ -1067,8 +1130,8 @@ Friend Class FrmRedeem
                         Case 0, 1, -2   'Charge went through
                             'Update grid
                             aRow.Cells("StadisAuthorizationID").Value = sy.StadisAuthorizationID
-                            aRow.Cells("PreChargeBalance").Value = sy.ChargedAmount + sy.FromSVAccountBalance
-                            aRow.Cells("RemainingBalance").Value = sy.FromSVAccountBalance
+                            aRow.Cells("AvailableAmount").Value = 0D
+                            aRow.Cells("BalanceAfter").Value = sy.FromSVAccountBalance
                             aRow.Cells("TenderAmount").Value = sy.ChargedAmount
                             If sy.ReturnCode = 1 Then
                                 aRow.Cells("StatusMessage").Value = "Depleted"
@@ -1091,6 +1154,7 @@ Friend Class FrmRedeem
                                     End If
                                     mAdapter.BONext(mTenderHandle)
                                 End While
+                                CommonRoutines.BORefreshRecord(mAdapter, 0)
                             Catch ex As Exception
                                 If sy.StadisAuthorizationID.Length = 6 Then
                                     DoSVAccountReverse(sy.StadisAuthorizationID)
@@ -1102,8 +1166,8 @@ Friend Class FrmRedeem
                             'Update grid
                             aRow.Cells("TenderID").Value = ""
                             aRow.Cells("TenderAmount").Value = 0D
-                            aRow.Cells("PreChargeBalance").Value = 0D
-                            aRow.Cells("RemainingBalance").Value = 0D
+                            aRow.Cells("AvailableAmount").Value = 0D
+                            aRow.Cells("BalanceAfter").Value = 0D
                             CalculateTenderTotal()
                             aRow.Cells("TenderAmount").Value = mRemainingAmountDue
                             grdTenders.Focus()
@@ -1135,8 +1199,8 @@ Friend Class FrmRedeem
                         dr.TenderID = .TenderID
                         dr.StatusMessage = .Comment
                         dr.TenderAmount = .ChargedAmount
-                        dr.PreChargeBalance = 0D
-                        dr.RemainingBalance = 0D
+                        dr.AvailableAmount = 0D
+                        dr.BalanceAfter = 0D
                         dr.IsCharged = True
                         mTenders.Tender.Rows.Add(dr)
                     End With
@@ -1170,11 +1234,11 @@ Friend Class FrmRedeem
     Private Sub grdTenders_BeforeRowsDeleted(sender As Object, e As BeforeRowsDeletedEventArgs) Handles grdTenders.BeforeRowsDeleted
         If CInt(e.Rows(0).Cells("TenderTypeID").Value) = 1 Then
             Dim authID As String = Trim(CStr(e.Rows(0).Cells("StadisAuthorizationID").Value))
-            If authID <> "" Then
+            If authID <> "" OrElse CBool(e.Rows(0).Cells("IsCharged").Value) = True Then
                 DoSVAccountReverse(authID)
             End If
         End If
-    End Sub  'AddHeaderAndTotalRecsToTendersTable
+    End Sub  'grdTenders_BeforeRowsDeleted
 
     Private Sub DoSVAccountReverse(ByVal AuthID As String)
         Dim invoiceHandle As Integer = 0
@@ -1210,6 +1274,21 @@ Friend Class FrmRedeem
     ' Cancel button - pack up and get out
     '------------------------------------------------------------------------------
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+        For Each dr As DSTender.TenderRow In DSTender.Tender
+            If dr.IsCharged = True Then
+                Dim sr As New StadisRequest
+                With sr
+                    .SiteID = gSiteID
+                    .StadisAuthorizationID = dr.StadisAuthorizationID
+                    .VendorID = gVendorID
+                    .LocationID = gLocationID
+                End With
+                Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
+                If sys(0).ReturnCode < 0 Then
+                    MessageBox.Show("Unable to back out Stadis charge for " & dr.TenderID & ".", "STADIS")
+                End If
+            End If
+        Next
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
         Me.Close()
     End Sub  'btnCancel_Click

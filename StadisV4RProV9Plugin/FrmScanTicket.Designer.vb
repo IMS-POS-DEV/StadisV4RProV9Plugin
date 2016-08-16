@@ -22,24 +22,24 @@ Partial Class FrmScanTicket
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim Appearance18 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
-        Dim Appearance17 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
-        Dim Appearance1 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
-        Dim Appearance13 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance
-        Me.btnCancel = New Infragistics.Win.Misc.UltraButton
-        Me.btnOK = New Infragistics.Win.Misc.UltraButton
-        Me.txtCustomerID = New Infragistics.Win.UltraWinEditors.UltraTextEditor
-        Me.lblCaption = New Infragistics.Win.Misc.UltraLabel
+        Dim Appearance1 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance3 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance4 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Me.btnCancel = New Infragistics.Win.Misc.UltraButton()
+        Me.btnOK = New Infragistics.Win.Misc.UltraButton()
+        Me.txtCustomerID = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
+        Me.lblCaption = New Infragistics.Win.Misc.UltraLabel()
         CType(Me.txtCustomerID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnCancel
         '
-        Appearance18.FontData.BoldAsString = "True"
-        Appearance18.FontData.SizeInPoints = 10.0!
-        Appearance18.ForeColor = System.Drawing.Color.Teal
-        Appearance18.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete24
-        Me.btnCancel.Appearance = Appearance18
+        Appearance1.FontData.BoldAsString = "True"
+        Appearance1.FontData.SizeInPoints = 10.0!
+        Appearance1.ForeColor = System.Drawing.Color.Teal
+        Appearance1.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete24
+        Me.btnCancel.Appearance = Appearance1
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnCancel.Location = New System.Drawing.Point(214, 137)
@@ -52,11 +52,11 @@ Partial Class FrmScanTicket
         '
         'btnOK
         '
-        Appearance17.FontData.BoldAsString = "True"
-        Appearance17.FontData.SizeInPoints = 10.0!
-        Appearance17.ForeColor = System.Drawing.Color.Teal
-        Appearance17.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check24
-        Me.btnOK.Appearance = Appearance17
+        Appearance2.FontData.BoldAsString = "True"
+        Appearance2.FontData.SizeInPoints = 10.0!
+        Appearance2.ForeColor = System.Drawing.Color.Teal
+        Appearance2.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check24
+        Me.btnOK.Appearance = Appearance2
         Me.btnOK.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnOK.Location = New System.Drawing.Point(64, 137)
         Me.btnOK.Name = "btnOK"
@@ -68,10 +68,11 @@ Partial Class FrmScanTicket
         '
         'txtCustomerID
         '
-        Appearance1.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance1.FontData.BoldAsString = "True"
-        Appearance1.FontData.SizeInPoints = 14.0!
-        Me.txtCustomerID.Appearance = Appearance1
+        Appearance3.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance3.FontData.BoldAsString = "True"
+        Appearance3.FontData.SizeInPoints = 14.0!
+        Appearance3.TextHAlignAsString = "Left"
+        Me.txtCustomerID.Appearance = Appearance3
         Me.txtCustomerID.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtCustomerID.Location = New System.Drawing.Point(23, 75)
         Me.txtCustomerID.Name = "txtCustomerID"
@@ -80,12 +81,12 @@ Partial Class FrmScanTicket
         '
         'lblCaption
         '
-        Appearance13.FontData.BoldAsString = "True"
-        Appearance13.FontData.Name = "Arial Black"
-        Appearance13.FontData.SizeInPoints = 12.0!
-        Appearance13.ForeColor = System.Drawing.Color.Teal
-        Appearance13.TextHAlignAsString = "Center"
-        Me.lblCaption.Appearance = Appearance13
+        Appearance4.FontData.BoldAsString = "True"
+        Appearance4.FontData.Name = "Arial Black"
+        Appearance4.FontData.SizeInPoints = 12.0!
+        Appearance4.ForeColor = System.Drawing.Color.Teal
+        Appearance4.TextHAlignAsString = "Center"
+        Me.lblCaption.Appearance = Appearance4
         Me.lblCaption.Location = New System.Drawing.Point(16, 29)
         Me.lblCaption.Name = "lblCaption"
         Me.lblCaption.Size = New System.Drawing.Size(348, 23)
