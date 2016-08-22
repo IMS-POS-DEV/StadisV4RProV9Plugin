@@ -1144,13 +1144,16 @@ Friend Class FrmRedeem
                                 CommonRoutines.BOOpen(mAdapter, mTenderHandle)
                                 CommonRoutines.BOFirst(mAdapter, mTenderHandle, "Redeem - DoSVAccountCharge")
                                 While Not mAdapter.EOF(mTenderHandle)
-                                    tenderID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mTenderHandle, "TRANSACTION_ID")
-                                    If tenderID = Trim(CStr(aRow.Cells("TenderID").Value)) Then
-                                        CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AMT", sy.ChargedAmount)
-                                        Dim paddedRemAmt As String = Space(8 - Len(sy.FromSVAccountBalance.ToString("#0.00"))) & sy.FromSVAccountBalance.ToString("#0.00")
-                                        CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AUTH", sy.StadisAuthorizationID & "\" & paddedRemAmt)
-                                        CommonRoutines.BOPost(mAdapter, mTenderHandle)
-                                        Exit While
+                                    Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE")
+                                    If tenderType = gStadisTenderType Then
+                                        tenderID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mTenderHandle, "TRANSACTION_ID")
+                                        If tenderID = Trim(CStr(aRow.Cells("TenderID").Value)) Then
+                                            CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AMT", sy.ChargedAmount)
+                                            Dim paddedRemAmt As String = Space(8 - Len(sy.FromSVAccountBalance.ToString("#0.00"))) & sy.FromSVAccountBalance.ToString("#0.00")
+                                            CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AUTH", sy.StadisAuthorizationID & "\" & paddedRemAmt)
+                                            CommonRoutines.BOPost(mAdapter, mTenderHandle)
+                                            Exit While
+                                        End If
                                     End If
                                     mAdapter.BONext(mTenderHandle)
                                 End While
