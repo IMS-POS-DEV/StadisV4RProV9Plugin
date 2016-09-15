@@ -49,9 +49,6 @@
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CustomPluginClasses">
-      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\CustomPluginClasses.dll</HintPath>
-    </Reference>
     <Reference Include="Infragistics4.Win.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -70,9 +67,13 @@
     <Reference Include="Infragistics4.Shared.v14.1, Version=14.1.20141.2059, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="RetailPro.Plugins">
-      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\RetailPro.Plugins.dll</HintPath>
+    <Reference Include="RetailPro.Plugins, Version=1.2.0.0, Culture=neutral, PublicKeyToken=d968d3c9cb1904b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\RetailPro.Plugins.dll</HintPath>
+    </Reference>
+    <Reference Include="SCustomPluginClasses">
+      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\SCustomPluginClasses.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -159,6 +160,12 @@
     <Compile Include="FrmConfigure.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FrmStadisCharge.Designer.vb">
+      <DependentUpon>FrmStadisCharge.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmStadisCharge.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -176,6 +183,7 @@
     </Compile>
     <Compile Include="MyDrawFilter.vb" />
     <Compile Include="PrintUpdateStadisProcessing.vb" />
+    <Compile Include="TenderDialogue.vb" />
     <Compile Include="TenderProcessing.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -194,12 +202,15 @@
     <EmbeddedResource Include="FrmConfigure.resx">
       <DependentUpon>FrmConfigure.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmStadisCharge.resx">
+      <DependentUpon>FrmStadisCharge.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +290,39 @@
       <Project>{8c70b7dd-ccf2-406d-a707-29de73eebfd6}</Project>
       <Name>CommonV4</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="stadislogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="keyboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="nav_plain_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nav_plain_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nav_plain_blue_nH7_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keyboard32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nav_plain_blue32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stadislogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keyboard.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -64,6 +64,12 @@ Public Module GlobalValues
     Public gTenderTypeForStadis As String = "GiftCard"
     Public gVendorID As String = ""
 
+    Public gTenderDialogActive As Boolean = True
+    Public gTenderDialogFormText As String = "Tender: Stadis"
+    Public gTenderDialogHeader As String = "Redeem Gift Card / STADIS"
+    Public gTenderDialogTenderIDLabel As String = "Gift Card ID / Ticket Barcode"
+    Public gTenderDialogTender As String = "Traveler Check"
+
     Public gBalChkButtonActive As Boolean = False
     Public gBalChkButtonCaption As String = "Bal Check"
     Public gBalChkButtonEnabled As Boolean = False
@@ -100,6 +106,7 @@ Public Module GlobalValues
     Public gGiftCardEvent() As String
     Public gGCI As New DSGiftCardInfo
     Public gStadisTenderType As Integer
+    Public gTenderDialogTenderType As Integer = -99
 
     '----------------------------------------------------------------------------------------------
     ' Populated when referenced
@@ -111,6 +118,6 @@ Public Module GlobalValues
     ' Flags
     '----------------------------------------------------------------------------------------------
     Public gIsAReturn As Boolean = False
-    Public gFirstTimeThrough As Boolean = True
+    Public gAlreadyLoaded As Boolean = False
 
 End Module  'GlobalValues

@@ -1115,12 +1115,12 @@ Friend Class FrmRedeem
                 gRegisterID = .RegisterID
                 gVendorCashier = .VendorCashier
             End With
-            Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), CommonRoutines.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), CommonRoutines.LoadTendersForCharge(mAdapter, "Receipt", mInvoiceHandle, mTenderHandle))
+            Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), CommonRoutines.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), CommonRoutines.OldLoadTendersForCharge(mAdapter, "Receipt", mTenderHandle))
             For Each sy As StadisReply In sys
                 If sy.TenderTypeID = 1 Then   'Ticket
                     'Update our own list of Stadis tenders, so we can check in PrintUpdate for deletes
-                    Dim sc As New StadisCharge(sy.TenderTypeID, sy.TenderID, sy.ChargedAmount, sy.StadisAuthorizationID)
-                    stadisChargeList.Add(sc)
+                    'Dim sc As New StadisCharge(sy.TenderTypeID, sy.TenderID, sy.ChargedAmount, sy.StadisAuthorizationID)
+                    'stadisChargeList.Add(sc)
                     If CommonRoutines.IsAGiftCard(sy.EventID) Then
                         aRow.Cells("TenderType").Value = "@GC"
                     Else

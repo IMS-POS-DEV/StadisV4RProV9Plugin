@@ -50,13 +50,13 @@
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CustomPluginClasses">
-      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\CustomPluginClasses.dll</HintPath>
-    </Reference>
     <Reference Include="RetailPro.Plugins, Version=1.2.0.0, Culture=neutral, PublicKeyToken=d968d3c9cb1904b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\RetailPro.Plugins.dll</HintPath>
+    </Reference>
+    <Reference Include="SCustomPluginClasses">
+      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\SCustomPluginClasses.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

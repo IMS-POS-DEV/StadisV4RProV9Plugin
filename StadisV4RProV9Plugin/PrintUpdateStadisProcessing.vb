@@ -77,67 +77,67 @@ Public Class PrintUpdateStadisProcessing
                 End If
             End If
 
-            'Back out any deletes we didn't catch.  Build a Stadis tender list from RPro, then check our earlier list against it.
-            Dim tndrcount As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, invoiceHandle, "Tender Count")
-            If tndrcount > 0 Then
-                Dim rproChargeList As New ArrayList
-                CommonRoutines.BOOpen(fAdapter, tenderHandle)
-                CommonRoutines.BOFirst(fAdapter, tenderHandle, "PUSP - BeforeUpdate")
-                Dim retcode As Integer = fAdapter.BOFirst(tenderHandle)
-                If retcode = RetailPro.Plugins.PluginError.peSuccess Then
-                    While Not fAdapter.EOF(tenderHandle)
-                        Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
-                        If tenderType = gStadisTenderType Then
-                            Dim rc As New StadisCharge()
-                            rc.TenderTypeID = tenderType
-                            rc.TenderID = BOGetStrAttributeValueByName(Adapter, tenderHandle, "TRANSACTION_ID")
-                            rc.Amount = CommonRoutines.BOGetDecAttributeValueByName(fAdapter, tenderHandle, "AMT")
-                            Dim auth() As String = BOGetStrAttributeValueByName(Adapter, tenderHandle, "AUTH").Split("\"c)
-                            If auth(0).Length = 6 Then
-                                rc.StadisAuthorizationID = auth(0)
-                            End If
-                            rproChargeList.Add(rc)
-                        End If
-                        fAdapter.BONext(tenderHandle)
-                    End While
-                    'Go through lists and mark all the matches
-                    For Each sc As StadisCharge In stadisChargeList
-                        For Each rc As StadisCharge In rproChargeList
-                            If sc.TenderID = rc.TenderID Then
-                                If sc.Amount <> rc.Amount Then
-                                    Throw New Exception("Stadis charge altered outside of Stadis.")
-                                End If
-                                sc.MatchFound = True
-                            End If
-                        Next
-                        'Take ones that weren't matched and back them out
-                        For Each sc1 As StadisCharge In stadisChargeList
-                            If sc.MatchFound = False Then
-                                Dim sr As New StadisRequest
-                                With sr
-                                    .SiteID = gSiteID
-                                    .TenderTypeID = sc.TenderTypeID
-                                    .TenderID = sc.TenderID
-                                    .Amount = sc.Amount
-                                    .StadisAuthorizationID = sc.StadisAuthorizationID
-                                    .ReferenceNumber = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-                                    '.CustomerID =  
-                                    .VendorID = gVendorID
-                                    .LocationID = gLocationID
-                                    .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
-                                    .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-                                    .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
-                                End With
-                                Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
-                                If sys(0).ReturnCode < 0 Then
-                                    MsgBox(sys(0).ReturnMessage, MsgBoxStyle.Critical, "Error while reversing Stadis charge.TenderID = " & sc.TenderID & ", AuthID = " & sc.StadisAuthorizationID & ".")
-                                End If
-                            End If
-                        Next
-                    Next
-                End If
-            End If
-            stadisChargeList.Clear()
+            ''Back out any deletes we didn't catch.  Build a Stadis tender list from RPro, then check our earlier list against it.
+            'Dim tndrcount As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, invoiceHandle, "Tender Count")
+            'If tndrcount > 0 Then
+            '    Dim rproChargeList As New ArrayList
+            '    CommonRoutines.BOOpen(fAdapter, tenderHandle)
+            '    CommonRoutines.BOFirst(fAdapter, tenderHandle, "PUSP - BeforeUpdate")
+            '    Dim retcode As Integer = fAdapter.BOFirst(tenderHandle)
+            '    If retcode = RetailPro.Plugins.PluginError.peSuccess Then
+            '        While Not fAdapter.EOF(tenderHandle)
+            '            Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
+            '            If tenderType = gStadisTenderType Then
+            '                Dim rc As New StadisCharge()
+            '                rc.TenderTypeID = tenderType
+            '                rc.TenderID = BOGetStrAttributeValueByName(Adapter, tenderHandle, "TRANSACTION_ID")
+            '                rc.Amount = CommonRoutines.BOGetDecAttributeValueByName(fAdapter, tenderHandle, "AMT")
+            '                Dim auth() As String = BOGetStrAttributeValueByName(Adapter, tenderHandle, "AUTH").Split("\"c)
+            '                If auth(0).Length = 6 Then
+            '                    rc.StadisAuthorizationID = auth(0)
+            '                End If
+            '                rproChargeList.Add(rc)
+            '            End If
+            '            fAdapter.BONext(tenderHandle)
+            '        End While
+            '        'Go through lists and mark all the matches
+            '        For Each sc As StadisCharge In stadisChargeList
+            '            For Each rc As StadisCharge In rproChargeList
+            '                If sc.TenderID = rc.TenderID Then
+            '                    If sc.Amount <> rc.Amount Then
+            '                        Throw New Exception("Stadis charge altered outside of Stadis.")
+            '                    End If
+            '                    sc.MatchFound = True
+            '                End If
+            '            Next
+            '            'Take ones that weren't matched and back them out
+            '            For Each sc1 As StadisCharge In stadisChargeList
+            '                If sc.MatchFound = False Then
+            '                    Dim sr As New StadisRequest
+            '                    With sr
+            '                        .SiteID = gSiteID
+            '                        .TenderTypeID = sc.TenderTypeID
+            '                        .TenderID = sc.TenderID
+            '                        .Amount = sc.Amount
+            '                        .StadisAuthorizationID = sc.StadisAuthorizationID
+            '                        .ReferenceNumber = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+            '                        '.CustomerID =  
+            '                        .VendorID = gVendorID
+            '                        .LocationID = gLocationID
+            '                        .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
+            '                        .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+            '                        .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
+            '                    End With
+            '                    Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
+            '                    If sys(0).ReturnCode < 0 Then
+            '                        MsgBox(sys(0).ReturnMessage, MsgBoxStyle.Critical, "Error while reversing Stadis charge.TenderID = " & sc.TenderID & ", AuthID = " & sc.StadisAuthorizationID & ".")
+            '                    End If
+            '                End If
+            '            Next
+            '        Next
+            '    End If
+            'End If
+            'stadisChargeList.Clear()
 
             mTransactionShouldBeWritten = False
             mCreditsToProcess = False
@@ -430,7 +430,7 @@ Public Class PrintUpdateStadisProcessing
                     Dim tender As New TenderInfo(fAdapter, tenderHandle)
                     If tender.IsAStadisTender Then
                         CommonRoutines.BOEdit(fAdapter, tenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", tender.StadisOpCode & "\" & trankey.ToString)
+                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", tender.StadisOpCode & "#" & trankey.ToString)
                         CommonRoutines.BOPost(fAdapter, tenderHandle)
                     End If
                 End If

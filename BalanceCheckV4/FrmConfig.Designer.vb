@@ -23,35 +23,35 @@ Partial Class FrmConfig
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmConfig))
-        Me.gbGeneral = New System.Windows.Forms.GroupBox
-        Me.btnLogoFile = New System.Windows.Forms.Button
-        Me.txtTender = New System.Windows.Forms.TextBox
-        Me.txtHeader = New System.Windows.Forms.TextBox
-        Me.txtLogoFile = New System.Windows.Forms.TextBox
-        Me.txtWebPassword = New System.Windows.Forms.TextBox
-        Me.txtWebUser = New System.Windows.Forms.TextBox
-        Me.txtWebURL = New System.Windows.Forms.TextBox
-        Me.chkAction = New System.Windows.Forms.CheckBox
-        Me.chkMerge = New System.Windows.Forms.CheckBox
-        Me.chkPrint = New System.Windows.Forms.CheckBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.lblOPOSPrinter = New System.Windows.Forms.Label
-        Me.gbPrint = New System.Windows.Forms.GroupBox
-        Me.cmbPrinter = New System.Windows.Forms.ComboBox
-        Me.cmbRaster = New System.Windows.Forms.ComboBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.cmbOPOS = New System.Windows.Forms.ComboBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.btnApply = New System.Windows.Forms.Button
-        Me.btnCancel = New System.Windows.Forms.Button
+        Me.gbGeneral = New System.Windows.Forms.GroupBox()
+        Me.btnLogoFile = New System.Windows.Forms.Button()
+        Me.txtTender = New System.Windows.Forms.TextBox()
+        Me.txtHeader = New System.Windows.Forms.TextBox()
+        Me.txtLogoFile = New System.Windows.Forms.TextBox()
+        Me.txtWebPassword = New System.Windows.Forms.TextBox()
+        Me.txtWebUser = New System.Windows.Forms.TextBox()
+        Me.txtWebURL = New System.Windows.Forms.TextBox()
+        Me.chkAction = New System.Windows.Forms.CheckBox()
+        Me.chkMerge = New System.Windows.Forms.CheckBox()
+        Me.chkPrint = New System.Windows.Forms.CheckBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.lblOPOSPrinter = New System.Windows.Forms.Label()
+        Me.gbPrint = New System.Windows.Forms.GroupBox()
+        Me.cmbPrinter = New System.Windows.Forms.ComboBox()
+        Me.cmbRaster = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cmbOPOS = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnApply = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
         Me.gbGeneral.SuspendLayout()
         Me.gbPrint.SuspendLayout()
         Me.SuspendLayout()
@@ -79,7 +79,7 @@ Partial Class FrmConfig
         Me.gbGeneral.Controls.Add(Me.lblOPOSPrinter)
         Me.gbGeneral.Location = New System.Drawing.Point(8, 8)
         Me.gbGeneral.Name = "gbGeneral"
-        Me.gbGeneral.Size = New System.Drawing.Size(384, 248)
+        Me.gbGeneral.Size = New System.Drawing.Size(465, 248)
         Me.gbGeneral.TabIndex = 0
         Me.gbGeneral.TabStop = False
         Me.gbGeneral.Text = "General"
@@ -87,9 +87,9 @@ Partial Class FrmConfig
         'btnLogoFile
         '
         Me.btnLogoFile.Image = CType(resources.GetObject("btnLogoFile.Image"), System.Drawing.Image)
-        Me.btnLogoFile.Location = New System.Drawing.Point(344, 96)
+        Me.btnLogoFile.Location = New System.Drawing.Point(400, 96)
         Me.btnLogoFile.Name = "btnLogoFile"
-        Me.btnLogoFile.Size = New System.Drawing.Size(24, 24)
+        Me.btnLogoFile.Size = New System.Drawing.Size(37, 24)
         Me.btnLogoFile.TabIndex = 8
         Me.btnLogoFile.UseVisualStyleBackColor = True
         '
@@ -99,7 +99,7 @@ Partial Class FrmConfig
         Me.txtTender.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTender.Location = New System.Drawing.Point(168, 144)
         Me.txtTender.Name = "txtTender"
-        Me.txtTender.Size = New System.Drawing.Size(200, 20)
+        Me.txtTender.Size = New System.Drawing.Size(269, 20)
         Me.txtTender.TabIndex = 12
         '
         'txtHeader
@@ -108,7 +108,7 @@ Partial Class FrmConfig
         Me.txtHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtHeader.Location = New System.Drawing.Point(168, 120)
         Me.txtHeader.Name = "txtHeader"
-        Me.txtHeader.Size = New System.Drawing.Size(200, 20)
+        Me.txtHeader.Size = New System.Drawing.Size(269, 20)
         Me.txtHeader.TabIndex = 10
         '
         'txtLogoFile
@@ -117,7 +117,7 @@ Partial Class FrmConfig
         Me.txtLogoFile.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLogoFile.Location = New System.Drawing.Point(168, 96)
         Me.txtLogoFile.Name = "txtLogoFile"
-        Me.txtLogoFile.Size = New System.Drawing.Size(176, 20)
+        Me.txtLogoFile.Size = New System.Drawing.Size(245, 20)
         Me.txtLogoFile.TabIndex = 7
         '
         'txtWebPassword
@@ -127,7 +127,7 @@ Partial Class FrmConfig
         Me.txtWebPassword.Location = New System.Drawing.Point(168, 72)
         Me.txtWebPassword.Name = "txtWebPassword"
         Me.txtWebPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtWebPassword.Size = New System.Drawing.Size(200, 20)
+        Me.txtWebPassword.Size = New System.Drawing.Size(269, 20)
         Me.txtWebPassword.TabIndex = 5
         '
         'txtWebUser
@@ -136,7 +136,7 @@ Partial Class FrmConfig
         Me.txtWebUser.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtWebUser.Location = New System.Drawing.Point(168, 48)
         Me.txtWebUser.Name = "txtWebUser"
-        Me.txtWebUser.Size = New System.Drawing.Size(200, 20)
+        Me.txtWebUser.Size = New System.Drawing.Size(269, 20)
         Me.txtWebUser.TabIndex = 3
         '
         'txtWebURL
@@ -145,7 +145,7 @@ Partial Class FrmConfig
         Me.txtWebURL.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtWebURL.Location = New System.Drawing.Point(168, 24)
         Me.txtWebURL.Name = "txtWebURL"
-        Me.txtWebURL.Size = New System.Drawing.Size(200, 20)
+        Me.txtWebURL.Size = New System.Drawing.Size(269, 20)
         Me.txtWebURL.TabIndex = 1
         '
         'chkAction
@@ -266,7 +266,7 @@ Partial Class FrmConfig
         Me.gbPrint.Controls.Add(Me.Label1)
         Me.gbPrint.Location = New System.Drawing.Point(8, 264)
         Me.gbPrint.Name = "gbPrint"
-        Me.gbPrint.Size = New System.Drawing.Size(384, 128)
+        Me.gbPrint.Size = New System.Drawing.Size(465, 128)
         Me.gbPrint.TabIndex = 1
         Me.gbPrint.TabStop = False
         Me.gbPrint.Text = "Transaction Printing"
@@ -279,7 +279,7 @@ Partial Class FrmConfig
         Me.cmbPrinter.FormattingEnabled = True
         Me.cmbPrinter.Location = New System.Drawing.Point(168, 88)
         Me.cmbPrinter.Name = "cmbPrinter"
-        Me.cmbPrinter.Size = New System.Drawing.Size(192, 21)
+        Me.cmbPrinter.Size = New System.Drawing.Size(269, 21)
         Me.cmbPrinter.TabIndex = 5
         '
         'cmbRaster
@@ -290,7 +290,7 @@ Partial Class FrmConfig
         Me.cmbRaster.FormattingEnabled = True
         Me.cmbRaster.Location = New System.Drawing.Point(168, 56)
         Me.cmbRaster.Name = "cmbRaster"
-        Me.cmbRaster.Size = New System.Drawing.Size(192, 21)
+        Me.cmbRaster.Size = New System.Drawing.Size(269, 21)
         Me.cmbRaster.TabIndex = 3
         '
         'Label3
@@ -310,7 +310,7 @@ Partial Class FrmConfig
         Me.cmbOPOS.FormattingEnabled = True
         Me.cmbOPOS.Location = New System.Drawing.Point(168, 24)
         Me.cmbOPOS.Name = "cmbOPOS"
-        Me.cmbOPOS.Size = New System.Drawing.Size(192, 21)
+        Me.cmbOPOS.Size = New System.Drawing.Size(269, 21)
         Me.cmbOPOS.TabIndex = 1
         '
         'Label2
@@ -334,7 +334,7 @@ Partial Class FrmConfig
         'btnApply
         '
         Me.btnApply.Image = CType(resources.GetObject("btnApply.Image"), System.Drawing.Image)
-        Me.btnApply.Location = New System.Drawing.Point(96, 400)
+        Me.btnApply.Location = New System.Drawing.Point(129, 401)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(96, 40)
         Me.btnApply.TabIndex = 2
@@ -345,7 +345,7 @@ Partial Class FrmConfig
         'btnCancel
         '
         Me.btnCancel.Image = CType(resources.GetObject("btnCancel.Image"), System.Drawing.Image)
-        Me.btnCancel.Location = New System.Drawing.Point(216, 400)
+        Me.btnCancel.Location = New System.Drawing.Point(249, 401)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(96, 40)
         Me.btnCancel.TabIndex = 3
@@ -358,7 +358,7 @@ Partial Class FrmConfig
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(405, 450)
+        Me.ClientSize = New System.Drawing.Size(473, 450)
         Me.ControlBox = False
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnApply)

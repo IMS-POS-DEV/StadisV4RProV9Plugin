@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("BalanceCheckV4")> 
-<Assembly: AssemblyDescription("STADIS Balance Check")> 
-<Assembly: AssemblyCompany("International Micro Systems")> 
-<Assembly: AssemblyProduct("STADIS Balance Check")> 
-<Assembly: AssemblyCopyright("Copyright ©  2014")> 
+<Assembly: AssemblyTitle("VBCustomPluginClasses")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyProduct("VBCustomPluginClasses")> 
+<Assembly: AssemblyCopyright("Copyright ©  2016")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(True)> 
+<Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("264cd806-d384-47a0-91bb-71b26763071b")> 
+<Assembly: Guid("5315f75c-ca9e-4856-a575-c908dd3b4674")> 
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("4.2.0.0")> 
-<Assembly: AssemblyFileVersion("4.2.0.0")> 
+<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> 
