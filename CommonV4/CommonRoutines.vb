@@ -542,9 +542,8 @@ Public Class CommonRoutines
                     .IsStadisTender = False
                     .StadisAuthorizationID = " "
                     Dim rproTenderType As Integer = BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_TYPE")
-                    Dim stadisTenderType As Integer = ConvertRProTenderTypeToStadis(rproTenderType)
-                    If rproTenderType <> gStadisTenderType Then
-                        .TenderTypeID = stadisTenderType
+                    If rproTenderType <> gTenderDialogTenderType Then
+                        .TenderTypeID = 0
                         .IsStadisTender = False
                         .StadisAuthorizationID = ""
                         .TenderID = ""
@@ -565,7 +564,7 @@ Public Class CommonRoutines
                                 .IsStadisTender = True
                             End If
                         Else
-                            .TenderTypeID = stadisTenderType
+                            .TenderTypeID = 0
                         End If
                     End If
                     .Amount = BOGetDecAttributeValueByName(adapter, tenderHandle, "AMT")
@@ -596,9 +595,8 @@ Public Class CommonRoutines
                     .IsStadisTender = False
                     .StadisAuthorizationID = " "
                     Dim rproTenderType As Integer = BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_TYPE")
-                    Dim tenderTypeInStadis As Integer = ConvertRProTenderTypeToStadis(rproTenderType)
-                    If rproTenderType <> gStadisTenderType Then
-                        .TenderTypeID = tenderTypeInStadis
+                    If rproTenderType <> gTenderDialogTenderType Then
+                        .TenderTypeID = 0
                         .IsStadisTender = False
                         .StadisAuthorizationID = ""
                         .TenderID = ""
@@ -632,7 +630,7 @@ Public Class CommonRoutines
                                 End If
                             End If
                         Else
-                            .TenderTypeID = tenderTypeInStadis
+                            .TenderTypeID = 0
                         End If
                     End If
                     Select Case invoiceType

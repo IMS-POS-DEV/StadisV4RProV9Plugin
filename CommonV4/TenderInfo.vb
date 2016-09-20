@@ -127,9 +127,9 @@ Public Class TenderInfo
 #Region " Methods "
 
     Public Sub New(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef tenderHandle As Integer)
-        Dim m_r As String = CommonRoutines.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK")
-        If m_r.Length > 2 Then
-            mStadisOpCode = m_r.Substring(0, 3)
+        Dim remark As String = CommonRoutines.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK")
+        If remark.Length > 2 Then
+            mStadisOpCode = remark.Substring(0, 3)
             Select Case mStadisOpCode
                 Case "@GC"
                     IsAStadisTender = True

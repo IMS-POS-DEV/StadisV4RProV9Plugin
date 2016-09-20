@@ -112,6 +112,33 @@ Public Class FrmStadisCharge
 #Region " Events "
 
     '----------------------------------------------------------------------------------------------
+    ' Make Enter show up in KeyDown event
+    '----------------------------------------------------------------------------------------------
+    Private Sub txtTender_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles txtTenderID.PreviewKeyDown, txtTenderAmount.PreviewKeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.IsInputKey = True
+        End If
+    End Sub  'txtTender_PreviewKeyDown
+
+    '----------------------------------------------------------------------------------------------
+    ' Make Enter act like Tab
+    '----------------------------------------------------------------------------------------------
+    Private Sub txtTenderID_KeyDown(sender As Object, e As KeyEventArgs) Handles txtTenderID.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            txtTenderAmount.Focus()
+            txtTenderAmount.PerformAction(UltraWinMaskedEdit.MaskedEditAction.SelectSection, False, False)
+            e.Handled = True
+        End If
+    End Sub  'txtTenderID_KeyDown
+
+    Private Sub txtTenderAmount_KeyDown(sender As Object, e As KeyEventArgs) Handles txtTenderAmount.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            btnOK.Focus()
+            e.Handled = True
+        End If
+    End Sub  'txtTenderAmount_KeyDown
+
+    '----------------------------------------------------------------------------------------------
     ' Check ticket balance, update on-screen fields
     '----------------------------------------------------------------------------------------------
     Private Sub txtTenderID_Leave(sender As Object, e As EventArgs) Handles txtTenderID.Leave
@@ -247,11 +274,18 @@ Public Class FrmStadisCharge
                 .TenderID = Trim(txtTenderID.Text)
                 .Amount = txtTenderAmount.Value
             End With
-            Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), CommonRoutines.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), CommonRoutines.LoadTendersForCharge(mAdapter, "Receipt", mTenderHandle, stt))
-            mReturnCode = sys(0).ReturnCode
-            mReturnMessage = sys(0).ReturnMessage
+            Dim sys As StadisReply()
+            Try
+                sys = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), CommonRoutines.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), CommonRoutines.LoadTendersForCharge(mAdapter, "Receipt", mTenderHandle, stt))
+                mReturnCode = sys(0).ReturnCode
+                mReturnMessage = sys(0).ReturnMessage
+            Catch ex As Exception
+                MsgBox("Stadis Charge failed." & vbCrLf & ex.Message, MsgBoxStyle.Critical, "SVAccountCharge")
+                txtTenderID.Text = ""
+                Return False
+            End Try
             If mReturnCode < 0 Then
-                MsgBox("Stadis Charge failed." & vbCrLf & mReturnMessage, MsgBoxStyle.Exclamation, "Stadis Charge")
+                MsgBox("Stadis Charge failed." & vbCrLf & mReturnMessage, MsgBoxStyle.Critical, "Stadis Charge")
                 txtTenderID.Text = ""
                 Return False
             End If

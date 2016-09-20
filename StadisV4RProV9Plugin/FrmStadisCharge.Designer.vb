@@ -81,6 +81,7 @@ Partial Class FrmStadisCharge
         '
         'btnOK
         '
+        Me.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.btnOK.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnOK.ForeColor = System.Drawing.Color.Black
         Me.btnOK.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check32
@@ -94,6 +95,7 @@ Partial Class FrmStadisCharge
         '
         'btnCancel
         '
+        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCancel.ForeColor = System.Drawing.Color.Black
         Me.btnCancel.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete32

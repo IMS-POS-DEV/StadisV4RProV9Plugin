@@ -26,15 +26,16 @@ Public Class ButtonRedeem
 
         fButtonEnabled = gRedeemButtonEnabled
         fHint = gRedeemButtonHint
-        If gRedeemButtonEnabled = True Then
-            fCaption = gRedeemButtonCaption
-        Else
-            fCaption = "Disabled"
-        End If
+        'If gRedeemButtonEnabled = True Then
+        '    fCaption = gRedeemButtonCaption
+        'Else
+        fCaption = "Disabled"
+        'End If
         fPictureFilename = gRedeemButtonImage
         fLayoutActionName = "actStadisRedeemButton"
         fChecked = True
-        fEnabled = gRedeemButtonEnabled
+        'fEnabled = gRedeemButtonEnabled
+        fEnabled = False
         fGUID = New Guid(Discover.CLASS_ButtonRedeem)
         fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
     End Sub  'Initialize

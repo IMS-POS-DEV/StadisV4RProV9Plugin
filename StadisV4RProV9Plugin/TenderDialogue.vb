@@ -84,11 +84,9 @@ Public Class TenderDialogue
     '----------------------------------------------------------------------------------------------
     Public Overrides Function DeleteTender() As Boolean
         If fTenderType = gTenderDialogTenderType Then
-            'todo reverse charge
-            Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(0, "Tenders")
-            Dim remark() As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
+            Dim remark() As String = fRemark.Split("#"c)
             If remark.Length > 0 Then
-                If remark(0) = "PR@" Then
+                If remark(0) = "@PR" Then
                     MsgBox("To delete a Promoton tender, you must delete" & vbCrLf & "the Stadis tender which generated it.", MsgBoxStyle.Exclamation, "STADIS Tender")
                     Return False
                 End If

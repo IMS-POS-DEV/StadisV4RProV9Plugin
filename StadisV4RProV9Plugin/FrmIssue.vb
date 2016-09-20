@@ -1189,13 +1189,15 @@ Friend Class FrmIssue
     Private Sub AddOurItemsAndTenderToRPro()
         'Preliminary checks
         For Each aRow As DSGiftCard.GiftCardRow In mGiftCards.GiftCard.Rows
-            If Trim(aRow.GiftCardID) = "" Then
-                MessageBox.Show("Card with missing number ID.", "STADIS")
-                Exit Sub
-            End If
-            If aRow.Amount = 0D Then
-                MessageBox.Show("Card with missing amount.", "STADIS")
-                Exit Sub
+            If Not Trim(aRow.GiftCardID) = "" AndAlso aRow.Amount = 0D Then
+                If Trim(aRow.GiftCardID) = "" Then
+                    MessageBox.Show("Card with missing number ID.", "STADIS")
+                    Exit Sub
+                End If
+                If aRow.Amount = 0D Then
+                    MessageBox.Show("Card with missing amount.", "STADIS")
+                    Exit Sub
+                End If
             End If
         Next
         Try
@@ -1205,17 +1207,19 @@ Friend Class FrmIssue
             Dim itemHandle As Integer = mAdapter.GetReferenceBOForAttribute(invoiceHandle, "Items")
             CommonRoutines.BOOpen(mAdapter, itemHandle)
             For Each aRow As DSGiftCard.GiftCardRow In mGiftCards.GiftCard.Rows
-                CommonRoutines.BOInsert(mAdapter, itemHandle)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Lookup ALU", gGCI.GiftCardInfo(aRow.GCInfoIndex).RProLookupALU)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & aRow.GiftCardID & "\" & aRow.IorA & "\" & mCustomerID & "\" & aRow.Amount.ToString("""$""#,##0.00"))
-                Dim len As Integer = aRow.GiftCardID.Length
-                Dim lastfour As String = aRow.GiftCardID.Substring(len - 4, 4)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note2", lastfour)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note3", aRow.Amount.ToString("""$""#,##0.00"))
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Quantity", 1)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Price", 0D)
-                CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
-                CommonRoutines.BOPost(mAdapter, itemHandle)
+                If Not (Trim(aRow.GiftCardID) = "" AndAlso aRow.Amount = 0D) Then
+                    CommonRoutines.BOInsert(mAdapter, itemHandle)
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Lookup ALU", gGCI.GiftCardInfo(aRow.GCInfoIndex).RProLookupALU)
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & aRow.GiftCardID & "\" & aRow.IorA & "\" & mCustomerID & "\" & aRow.Amount.ToString("""$""#,##0.00"))
+                    Dim len As Integer = aRow.GiftCardID.Length
+                    Dim lastfour As String = aRow.GiftCardID.Substring(len - 4, 4)
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note2", lastfour)
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note3", aRow.Amount.ToString("""$""#,##0.00"))
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Quantity", 1)
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Price", 0D)
+                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
+                    CommonRoutines.BOPost(mAdapter, itemHandle)
+                End If
             Next
             Select Case gFeeOrTenderForIssueOffset
                 Case "Fee"
@@ -1231,10 +1235,10 @@ Friend Class FrmIssue
                     If mGiftCardTotal > 0D Then
                         CommonRoutines.BOOpen(mAdapter, tenderHandle)
                         CommonRoutines.BOInsert(mAdapter, tenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gStadisTenderType)
+                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - mGiftCardTotal)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID", "")
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@OF # Offset for card issue/activate")
+                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@OF#Offset for card issue/activate")
                         If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)

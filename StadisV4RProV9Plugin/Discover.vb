@@ -20,8 +20,8 @@ Public Class Discover
     Public Const CLASS_ButtonReload As String = "286028C9-64CA-4743-A845-4EF380882079"
     Public Const CLASS_PrintUpdateStadisProcessing As String = "1AE665F6-3DDB-4c4e-8EB1-E18B3A9465A8"
     Public Const CLASS_Configure As String = "2C6467F5-5011-43ce-8361-7F9E9044D293"
-    Public Const CLASS_TenderProcessing As String = "DDF465F6-400e-4c4e-8EB1-E18B3A9465A8"
     Public Const CLASS_TenderDialogue As String = "44E9242D-1DF6-4699-9325-3D463FA204C7"
+    'Public Const CLASS_TenderProcessing As String = "DDF465F6-400e-4c4e-8EB1-E18B3A9465A8"
 
     Public Overrides Function PluginGUIDs() As Object
         Dim classIDs(8) As String
@@ -32,8 +32,8 @@ Public Class Discover
         classIDs(4) = CLASS_ButtonReload
         classIDs(5) = CLASS_PrintUpdateStadisProcessing
         classIDs(6) = CLASS_Configure
-        classIDs(7) = CLASS_TenderProcessing
-        classIDs(8) = CLASS_TenderDialogue
+        classIDs(7) = CLASS_TenderDialogue
+        'classIDs(8) = CLASS_TenderProcessing
         Return classIDs
     End Function  'PluginGUIDs
 

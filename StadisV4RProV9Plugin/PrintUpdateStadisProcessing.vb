@@ -221,7 +221,7 @@ Public Class PrintUpdateStadisProcessing
                 While Not fAdapter.EOF(tenderHandle)
                     mTenderCount += 1
                     Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
-                    If tenderType = gStadisTenderType Then
+                    If tenderType = gTenderDialogTenderType Then
                         Dim tender As New TenderInfo(fAdapter, tenderHandle)
                         If tender.IsAStadisTender Then
                             mTransactionShouldBeWritten = True
@@ -389,7 +389,7 @@ Public Class PrintUpdateStadisProcessing
             .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
             .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
             .TenderTypeID = 1
-            .TenderID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, tenderHandle, "TRANSACTION_ID")
+            .TenderID = ""
         End With
         Dim oReply As StadisReply = CommonRoutines.StadisAPI.SVPostTransaction(oRequest, CommonRoutines.LoadHeader(fAdapter, "Receipt", invoiceHandle), CommonRoutines.LoadItems(fAdapter, "Receipt", invoiceHandle, itemHandle), CommonRoutines.LoadTenders(fAdapter, "Receipt", invoiceHandle, tenderHandle))
         If oReply.ReturnCode < 0 Then
@@ -426,7 +426,7 @@ Public Class PrintUpdateStadisProcessing
             CommonRoutines.BOFirst(fAdapter, tenderHandle, "PUSP - UpdateRProItemsAndTendersWithTranKey T")
             While Not fAdapter.EOF(tenderHandle)
                 Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
-                If tenderType = gStadisTenderType Then
+                If tenderType = gTenderDialogTenderType Then
                     Dim tender As New TenderInfo(fAdapter, tenderHandle)
                     If tender.IsAStadisTender Then
                         CommonRoutines.BOEdit(fAdapter, tenderHandle)
