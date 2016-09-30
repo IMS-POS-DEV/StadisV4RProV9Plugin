@@ -26,7 +26,7 @@ Public Class TenderDialogue
         fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
         fDescription = "Stadis tender dialog"
         fGUID = New Guid(Discover.CLASS_TenderDialogue)
-        fTenderType = RetailPro.Plugins.TenderTypes.ttTravelerCheck
+        fTenderType = gTenderDialogTenderType
         fUseDefaultDialog = False
     End Sub  'Initialize
 
@@ -54,9 +54,6 @@ Public Class TenderDialogue
     ' Called when button is pressed (1)
     '----------------------------------------------------------------------------------------------
     Public Overrides Sub Clear()
-        If Not stadisChargeList Is Nothing Then
-            stadisChargeList.Clear()
-        End If
         MyBase.Clear()
     End Sub  'Clear
 
@@ -87,50 +84,20 @@ Public Class TenderDialogue
             Dim remark() As String = fRemark.Split("#"c)
             If remark.Length > 0 Then
                 If remark(0) = "@PR" Then
-                    MsgBox("To delete a Promoton tender, you must delete" & vbCrLf & "the Stadis tender which generated it.", MsgBoxStyle.Exclamation, "STADIS Tender")
-                    Return False
+                    Return True
                 End If
-                If remark.Length = 3 Then
-                    Dim successful As Boolean = DoSVAccountReverse(remark(2))
-                    If successful Then
-                        Return True
-                    Else
-                        Return False
-                    End If
+                Dim successful As Boolean = DoSVAccountReverse(fAdapter, remark(2))
+                If successful Then
+                    Return True
+                Else
+                    MsgBox("Unable to delete tender from Stadis.", MsgBoxStyle.Exclamation, "STADIS Tender")
+                    Return True
                 End If
             End If
         Else
             Return MyBase.DeleteTender()
         End If
     End Function  'DeleteTender
-
-    Private Function DoSVAccountReverse(ByVal AuthID As String) As Boolean
-        Dim invoiceHandle As Integer = 0
-        Dim sr As New StadisRequest
-        With sr
-            .SiteID = gSiteID
-            .StadisAuthorizationID = AuthID
-            .VendorID = gVendorID
-            .LocationID = gLocationID
-            .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
-            .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-            .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
-        End With
-        Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
-        Dim hasBadReply As Boolean = False
-        For Each sy As StadisReply In sys
-            If sy.ReturnCode < 0 Then
-                hasBadReply = True
-                'LogStadisEvent(Guid.Empty, "Reverse Charge", "DoReverse", "A", sy.ReturnCode, "Unable to reverse charge for StadisAuthorizationID", "", "", "StadisAuthorizationID = " & sy.StadisAuthorizationID)
-            End If
-        Next
-        If hasBadReply = True Then
-            MsgBox("Unable to reverse charge for StadisAuthorizationID " & AuthID, MsgBoxStyle.Exclamation, "Reverse Charge")
-            Return False
-        Else
-            Return True
-        End If
-    End Function  'DoSVAccountReverse
 
     '----------------------------------------------------------------------------------------------
     ' Called when RPro is shut down
@@ -141,7 +108,6 @@ Public Class TenderDialogue
         fGUID = Nothing
         fTenderType = Nothing
         fUseDefaultDialog = Nothing
-        stadisChargeList = Nothing
         MyBase.CleanUp()
     End Sub  'Cleanup
 

@@ -56,12 +56,12 @@ Public Class ButtonRedeem
     ' Called when button is clicked
     '----------------------------------------------------------------------------------------------
     Public Overrides Function HandleEvent() As Boolean
-        If gRedeemButtonActive = True Then
-            Dim mFrmRedeem As New FrmRedeem
-            mFrmRedeem.Adapter = fAdapter
-            mFrmRedeem.ShowDialog()
-            mFrmRedeem = Nothing
-        End If
+        'If gRedeemButtonActive = True Then
+        '    Dim mFrmRedeem As New FrmRedeem
+        '    mFrmRedeem.Adapter = fAdapter
+        '    mFrmRedeem.ShowDialog()
+        '    mFrmRedeem = Nothing
+        'End If
         Return MyBase.HandleEvent()
     End Function  'HandleEvent
 

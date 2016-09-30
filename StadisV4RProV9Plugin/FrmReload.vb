@@ -236,7 +236,7 @@ Friend Class FrmReload
                         Dim tenderHandle As Integer = mAdapter.GetReferenceBOForAttribute(0, "Tenders")
                         CommonRoutines.BOOpen(mAdapter, tenderHandle)
                         CommonRoutines.BOInsert(mAdapter, tenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gStadisTenderType)
+                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - amount)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID", txtGiftCardID.Text)
                         If CommonRoutines.IsAGiftCard(mEventID) Then
@@ -244,7 +244,7 @@ Friend Class FrmReload
                         Else
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@TL #" & txtGiftCardID.Text)
                         End If
-                        If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                        If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)

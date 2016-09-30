@@ -1239,7 +1239,7 @@ Friend Class FrmIssue
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - mGiftCardTotal)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID", "")
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@OF#Offset for card issue/activate")
-                        If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                        If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)

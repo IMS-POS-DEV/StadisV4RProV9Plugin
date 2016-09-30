@@ -94,7 +94,7 @@ Public Class ButtonReturn
             Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(0, "Tenders")
             CommonRoutines.BOOpen(fAdapter, tenderHandle)
             CommonRoutines.BOInsert(fAdapter, tenderHandle)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE", gStadisTenderType)
+            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
             CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "GIVEN", amtDueToCust)
             CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "AMT", amtDueToCust)
             CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TRANSACTION_ID", giftCardID)
@@ -103,7 +103,7 @@ Public Class ButtonReturn
             Else
                 CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@TR #" & giftCardID)
             End If
-            If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+            If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
                 CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
                 CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
                 CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_TYPE", 1)
@@ -169,12 +169,12 @@ Public Class ButtonReturn
                     If amtDueToCust > 0D Then
                         CommonRoutines.BOOpen(fAdapter, tenderHandle)
                         CommonRoutines.BOInsert(fAdapter, tenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE", gStadisTenderType)
+                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
                         CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "AMT", amtDueToCust)
                         CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "GIVEN", amtDueToCust)
                         CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TRANSACTION_ID", "")
                         CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@OF # Offset for card issue/activate")
-                        If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                        If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
                             CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
                             CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
                             CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_TYPE", 1)

@@ -87,85 +87,113 @@ Public Class CommonRoutines
         Return Regex.IsMatch(scanInput, gValidatePattern)
     End Function  'ValidateScan
 
-    '------------------------------------------------------------------------------
-    ' Storage area for charge info
-    '------------------------------------------------------------------------------
-    Public Shared stadisChargeList As New List(Of StadisCharge)
-    Public Class StadisCharge
+    Public Shared Function DoSVAccountReverse(ByRef fAdapter As RetailPro.Plugins.IPluginAdapter, ByVal AuthID As String) As Boolean
+        Dim invoiceHandle As Integer = 0
+        Dim sr As New StadisRequest
+        With sr
+            .SiteID = gSiteID
+            .StadisAuthorizationID = AuthID
+            .VendorID = gVendorID
+            .LocationID = gLocationID
+            .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
+            .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+            .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
+        End With
+        Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
+        Dim hasBadReply As Boolean = False
+        For Each sy As StadisReply In sys
+            If sy.ReturnCode < 0 Then
+                hasBadReply = True
+                'LogStadisEvent(Guid.Empty, "Reverse Charge", "DoReverse", "A", sy.ReturnCode, "Unable to reverse charge for StadisAuthorizationID", "", "", "StadisAuthorizationID = " & sy.StadisAuthorizationID)
+            End If
+        Next
+        If hasBadReply = True Then
+            MsgBox("Unable to reverse charge for StadisAuthorizationID " & AuthID, MsgBoxStyle.Exclamation, "Reverse Charge")
+            Return False
+        Else
+            Return True
+        End If
+    End Function  'DoSVAccountReverse
 
-        Private gTenderTypeID As Integer = 0
-        Private gTenderIDFlag As String = ""
-        Private gTenderID As String = ""
-        Private gAmount As Decimal = 0D
-        Private gStadisAuthorizationID As String = ""
-        Private gMatchFound As Boolean = False
+    ''------------------------------------------------------------------------------
+    '' Storage area for charge info
+    ''------------------------------------------------------------------------------
+    'Public Shared stadisChargeList As New List(Of StadisCharge)
+    'Public Class StadisCharge
 
-        Public Property TenderTypeID() As Integer
-            Get
-                Return gTenderTypeID
-            End Get
-            Set(ByVal Value As Integer)
-                gTenderTypeID = Value
-            End Set
-        End Property
+    '    Private gTenderTypeID As Integer = 0
+    '    Private gTenderIDFlag As String = ""
+    '    Private gTenderID As String = ""
+    '    Private gAmount As Decimal = 0D
+    '    Private gStadisAuthorizationID As String = ""
+    '    Private gMatchFound As Boolean = False
 
-        Public Property TenderIDFlag() As String
-            Get
-                Return gTenderIDFlag
-            End Get
-            Set(ByVal Value As String)
-                gTenderIDFlag = Value
-            End Set
-        End Property
+    '    Public Property TenderTypeID() As Integer
+    '        Get
+    '            Return gTenderTypeID
+    '        End Get
+    '        Set(ByVal Value As Integer)
+    '            gTenderTypeID = Value
+    '        End Set
+    '    End Property
 
-        Public Property TenderID() As String
-            Get
-                Return gTenderID
-            End Get
-            Set(ByVal Value As String)
-                gTenderID = Value
-            End Set
-        End Property
+    '    Public Property TenderIDFlag() As String
+    '        Get
+    '            Return gTenderIDFlag
+    '        End Get
+    '        Set(ByVal Value As String)
+    '            gTenderIDFlag = Value
+    '        End Set
+    '    End Property
 
-        Public Property Amount() As Decimal
-            Get
-                Return gAmount
-            End Get
-            Set(ByVal Value As Decimal)
-                gAmount = Value
-            End Set
-        End Property
+    '    Public Property TenderID() As String
+    '        Get
+    '            Return gTenderID
+    '        End Get
+    '        Set(ByVal Value As String)
+    '            gTenderID = Value
+    '        End Set
+    '    End Property
 
-        Public Property StadisAuthorizationID() As String
-            Get
-                Return gStadisAuthorizationID
-            End Get
-            Set(ByVal Value As String)
-                gStadisAuthorizationID = Value
-            End Set
-        End Property
+    '    Public Property Amount() As Decimal
+    '        Get
+    '            Return gAmount
+    '        End Get
+    '        Set(ByVal Value As Decimal)
+    '            gAmount = Value
+    '        End Set
+    '    End Property
 
-        Public Property MatchFound() As Boolean
-            Get
-                Return gMatchFound
-            End Get
-            Set(ByVal Value As Boolean)
-                gMatchFound = Value
-            End Set
-        End Property
+    '    Public Property StadisAuthorizationID() As String
+    '        Get
+    '            Return gStadisAuthorizationID
+    '        End Get
+    '        Set(ByVal Value As String)
+    '            gStadisAuthorizationID = Value
+    '        End Set
+    '    End Property
 
-        Public Sub New(ByVal tendertypeid As Integer, ByVal flag As String, ByVal tenderid As String, ByVal amt As Decimal, ByVal authid As String)
-            gTenderTypeID = tendertypeid
-            gTenderIDFlag = flag
-            gTenderID = tenderid
-            gAmount = amt
-            gStadisAuthorizationID = authid
-        End Sub
+    '    Public Property MatchFound() As Boolean
+    '        Get
+    '            Return gMatchFound
+    '        End Get
+    '        Set(ByVal Value As Boolean)
+    '            gMatchFound = Value
+    '        End Set
+    '    End Property
 
-        Public Sub New()
-        End Sub
+    '    Public Sub New(ByVal tendertypeid As Integer, ByVal flag As String, ByVal tenderid As String, ByVal amt As Decimal, ByVal authid As String)
+    '        gTenderTypeID = tendertypeid
+    '        gTenderIDFlag = flag
+    '        gTenderID = tenderid
+    '        gAmount = amt
+    '        gStadisAuthorizationID = authid
+    '    End Sub
 
-    End Class  'StadisCharge
+    '    Public Sub New()
+    '    End Sub
+
+    'End Class  'StadisCharge
 
     '----------------------------------------------------------------------------------------------
     ' Get site and WS configuration settings
@@ -233,14 +261,6 @@ Public Class CommonRoutines
 
             ' Derived settings
             gGiftCardEvent = Split(gGiftCardEvents, ";")
-            Select Case gTenderTypeForStadis
-                Case "GiftCard"
-                    gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard
-                Case "ForeignCheck"
-                    gStadisTenderType = RetailPro.Plugins.TenderTypes.ttForeignCheck
-                Case "Check"
-                    gStadisTenderType = RetailPro.Plugins.TenderTypes.ttCheck
-            End Select
 
             Select Case gTenderDialogTender
                 Case "Charge"
@@ -299,8 +319,8 @@ Public Class CommonRoutines
                             gSiteSVType = .SettingValue
 
                             'RPro settings
-                        Case "TenderTypeForStadis"
-                            gTenderTypeForStadis = .SettingValue
+                            'Case "TenderTypeForStadis"
+                            '    gTenderTypeForStadis = .SettingValue
                         Case "FeeOrTenderForIssueOffset"
                             gFeeOrTenderForIssueOffset = .SettingValue
                         Case "FeeOrTenderForReloadOffset"
@@ -677,7 +697,7 @@ Public Class CommonRoutines
                 .StadisAuthorizationID = " "
                 Dim rproTenderType As Integer = BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_TYPE")
                 Dim stadisTenderType As Integer = ConvertRProTenderTypeToStadis(rproTenderType)
-                If rproTenderType <> gStadisTenderType Then
+                If rproTenderType <> gTenderDialogTenderType Then
                     .TenderTypeID = stadisTenderType
                     .IsStadisTender = False
                     .StadisAuthorizationID = ""

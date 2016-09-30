@@ -61,7 +61,7 @@ Public Module GlobalValues
     '        '|                     = Or
     '        '([01][0-9]{7}$*)      = 0 or 1, followed by 7 more numbers, followed by an optional end of line
     Public gShowSVActionGrid As Boolean = False
-    Public gTenderTypeForStadis As String = "GiftCard"
+    'Public gTenderTypeForStadis As String = "GiftCard"
     Public gVendorID As String = ""
 
     Public gTenderDialogActive As Boolean = True
@@ -105,7 +105,7 @@ Public Module GlobalValues
     '----------------------------------------------------------------------------------------------
     Public gGiftCardEvent() As String
     Public gGCI As New DSGiftCardInfo
-    Public gStadisTenderType As Integer
+    'Public gStadisTenderType As Integer
     Public gTenderDialogTenderType As Integer = -99
 
     '----------------------------------------------------------------------------------------------

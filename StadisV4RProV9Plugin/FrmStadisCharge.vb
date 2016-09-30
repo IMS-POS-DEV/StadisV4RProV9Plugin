@@ -71,6 +71,22 @@ Public Class FrmStadisCharge
         mInvoiceHandle = 0
         mItemHandle = mAdapter.GetReferenceBOForAttribute(mInvoiceHandle, "Items")
         mTenderHandle = mAdapter.GetReferenceBOForAttribute(mInvoiceHandle, "Tenders")
+        CommonRoutines.BORefreshRecord(mAdapter, 0)
+        CommonRoutines.BOOpen(mAdapter, mTenderHandle)
+
+        If mAdapter.BOIsAttributeInList(mTenderHandle, "EFTDATA8") = False Then
+            Dim result As Integer = mAdapter.BOIncludeAttrIntoList(mTenderHandle, "EFTDATA8", True, False)
+        End If
+        If mAdapter.BOIsAttributeInInstance(mTenderHandle, "EFTDATA8") = False Then
+            Dim result As Integer = mAdapter.BOIncludeAttrIntoInstance(mTenderHandle, "EFTDATA8", True, False)
+        End If
+
+        If mAdapter.BOIsAttributeInList(mTenderHandle, "EFTDATA9") = False Then
+            Dim result As Integer = mAdapter.BOIncludeAttrIntoList(mTenderHandle, "EFTDATA9", True, False)
+        End If
+        If mAdapter.BOIsAttributeInInstance(mTenderHandle, "EFTDATA9") = False Then
+            Dim result As Integer = mAdapter.BOIncludeAttrIntoInstance(mTenderHandle, "EFTDATA9", True, False)
+        End If
     End Sub  'SetUpRetailProConnections
 
     '----------------------------------------------------------------------------------------------
@@ -290,23 +306,31 @@ Public Class FrmStadisCharge
                 Return False
             End If
             For Each sy As StadisReply In sys
-                If sy.TenderTypeID = 1 Then   'Ticket
+                If sy.TenderTypeID = 11 Then   'Promo
                     Select Case sy.ReturnCode
                         Case 0, 1, -2   'Charge went through
-                            'Update our own list of Stadis tenders, so we can add Promos later
-                            Dim flag As String = ""
-                            If CommonRoutines.IsAGiftCard(sy.EventID) Then
-                                flag = "@GC"
-                            Else
-                                flag = "@TK"
-                            End If
-                            Dim sc As New CommonRoutines.StadisCharge(sy.TenderTypeID, flag, sy.TenderID, sy.ChargedAmount, sy.StadisAuthorizationID)
-                            CommonRoutines.stadisChargeList.Add(sc)
-                            'Update RPro
-                            With ParentDialog
-                                .Amount = sy.ChargedAmount
-                                .Remark = flag & "#" & sy.TenderID & "#" & sy.StadisAuthorizationID
-                            End With
+                            Try
+                                CommonRoutines.BORefreshRecord(mAdapter, 0)
+                                CommonRoutines.BOOpen(mAdapter, mTenderHandle)
+                                CommonRoutines.BOInsert(mAdapter, mTenderHandle)
+                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
+                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AMT", sy.ChargedAmount)
+                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK", "@PR" & "#" & sy.TenderID & "#" & sy.StadisAuthorizationID)
+                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "PMT_REMARK", "Promo")
+                                Dim len As Integer = sy.TenderID.Length
+                                Dim lastfour As String = sy.TenderID.Substring(len - 4, 4)
+                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "EFTDATA8", lastfour)
+                                If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
+                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
+                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_TYPE", 1)
+                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_PRESENT", 1)
+                                End If
+                                CommonRoutines.BOPost(mAdapter, mTenderHandle)
+                            Catch ex As Exception
+                                MessageBox.Show("Error while adding promo tender." & vbCrLf & ex.Message, "STADIS")
+                                Exit Function
+                            End Try
                         Case -1, -3, -99   'Charge failed
                             txtMessage.Appearance.ForeColor = Color.Firebrick
                             txtMessage.Text = "Charge Failed."
@@ -325,13 +349,48 @@ Public Class FrmStadisCharge
                             MsgBox("Charge failed for unknown reasons!" & vbCrLf & "Try again later.", MsgBoxStyle.Exclamation, "Ticket Tender")
                             Return False
                     End Select
-                ElseIf sy.TenderTypeID = 11 Then   'Promo
-                    Dim sc As New CommonRoutines.StadisCharge(sy.TenderTypeID, "@PR", sy.TenderID, sy.ChargedAmount, sy.StadisAuthorizationID)
-                    CommonRoutines.stadisChargeList.Add(sc)
+                End If
+            Next
+            For Each sy As StadisReply In sys
+                If sy.TenderTypeID = 1 Then   'Ticket
+                    Select Case sy.ReturnCode
+                        Case 0, 1, -2   'Charge went through
+                            Dim flag As String = ""
+                            If CommonRoutines.IsAGiftCard(sy.EventID) Then
+                                flag = "@GC"
+                            Else
+                                flag = "@TK"
+                            End If
+                            Dim len As Integer = sy.TenderID.Length
+                            Dim lastfour As String = sy.TenderID.Substring(len - 4, 4)
+                            With ParentDialog
+                                .Amount = sy.ChargedAmount
+                                .Remark = flag & "#" & sy.TenderID & "#" & sy.StadisAuthorizationID
+                                .DATA8 = lastfour
+                            End With
+                        Case -1, -3, -99   'Charge failed
+                            txtMessage.Appearance.ForeColor = Color.Firebrick
+                            txtMessage.Text = "Charge Failed"
+                            mAvailAmount = 0D
+                            mAcctBalance = sy.FromSVAccountBalance
+                            CalcRemAmountDue()
+                            If sy.ReturnCode = -1 Then
+                                MsgBox("Ticket/Card is Inactive!" & vbCrLf & "Ticket/Card: " & txtTenderID.Text, MsgBoxStyle.Exclamation, "Ticket Tender")
+                            ElseIf sy.ReturnCode = -3 Then
+                                MsgBox("Ticket not found!" & vbCrLf & "Ticket/Card: " & txtTenderID.Text, MsgBoxStyle.Exclamation, "Ticket Tender")
+                            Else
+                                MsgBox("Charge failed for unknown reasons!" & vbCrLf & "Try again later.", MsgBoxStyle.Exclamation, "Ticket Tender")
+                            End If
+                            Return False
+                        Case Else
+                            MsgBox("Charge failed for unknown reasons!" & vbCrLf & "Try again later.", MsgBoxStyle.Exclamation, "Ticket Tender")
+                            Return False
+                    End Select
+                    Exit For
                 End If
             Next
             txtMessage.Appearance.ForeColor = Color.Teal
-            txtMessage.Text = "Charge Successful."
+            txtMessage.Text = "Charge Successful"
             Return True
         Catch ex As Exception
             MsgBox(ex.Message.ToString(), , "SVAccountCharge")
