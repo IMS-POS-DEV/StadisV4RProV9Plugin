@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.STADIS.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.STADIS.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 12/3/2015 at 1:58 PM ***</wsdl:documentation>
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 6/19/2017 at 11:50 AM ***</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://www.STADIS.com/">
       <s:import namespace="http://microsoft.com/wsdl/types/" />
@@ -290,6 +290,16 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="SVAccountTransferResult" type="tns:StadisReply" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStadisVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetStadisVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStadisVersionResult" type="tns:StadisReply" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1206,6 +1216,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GCActivate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GCActivateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GCActivateResult" type="tns:StadisReply" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GCDeactivate">
         <s:complexType>
           <s:sequence>
@@ -1354,6 +1378,15 @@
     <wsdl:part name="parameters" element="tns:SVAccountTransferResponse" />
   </wsdl:message>
   <wsdl:message name="SVAccountTransferSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetStadisVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStadisVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetStadisVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStadisVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStadisVersionSecurityCredentials">
     <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
   </wsdl:message>
   <wsdl:message name="SVEventLogSoapIn">
@@ -1545,6 +1578,15 @@
   <wsdl:message name="GCIssueActivateSecurityCredentials">
     <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
   </wsdl:message>
+  <wsdl:message name="GCActivateSoapIn">
+    <wsdl:part name="parameters" element="tns:GCActivate" />
+  </wsdl:message>
+  <wsdl:message name="GCActivateSoapOut">
+    <wsdl:part name="parameters" element="tns:GCActivateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GCActivateSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
   <wsdl:message name="GCDeactivateSoapIn">
     <wsdl:part name="parameters" element="tns:GCDeactivate" />
   </wsdl:message>
@@ -1627,6 +1669,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transfer funds from one SVAccount to another.</wsdl:documentation>
       <wsdl:input message="tns:SVAccountTransferSoapIn" />
       <wsdl:output message="tns:SVAccountTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStadisVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets version and release of Stadis.</wsdl:documentation>
+      <wsdl:input message="tns:GetStadisVersionSoapIn" />
+      <wsdl:output message="tns:GetStadisVersionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="SVEventLog">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log serious Stadis errors.</wsdl:documentation>
@@ -1732,6 +1779,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add and/or activate gift card(s).  Should be preceded by SVPostTransaction.</wsdl:documentation>
       <wsdl:input message="tns:GCIssueActivateSoapIn" />
       <wsdl:output message="tns:GCIssueActivateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GCActivate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Activate a gift card.</wsdl:documentation>
+      <wsdl:input message="tns:GCActivateSoapIn" />
+      <wsdl:output message="tns:GCActivateSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GCDeactivate">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deactivate a gift card.</wsdl:documentation>
@@ -1856,6 +1908,16 @@
       <wsdl:input>
         <soap:body use="literal" />
         <soap:header message="tns:SVAccountTransferSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStadisVersion">
+      <soap:operation soapAction="http://www.STADIS.com/GetStadisVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetStadisVersionSecurityCredentials" part="SecurityCredentials" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
@@ -2071,6 +2133,16 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GCActivate">
+      <soap:operation soapAction="http://www.STADIS.com/GCActivate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GCActivateSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GCDeactivate">
       <soap:operation soapAction="http://www.STADIS.com/GCDeactivate" style="document" />
       <wsdl:input>
@@ -2209,6 +2281,16 @@
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:SVAccountTransferSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStadisVersion">
+      <soap12:operation soapAction="http://www.STADIS.com/GetStadisVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetStadisVersionSecurityCredentials" part="SecurityCredentials" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
@@ -2424,6 +2506,16 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GCActivate">
+      <soap12:operation soapAction="http://www.STADIS.com/GCActivate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GCActivateSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GCDeactivate">
       <soap12:operation soapAction="http://www.STADIS.com/GCDeactivate" style="document" />
       <wsdl:input>
@@ -2456,7 +2548,7 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="StadisV4TransactionsService">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 12/3/2015 at 1:58 PM ***</wsdl:documentation>
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 6/19/2017 at 11:50 AM ***</wsdl:documentation>
     <wsdl:port name="StadisV4TransactionsServiceSoap" binding="tns:StadisV4TransactionsServiceSoap">
       <soap:address location="http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx" />
     </wsdl:port>

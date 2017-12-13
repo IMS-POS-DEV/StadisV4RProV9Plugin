@@ -46,7 +46,9 @@ Friend Class FrmIssue
     ' Called when form is loaded
     '----------------------------------------------------------------------------------------------
     Private Sub FrmIssue_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'pbLogo.Image = New Bitmap(gFormLogoImage)
+        If Trim(gFormLogoImage) <> "stadislogo.png" Then
+            pbLogo.Image = New Bitmap(gFormLogoImage)
+        End If
         SetCustomerID()
         SetUpGiftCardButtons()
         SetUpGridAndConnectToGiftCardsDataset()

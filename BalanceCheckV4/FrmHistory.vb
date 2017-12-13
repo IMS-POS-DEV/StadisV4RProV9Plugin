@@ -463,31 +463,31 @@ Public Class FrmHistory
                     .Columns("TenderStatus").Hidden = True
                     .Columns("Amount").Hidden = True
 
-                    'Try
-                    '    .Columns.Add("Rev", " ")
-                    'Catch
-                    'End Try
+                    Try
+                        .Columns.Add("Rev", " ")
+                    Catch
+                    End Try
 
-                    'With .Columns("Rev")
-                    '    .SortIndicator = SortIndicator.Disabled
-                    '    .Style = Infragistics.Win.UltraWinGrid.ColumnStyle.Button
-                    '    .ButtonDisplayStyle = Infragistics.Win.UltraWinGrid.ButtonDisplayStyle.Always
-                    '    .NullText = "Load"
-                    '    .CellButtonAppearance.BackColor = Drawing.Color.PaleTurquoise
-                    '    .CellButtonAppearance.BackColor2 = Drawing.Color.MediumTurquoise
-                    '    .CellButtonAppearance.BackGradientStyle = GradientStyle.Vertical
-                    '    .CellButtonAppearance.ForeColor = Drawing.Color.Red
-                    '    .CellButtonAppearance.FontData.Bold = DefaultableBoolean.True
-                    '    .CellActivation = Infragistics.Win.UltraWinGrid.Activation.NoEdit
-                    '    .CellAppearance.TextHAlign = Infragistics.Win.HAlign.Center
-                    '    .CellAppearance.TextVAlign = Infragistics.Win.VAlign.Middle
-                    '    .Header.Caption = "Rev"
-                    '    .Header.VisiblePosition = 0
-                    '    .MaxWidth = 36
-                    '    .MinWidth = 36
-                    '    .TabStop = False
-                    '    .Width = 36
-                    'End With
+                    With .Columns("Rev")
+                        .SortIndicator = SortIndicator.Disabled
+                        .Style = Infragistics.Win.UltraWinGrid.ColumnStyle.Button
+                        .ButtonDisplayStyle = Infragistics.Win.UltraWinGrid.ButtonDisplayStyle.Always
+                        .NullText = "Load"
+                        .CellButtonAppearance.BackColor = Drawing.Color.PaleTurquoise
+                        .CellButtonAppearance.BackColor2 = Drawing.Color.MediumTurquoise
+                        .CellButtonAppearance.BackGradientStyle = GradientStyle.Vertical
+                        .CellButtonAppearance.ForeColor = Drawing.Color.Red
+                        .CellButtonAppearance.FontData.Bold = DefaultableBoolean.True
+                        .CellActivation = Infragistics.Win.UltraWinGrid.Activation.NoEdit
+                        .CellAppearance.TextHAlign = Infragistics.Win.HAlign.Center
+                        .CellAppearance.TextVAlign = Infragistics.Win.VAlign.Middle
+                        .Header.Caption = "Rev"
+                        .Header.VisiblePosition = 0
+                        .MaxWidth = 36
+                        .MinWidth = 36
+                        .TabStop = False
+                        .Width = 36
+                    End With
 
                     With .Columns("CreateDate")
                         .CellActivation = Activation.NoEdit
@@ -734,7 +734,7 @@ Public Class FrmHistory
     End Sub  'grdTran_InitializeRow
 
     Private Sub grdAction_InitializeRow(sender As Object, e As Infragistics.Win.UltraWinGrid.InitializeRowEventArgs) Handles grdAction.InitializeRow
-        'e.Row.Cells("Rev").Value = "X"
+        e.Row.Cells("Rev").Value = "X"
         If CStr(e.Row.Cells("TransactionKey").Value) = "" Then
             e.Row.CellAppearance.ForeColor = Color.DarkRed
         Else
@@ -776,7 +776,7 @@ Public Class FrmHistory
 
 #End Region  'Print to Windows
 
-    '#Region " Print to Raster "
+#Region " Print to Raster "
 
     '    Private Sub PrintToRaster()
     '        lblPrint.Visible = True
@@ -921,9 +921,9 @@ Public Class FrmHistory
     '        StarC.Visible = False
     '    End Sub  'PrintAllToRaster
 
-    '#End Region  'Print to Raster
+#End Region  'Print to Raster
 
-    '#Region " Print to OPOS "
+#Region " Print to OPOS "
 
     '    Private Sub PrintToOPOS()
     '        lblPrint.Visible = True
@@ -1044,6 +1044,6 @@ Public Class FrmHistory
     '        lblPrint.Visible = False
     '    End Sub  'PrintAllToOPOS
 
-    '#End Region  'Print to OPOS
+#End Region  'Print to OPOS
 
 End Class  'FrmHistory

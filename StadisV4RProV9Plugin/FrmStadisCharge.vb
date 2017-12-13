@@ -251,6 +251,56 @@ Public Class FrmStadisCharge
 
 #End Region  'Events
 
+#Region " Buttons "
+
+    '----------------------------------------------------------------------------------------------
+    ' Display on-screen keyboard
+    '----------------------------------------------------------------------------------------------
+    Private Sub btnKeyboard_Click(sender As Object, e As EventArgs) Handles btnKeyboard.Click
+        Dim windir As String = Environment.GetEnvironmentVariable("windir")
+        Dim p As New Process()
+        With p.StartInfo
+            .FileName = windir & Convert.ToString("\System32\cmd.exe")
+            .Arguments = (Convert.ToString("/C ") & windir) + "\System32\osk.exe"
+            .CreateNoWindow = True
+            .UseShellExecute = False
+        End With
+        p.Start()
+        p.Dispose()
+    End Sub  'btnKeyboard_Click
+
+    '----------------------------------------------------------------------------------------------
+    ' Clear fields and allow reentry of identical data
+    '----------------------------------------------------------------------------------------------
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        txtTenderID.Text = ""
+        txtTenderAmount.Value = 0
+        gLastTenderID = ""
+        gLastAmount = 0D
+    End Sub  'btnClear_Click
+
+    '----------------------------------------------------------------------------------------------
+    ' Process SVAccountCharge.  If successful, pause a sec to diaplay message, then exit
+    '----------------------------------------------------------------------------------------------
+    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+        Dim chargeSucceeded As Boolean = DoSVAccountCharge()
+        If chargeSucceeded Then
+            Wait(1)
+            Me.DialogResult = Windows.Forms.DialogResult.OK
+            Me.Close()
+        End If
+    End Sub  'btnOK_Click
+
+    '----------------------------------------------------------------------------------------------
+    ' Exit without doing anything
+    '----------------------------------------------------------------------------------------------
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+        Me.DialogResult = Windows.Forms.DialogResult.Cancel
+        Me.Close()
+    End Sub  'btnCancel_Click
+
+#End Region  'Buttons
+
 #Region " Methods "
 
     '----------------------------------------------------------------------------------------------
@@ -282,6 +332,11 @@ Public Class FrmStadisCharge
                 gRegisterID = .RegisterID
                 gVendorCashier = .VendorCashier
             End With
+            Dim invcSID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Invoice SID")
+            'Check if already processed
+            If invcSID = gLastInvcSID AndAlso sr.TenderID = gLastTenderID AndAlso sr.Amount = gLastAmount Then
+                Return False
+            End If
             Dim stt As New StadisTranTender
             With stt
                 .IsStadisTender = True
@@ -290,21 +345,34 @@ Public Class FrmStadisCharge
                 .TenderID = Trim(txtTenderID.Text)
                 .Amount = txtTenderAmount.Value
             End With
-            Dim sys As StadisReply()
+            Dim sys As StadisReply() = Nothing
             Try
                 sys = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), CommonRoutines.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), CommonRoutines.LoadTendersForCharge(mAdapter, "Receipt", mTenderHandle, stt))
                 mReturnCode = sys(0).ReturnCode
                 mReturnMessage = sys(0).ReturnMessage
             Catch ex As Exception
-                MsgBox("Stadis Charge failed." & vbCrLf & ex.Message, MsgBoxStyle.Critical, "SVAccountCharge")
+                MsgBox("Stadis Charge failed." & vbCrLf & ex.Message, MsgBoxStyle.Critical, "SVAccountCharge Exception")
                 txtTenderID.Text = ""
+                With ParentDialog
+                    .Amount = 0D
+                    .Remark = "Error"
+                    .DATA8 = " "
+                End With
                 Return False
             End Try
             If mReturnCode < 0 Then
-                MsgBox("Stadis Charge failed." & vbCrLf & mReturnMessage, MsgBoxStyle.Critical, "Stadis Charge")
+                MsgBox("Stadis Charge failed." & vbCrLf & mReturnMessage, MsgBoxStyle.Critical, "SVAccountCharge")
                 txtTenderID.Text = ""
+                With ParentDialog
+                    .Amount = 0D
+                    .Remark = "Error"
+                    .DATA8 = " "
+                End With
                 Return False
             End If
+            gLastInvcSID = invcSID
+            gLastTenderID = sr.TenderID
+            gLastAmount = sr.Amount
             For Each sy As StadisReply In sys
                 If sy.TenderTypeID = 11 Then   'Promo
                     Select Case sy.ReturnCode
@@ -399,45 +467,5 @@ Public Class FrmStadisCharge
     End Function  'DoSVAccountCharge
 
 #End Region  'Methods
-
-#Region " Buttons "
-
-    '----------------------------------------------------------------------------------------------
-    ' Display on-screen keyboard
-    '----------------------------------------------------------------------------------------------
-    Private Sub btnKeyboard_Click(sender As Object, e As EventArgs) Handles btnKeyboard.Click
-        Dim windir As String = Environment.GetEnvironmentVariable("windir")
-        Dim p As New Process()
-        With p.StartInfo
-            .FileName = windir & Convert.ToString("\System32\cmd.exe")
-            .Arguments = (Convert.ToString("/C ") & windir) + "\System32\osk.exe"
-            .CreateNoWindow = True
-            .UseShellExecute = False
-        End With
-        p.Start()
-        p.Dispose()
-    End Sub  'btnKeyboard_Click
-
-    '----------------------------------------------------------------------------------------------
-    ' Process SVAccountCharge.  If successful, pause a sec to diaplay message, then exit
-    '----------------------------------------------------------------------------------------------
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        Dim chargeSucceeded As Boolean = DoSVAccountCharge()
-        If chargeSucceeded Then
-            Wait(1)
-            Me.DialogResult = Windows.Forms.DialogResult.OK
-            Me.Close()
-        End If
-    End Sub  'btnOK_Click
-
-    '----------------------------------------------------------------------------------------------
-    ' Exit without doing anything
-    '----------------------------------------------------------------------------------------------
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        Me.DialogResult = Windows.Forms.DialogResult.Cancel
-        Me.Close()
-    End Sub  'btnCancel_Click
-
-#End Region  'Buttons
 
 End Class  'FrmStadisCharge

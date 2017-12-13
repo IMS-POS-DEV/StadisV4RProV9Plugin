@@ -113,6 +113,10 @@ Public Module GlobalValues
     '----------------------------------------------------------------------------------------------
     Public gRegisterID As String = "Unknown"
     Public gVendorCashier As String = "Unknown"
+    Public gLastInvcSID As String = ""
+    Public gLastTenderID As String = ""
+    Public gLastAmount As Decimal = 0D
+    Public gLastAuthID As String = ""
 
     '----------------------------------------------------------------------------------------------
     ' Flags

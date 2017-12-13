@@ -87,7 +87,13 @@ Public Class CommonRoutines
         Return Regex.IsMatch(scanInput, gValidatePattern)
     End Function  'ValidateScan
 
+    '------------------------------------------------------------------------------
+    ' Reverse an SVAccountCharge
+    '------------------------------------------------------------------------------
     Public Shared Function DoSVAccountReverse(ByRef fAdapter As RetailPro.Plugins.IPluginAdapter, ByVal AuthID As String) As Boolean
+        If AuthID = gLastAuthID Then
+            Return False
+        End If
         Dim invoiceHandle As Integer = 0
         Dim sr As New StadisRequest
         With sr
@@ -111,89 +117,10 @@ Public Class CommonRoutines
             MsgBox("Unable to reverse charge for StadisAuthorizationID " & AuthID, MsgBoxStyle.Exclamation, "Reverse Charge")
             Return False
         Else
+            gLastAuthID = AuthID
             Return True
         End If
     End Function  'DoSVAccountReverse
-
-    ''------------------------------------------------------------------------------
-    '' Storage area for charge info
-    ''------------------------------------------------------------------------------
-    'Public Shared stadisChargeList As New List(Of StadisCharge)
-    'Public Class StadisCharge
-
-    '    Private gTenderTypeID As Integer = 0
-    '    Private gTenderIDFlag As String = ""
-    '    Private gTenderID As String = ""
-    '    Private gAmount As Decimal = 0D
-    '    Private gStadisAuthorizationID As String = ""
-    '    Private gMatchFound As Boolean = False
-
-    '    Public Property TenderTypeID() As Integer
-    '        Get
-    '            Return gTenderTypeID
-    '        End Get
-    '        Set(ByVal Value As Integer)
-    '            gTenderTypeID = Value
-    '        End Set
-    '    End Property
-
-    '    Public Property TenderIDFlag() As String
-    '        Get
-    '            Return gTenderIDFlag
-    '        End Get
-    '        Set(ByVal Value As String)
-    '            gTenderIDFlag = Value
-    '        End Set
-    '    End Property
-
-    '    Public Property TenderID() As String
-    '        Get
-    '            Return gTenderID
-    '        End Get
-    '        Set(ByVal Value As String)
-    '            gTenderID = Value
-    '        End Set
-    '    End Property
-
-    '    Public Property Amount() As Decimal
-    '        Get
-    '            Return gAmount
-    '        End Get
-    '        Set(ByVal Value As Decimal)
-    '            gAmount = Value
-    '        End Set
-    '    End Property
-
-    '    Public Property StadisAuthorizationID() As String
-    '        Get
-    '            Return gStadisAuthorizationID
-    '        End Get
-    '        Set(ByVal Value As String)
-    '            gStadisAuthorizationID = Value
-    '        End Set
-    '    End Property
-
-    '    Public Property MatchFound() As Boolean
-    '        Get
-    '            Return gMatchFound
-    '        End Get
-    '        Set(ByVal Value As Boolean)
-    '            gMatchFound = Value
-    '        End Set
-    '    End Property
-
-    '    Public Sub New(ByVal tendertypeid As Integer, ByVal flag As String, ByVal tenderid As String, ByVal amt As Decimal, ByVal authid As String)
-    '        gTenderTypeID = tendertypeid
-    '        gTenderIDFlag = flag
-    '        gTenderID = tenderid
-    '        gAmount = amt
-    '        gStadisAuthorizationID = authid
-    '    End Sub
-
-    '    Public Sub New()
-    '    End Sub
-
-    'End Class  'StadisCharge
 
     '----------------------------------------------------------------------------------------------
     ' Get site and WS configuration settings
@@ -239,24 +166,45 @@ Public Class CommonRoutines
             End If
             Dim gcis As SaleItem() = msis.SaleItems
             For i As Integer = 0 To gcis.Length - 1
-                Dim gci As DSGiftCardInfo.GiftCardInfoRow = CType(gGCI.GiftCardInfo.NewRow, DSGiftCardInfo.GiftCardInfoRow)
-                gci.GiftCardInfoID = gcis(i).SaleItemID
-                gci.GiftCardName = gcis(i).Description
-                gci.RProLookupALU = gcis(i).RProLookupALU
-                gci.EventID = gcis(i).EventID
-                gci.ButtonPosition = gcis(i).ButtonOrderRPro
-                gci.ButtonCaption = gcis(i).ButtonCaption
-                gci.DropdownCaption = gcis(i).DropdownCaption
-                gci.ReceiptCaption = gcis(i).ReceiptCaption
-                gci.FixedOrVariable = gcis(i).FixedOrVariable
-                gci.AllowIssue = gcis(i).IsIssueAllowed
-                gci.AllowActivate = gcis(i).IsActivateAllowed
-                gci.IAMinAmount = gcis(i).IAMinAmount
-                gci.IAMaxAmount = gcis(i).IAMaxAmount
-                gci.AllowReload = gcis(i).IsReloadAllowed
-                gci.RMinAmount = gcis(i).RMinAmount
-                gci.RMaxAmount = gcis(i).RMaxAmount
-                gGCI.GiftCardInfo.Rows.Add(gci)
+                If gcis(i).StadisPOSProcessingCode = "GCReload" Then
+                    Dim gci As DSGiftCardInfo.ReloadInfoRow = CType(gGCI.ReloadInfo.NewRow, DSGiftCardInfo.ReloadInfoRow)
+                    gci.GiftCardInfoID = gcis(i).SaleItemID
+                    gci.GiftCardName = gcis(i).Description
+                    gci.RProLookupALU = gcis(i).RProLookupALU
+                    gci.EventID = gcis(i).EventID
+                    gci.ButtonPosition = gcis(i).ButtonOrderRPro
+                    gci.ButtonCaption = gcis(i).ButtonCaption
+                    gci.DropdownCaption = gcis(i).DropdownCaption
+                    gci.ReceiptCaption = gcis(i).ReceiptCaption
+                    gci.FixedOrVariable = gcis(i).FixedOrVariable
+                    gci.AllowIssue = gcis(i).IsIssueAllowed
+                    gci.AllowActivate = gcis(i).IsActivateAllowed
+                    gci.IAMinAmount = gcis(i).IAMinAmount
+                    gci.IAMaxAmount = gcis(i).IAMaxAmount
+                    gci.AllowReload = gcis(i).IsReloadAllowed
+                    gci.RMinAmount = gcis(i).RMinAmount
+                    gci.RMaxAmount = gcis(i).RMaxAmount
+                    gGCI.ReloadInfo.Rows.Add(gci)
+                Else
+                    Dim gci As DSGiftCardInfo.GiftCardInfoRow = CType(gGCI.GiftCardInfo.NewRow, DSGiftCardInfo.GiftCardInfoRow)
+                    gci.GiftCardInfoID = gcis(i).SaleItemID
+                    gci.GiftCardName = gcis(i).Description
+                    gci.RProLookupALU = gcis(i).RProLookupALU
+                    gci.EventID = gcis(i).EventID
+                    gci.ButtonPosition = gcis(i).ButtonOrderRPro
+                    gci.ButtonCaption = gcis(i).ButtonCaption
+                    gci.DropdownCaption = gcis(i).DropdownCaption
+                    gci.ReceiptCaption = gcis(i).ReceiptCaption
+                    gci.FixedOrVariable = gcis(i).FixedOrVariable
+                    gci.AllowIssue = gcis(i).IsIssueAllowed
+                    gci.AllowActivate = gcis(i).IsActivateAllowed
+                    gci.IAMinAmount = gcis(i).IAMinAmount
+                    gci.IAMaxAmount = gcis(i).IAMaxAmount
+                    gci.AllowReload = gcis(i).IsReloadAllowed
+                    gci.RMinAmount = gcis(i).RMinAmount
+                    gci.RMaxAmount = gcis(i).RMaxAmount
+                    gGCI.GiftCardInfo.Rows.Add(gci)
+                End If
             Next
 
             ' Derived settings

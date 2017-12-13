@@ -20,6 +20,8 @@ Friend Class FrmReload
     Private mRemainingAmount As Decimal = 0D
     Private mTenderHasBeenCharged As Boolean = False
     Private mAuthID As String = ""
+    Private mStatus As TicketStatus = Nothing
+
     Const Active As Integer = 1
     Const Pending As Integer = 3
 
@@ -40,7 +42,9 @@ Friend Class FrmReload
     ' Called when form is loaded
     '----------------------------------------------------------------------------------------------
     Private Sub FrmReload_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        pbLogo.Image = New Bitmap(gFormLogoImage)
+        If Trim(gFormLogoImage) <> "stadislogo.png" Then
+            pbLogo.Image = New Bitmap(gFormLogoImage)
+        End If
         mEventID = ""
         mCustomerID = ""
     End Sub  'FrmReload_Load
@@ -93,9 +97,9 @@ Friend Class FrmReload
             .ReceiptID = ""
             .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Cashier")
         End With
-        Dim status As TicketStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
-        If status.ReturnCode < 0 Then
-            If status.ReturnCode <> -3 Then
+        mStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
+        If mStatus.ReturnCode < 0 Then
+            If mStatus.ReturnCode <> -3 Then
                 MsgBox("Unable to validate card...", MsgBoxStyle.Exclamation, "GiftCard")
                 txtGiftCardID.Text = ""
                 txtGiftCardID.Focus()
@@ -103,21 +107,25 @@ Friend Class FrmReload
             End If
         End If
 
-        If status.TicketExists = False AndAlso status.EventTicketExists = True Then
+        If mStatus.TicketExists = False AndAlso mStatus.EventTicketExists = True Then
             MsgBox("No matching Ticket for EventTicket...", MsgBoxStyle.Information, "GiftCard")
             txtGiftCardID.Text = ""
             txtGiftCardID.Focus()
             Exit Sub
         End If
 
-        If status.TicketExists = True Then
-            mGiftCardALU = "GiftReload"
-            mEventID = status.CustomerStatus2
-            mCustomerID = status.TicketCustomerID
-            mRemainingAmount = status.SVA1Balance
-            Select Case status.TicketEventTicketStatusID
+        If mStatus.TicketExists = True Then
+            If Trim(mStatus.TicketGCALU) <> "" Then
+                mGiftCardALU = Trim(mStatus.TicketGCALU)
+            Else
+                mGiftCardALU = "GiftReload"
+            End If
+            mEventID = mStatus.CustomerStatus2
+            mCustomerID = mStatus.TicketCustomerID
+            mRemainingAmount = mStatus.SVA1Balance
+            Select Case mStatus.TicketEventTicketStatusID
                 Case Active
-                    txtCurrentBalance.Text = status.SVA1Balance.ToString("""$""#,##0.00")
+                    txtCurrentBalance.Text = mStatus.SVA1Balance.ToString("""$""#,##0.00")
                     Exit Sub
                 Case Pending
                     MsgBox("Gift Card has not been activated.", MsgBoxStyle.Information, "GiftCard")
@@ -173,7 +181,7 @@ Friend Class FrmReload
         'Check against min and max
         Dim rMinAmount As Decimal = 0D
         Dim rMaxAmount As Decimal = 0D
-        For Each gRow As DSGiftCardInfo.GiftCardInfoRow In gGCI.GiftCardInfo.Rows
+        For Each gRow As DSGiftCardInfo.ReloadInfoRow In gGCI.ReloadInfo.Rows
             If gRow.RProLookupALU = mGiftCardALU Then
                 rMinAmount = gRow.RMinAmount
                 rMaxAmount = gRow.RMaxAmount
@@ -199,11 +207,42 @@ Friend Class FrmReload
             Exit Sub
         End If
 
+        AddMoneyToSVAccount()
+
         AddOurItemAndTenderToRPro()
 
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub  'btnOK_Click
+
+    '------------------------------------------------------------------------------
+    ' Deposit funds to account
+    '------------------------------------------------------------------------------
+    Private Sub AddMoneyToSVAccount()
+        Try
+            'Build StadisRequest and do reload
+            Dim sr As New StadisRequest
+            With sr
+                .SiteID = gSiteID
+                .TenderTypeID = 1
+                .TenderID = Trim(txtGiftCardID.Text)
+                .Amount = CDec(txtAmount.Text)
+                .ReferenceNumber = ""
+                .ToSVAccountID = mStatus.EventTicketSVAccountID
+                .VendorID = gVendorID
+                .LocationID = gLocationID
+                .RegisterID = gRegisterID
+                .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
+                .VendorCashier = gVendorCashier
+            End With
+            Dim sys As StadisReply = CommonRoutines.StadisAPI.GCReload(sr)
+            If sys.ReturnCode < 0 Then
+                MsgBox("Gift card reload failed." & vbCrLf & sys.ReturnMessage, MsgBoxStyle.Critical, "Reload")
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message.ToString(), , "Reload")
+        End Try
+    End Sub  'AddMoneyToSVAccount
 
     '------------------------------------------------------------------------------
     ' Take entries and add them as an item to Retail Pro
@@ -238,7 +277,6 @@ Friend Class FrmReload
                         CommonRoutines.BOInsert(mAdapter, tenderHandle)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - amount)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID", txtGiftCardID.Text)
                         If CommonRoutines.IsAGiftCard(mEventID) Then
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@GL #" & txtGiftCardID.Text)
                         Else

@@ -57,6 +57,7 @@ Partial Class FrmStadisCharge
         Me.txtAcctBalance = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
         Me.txtRemAmountDue = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
         Me.txtTenderAmount = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
+        Me.btnClear = New System.Windows.Forms.Button()
         CType(Me.txtTenderID, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtMessage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAmountDue, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -330,12 +331,25 @@ Partial Class FrmStadisCharge
         Me.txtTenderAmount.Size = New System.Drawing.Size(115, 27)
         Me.txtTenderAmount.TabIndex = 1
         '
+        'btnClear
+        '
+        Me.btnClear.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClear.ForeColor = System.Drawing.Color.Black
+        Me.btnClear.Location = New System.Drawing.Point(172, 332)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(87, 58)
+        Me.btnClear.TabIndex = 27
+        Me.btnClear.Text = "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Clear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Entries"
+        Me.btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnClear.UseVisualStyleBackColor = True
+        '
         'FrmStadisCharge
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(592, 404)
+        Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.txtTenderAmount)
         Me.Controls.Add(Me.txtRemAmountDue)
         Me.Controls.Add(Me.txtAcctBalance)
@@ -375,20 +389,21 @@ Partial Class FrmStadisCharge
     Friend WithEvents btnKeyboard As System.Windows.Forms.Button
     Friend WithEvents btnOK As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
-    Friend WithEvents lblTenderID As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents UltraLabel5 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents UltraLabel4 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents UltraLabel3 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents UltraLabel2 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents UltraLabel1 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents lblHeader As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents pbLogo As Infragistics.Win.UltraWinEditors.UltraPictureBox
-    Friend WithEvents txtTenderID As Infragistics.Win.UltraWinEditors.UltraTextEditor
-    Friend WithEvents txtMessage As Infragistics.Win.UltraWinEditors.UltraTextEditor
-    Friend WithEvents UltraLabel7 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents txtAmountDue As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
-    Friend WithEvents txtAvailAmount As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
-    Friend WithEvents txtAcctBalance As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
-    Friend WithEvents txtRemAmountDue As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
-    Friend WithEvents txtTenderAmount As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Friend WithEvents btnClear As System.Windows.Forms.Button
+    Private WithEvents lblTenderID As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents UltraLabel5 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents UltraLabel4 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents UltraLabel3 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents UltraLabel2 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents UltraLabel1 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents lblHeader As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents pbLogo As Infragistics.Win.UltraWinEditors.UltraPictureBox
+    Private WithEvents txtTenderID As Infragistics.Win.UltraWinEditors.UltraTextEditor
+    Private WithEvents txtMessage As Infragistics.Win.UltraWinEditors.UltraTextEditor
+    Private WithEvents UltraLabel7 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents txtAmountDue As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Private WithEvents txtAvailAmount As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Private WithEvents txtAcctBalance As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Private WithEvents txtRemAmountDue As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Private WithEvents txtTenderAmount As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
 End Class
