@@ -306,6 +306,8 @@ Public Class CommonRoutines
                             gGiftCardEvents = .SettingValue
                         Case "IssueGiftCardForReturn"
                             gIssueGiftCardForReturn = CBool(.SettingValue)
+                        Case "IsReturnGCIssueOrActivate"
+                            gGiftCardEvents = .SettingValue.Substring(0, 1).ToUpper
                         Case "IsPrintingEnabled"
                             gIsPrintingEnabled = CBool(.SettingValue)
                         Case "StadisTenderText"

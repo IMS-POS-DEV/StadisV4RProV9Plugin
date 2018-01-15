@@ -207,6 +207,7 @@ Public Class FrmStadisCharge
             .TenderID = txtTenderID.Text
             .Amount = 0
             .ReferenceNumber = ""
+            .CustomerID = gStadisUserID
             .VendorID = gVendorID
             .LocationID = gLocationID
             .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Workstion")
@@ -323,7 +324,7 @@ Public Class FrmStadisCharge
                 .TenderID = Trim(txtTenderID.Text)
                 .Amount = txtTenderAmount.Value
                 .ReferenceNumber = ""
-                '.CustomerID =  
+                .CustomerID = gStadisUserID
                 .VendorID = gVendorID
                 .LocationID = gLocationID
                 .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Invoice Workstion")

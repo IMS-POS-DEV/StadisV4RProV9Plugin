@@ -26,15 +26,10 @@ Public Class ButtonRedeem
 
         fButtonEnabled = gRedeemButtonEnabled
         fHint = gRedeemButtonHint
-        'If gRedeemButtonEnabled = True Then
-        '    fCaption = gRedeemButtonCaption
-        'Else
         fCaption = "Disabled"
-        'End If
         fPictureFilename = gRedeemButtonImage
         fLayoutActionName = "actStadisRedeemButton"
         fChecked = True
-        'fEnabled = gRedeemButtonEnabled
         fEnabled = False
         fGUID = New Guid(Discover.CLASS_ButtonRedeem)
         fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
@@ -56,12 +51,6 @@ Public Class ButtonRedeem
     ' Called when button is clicked
     '----------------------------------------------------------------------------------------------
     Public Overrides Function HandleEvent() As Boolean
-        'If gRedeemButtonActive = True Then
-        '    Dim mFrmRedeem As New FrmRedeem
-        '    mFrmRedeem.Adapter = fAdapter
-        '    mFrmRedeem.ShowDialog()
-        '    mFrmRedeem = Nothing
-        'End If
         Return MyBase.HandleEvent()
     End Function  'HandleEvent
 

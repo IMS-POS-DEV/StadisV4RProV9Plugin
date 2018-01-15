@@ -16,7 +16,8 @@ Public Class PrintUpdateStadisProcessing
 
     Private mRProTenderCount As Integer = 0
     Private mTransactionShouldBeWritten As Boolean = False
-    Private mCreditsToProcess As Boolean = False
+    Private mReturnCash As Boolean = False
+    Private mReturnGiftCard As Boolean = False
     Private mHasInserts As Boolean = False
     Private mItemCount As Integer = 0
     Private mTenderCount As Integer = 0
@@ -78,7 +79,7 @@ Public Class PrintUpdateStadisProcessing
             End If
 
             mTransactionShouldBeWritten = False
-            mCreditsToProcess = False
+            mReturnCash = False
             mGiftCardCount = 0
             mHasInserts = False
 
@@ -167,7 +168,11 @@ Public Class PrintUpdateStadisProcessing
                                 offsetTotal += CommonRoutines.BOGetDecAttributeValueByName(fAdapter, tenderHandle, "AMT")
                             End If
                             If tender.ShouldBeCharged AndAlso tender.IsAReturn Then
-                                mCreditsToProcess = True
+                                If gIssueGiftCardForReturn = True Then
+                                    mReturnGiftCard = True
+                                Else
+                                    mReturnCash = True
+                                End If
                             End If
                         End If
                     End If
@@ -339,7 +344,7 @@ Public Class PrintUpdateStadisProcessing
     End Function  'PostTransaction
 
     '----------------------------------------------------------------------------------------------
-    ' Write Stadis TransactionKey to Stadis items and tenders
+    ' Write Stadis TransactionKey to RPro items and tenders
     '----------------------------------------------------------------------------------------------
     Private Sub UpdateRProItemsAndTendersWithTranKey(ByVal trankey As Guid, ByVal itemHandle As Integer, ByVal tenderHandle As Integer)
 
@@ -391,13 +396,25 @@ Public Class PrintUpdateStadisProcessing
         Try
             ' Post transaction
             Dim tranKey As Guid = GUID.Empty
-            If mCreditsToProcess = True Then
+            If mReturnGiftCard = True Then
+                'TODO create GC
+                Dim mFrmScanTicket As New FrmScanTicket
+                mFrmScanTicket.Caption = "Refund as Gift Card? Enter card ID or cancel."
+                Select Case mFrmScanTicket.ShowDialog()
+                    Case Windows.Forms.DialogResult.OK
+                        Dim tenderID As String = mFrmScanTicket.TicketID
+
+                        tranKey = PostGCPurchase(invoiceHandle, itemHandle, tenderHandle)
+                        If tranKey = GUID.Empty Then Return False
+                        UpdateRProItemsAndTendersWithTranKey(tranKey, itemHandle, tenderHandle)
+                        mFrmScanTicket = Nothing
+                    Case Windows.Forms.DialogResult.Cancel
+                        mReturnCash = True
+                        mFrmScanTicket = Nothing
+                End Select
+            ElseIf mReturnCash = True Then
                 ' Post transaction
                 tranKey = PostTransaction("Return", invoiceHandle, itemHandle, tenderHandle)
-                If tranKey = GUID.Empty Then Return False
-                UpdateRProItemsAndTendersWithTranKey(tranKey, itemHandle, tenderHandle)
-            ElseIf gIssueGiftCardForReturn = True Then
-                tranKey = PostGCPurchase(invoiceHandle, itemHandle, tenderHandle)
                 If tranKey = GUID.Empty Then Return False
                 UpdateRProItemsAndTendersWithTranKey(tranKey, itemHandle, tenderHandle)
             ElseIf gPostNonStadisTransactions = True Then

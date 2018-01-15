@@ -50,6 +50,7 @@ Public Module GlobalValues
     Public gIsPrintingEnabled As Boolean = False
     Public gStadisTenderText As String = ""
     Public gIssueGiftCardForReturn As Boolean = False
+    Public gIsReturnGCIssueOrActivate As String = ""
     Public gPostNonStadisTransactions As Boolean = False
     Public gReturnGiftCardALU As String = ""
     Public gExtractPattern As String = "(?<=[;\*]*)[0-9]+(?=([=\?]|$))"
