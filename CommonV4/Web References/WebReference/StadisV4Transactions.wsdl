@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.STADIS.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.STADIS.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 6/19/2017 at 11:50 AM ***</wsdl:documentation>
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 3/30/2018 at 12:00 PM ***</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://www.STADIS.com/">
       <s:import namespace="http://microsoft.com/wsdl/types/" />
@@ -189,6 +189,31 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="StadisReply" nillable="true" type="tns:StadisReply" />
         </s:sequence>
       </s:complexType>
+      <s:element name="TestCharge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:StadisRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="tns:StadisTranHeader" />
+            <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfStadisTranItem" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tenders" type="tns:ArrayOfStadisTranTender" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestChargeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestChargeResult" type="tns:ChargeReply" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ChargeReply">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RRequest" type="tns:StadisRequest" />
+          <s:element minOccurs="0" maxOccurs="1" name="RHeader" type="tns:StadisTranHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="RItems" type="tns:ArrayOfStadisTranItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="RTenders" type="tns:ArrayOfStadisTranTender" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="SVAccountCharge">
         <s:complexType>
           <s:sequence>
@@ -290,6 +315,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="SVAccountTransferResult" type="tns:StadisReply" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SVAccountMerge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SVAccountMergeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SVAccountMergeResult" type="tns:StadisReply" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -832,6 +871,81 @@
           <s:extension base="tns:BusinessBase" />
         </s:complexContent>
       </s:complexType>
+      <s:element name="GetCustomerStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerStatusResult" type="tns:CustStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CustStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerExists" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasTickets" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasSVAccount" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasMultipleAccounts" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status2" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StadisInitialAmount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="SVAccountID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SVAccountBalance" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="UDF_Notes5" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UDF_Status5" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EMail1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserGroup" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateCustomerStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:StadisRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="cs" type="tns:CustStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCustomerStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateCustomerStatusResult" type="tns:StadisReply" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerTicketStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:StadisRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerTicketStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerTicketStatusResult" type="tns:ArrayOfTicketStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTicketStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TicketStatus" nillable="true" type="tns:TicketStatus" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="SVTicketTransfer">
         <s:complexType>
           <s:sequence>
@@ -1317,6 +1431,15 @@
   <wsdl:message name="SVAccountBalanceCheckPromotionSecurityCredentials">
     <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
   </wsdl:message>
+  <wsdl:message name="TestChargeSoapIn">
+    <wsdl:part name="parameters" element="tns:TestCharge" />
+  </wsdl:message>
+  <wsdl:message name="TestChargeSoapOut">
+    <wsdl:part name="parameters" element="tns:TestChargeResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestChargeSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
   <wsdl:message name="SVAccountChargeSoapIn">
     <wsdl:part name="parameters" element="tns:SVAccountCharge" />
   </wsdl:message>
@@ -1378,6 +1501,15 @@
     <wsdl:part name="parameters" element="tns:SVAccountTransferResponse" />
   </wsdl:message>
   <wsdl:message name="SVAccountTransferSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="SVAccountMergeSoapIn">
+    <wsdl:part name="parameters" element="tns:SVAccountMerge" />
+  </wsdl:message>
+  <wsdl:message name="SVAccountMergeSoapOut">
+    <wsdl:part name="parameters" element="tns:SVAccountMergeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SVAccountMergeSecurityCredentials">
     <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
   </wsdl:message>
   <wsdl:message name="GetStadisVersionSoapIn">
@@ -1468,6 +1600,33 @@
     <wsdl:part name="parameters" element="tns:GetTicketStatusResponse" />
   </wsdl:message>
   <wsdl:message name="GetTicketStatusSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerStatusSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomerStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCustomerStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomerStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCustomerStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomerStatusSecurityCredentials">
+    <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerTicketStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerTicketStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerTicketStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerTicketStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerTicketStatusSecurityCredentials">
     <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
   </wsdl:message>
   <wsdl:message name="SVTicketTransferSoapIn">
@@ -1635,6 +1794,11 @@
       <wsdl:input message="tns:SVAccountBalanceCheckPromotionSoapIn" />
       <wsdl:output message="tns:SVAccountBalanceCheckPromotionSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="TestCharge">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Charge one tender.</wsdl:documentation>
+      <wsdl:input message="tns:TestChargeSoapIn" />
+      <wsdl:output message="tns:TestChargeSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="SVAccountCharge">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Charge one tender.</wsdl:documentation>
       <wsdl:input message="tns:SVAccountChargeSoapIn" />
@@ -1669,6 +1833,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transfer funds from one SVAccount to another.</wsdl:documentation>
       <wsdl:input message="tns:SVAccountTransferSoapIn" />
       <wsdl:output message="tns:SVAccountTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SVAccountMerge">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Merge two SVAccounts.</wsdl:documentation>
+      <wsdl:input message="tns:SVAccountMergeSoapIn" />
+      <wsdl:output message="tns:SVAccountMergeSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetStadisVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets version and release of Stadis.</wsdl:documentation>
@@ -1719,6 +1888,21 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">For kiosk use - do not use - subject to change.</wsdl:documentation>
       <wsdl:input message="tns:GetTicketStatusSoapIn" />
       <wsdl:output message="tns:GetTicketStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">For kiosk use - do not use - subject to change.</wsdl:documentation>
+      <wsdl:input message="tns:GetCustomerStatusSoapIn" />
+      <wsdl:output message="tns:GetCustomerStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomerStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">For kiosk use - do not use - subject to change.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateCustomerStatusSoapIn" />
+      <wsdl:output message="tns:UpdateCustomerStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerTicketStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">For kiosk use - do not use - subject to change.</wsdl:documentation>
+      <wsdl:input message="tns:GetCustomerTicketStatusSoapIn" />
+      <wsdl:output message="tns:GetCustomerTicketStatusSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="SVTicketTransfer">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transfer funds from one Stadis ticket to another.</wsdl:documentation>
@@ -1843,6 +2027,16 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="TestCharge">
+      <soap:operation soapAction="http://www.STADIS.com/TestCharge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:TestChargeSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SVAccountCharge">
       <soap:operation soapAction="http://www.STADIS.com/SVAccountCharge" style="document" />
       <wsdl:input>
@@ -1908,6 +2102,16 @@
       <wsdl:input>
         <soap:body use="literal" />
         <soap:header message="tns:SVAccountTransferSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SVAccountMerge">
+      <soap:operation soapAction="http://www.STADIS.com/SVAccountMerge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SVAccountMergeSecurityCredentials" part="SecurityCredentials" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
@@ -2008,6 +2212,36 @@
       <wsdl:input>
         <soap:body use="literal" />
         <soap:header message="tns:GetTicketStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerStatus">
+      <soap:operation soapAction="http://www.STADIS.com/GetCustomerStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCustomerStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomerStatus">
+      <soap:operation soapAction="http://www.STADIS.com/UpdateCustomerStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateCustomerStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerTicketStatus">
+      <soap:operation soapAction="http://www.STADIS.com/GetCustomerTicketStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCustomerTicketStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
@@ -2216,6 +2450,16 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="TestCharge">
+      <soap12:operation soapAction="http://www.STADIS.com/TestCharge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:TestChargeSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SVAccountCharge">
       <soap12:operation soapAction="http://www.STADIS.com/SVAccountCharge" style="document" />
       <wsdl:input>
@@ -2281,6 +2525,16 @@
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:SVAccountTransferSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SVAccountMerge">
+      <soap12:operation soapAction="http://www.STADIS.com/SVAccountMerge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SVAccountMergeSecurityCredentials" part="SecurityCredentials" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
@@ -2381,6 +2635,36 @@
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:GetTicketStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerStatus">
+      <soap12:operation soapAction="http://www.STADIS.com/GetCustomerStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCustomerStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomerStatus">
+      <soap12:operation soapAction="http://www.STADIS.com/UpdateCustomerStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateCustomerStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerTicketStatus">
+      <soap12:operation soapAction="http://www.STADIS.com/GetCustomerTicketStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCustomerTicketStatusSecurityCredentials" part="SecurityCredentials" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
@@ -2548,7 +2832,7 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="StadisV4TransactionsService">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 6/19/2017 at 11:50 AM ***</wsdl:documentation>
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 3/30/2018 at 12:00 PM ***</wsdl:documentation>
     <wsdl:port name="StadisV4TransactionsServiceSoap" binding="tns:StadisV4TransactionsServiceSoap">
       <soap:address location="http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx" />
     </wsdl:port>

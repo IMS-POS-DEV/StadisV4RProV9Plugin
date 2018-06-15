@@ -72,12 +72,12 @@ Public Class CommonRoutines
     ' Strip out barcode from scanner input 
     '------------------------------------------------------------------------------
     Public Shared Function ExtractScan(ByVal scanstring As String) As String
-        Dim extract As String = Regex.Match(scanstring, gExtractPattern).ToString
-        If extract Is Nothing OrElse extract = "" Then
-            Return scanstring
-        Else
-            Return extract
-        End If
+        'Dim extract As String = Regex.Match(scanstring, gExtractPattern).ToString
+        'If extract Is Nothing OrElse extract = "" Then
+        Return scanstring
+        'Else
+        'Return extract
+        'End If
     End Function  'ExtractScan
 
     '------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ Public Class CommonRoutines
     '------------------------------------------------------------------------------
     ' Reverse an SVAccountCharge
     '------------------------------------------------------------------------------
-    Public Shared Function DoSVAccountReverse(ByRef fAdapter As RetailPro.Plugins.IPluginAdapter, ByVal AuthID As String) As Boolean
+    Public Shared Function DoSVAccountReverse(ByRef fAdapter As Plugins.IPluginAdapter, ByVal AuthID As String) As Boolean
         If AuthID = gLastAuthID Then
             Return False
         End If
@@ -212,27 +212,27 @@ Public Class CommonRoutines
 
             Select Case gTenderDialogTender
                 Case "Charge"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttCharge
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttCharge
                 Case "Check"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttCheck
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttCheck
                 Case "COD"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttCOD
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttCOD
                 Case "Credit Card"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttCreditCard
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttCreditCard
                 Case "Debit Card"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttDebitCard
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttDebitCard
                 Case "Check in F/C"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttForeignCheck
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttForeignCheck
                 Case "Foreign Currency"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttForeignCurrency
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttForeignCurrency
                 Case "Gift Card"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard
                 Case "Gift Certificate"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCertificate
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCertificate
                 Case "Store Credit"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttStoreCredit
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttStoreCredit
                 Case "Traveler Check"
-                    gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttTravelerCheck
+                    gTenderDialogTenderType = Plugins.TenderTypes.ttTravelerCheck
                 Case Else
                     MessageBox.Show("Invalid Stadis TenderType specified - " & gTenderDialogTender, "STADIS")
             End Select
@@ -265,6 +265,8 @@ Public Class CommonRoutines
                             gStadisRelease = .SettingValue
                         Case "SiteSVType"
                             gSiteSVType = .SettingValue
+                        Case "ArePromotionsActive"
+                            gArePromotionsActive = CBool(.SettingValue)
 
                             'RPro settings
                             'Case "TenderTypeForStadis"
@@ -411,7 +413,7 @@ Public Class CommonRoutines
     '------------------------------------------------------------------------------
     ' Repackage Header data in Stadis format
     '------------------------------------------------------------------------------
-    Public Shared Function LoadHeader(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer) As StadisTranHeader
+    Public Shared Function LoadHeader(ByRef adapter As Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer) As StadisTranHeader
         ''Debug code
         'Dim itemCount As Integer = BOGetIntAttributeValueByName(adapter, invoiceHandle, "Item Count")
         'Dim tenderCount As Integer = BOGetIntAttributeValueByName(adapter, invoiceHandle, "Tender Count")
@@ -444,7 +446,7 @@ Public Class CommonRoutines
     '------------------------------------------------------------------------------
     ' Repackage Item data in Stadis format
     '------------------------------------------------------------------------------
-    Public Shared Function LoadItems(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal itemHandle As Integer) As StadisTranItem()
+    Public Shared Function LoadItems(ByRef adapter As Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal itemHandle As Integer) As StadisTranItem()
         Dim itemList As New List(Of StadisTranItem)
         BOOpen(adapter, itemHandle)
         BOFirst(adapter, itemHandle, "CR - LoadItems")
@@ -500,7 +502,7 @@ Public Class CommonRoutines
     '------------------------------------------------------------------------------
     ' Repackage Tender data in Stadis format
     '------------------------------------------------------------------------------
-    Public Shared Function LoadTendersForCharge(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal tenderHandle As Integer, ByVal stt As StadisTranTender) As StadisTranTender()
+    Public Shared Function LoadTendersForCharge(ByRef adapter As Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal tenderHandle As Integer, ByVal stt As StadisTranTender) As StadisTranTender()
         Dim tenderList As New List(Of StadisTranTender)
         BOOpen(adapter, tenderHandle)
         Dim tenderCount As Integer = CommonRoutines.BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_COUNT")
@@ -552,7 +554,7 @@ Public Class CommonRoutines
     '------------------------------------------------------------------------------
     ' Repackage Tender data in Stadis format
     '------------------------------------------------------------------------------
-    Public Shared Function LoadTenders(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal tenderHandle As Integer) As StadisTranTender()
+    Public Shared Function LoadTenders(ByRef adapter As Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal tenderHandle As Integer) As StadisTranTender()
         Dim tenderList As New List(Of StadisTranTender)
         Dim tenderCount As Integer = BOGetIntAttributeValueByName(adapter, 0, "Tender Count")
         BOOpen(adapter, tenderHandle)
@@ -635,7 +637,7 @@ Public Class CommonRoutines
     '------------------------------------------------------------------------------
     ' Repackage Tender data in Stadis format
     '------------------------------------------------------------------------------
-    Public Shared Function OldLoadTendersForCharge(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal tenderHandle As Integer) As StadisTranTender()
+    Public Shared Function OldLoadTendersForCharge(ByRef adapter As Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal tenderHandle As Integer) As StadisTranTender()
         Dim tenderList As New List(Of StadisTranTender)
         BOOpen(adapter, tenderHandle)
         Dim tenderCount As Integer = CommonRoutines.BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_COUNT")
@@ -688,33 +690,33 @@ Public Class CommonRoutines
     Private Shared Function ConvertRProTenderTypeToStadis(ByVal rproTenderType As Integer) As Integer
         Dim ourTenderType As Integer = 0
         Select Case rproTenderType
-            Case RetailPro.Plugins.TenderTypes.ttCash
+            Case Plugins.TenderTypes.ttCash
                 ourTenderType = 2
-            Case RetailPro.Plugins.TenderTypes.ttCharge
+            Case Plugins.TenderTypes.ttCharge
                 ourTenderType = 3
-            Case RetailPro.Plugins.TenderTypes.ttCheck
+            Case Plugins.TenderTypes.ttCheck
                 ourTenderType = 6
-            Case RetailPro.Plugins.TenderTypes.ttCOD
+            Case Plugins.TenderTypes.ttCOD
                 ourTenderType = 0
-            Case RetailPro.Plugins.TenderTypes.ttCreditCard
+            Case Plugins.TenderTypes.ttCreditCard
                 ourTenderType = 3
-            Case RetailPro.Plugins.TenderTypes.ttDebitCard
+            Case Plugins.TenderTypes.ttDebitCard
                 ourTenderType = 8
-            Case RetailPro.Plugins.TenderTypes.ttDeposit
+            Case Plugins.TenderTypes.ttDeposit
                 ourTenderType = 0
-            Case RetailPro.Plugins.TenderTypes.ttForeignCheck
+            Case Plugins.TenderTypes.ttForeignCheck
                 ourTenderType = 0
-            Case RetailPro.Plugins.TenderTypes.ttForeignCurrency
+            Case Plugins.TenderTypes.ttForeignCurrency
                 ourTenderType = 0
-            Case RetailPro.Plugins.TenderTypes.ttGiftCard
+            Case Plugins.TenderTypes.ttGiftCard
                 ourTenderType = 4
-            Case RetailPro.Plugins.TenderTypes.ttGiftCertificate
+            Case Plugins.TenderTypes.ttGiftCertificate
                 ourTenderType = 5
-            Case RetailPro.Plugins.TenderTypes.ttPayments
+            Case Plugins.TenderTypes.ttPayments
                 ourTenderType = 0
-            Case RetailPro.Plugins.TenderTypes.ttStoreCredit
+            Case Plugins.TenderTypes.ttStoreCredit
                 ourTenderType = 0
-            Case RetailPro.Plugins.TenderTypes.ttTravelerCheck
+            Case Plugins.TenderTypes.ttTravelerCheck
                 ourTenderType = 0
             Case Else
                 ourTenderType = 0
@@ -725,67 +727,67 @@ Public Class CommonRoutines
     '------------------------------------------------------------------------------
     ' Calls to access Retail Pro
     '------------------------------------------------------------------------------
-    Public Shared Sub BOOpen(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BOOpen(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BOOpen(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Opening Object")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Opening Object")
     End Sub  'BOOpen
 
-    Public Shared Sub BOClose(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BOClose(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BOClose(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "BOClose")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "BOClose")
     End Sub  'BOClose
 
-    Public Shared Sub BOEdit(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BOEdit(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BOEdit(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Editing Object")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Editing Object")
     End Sub  'BOEdit
 
-    Public Shared Sub BOInsert(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BOInsert(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BOInsert(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Inserting Object")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Inserting Object")
     End Sub  'BOInsert
 
-    Public Shared Sub BODelete(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BODelete(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BODelete(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Deleting Object")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Deleting Object")
     End Sub  'BODelete
 
-    Public Shared Sub BOPost(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BOPost(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BOPost(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Posting Object")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Posting Object")
     End Sub  'BOPost
 
-    Public Shared Sub BORefresh(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BORefresh(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BORefresh(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Posting Object")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Posting Object")
     End Sub  'BORefresh
 
-    Public Shared Sub BORefreshRecord(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BORefreshRecord(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BORefreshRecord(objHandle, True, True)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Refreshing Object")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Refreshing Object")
     End Sub  'BORefreshRecord
 
-    Public Shared Sub BOPrior(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BOPrior(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BOPrior(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "BOPrior")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "BOPrior")
     End Sub  'BOPrior
 
-    Public Shared Sub BONext(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BONext(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BONext(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "BONext")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "BONext")
     End Sub  'BONext
 
-    Public Shared Sub BOFirst(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal errmsg As String)
+    Public Shared Sub BOFirst(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal errmsg As String)
         Dim retcode As Integer = adapter.BOFirst(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "BOFirst - " & errmsg)
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "BOFirst - " & errmsg)
     End Sub  'BOFirst
 
-    Public Shared Sub BOLast(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer)
+    Public Shared Sub BOLast(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer)
         Dim retcode As Integer = adapter.BOLast(objHandle)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "BOLast")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "BOLast")
     End Sub  'BOLast
 
-    Public Shared Function BOGetStrAttributeValueByName(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String) As String
+    Public Shared Function BOGetStrAttributeValueByName(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String) As String
         Dim attr As Object = adapter.BOGetAttributeValueByName(objHandle, attrName)
         If attr.Equals(System.DBNull.Value) Then
             Return ""
@@ -796,7 +798,7 @@ Public Class CommonRoutines
         Return CStr(attr)
     End Function  'BOGetStrAttributeValueByName - String
 
-    Public Shared Function BOGetIntAttributeValueByName(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String) As Integer
+    Public Shared Function BOGetIntAttributeValueByName(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String) As Integer
         Dim attr As Object = adapter.BOGetAttributeValueByName(objHandle, attrName)
         If attr.Equals(System.DBNull.Value) Then
             Return 0
@@ -807,7 +809,7 @@ Public Class CommonRoutines
         Return CInt(attr)
     End Function  'BOGetIntAttributeValueByName - Int
 
-    Public Shared Function BOGetDecAttributeValueByName(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String) As Decimal
+    Public Shared Function BOGetDecAttributeValueByName(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String) As Decimal
         Dim attr As Object = adapter.BOGetAttributeValueByName(objHandle, attrName)
         If attr.Equals(System.DBNull.Value) Then
             Return 0D
@@ -818,7 +820,7 @@ Public Class CommonRoutines
         Return CDec(attr)
     End Function  'BOGetDecAttributeValueByName - Dec
 
-    Public Shared Function BOGetBoolAttributeValueByName(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String) As Boolean
+    Public Shared Function BOGetBoolAttributeValueByName(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String) As Boolean
         Dim attr As Object = adapter.BOGetAttributeValueByName(objHandle, attrName)
         If attr.Equals(System.DBNull.Value) Then
             Return False
@@ -829,24 +831,24 @@ Public Class CommonRoutines
         Return CBool(attr)
     End Function  'BOGetBoolAttributeValueByName - Boolean
 
-    Public Shared Sub BOSetAttributeValueByName(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String, ByVal attrValue As String)
+    Public Shared Sub BOSetAttributeValueByName(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String, ByVal attrValue As String)
         Dim retcode As Integer = adapter.BOSetAttributeValueByName(objHandle, attrName, attrValue)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Setting attribute")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Setting attribute")
     End Sub  'BOSetAttributeValueByName - String
 
-    Public Shared Sub BOSetAttributeValueByName(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String, ByVal attrValue As Integer)
+    Public Shared Sub BOSetAttributeValueByName(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String, ByVal attrValue As Integer)
         Dim retcode As Integer = adapter.BOSetAttributeValueByName(objHandle, attrName, attrValue)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Setting attribute")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Setting attribute")
     End Sub  'BOSetAttributeValueByName - Integer
 
-    Public Shared Sub BOSetAttributeValueByName(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String, ByVal attrValue As Decimal)
+    Public Shared Sub BOSetAttributeValueByName(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal attrName As String, ByVal attrValue As Decimal)
         Dim retcode As Integer = adapter.BOSetAttributeValueByName(objHandle, attrName, attrValue)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Setting attribute")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Setting attribute")
     End Sub  'BOSetAttributeValueByName - Decimal
 
-    Public Shared Sub BOSetCommitOnPost(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal commit As Boolean)
+    Public Shared Sub BOSetCommitOnPost(ByRef adapter As Plugins.IPluginAdapter, ByRef objHandle As Integer, ByVal commit As Boolean)
         Dim retcode As Integer = adapter.BOSetCommitOnPost(objHandle, commit)
-        If retcode <> RetailPro.Plugins.PluginError.peSuccess Then DisplayError(retcode, "Setting commit flag")
+        If retcode <> Plugins.PluginError.peSuccess Then DisplayError(retcode, "Setting commit flag")
     End Sub  'BOSetCommitOnPost
 
     '------------------------------------------------------------------------------
@@ -855,43 +857,43 @@ Public Class CommonRoutines
     Public Shared Sub DisplayError(ByVal errNum As Integer, ByVal operation As String)
         Dim errMsg As String = "Unknown error type"
         Select Case errNum
-            Case RetailPro.Plugins.PluginError.peGenericFailure
+            Case Plugins.PluginError.peGenericFailure
                 errMsg = "Non-specific failure."
-            Case RetailPro.Plugins.PluginError.peInvalidBOHandle
+            Case Plugins.PluginError.peInvalidBOHandle
                 errMsg = "The handle passed in was not valid for this plug-in."
-            Case RetailPro.Plugins.PluginError.peSuccessNoResults
+            Case Plugins.PluginError.peSuccessNoResults
                 errMsg = "The SQL statement processed without reporting error codes, but did not return a result set."
-            Case RetailPro.Plugins.PluginError.peUnableToClose
+            Case Plugins.PluginError.peUnableToClose
                 errMsg = "Call to BOClose failed. Either the business object wasn't open at that time " & vbCrLf & "or it could not be closed without first saving/canceling modifications."
-            Case RetailPro.Plugins.PluginError.peUnableToCreateBO
+            Case Plugins.PluginError.peUnableToCreateBO
                 errMsg = "Unable to create business object."
-            Case RetailPro.Plugins.PluginError.peUnableToDelete
+            Case Plugins.PluginError.peUnableToDelete
                 errMsg = "Call to BODelete failed. The business object may not have been open," & vbCrLf & "or the application may not allow deletions to the current record."
-            Case RetailPro.Plugins.PluginError.peUnableToEdit
+            Case Plugins.PluginError.peUnableToEdit
                 errMsg = "Call to BOEdit failed."
-            Case RetailPro.Plugins.PluginError.peUnableToInsert
+            Case Plugins.PluginError.peUnableToInsert
                 errMsg = "Call to BOInsert failed."
-            Case RetailPro.Plugins.PluginError.peUnableToInsertIndex
+            Case Plugins.PluginError.peUnableToInsertIndex
                 errMsg = "Unable to insert index"
-            Case RetailPro.Plugins.PluginError.peUnableToInsertRecord
+            Case Plugins.PluginError.peUnableToInsertRecord
                 errMsg = "Unable to insert record"
-            Case RetailPro.Plugins.PluginError.peUnableToLocateByAttributes
+            Case Plugins.PluginError.peUnableToLocateByAttributes
                 errMsg = "Call to BOLocateByAttributes failed."
-            Case RetailPro.Plugins.PluginError.peUnableToOpen
+            Case Plugins.PluginError.peUnableToOpen
                 errMsg = "Call to BOOpen failed."
-            Case RetailPro.Plugins.PluginError.peUnableToPost
+            Case Plugins.PluginError.peUnableToPost
                 errMsg = "Call to BOPost failed." & vbCrLf & "The business object may have failed data validations," & vbCrLf & "or it may not have been in edit/insert mode."
-            Case RetailPro.Plugins.PluginError.peUnableToReadFirstRow
+            Case Plugins.PluginError.peUnableToReadFirstRow
                 errMsg = "Unable to read first row."
-            Case RetailPro.Plugins.PluginError.peUnableToReadLastRow
+            Case Plugins.PluginError.peUnableToReadLastRow
                 errMsg = "Unable to read last row."
-            Case RetailPro.Plugins.PluginError.peUnableToReadNextRow
+            Case Plugins.PluginError.peUnableToReadNextRow
                 errMsg = "Unable to read next row."
-            Case RetailPro.Plugins.PluginError.peUnableToRefresh
+            Case Plugins.PluginError.peUnableToRefresh
                 errMsg = "Unable to refresh object."
-            Case RetailPro.Plugins.PluginError.peUnableToSetAttributeValue
+            Case Plugins.PluginError.peUnableToSetAttributeValue
                 errMsg = "Call to BOSetAttributeValue failed." & vbCrLf & "That attribute may not be intrinsically modifiable" & vbCrLf & "or you do not have write access to it."
-            Case RetailPro.Plugins.PluginError.peUnsupportedBO
+            Case Plugins.PluginError.peUnsupportedBO
                 errMsg = "The business object type specified is not supported."
             Case Else
                 errMsg = "Return Code: " & errNum.ToString
@@ -901,4 +903,4 @@ Public Class CommonRoutines
 
 #End Region  'Methods
 
-End Class  'Common
+End Class  'CommonRoutines

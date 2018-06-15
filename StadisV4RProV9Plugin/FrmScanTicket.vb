@@ -16,7 +16,7 @@ Friend Class FrmScanTicket
     Private mGiftCardIsActive As Boolean = False
     Private mBalance As Decimal = 0D
 
-    Private mAdapter As RetailPro.Plugins.IPluginAdapter
+    Private mAdapter As Plugins.IPluginAdapter
 
     Friend Property Caption() As String
         Get

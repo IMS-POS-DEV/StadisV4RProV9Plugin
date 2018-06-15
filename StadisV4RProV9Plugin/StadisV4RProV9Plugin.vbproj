@@ -42,41 +42,41 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\..\RetailPro9\Plugins\</OutputPath>
     <DocumentationFile>
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Infragistics4.Win.UltraWinTabControl.v16.2, Version=16.2.20162.2084, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.v16.2, Version=16.2.20162.2084, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v16.2, Version=16.2.20162.2084, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.UltraWinGrid.v16.2, Version=16.2.20162.2084, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.UltraWinEditors.v16.2, Version=16.2.20162.2084, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.Misc.v16.2, Version=16.2.20162.2084, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.Misc.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Shared.v16.2, Version=16.2.20162.2084, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Shared.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="RetailPro.Plugins, Version=1.2.0.0, Culture=neutral, PublicKeyToken=d968d3c9cb1904b5, processorArchitecture=MSIL">
+    <Reference Include="CustomPluginClasses">
+      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\CustomPluginClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="MSXML, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d968d3c9cb1904b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\RetailPro.Plugins.dll</HintPath>
-    </Reference>
-    <Reference Include="SCustomPluginClasses">
-      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\SCustomPluginClasses.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\MSXML.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -279,6 +279,15 @@
     <None Include="Resources\stadis32.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="Plugins">
+      <Guid>{839F2F14-1599-415D-83DE-AF47853410E2}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>2</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>2</VersionMajor>

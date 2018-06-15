@@ -13,11 +13,11 @@ Friend Class FrmReload
 
 #Region " Data Declarations "
 
-    Private mAdapter As RetailPro.Plugins.IPluginAdapter
+    Private mAdapter As Plugins.IPluginAdapter
     Private mGiftCardALU As String = ""
     Private mEventID As String = ""
     Private mCustomerID As String = ""
-    Private mRemainingAmount As Decimal = 0D
+    Private mAccountBalance As Decimal = 0D
     Private mTenderHasBeenCharged As Boolean = False
     Private mAuthID As String = ""
     Private mStatus As TicketStatus = Nothing
@@ -25,11 +25,11 @@ Friend Class FrmReload
     Const Active As Integer = 1
     Const Pending As Integer = 3
 
-    Friend Property Adapter() As RetailPro.Plugins.IPluginAdapter
+    Friend Property Adapter() As Plugins.IPluginAdapter
         Get
             Return mAdapter
         End Get
-        Set(ByVal value As RetailPro.Plugins.IPluginAdapter)
+        Set(ByVal value As Plugins.IPluginAdapter)
             mAdapter = value
         End Set
     End Property
@@ -51,13 +51,76 @@ Friend Class FrmReload
 
 #End Region  'Form Load and Initialization
 
+#Region " Buttons "
+
+    '------------------------------------------------------------------------------
+    ' Cancel button - pack up and get out
+    '------------------------------------------------------------------------------
+    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+        Me.DialogResult = Windows.Forms.DialogResult.Cancel
+        Me.Close()
+    End Sub  'btnCancel_Click
+
+    '------------------------------------------------------------------------------
+    ' OK button - Add tenders we created, then get out
+    '------------------------------------------------------------------------------
+    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
+
+        'Check for blank input
+        If txtGiftCardID.Text <> Trim(txtGiftCardID.Text) Then
+            txtGiftCardID.Text = Trim(txtGiftCardID.Text)
+        End If
+        If txtGiftCardID.Text = "" OrElse Trim(txtReloadAmount.Text) = "" Then Exit Sub
+
+        'Check against min and max
+        Dim rMinAmount As Decimal = 0D
+        Dim rMaxAmount As Decimal = 999D
+        For Each gRow As DSGiftCardInfo.ReloadInfoRow In gGCI.ReloadInfo.Rows
+            If gRow.RProLookupALU = mGiftCardALU Then
+                rMinAmount = gRow.RMinAmount
+                rMaxAmount = gRow.RMaxAmount
+                Exit For
+            End If
+        Next
+        If rMaxAmount = 0D Then
+            rMaxAmount = 999D
+        End If
+        If mAccountBalance + CDec(txtReloadAmount.Text) > rMaxAmount Then
+            txtReloadAmount.Text = (rMaxAmount - mAccountBalance).ToString
+            MessageBox.Show("Card amount may not exceed " & rMaxAmount.ToString("""$""#,##0.00") & ".", "STADIS")
+            Exit Sub
+        End If
+        If CDec(txtReloadAmount.Text) < rMinAmount OrElse CDec(txtReloadAmount.Text) > rMaxAmount Then
+            If CDec(txtReloadAmount.Text) < rMinAmount Then
+                txtReloadAmount.Text = rMinAmount.ToString
+            ElseIf CDec(txtReloadAmount.Text) > rMaxAmount Then
+                txtReloadAmount.Text = rMaxAmount.ToString
+            End If
+            If rMinAmount = rMaxAmount Then
+                MessageBox.Show("Reload amount is fixed at " & rMinAmount.ToString("""$""#,##0.00") & ".", "STADIS")
+            Else
+                MessageBox.Show("Reload amount must be between " & rMinAmount.ToString("""$""#,##0.00") & " and " & rMaxAmount.ToString("""$""#,##0.00") & ".", "STADIS")
+            End If
+            Exit Sub
+        End If
+
+        AddMoneyToSVAccount()
+
+        AddOurItemAndTenderToRPro()
+
+        Me.DialogResult = Windows.Forms.DialogResult.OK
+        Me.Close()
+    End Sub  'btnOK_Click
+
+#End Region  'Buttons
+
 #Region " Other Methods "
 
     Private Sub txtGiftCardID_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtGiftCardID.KeyDown
         If Not e Is Nothing Then
             If e.KeyData = Keys.Enter Then
                 e.Handled = True
-                txtAmount.Focus()
+                txtReloadAmount.Focus()
             End If
         End If
     End Sub  'txtGiftCardID_KeyDown
@@ -122,7 +185,7 @@ Friend Class FrmReload
             End If
             mEventID = mStatus.CustomerStatus2
             mCustomerID = mStatus.TicketCustomerID
-            mRemainingAmount = mStatus.SVA1Balance
+            mAccountBalance = mStatus.SVA1Balance
             Select Case mStatus.TicketEventTicketStatusID
                 Case Active
                     txtCurrentBalance.Text = mStatus.SVA1Balance.ToString("""$""#,##0.00")
@@ -142,8 +205,8 @@ Friend Class FrmReload
 
     End Sub  'txtGiftCardID_Leave
 
-    Private Sub txtAmount_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtAmount.KeyDown
-        If Not e Is Nothing AndAlso Trim(txtAmount.Text) <> "" Then
+    Private Sub txtAmount_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtReloadAmount.KeyDown
+        If Not e Is Nothing AndAlso Trim(txtReloadAmount.Text) <> "" Then
             If e.KeyData = Keys.Enter Then
                 e.Handled = True
                 btnOK.Focus()
@@ -151,69 +214,13 @@ Friend Class FrmReload
         End If
     End Sub  'txtAmount_KeyDown
 
-    Private Sub txtAmount_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtAmount.Leave
-        If Trim(txtAmount.Text) <> "" Then
-            txtBalanceAfter.Text = (CDec(txtCurrentBalance.Text) + CDec(txtAmount.Text)).ToString("""$""#,##0.00")
-            Dim amt As Decimal = CDec(txtAmount.Text)
-            txtAmount.Text = amt.ToString("""$""#,##0.00")
+    Private Sub txtAmount_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtReloadAmount.Leave
+        If Trim(txtReloadAmount.Text) <> "" Then
+            txtBalanceAfter.Text = (CDec(txtCurrentBalance.Text) + CDec(txtReloadAmount.Text)).ToString("""$""#,##0.00")
+            Dim amt As Decimal = CDec(txtReloadAmount.Text)
+            txtReloadAmount.Text = amt.ToString("""$""#,##0.00")
         End If
     End Sub  'txtAmount_Leave
-
-    '------------------------------------------------------------------------------
-    ' Cancel button - pack up and get out
-    '------------------------------------------------------------------------------
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
-        Me.DialogResult = Windows.Forms.DialogResult.Cancel
-        Me.Close()
-    End Sub  'btnCancel_Click
-
-    '------------------------------------------------------------------------------
-    ' OK button - Add tenders we created, then get out
-    '------------------------------------------------------------------------------
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
-
-        'Check for blank input
-        If txtGiftCardID.Text <> Trim(txtGiftCardID.Text) Then
-            txtGiftCardID.Text = Trim(txtGiftCardID.Text)
-        End If
-        If txtGiftCardID.Text = "" OrElse Trim(txtAmount.Text) = "" Then Exit Sub
-
-        'Check against min and max
-        Dim rMinAmount As Decimal = 0D
-        Dim rMaxAmount As Decimal = 0D
-        For Each gRow As DSGiftCardInfo.ReloadInfoRow In gGCI.ReloadInfo.Rows
-            If gRow.RProLookupALU = mGiftCardALU Then
-                rMinAmount = gRow.RMinAmount
-                rMaxAmount = gRow.RMaxAmount
-                Exit For
-            End If
-        Next
-        If mRemainingAmount + CDec(txtAmount.Text) > rMaxAmount Then
-            txtAmount.Text = (rMaxAmount - mRemainingAmount).ToString
-            MessageBox.Show("Card amount may not exceed " & rMaxAmount.ToString("""$""#,##0.00") & ".", "STADIS")
-            Exit Sub
-        End If
-        If CDec(txtAmount.Text) < rMinAmount OrElse CDec(txtAmount.Text) > rMaxAmount Then
-            If CDec(txtAmount.Text) < rMinAmount Then
-                txtAmount.Text = rMinAmount.ToString
-            ElseIf CDec(txtAmount.Text) > rMaxAmount Then
-                txtAmount.Text = rMaxAmount.ToString
-            End If
-            If rMinAmount = rMaxAmount Then
-                MessageBox.Show("Reload amount is fixed at " & rMinAmount.ToString("""$""#,##0.00") & ".", "STADIS")
-            Else
-                MessageBox.Show("Reload amount must be between " & rMinAmount.ToString("""$""#,##0.00") & " and " & rMaxAmount.ToString("""$""#,##0.00") & ".", "STADIS")
-            End If
-            Exit Sub
-        End If
-
-        AddMoneyToSVAccount()
-
-        AddOurItemAndTenderToRPro()
-
-        Me.DialogResult = Windows.Forms.DialogResult.OK
-        Me.Close()
-    End Sub  'btnOK_Click
 
     '------------------------------------------------------------------------------
     ' Deposit funds to account
@@ -226,7 +233,7 @@ Friend Class FrmReload
                 .SiteID = gSiteID
                 .TenderTypeID = 1
                 .TenderID = Trim(txtGiftCardID.Text)
-                .Amount = CDec(txtAmount.Text)
+                .Amount = CDec(txtReloadAmount.Text)
                 .ReferenceNumber = ""
                 .ToSVAccountID = mStatus.EventTicketSVAccountID
                 .VendorID = gVendorID
@@ -250,7 +257,7 @@ Friend Class FrmReload
     Private Sub AddOurItemAndTenderToRPro()
         Try
             Dim giftCardID As String = txtGiftCardID.Text
-            Dim amount As Decimal = CDec(txtAmount.Text)
+            Dim amount As Decimal = CDec(txtReloadAmount.Text)
             Dim invoiceHandle As Integer = 0
             'Create an item
             Dim itemHandle As Integer = mAdapter.GetReferenceBOForAttribute(invoiceHandle, "Items")
@@ -282,7 +289,7 @@ Friend Class FrmReload
                         Else
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@TL #" & txtGiftCardID.Text)
                         End If
-                        If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                        If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)

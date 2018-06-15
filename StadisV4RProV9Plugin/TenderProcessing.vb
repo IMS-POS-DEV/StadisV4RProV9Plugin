@@ -1,8 +1,8 @@
 ﻿'Imports CommonV4
 'Imports CommonV4.CommonRoutines
 'Imports CommonV4.WebReference
-'Imports RetailPro.CustomPluginClasses
-'Imports RetailPro.Plugins
+'Imports CustomPluginClasses
+'Imports Plugins
 'Imports System
 'Imports System.Runtime.InteropServices
 'Imports System.Windows.Forms
@@ -29,7 +29,7 @@
 '            MessageBox.Show("TenderPlugin disabled", "DEBUG")
 '        End If
 '        fGUID = New Guid(Discover.CLASS_TenderProcessing)
-'        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
+'        fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
 '    End Sub  'Initialize
 
 '    '----------------------------------------------------------------------------------------------
@@ -49,7 +49,7 @@
 '        '                    CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
 '        '                    CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "AMT", sc.Amount)
 '        '                    CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@PR#" & sc.TenderID & "#" & sc.StadisAuthorizationID)
-'        '                    If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+'        '                    If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
 '        '                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
 '        '                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
 '        '                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_TYPE", 1)

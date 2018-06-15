@@ -37,6 +37,7 @@ Public Module GlobalValues
     Public gStadisVersion As String = "4"
     Public gStadisRelease As String = "0"
 
+    Public gArePromotionsActive As Boolean = False
     Public gAllowReturnCreditToCard As Boolean = False
     Public gAskForTicketOnIssue As Boolean = False
     Public gAskForTicketOnRedeem As Boolean = False

@@ -1,5 +1,5 @@
-﻿Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+﻿Imports CustomPluginClasses
+Imports Plugins
 Imports System.Runtime.InteropServices
 '----------------------------------------------------------------------------------------------
 '   Class: Discover
@@ -61,7 +61,7 @@ Public Class Discover
     ' 
     '    In Imports clause:
     '      2) Add
-    ' 			a) RetailPro.CustomPluginClasses;
+    ' 			a) CustomPluginClasses;
     ' 			b) System.Runtime.InteropServices;
     '  
     ' 	  In My Project:

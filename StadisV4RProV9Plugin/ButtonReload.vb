@@ -1,6 +1,6 @@
 ﻿Imports CommonV4
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ Public Class ButtonReload
         fChecked = True
         fEnabled = gReloadButtonEnabled
         fGUID = New Guid(Discover.CLASS_ButtonReload)
-        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
+        fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
     End Sub  'Initialize
 
     '----------------------------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 ﻿Imports CommonV4
 Imports CommonV4.CommonRoutines
 Imports CommonV4.WebReference
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System.Drawing
 Imports System.Text
 Imports System.Text.RegularExpressions
@@ -44,12 +44,12 @@ Friend Class FrmRedeem
     '    'Const ACTIVE As Integer = 1
     '    'Const PENDING As Integer = 3
 
-    '    Private mAdapter As RetailPro.Plugins.IPluginAdapter
-    '    Friend Property Adapter() As RetailPro.Plugins.IPluginAdapter
+    '    Private mAdapter As Plugins.IPluginAdapter
+    '    Friend Property Adapter() As Plugins.IPluginAdapter
     '        Get
     '            Return mAdapter
     '        End Get
-    '        Set(ByVal value As RetailPro.Plugins.IPluginAdapter)
+    '        Set(ByVal value As Plugins.IPluginAdapter)
     '            mAdapter = value
     '        End Set
     '    End Property
@@ -153,8 +153,8 @@ Friend Class FrmRedeem
     '            End If
     '            CommonRoutines.BOOpen(mAdapter, mTenderHandle)
     '            Dim retcode As Integer = mAdapter.BOFirst(mTenderHandle)
-    '            If retcode <> RetailPro.Plugins.PluginError.peSuccess Then
-    '                If retcode = RetailPro.Plugins.PluginError.peUnableToReadFirstRow Then
+    '            If retcode <> Plugins.PluginError.peSuccess Then
+    '                If retcode = Plugins.PluginError.peUnableToReadFirstRow Then
     '                    Exit Sub
     '                Else
     '                    MessageBox.Show("Error while loading previous STADIS tender(s)." & vbCrLf & "RPro retcode = " & retcode.ToString, "STADIS")
@@ -1077,7 +1077,7 @@ Friend Class FrmRedeem
     '            Dim lastfour As String = id.Substring(len - 4, 4)
     '            CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "DOC_NO", lastfour)
     '            CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "EFTDATA8", lastfour)
-    '            If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+    '            If gStadisTenderType = Plugins.TenderTypes.ttGiftCard Then
     '                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
     '                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
     '                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_TYPE", 1)
@@ -1216,7 +1216,7 @@ Friend Class FrmRedeem
     '                        CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TRANSACTION_ID", sy.TenderID)
     '                        CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AUTH", sy.StadisAuthorizationID & "\   $0.00")
     '                        CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK", "@PR#" & sy.TenderID)
-    '                        If gStadisTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+    '                        If gStadisTenderType = Plugins.TenderTypes.ttGiftCard Then
     '                            CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
     '                            CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
     '                            CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_TYPE", 1)

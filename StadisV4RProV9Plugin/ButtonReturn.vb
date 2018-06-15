@@ -1,7 +1,7 @@
 ﻿Imports CommonV4
 Imports CommonV4.WebReference
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ Public Class ButtonReturn
         fChecked = True
         fEnabled = gReturnButtonEnabled
         fGUID = New Guid(Discover.CLASS_ButtonReturn)
-        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
+        fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
     End Sub  'Initialize
 
     '----------------------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ Public Class ButtonReturn
             Else
                 CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@TR #" & giftCardID)
             End If
-            If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+            If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
                 CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
                 CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
                 CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_TYPE", 1)
@@ -174,7 +174,7 @@ Public Class ButtonReturn
                         CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "GIVEN", amtDueToCust)
                         CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TRANSACTION_ID", "")
                         CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@OF # Offset for card issue/activate")
-                        If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                        If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
                             CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
                             CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
                             CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_TYPE", 1)

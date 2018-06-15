@@ -1,8 +1,8 @@
 ﻿Imports CommonV4
 Imports CommonV4.CommonRoutines
 Imports CommonV4.WebReference
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
@@ -23,7 +23,7 @@ Public Class TenderDialogue
         MyBase.Initialize()
         LoadLocalSettings()
         CommonRoutines.LoadInstallationSettings()
-        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
+        fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
         fDescription = "Stadis tender dialog"
         fGUID = New Guid(Discover.CLASS_TenderDialogue)
         fTenderType = gTenderDialogTenderType

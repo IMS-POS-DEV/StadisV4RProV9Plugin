@@ -1,8 +1,8 @@
 ﻿Imports CommonV4
 Imports CommonV4.CommonRoutines
 Imports CommonV4.WebReference
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
@@ -30,14 +30,12 @@ Public Class PrintUpdateStadisProcessing
         MyBase.Initialize()
         fEnabled = True
         fGUID = New Guid(Discover.CLASS_PrintUpdateStadisProcessing)
-        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
+        fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
     End Sub  'Initialize
 
     '----------------------------------------------------------------------------------------------
     ' Called when Print/Update is pressed, but before save
-    ' Look thru items for Issues, Activates and Reloads
-    ' Look thru tenders for Redeems
-    ' Do appropriate Stadis web service calls
+    ' Do appropriate web service calls
     '----------------------------------------------------------------------------------------------
     Public Overrides Function BeforeUpdate() As Boolean
         Try
@@ -63,7 +61,7 @@ Public Class PrintUpdateStadisProcessing
 
             If Adapter.BOIsAttributeInList(itemHandle, "Lookup ALU") = False Then
                 Dim result As Integer = Adapter.BOIncludeAttrIntoList(itemHandle, "Lookup ALU", True, False)
-                If result = RetailPro.Plugins.PluginError.peSuccess Then
+                If result = Plugins.PluginError.peSuccess Then
                     Adapter.BOUpdateListDataSet(itemHandle, True, False)
                 Else
                     MessageBox.Show("Unable to add 'Lookup ALU' to list")
@@ -71,7 +69,7 @@ Public Class PrintUpdateStadisProcessing
             End If
             If Adapter.BOIsAttributeInInstance(itemHandle, "Lookup ALU") = False Then
                 Dim result As Integer = Adapter.BOIncludeAttrIntoInstance(itemHandle, "Lookup ALU", True, False)
-                If result = RetailPro.Plugins.PluginError.peSuccess Then
+                If result = Plugins.PluginError.peSuccess Then
                     Adapter.BOUpdateInstanceDataSet(itemHandle, True, False)
                 Else
                     MessageBox.Show("Unable to add 'Lookup ALU' to instance")

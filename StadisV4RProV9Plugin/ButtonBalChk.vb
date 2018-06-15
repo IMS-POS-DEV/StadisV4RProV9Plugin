@@ -1,6 +1,6 @@
 ﻿Imports CommonV4
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 Imports BalanceCheckV4
@@ -30,7 +30,7 @@ Public Class ButtonBalChk
         fChecked = True
         fEnabled = gBalChkButtonEnabled
         fGUID = New Guid(Discover.CLASS_ButtonBalChk)
-        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
+        fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
     End Sub  'Initialize
 
     '----------------------------------------------------------------------------------------------

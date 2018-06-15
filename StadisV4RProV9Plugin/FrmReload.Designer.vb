@@ -50,13 +50,13 @@ Partial Class FrmReload
         Me.UltraLabel3 = New Infragistics.Win.Misc.UltraLabel()
         Me.txtCurrentBalance = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
         Me.UltraLabel4 = New Infragistics.Win.Misc.UltraLabel()
-        Me.txtAmount = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
+        Me.txtReloadAmount = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
         Me.UltraLabel5 = New Infragistics.Win.Misc.UltraLabel()
         Me.txtBalanceAfter = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
         Me.UltraToolTipManager1 = New Infragistics.Win.UltraWinToolTip.UltraToolTipManager(Me.components)
         CType(Me.txtGiftCardID, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtCurrentBalance, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtReloadAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtBalanceAfter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -91,7 +91,7 @@ Partial Class FrmReload
         Me.btnCancel.Text = "Cancel"
         UltraToolTipInfo6.ToolTipText = "Leave without processing."
         Me.UltraToolTipManager1.SetUltraToolTip(Me.btnCancel, UltraToolTipInfo6)
-        Me.btnCancel.UseOsThemes = Infragistics.Win.DefaultableBoolean.[False]
+        Me.btnCancel.UseOsThemes = Infragistics.Win.DefaultableBoolean.[True]
         '
         'btnOK
         '
@@ -109,7 +109,7 @@ Partial Class FrmReload
         Me.btnOK.Text = "OK"
         UltraToolTipInfo5.ToolTipText = "Add this item to the Receipt."
         Me.UltraToolTipManager1.SetUltraToolTip(Me.btnOK, UltraToolTipInfo5)
-        Me.btnOK.UseOsThemes = Infragistics.Win.DefaultableBoolean.[False]
+        Me.btnOK.UseOsThemes = Infragistics.Win.DefaultableBoolean.[True]
         '
         'pbLogo
         '
@@ -166,13 +166,13 @@ Partial Class FrmReload
         '
         'txtCurrentBalance
         '
-        Appearance8.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance8.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Appearance8.FontData.BoldAsString = "True"
         Appearance8.FontData.SizeInPoints = 14.0!
         Appearance8.ForeColor = System.Drawing.Color.Teal
         Appearance8.TextHAlignAsString = "Right"
         Me.txtCurrentBalance.Appearance = Appearance8
-        Me.txtCurrentBalance.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.txtCurrentBalance.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.txtCurrentBalance.Location = New System.Drawing.Point(247, 133)
         Me.txtCurrentBalance.Name = "txtCurrentBalance"
         Me.txtCurrentBalance.ReadOnly = True
@@ -203,14 +203,14 @@ Partial Class FrmReload
         Appearance6.FontData.SizeInPoints = 14.0!
         Appearance6.ForeColor = System.Drawing.Color.Black
         Appearance6.TextHAlignAsString = "Right"
-        Me.txtAmount.Appearance = Appearance6
-        Me.txtAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Me.txtAmount.Location = New System.Drawing.Point(247, 178)
-        Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(156, 31)
-        Me.txtAmount.TabIndex = 1
+        Me.txtReloadAmount.Appearance = Appearance6
+        Me.txtReloadAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.txtReloadAmount.Location = New System.Drawing.Point(247, 178)
+        Me.txtReloadAmount.Name = "txtAmount"
+        Me.txtReloadAmount.Size = New System.Drawing.Size(156, 31)
+        Me.txtReloadAmount.TabIndex = 1
         UltraToolTipInfo2.ToolTipText = "Amount being added to the gift card."
-        Me.UltraToolTipManager1.SetUltraToolTip(Me.txtAmount, UltraToolTipInfo2)
+        Me.UltraToolTipManager1.SetUltraToolTip(Me.txtReloadAmount, UltraToolTipInfo2)
         '
         'UltraLabel5
         '
@@ -228,13 +228,13 @@ Partial Class FrmReload
         '
         'txtBalanceAfter
         '
-        Appearance4.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance4.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Appearance4.FontData.BoldAsString = "True"
         Appearance4.FontData.SizeInPoints = 14.0!
         Appearance4.ForeColor = System.Drawing.Color.Teal
         Appearance4.TextHAlignAsString = "Right"
         Me.txtBalanceAfter.Appearance = Appearance4
-        Me.txtBalanceAfter.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.txtBalanceAfter.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.txtBalanceAfter.Location = New System.Drawing.Point(247, 223)
         Me.txtBalanceAfter.Name = "txtBalanceAfter"
         Me.txtBalanceAfter.ReadOnly = True
@@ -258,7 +258,7 @@ Partial Class FrmReload
         Me.Controls.Add(Me.UltraLabel5)
         Me.Controls.Add(Me.txtBalanceAfter)
         Me.Controls.Add(Me.UltraLabel4)
-        Me.Controls.Add(Me.txtAmount)
+        Me.Controls.Add(Me.txtReloadAmount)
         Me.Controls.Add(Me.UltraLabel3)
         Me.Controls.Add(Me.txtCurrentBalance)
         Me.Controls.Add(Me.UltraLabel2)
@@ -275,23 +275,23 @@ Partial Class FrmReload
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         CType(Me.txtGiftCardID, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtCurrentBalance, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtReloadAmount, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtBalanceAfter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents UltraLabel1 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents btnCancel As Infragistics.Win.Misc.UltraButton
-    Friend WithEvents btnOK As Infragistics.Win.Misc.UltraButton
-    Friend WithEvents pbLogo As Infragistics.Win.UltraWinEditors.UltraPictureBox
-    Friend WithEvents txtGiftCardID As Infragistics.Win.UltraWinEditors.UltraTextEditor
-    Friend WithEvents UltraLabel2 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents UltraLabel3 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents txtCurrentBalance As Infragistics.Win.UltraWinEditors.UltraTextEditor
-    Friend WithEvents UltraLabel4 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents txtAmount As Infragistics.Win.UltraWinEditors.UltraTextEditor
-    Friend WithEvents UltraLabel5 As Infragistics.Win.Misc.UltraLabel
-    Friend WithEvents txtBalanceAfter As Infragistics.Win.UltraWinEditors.UltraTextEditor
-    Friend WithEvents UltraToolTipManager1 As Infragistics.Win.UltraWinToolTip.UltraToolTipManager
+    Private WithEvents UltraLabel1 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents btnCancel As Infragistics.Win.Misc.UltraButton
+    Private WithEvents btnOK As Infragistics.Win.Misc.UltraButton
+    Private WithEvents pbLogo As Infragistics.Win.UltraWinEditors.UltraPictureBox
+    Private WithEvents txtGiftCardID As Infragistics.Win.UltraWinEditors.UltraTextEditor
+    Private WithEvents UltraLabel2 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents UltraLabel3 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents txtCurrentBalance As Infragistics.Win.UltraWinEditors.UltraTextEditor
+    Private WithEvents UltraLabel4 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents txtReloadAmount As Infragistics.Win.UltraWinEditors.UltraTextEditor
+    Private WithEvents UltraLabel5 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents txtBalanceAfter As Infragistics.Win.UltraWinEditors.UltraTextEditor
+    Private WithEvents UltraToolTipManager1 As Infragistics.Win.UltraWinToolTip.UltraToolTipManager
 End Class

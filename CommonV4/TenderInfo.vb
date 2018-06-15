@@ -1,7 +1,7 @@
 ﻿Imports CommonV4
 Imports CommonV4.WebReference
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 '-----------------------------------------------------------------------------------------------
 '   Class: TenderInfo
 '    Type: Class to hold multiple return values
@@ -126,7 +126,7 @@ Public Class TenderInfo
 
 #Region " Methods "
 
-    Public Sub New(ByRef adapter As RetailPro.Plugins.IPluginAdapter, ByRef tenderHandle As Integer)
+    Public Sub New(ByRef adapter As Plugins.IPluginAdapter, ByRef tenderHandle As Integer)
         Dim remark As String = CommonRoutines.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK")
         If remark.Length > 2 Then
             mStadisOpCode = remark.Substring(0, 3)

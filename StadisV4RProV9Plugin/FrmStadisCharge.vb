@@ -1,8 +1,8 @@
 ﻿Imports CommonV4
 'Imports CommonV4.CommonRoutines
 Imports CommonV4.WebReference
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System.Drawing
 Imports System.Text
 Imports System.Text.RegularExpressions
@@ -31,12 +31,12 @@ Public Class FrmStadisCharge
 
 #Region " Properties "
 
-    Private mAdapter As RetailPro.Plugins.IPluginAdapter
-    Friend Property Adapter() As RetailPro.Plugins.IPluginAdapter
+    Private mAdapter As Plugins.IPluginAdapter
+    Friend Property Adapter() As Plugins.IPluginAdapter
         Get
             Return mAdapter
         End Get
-        Set(ByVal value As RetailPro.Plugins.IPluginAdapter)
+        Set(ByVal value As Plugins.IPluginAdapter)
             mAdapter = value
         End Set
     End Property
@@ -389,7 +389,7 @@ Public Class FrmStadisCharge
                                 Dim len As Integer = sy.TenderID.Length
                                 Dim lastfour As String = sy.TenderID.Substring(len - 4, 4)
                                 CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "EFTDATA8", lastfour)
-                                If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                                If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
                                     CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
                                     CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
                                     CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_TYPE", 1)

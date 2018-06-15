@@ -1,7 +1,7 @@
 ﻿Imports CommonV4
 Imports CommonV4.WebReference
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Public Class ButtonRedeem
         fChecked = True
         fEnabled = False
         fGUID = New Guid(Discover.CLASS_ButtonRedeem)
-        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
+        fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
     End Sub  'Initialize
 
     Private Sub LoadLocalSettings()

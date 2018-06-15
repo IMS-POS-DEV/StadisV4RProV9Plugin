@@ -1,7 +1,7 @@
 ﻿Imports CommonV4
 Imports System
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ Public Class ButtonIssue
         fChecked = True
         fEnabled = gIssueButtonEnabled
         fGUID = New Guid(Discover.CLASS_ButtonIssue)
-        fBusinessObjectType = RetailPro.Plugins.BusinessObjectType.btInvoice
+        fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
     End Sub  'Initialize
 
     '----------------------------------------------------------------------------------------------

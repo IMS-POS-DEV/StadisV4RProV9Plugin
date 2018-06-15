@@ -13,7 +13,7 @@ Friend Class FrmIssue
 
 #Region " Data Declarations "
 
-    Private mAdapter As RetailPro.Plugins.IPluginAdapter
+    Private mAdapter As Plugins.IPluginAdapter
     Private mGiftCards As New DSGiftCard
     Private mCardTotal As Decimal = 0D
     Private mAddTotal As Decimal = 0D
@@ -29,11 +29,11 @@ Friend Class FrmIssue
     Const ACTIVE As Integer = 1
     Const PENDING As Integer = 3
 
-    Friend Property Adapter() As RetailPro.Plugins.IPluginAdapter
+    Friend Property Adapter() As Plugins.IPluginAdapter
         Get
             Return mAdapter
         End Get
-        Set(ByVal value As RetailPro.Plugins.IPluginAdapter)
+        Set(ByVal value As Plugins.IPluginAdapter)
             mAdapter = value
         End Set
     End Property
@@ -1241,7 +1241,7 @@ Friend Class FrmIssue
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - mGiftCardTotal)
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID", "")
                         CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@OF#Offset for card issue/activate")
-                        If gTenderDialogTenderType = RetailPro.Plugins.TenderTypes.ttGiftCard Then
+                        If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
                             CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)

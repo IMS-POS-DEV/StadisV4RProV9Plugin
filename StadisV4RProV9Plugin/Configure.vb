@@ -1,5 +1,5 @@
-﻿Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+﻿Imports CustomPluginClasses
+Imports Plugins
 Imports System.Runtime.InteropServices
 '----------------------------------------------------------------------------------------------
 '   Class: Configure

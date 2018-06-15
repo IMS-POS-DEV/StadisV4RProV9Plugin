@@ -1,7 +1,7 @@
 Imports CommonV4
 Imports CommonV4.WebReference
-Imports RetailPro.CustomPluginClasses
-Imports RetailPro.Plugins
+Imports CustomPluginClasses
+Imports Plugins
 Imports System
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms
@@ -38,12 +38,12 @@ Public Class FrmBalChk
     'Private Const SC_UNDERLINE_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_UNDERLINE_OFF
     'Private Const SC_UPPERLINE_OFF As StarComm.PrinterCommands = StarComm.PrinterCommands.SC_UPPERLINE_OFF
 
-    Private mAdapter As RetailPro.Plugins.IPluginAdapter
-    Friend Property Adapter() As RetailPro.Plugins.IPluginAdapter
+    Private mAdapter As Plugins.IPluginAdapter
+    Friend Property Adapter() As Plugins.IPluginAdapter
         Get
             Return mAdapter
         End Get
-        Set(ByVal value As RetailPro.Plugins.IPluginAdapter)
+        Set(ByVal value As Plugins.IPluginAdapter)
             mAdapter = value
         End Set
     End Property

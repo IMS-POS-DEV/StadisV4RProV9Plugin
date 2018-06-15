@@ -48,7 +48,7 @@ Partial Class FrmScanTicket
         Me.btnCancel.Size = New System.Drawing.Size(103, 53)
         Me.btnCancel.TabIndex = 2
         Me.btnCancel.Text = "Cancel"
-        Me.btnCancel.UseOsThemes = Infragistics.Win.DefaultableBoolean.[False]
+        Me.btnCancel.UseOsThemes = Infragistics.Win.DefaultableBoolean.[True]
         '
         'btnOK
         '
@@ -64,7 +64,7 @@ Partial Class FrmScanTicket
         Me.btnOK.Size = New System.Drawing.Size(103, 53)
         Me.btnOK.TabIndex = 1
         Me.btnOK.Text = "OK"
-        Me.btnOK.UseOsThemes = Infragistics.Win.DefaultableBoolean.[False]
+        Me.btnOK.UseOsThemes = Infragistics.Win.DefaultableBoolean.[True]
         '
         'txtCustomerID
         '
@@ -115,8 +115,8 @@ Partial Class FrmScanTicket
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnCancel As Infragistics.Win.Misc.UltraButton
-    Friend WithEvents btnOK As Infragistics.Win.Misc.UltraButton
-    Friend WithEvents txtCustomerID As Infragistics.Win.UltraWinEditors.UltraTextEditor
-    Friend WithEvents lblCaption As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents btnCancel As Infragistics.Win.Misc.UltraButton
+    Private WithEvents btnOK As Infragistics.Win.Misc.UltraButton
+    Private WithEvents txtCustomerID As Infragistics.Win.UltraWinEditors.UltraTextEditor
+    Private WithEvents lblCaption As Infragistics.Win.Misc.UltraLabel
 End Class
