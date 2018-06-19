@@ -1,5 +1,4 @@
-﻿Imports CommonV4
-Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports CustomPluginClasses
 Imports Plugins
 '-----------------------------------------------------------------------------------------------
@@ -127,7 +126,7 @@ Public Class TenderInfo
 #Region " Methods "
 
     Public Sub New(ByRef adapter As Plugins.IPluginAdapter, ByRef tenderHandle As Integer)
-        Dim remark As String = CommonRoutines.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK")
+        Dim remark As String = Common.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK")
         If remark.Length > 2 Then
             mStadisOpCode = remark.Substring(0, 3)
             Select Case mStadisOpCode

@@ -1,6 +1,4 @@
-﻿Imports CommonV4
-'Imports CommonV4.CommonRoutines
-Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports CustomPluginClasses
 Imports Plugins
 Imports System.Drawing
@@ -71,8 +69,8 @@ Public Class FrmStadisCharge
         mInvoiceHandle = 0
         mItemHandle = mAdapter.GetReferenceBOForAttribute(mInvoiceHandle, "Items")
         mTenderHandle = mAdapter.GetReferenceBOForAttribute(mInvoiceHandle, "Tenders")
-        CommonRoutines.BORefreshRecord(mAdapter, 0)
-        CommonRoutines.BOOpen(mAdapter, mTenderHandle)
+        Common.BORefreshRecord(mAdapter, 0)
+        Common.BOOpen(mAdapter, mTenderHandle)
 
         If mAdapter.BOIsAttributeInList(mTenderHandle, "EFTDATA8") = False Then
             Dim result As Integer = mAdapter.BOIncludeAttrIntoList(mTenderHandle, "EFTDATA8", True, False)
@@ -166,27 +164,27 @@ Public Class FrmStadisCharge
         End If
 
         'Strip out extra characters from scanner
-        Dim extractedScan As String = CommonRoutines.ExtractScan(txtTenderID.Text)
+        Dim extractedScan As String = Common.ExtractScan(txtTenderID.Text)
         If extractedScan <> txtTenderID.Text Then
             txtTenderID.Text = extractedScan
         End If
 
         'Validate TenderID against our regex pattern for length / content
-        If CommonRoutines.ValidateScan(extractedScan) = False Then
+        If Common.ValidateScan(extractedScan) = False Then
             MsgBox("Invalid scan content or length." & vbCrLf & "Scan: " & extractedScan, MsgBoxStyle.Exclamation, "STADIS Tender")
             txtTenderID.Text = ""
             Exit Sub
         End If
 
         'Check for duplicate TenderIDs
-        CommonRoutines.BOOpen(mAdapter, mTenderHandle)
-        Dim tenderCount As Integer = CommonRoutines.BOGetIntAttributeValueByName(mAdapter, mTenderHandle, "TENDER_COUNT")
+        Common.BOOpen(mAdapter, mTenderHandle)
+        Dim tenderCount As Integer = Common.BOGetIntAttributeValueByName(mAdapter, mTenderHandle, "TENDER_COUNT")
         If tenderCount > 0 Then
-            CommonRoutines.BOFirst(mAdapter, mTenderHandle, "TD - Check for dup TenderID")
+            Common.BOFirst(mAdapter, mTenderHandle, "TD - Check for dup TenderID")
             While Not mAdapter.EOF(mTenderHandle)
-                Dim rproTenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE")
+                Dim rproTenderType As Integer = Common.BOGetIntAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE")
                 If rproTenderType = gTenderDialogTenderType Then
-                    Dim remark() As String = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK").Split("#"c)
+                    Dim remark() As String = Common.BOGetStrAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK").Split("#"c)
                     If remark.Length > 0 Then
                         If txtTenderID.Text = remark(1) Then
                             MsgBox("Card/Ticket has already been entered.", MsgBoxStyle.Exclamation, "STADIS Tender")
@@ -210,11 +208,11 @@ Public Class FrmStadisCharge
             .CustomerID = gStadisUserID
             .VendorID = gVendorID
             .LocationID = gLocationID
-            .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Workstion")
-            .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
-            .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Cashier")
+            .RegisterID = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Workstion")
+            .ReceiptID = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
+            .VendorCashier = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Cashier")
         End With
-        Dim ts As TicketStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
+        Dim ts As TicketStatus = Common.StadisAPI.GetTicketStatus(sr)
         If ts.ReturnCode < 0 Then
             MsgBox("Unable to validate card...", MsgBoxStyle.Exclamation, "GiftCard")
             txtTenderID.Text = ""
@@ -327,13 +325,13 @@ Public Class FrmStadisCharge
                 .CustomerID = gStadisUserID
                 .VendorID = gVendorID
                 .LocationID = gLocationID
-                .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Invoice Workstion")
-                .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Invoice Number")
-                .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Cashier")
+                .RegisterID = Common.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Invoice Workstion")
+                .ReceiptID = Common.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Invoice Number")
+                .VendorCashier = Common.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Cashier")
                 gRegisterID = .RegisterID
                 gVendorCashier = .VendorCashier
             End With
-            Dim invcSID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Invoice SID")
+            Dim invcSID = Common.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Invoice SID")
             'Check if already processed
             If invcSID = gLastInvcSID AndAlso sr.TenderID = gLastTenderID AndAlso sr.Amount = gLastAmount Then
                 Return False
@@ -348,7 +346,7 @@ Public Class FrmStadisCharge
             End With
             Dim sys As StadisReply() = Nothing
             Try
-                sys = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), CommonRoutines.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), CommonRoutines.LoadTendersForCharge(mAdapter, "Receipt", mTenderHandle, stt))
+                sys = Common.StadisAPI.SVAccountCharge(sr, Common.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), Common.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), Common.LoadTendersForCharge(mAdapter, "Receipt", mTenderHandle, stt))
                 mReturnCode = sys(0).ReturnCode
                 mReturnMessage = sys(0).ReturnMessage
             Catch ex As Exception
@@ -379,29 +377,29 @@ Public Class FrmStadisCharge
                     Select Case sy.ReturnCode
                         Case 0, 1, -2   'Charge went through
                             Try
-                                CommonRoutines.BORefreshRecord(mAdapter, 0)
-                                CommonRoutines.BOOpen(mAdapter, mTenderHandle)
-                                CommonRoutines.BOInsert(mAdapter, mTenderHandle)
-                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
-                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AMT", sy.ChargedAmount)
-                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK", "@PR" & "#" & sy.TenderID & "#" & sy.StadisAuthorizationID)
-                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "PMT_REMARK", "Promo")
+                                Common.BORefreshRecord(mAdapter, 0)
+                                Common.BOOpen(mAdapter, mTenderHandle)
+                                Common.BOInsert(mAdapter, mTenderHandle)
+                                Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
+                                Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "AMT", sy.ChargedAmount)
+                                Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "MANUAL_REMARK", "@PR" & "#" & sy.TenderID & "#" & sy.StadisAuthorizationID)
+                                Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "PMT_REMARK", "Promo")
                                 Dim len As Integer = sy.TenderID.Length
                                 Dim lastfour As String = sy.TenderID.Substring(len - 4, 4)
-                                CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "EFTDATA8", lastfour)
+                                Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "EFTDATA8", lastfour)
                                 If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
-                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
-                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
-                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_TYPE", 1)
-                                    CommonRoutines.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_PRESENT", 1)
+                                    Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_MONTH", 1)
+                                    Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_EXP_YEAR", 1)
+                                    Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_TYPE", 1)
+                                    Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_PRESENT", 1)
                                 End If
-                                CommonRoutines.BOPost(mAdapter, mTenderHandle)
+                                Common.BOPost(mAdapter, mTenderHandle)
                             Catch ex As Exception
                                 MessageBox.Show("Error while adding promo tender." & vbCrLf & ex.Message, "STADIS")
                                 Exit Function
                             End Try
                         Case -1, -3, -99   'Charge failed
-                            txtMessage.Appearance.ForeColor = Color.Firebrick
+                            txtMessage.Appearance.ForeColor = Drawing.Color.Firebrick
                             txtMessage.Text = "Charge Failed."
                             mAvailAmount = 0D
                             mAcctBalance = sy.FromSVAccountBalance
@@ -425,7 +423,7 @@ Public Class FrmStadisCharge
                     Select Case sy.ReturnCode
                         Case 0, 1, -2   'Charge went through
                             Dim flag As String = ""
-                            If CommonRoutines.IsAGiftCard(sy.EventID) Then
+                            If Common.IsAGiftCard(sy.EventID) Then
                                 flag = "@GC"
                             Else
                                 flag = "@TK"
@@ -438,7 +436,7 @@ Public Class FrmStadisCharge
                                 .DATA8 = lastfour
                             End With
                         Case -1, -3, -99   'Charge failed
-                            txtMessage.Appearance.ForeColor = Color.Firebrick
+                            txtMessage.Appearance.ForeColor = Drawing.Color.Firebrick
                             txtMessage.Text = "Charge Failed"
                             mAvailAmount = 0D
                             mAcctBalance = sy.FromSVAccountBalance
@@ -458,7 +456,7 @@ Public Class FrmStadisCharge
                     Exit For
                 End If
             Next
-            txtMessage.Appearance.ForeColor = Color.Teal
+            txtMessage.Appearance.ForeColor = Drawing.Color.Teal
             txtMessage.Text = "Charge Successful"
             Return True
         Catch ex As Exception

@@ -78,7 +78,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ReloadInfo" msprop:Generator_TableClassName="ReloadInfoDataTable" msprop:Generator_TableVarName="tableReloadInfo" msprop:Generator_TablePropName="ReloadInfo" msprop:Generator_RowDeletingName="ReloadInfoRowDeleting" msprop:Generator_RowChangingName="ReloadInfoRowChanging" msprop:Generator_RowEvHandlerName="ReloadInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="ReloadInfoRowDeleted" msprop:Generator_UserTableName="ReloadInfo" msprop:Generator_RowChangedName="ReloadInfoRowChanged" msprop:Generator_RowEvArgName="ReloadInfoRowChangeEvent" msprop:Generator_RowClassName="ReloadInfoRow">
+        <xs:element name="ReloadInfo" msprop:Generator_TableClassName="ReloadInfoDataTable" msprop:Generator_TableVarName="tableReloadInfo" msprop:Generator_RowChangedName="ReloadInfoRowChanged" msprop:Generator_TablePropName="ReloadInfo" msprop:Generator_RowDeletingName="ReloadInfoRowDeleting" msprop:Generator_RowChangingName="ReloadInfoRowChanging" msprop:Generator_RowEvHandlerName="ReloadInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="ReloadInfoRowDeleted" msprop:Generator_RowClassName="ReloadInfoRow" msprop:Generator_UserTableName="ReloadInfo" msprop:Generator_RowEvArgName="ReloadInfoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="GiftCardInfoID" msprop:Generator_ColumnVarNameInTable="columnGiftCardInfoID" msprop:Generator_ColumnPropNameInRow="GiftCardInfoID" msprop:Generator_ColumnPropNameInTable="GiftCardInfoIDColumn" msprop:Generator_UserColumnName="GiftCardInfoID" type="xs:int" />

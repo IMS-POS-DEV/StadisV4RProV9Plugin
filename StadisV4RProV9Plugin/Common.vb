@@ -1,4 +1,4 @@
-﻿Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms
@@ -7,7 +7,7 @@ Imports System.Windows.Forms
 '    Type: Common subroutines
 ' Purpose: Subroutines called from more than one class
 '----------------------------------------------------------------------------------------------
-Public Class CommonRoutines
+Public Class Common
 
 #Region " Data Declarations "
 
@@ -101,11 +101,11 @@ Public Class CommonRoutines
             .StadisAuthorizationID = AuthID
             .VendorID = gVendorID
             .LocationID = gLocationID
-            .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
-            .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-            .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
+            .RegisterID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
+            .ReceiptID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+            .VendorCashier = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
         End With
-        Dim sys As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
+        Dim sys As StadisReply() = Common.StadisAPI.SVAccountReverse(sr)
         Dim hasBadReply As Boolean = False
         For Each sy As StadisReply In sys
             If sy.ReturnCode < 0 Then
@@ -132,7 +132,7 @@ Public Class CommonRoutines
 
         Try
             ' Get installation settings - standard first, then overrides, if any
-            Dim mis As MessageAndInstallationSettings = CommonRoutines.StadisAPI.GetInstallationSettings("All")
+            Dim mis As MessageAndInstallationSettings = Common.StadisAPI.GetInstallationSettings("All")
             If mis.ReturnMessage.ReturnCode < 0 Then
                 MessageBox.Show("Unable to access InstallationSettings.", "STADIS")
                 Exit Sub
@@ -159,7 +159,7 @@ Public Class CommonRoutines
 
         Try
             ' Get Gift Card table
-            Dim msis As MessageAndSaleItems = CommonRoutines.StadisAPI.GetSaleItemsForRPro(gVendorID)
+            Dim msis As MessageAndSaleItems = Common.StadisAPI.GetSaleItemsForRPro(gVendorID)
             If msis.ReturnMessage.ReturnCode < 0 Then
                 MessageBox.Show("Unable to load gift card specifications.", "STADIS")
                 gIssueButtonActive = False
@@ -505,7 +505,7 @@ Public Class CommonRoutines
     Public Shared Function LoadTendersForCharge(ByRef adapter As Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal tenderHandle As Integer, ByVal stt As StadisTranTender) As StadisTranTender()
         Dim tenderList As New List(Of StadisTranTender)
         BOOpen(adapter, tenderHandle)
-        Dim tenderCount As Integer = CommonRoutines.BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_COUNT")
+        Dim tenderCount As Integer = Common.BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_COUNT")
         If tenderCount > 0 Then
             BOFirst(adapter, tenderHandle, "CR - LoadTendersForCharge")
             While Not adapter.EOF(tenderHandle)
@@ -528,7 +528,7 @@ Public Class CommonRoutines
                                 Else
                                     .TenderTypeID = 1  'Ticket
                                 End If
-                                Dim remark() As String = CommonRoutines.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
+                                Dim remark() As String = Common.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
                                 If remark.Length > 0 Then
                                     .TenderID = remark(1)
                                     .StadisAuthorizationID = remark(2)
@@ -581,7 +581,7 @@ Public Class CommonRoutines
                                 Else
                                     .TenderTypeID = 1  'Ticket
                                 End If
-                                Dim remark() As String = CommonRoutines.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
+                                Dim remark() As String = Common.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
                                 If remark.Length > 0 Then
                                     .TenderID = remark(1)
                                     .StadisAuthorizationID = remark(2)
@@ -592,7 +592,7 @@ Public Class CommonRoutines
                                 .StadisAuthorizationID = ""
                                 If ti.IsAReturn Then
                                     .TenderTypeID = 4  'Gift Card
-                                    Dim remark() As String = CommonRoutines.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
+                                    Dim remark() As String = Common.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
                                     If remark.Length > 0 Then
                                         .TenderID = remark(1)
                                     End If
@@ -640,7 +640,7 @@ Public Class CommonRoutines
     Public Shared Function OldLoadTendersForCharge(ByRef adapter As Plugins.IPluginAdapter, ByVal invoiceType As String, ByVal tenderHandle As Integer) As StadisTranTender()
         Dim tenderList As New List(Of StadisTranTender)
         BOOpen(adapter, tenderHandle)
-        Dim tenderCount As Integer = CommonRoutines.BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_COUNT")
+        Dim tenderCount As Integer = Common.BOGetIntAttributeValueByName(adapter, tenderHandle, "TENDER_COUNT")
         BOFirst(adapter, tenderHandle, "CR - LoadTendersForCharge")
         While Not adapter.EOF(tenderHandle)
             Dim tender As New StadisTranTender
@@ -663,7 +663,7 @@ Public Class CommonRoutines
                             Else
                                 .TenderTypeID = 1  'Ticket
                             End If
-                            Dim remark() As String = CommonRoutines.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
+                            Dim remark() As String = Common.BOGetStrAttributeValueByName(adapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
                             If remark.Length > 0 Then
                                 .TenderID = remark(1)
                                 .StadisAuthorizationID = remark(2)

@@ -1,5 +1,4 @@
-﻿Imports CommonV4
-Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports Infragistics.Win
 Imports Infragistics.Win.UltraWinGrid
 Imports System.Drawing
@@ -920,13 +919,13 @@ Friend Class FrmIssue
                     If CStr(e.Cell.Value) = "" Then Exit Select
 
                     'Strip out extra characters from scanner
-                    Dim extractedScan As String = CommonRoutines.ExtractScan(CStr(e.Cell.Value))
+                    Dim extractedScan As String = Common.ExtractScan(CStr(e.Cell.Value))
                     If extractedScan <> CStr(e.Cell.Value) Then
                         e.Cell.Value = extractedScan
                     End If
 
                     'Validate against our pattern for length / content
-                    If CommonRoutines.ValidateScan(extractedScan) = False Then
+                    If Common.ValidateScan(extractedScan) = False Then
                         MsgBox("Invalid scan content or length." & vbCrLf & "Scan: " & extractedScan, MsgBoxStyle.Exclamation, "GiftCard")
                         e.Cell.Value = ""
                         Exit Select
@@ -958,11 +957,11 @@ Friend Class FrmIssue
                         .ReferenceNumber = ""
                         .VendorID = gVendorID
                         .LocationID = gLocationID
-                        .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Workstion")
-                        .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
-                        .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Cashier")
+                        .RegisterID = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Workstion")
+                        .ReceiptID = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
+                        .VendorCashier = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Cashier")
                     End With
-                    Dim ts As TicketStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
+                    Dim ts As TicketStatus = Common.StadisAPI.GetTicketStatus(sr)
                     If ts.ReturnCode < 0 Then
                         If ts.ReturnCode <> -3 Then
                             MsgBox("Unable to validate card...", MsgBoxStyle.Exclamation, "GiftCard")
@@ -1205,51 +1204,51 @@ Friend Class FrmIssue
         Try
             'Create an item for each Gift Card
             Dim invoiceHandle As Integer = 0
-            CommonRoutines.BORefreshRecord(mAdapter, invoiceHandle)
+            Common.BORefreshRecord(mAdapter, invoiceHandle)
             Dim itemHandle As Integer = mAdapter.GetReferenceBOForAttribute(invoiceHandle, "Items")
-            CommonRoutines.BOOpen(mAdapter, itemHandle)
+            Common.BOOpen(mAdapter, itemHandle)
             For Each aRow As DSGiftCard.GiftCardRow In mGiftCards.GiftCard.Rows
                 If Not (Trim(aRow.GiftCardID) = "" AndAlso aRow.Amount = 0D) Then
-                    CommonRoutines.BOInsert(mAdapter, itemHandle)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Lookup ALU", gGCI.GiftCardInfo(aRow.GCInfoIndex).RProLookupALU)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & aRow.GiftCardID & "\" & aRow.IorA & "\" & mCustomerID & "\" & aRow.Amount.ToString("""$""#,##0.00"))
+                    Common.BOInsert(mAdapter, itemHandle)
+                    Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Lookup ALU", gGCI.GiftCardInfo(aRow.GCInfoIndex).RProLookupALU)
+                    Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & aRow.GiftCardID & "\" & aRow.IorA & "\" & mCustomerID & "\" & aRow.Amount.ToString("""$""#,##0.00"))
                     Dim len As Integer = aRow.GiftCardID.Length
                     Dim lastfour As String = aRow.GiftCardID.Substring(len - 4, 4)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note2", lastfour)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note3", aRow.Amount.ToString("""$""#,##0.00"))
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Quantity", 1)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Price", 0D)
-                    CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
-                    CommonRoutines.BOPost(mAdapter, itemHandle)
+                    Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note2", lastfour)
+                    Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note3", aRow.Amount.ToString("""$""#,##0.00"))
+                    Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Quantity", 1)
+                    Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Price", 0D)
+                    Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
+                    Common.BOPost(mAdapter, itemHandle)
                 End If
             Next
             Select Case gFeeOrTenderForIssueOffset
                 Case "Fee"
                     If mGiftCardTotal > 0D Then
-                        CommonRoutines.BOOpen(mAdapter, invoiceHandle)
-                        Dim fee As Decimal = CommonRoutines.BOGetDecAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt")
+                        Common.BOOpen(mAdapter, invoiceHandle)
+                        Dim fee As Decimal = Common.BOGetDecAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt")
                         fee += mGiftCardTotal
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt", fee)
+                        Common.BOSetAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt", fee)
                         'CommonRoutines.BOSetAttributeValueByName(mAdapter, invoiceHandle, "Fee Name", "STADIS")
                     End If
                 Case "Tender"
                     Dim tenderHandle As Integer = mAdapter.GetReferenceBOForAttribute(0, "Tenders")
                     If mGiftCardTotal > 0D Then
-                        CommonRoutines.BOOpen(mAdapter, tenderHandle)
-                        CommonRoutines.BOInsert(mAdapter, tenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - mGiftCardTotal)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID", "")
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@OF#Offset for card issue/activate")
+                        Common.BOOpen(mAdapter, tenderHandle)
+                        Common.BOInsert(mAdapter, tenderHandle)
+                        Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
+                        Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - mGiftCardTotal)
+                        Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "TRANSACTION_ID", "")
+                        Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@OF#Offset for card issue/activate")
                         If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_PRESENT", 1)
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_PRESENT", 1)
                         End If
-                        CommonRoutines.BOPost(mAdapter, tenderHandle)
+                        Common.BOPost(mAdapter, tenderHandle)
                     End If
-                    CommonRoutines.BORefreshRecord(mAdapter, invoiceHandle)
+                    Common.BORefreshRecord(mAdapter, invoiceHandle)
                 Case Else
                     MessageBox.Show("Invalid offset option specified.", "STADIS")
             End Select

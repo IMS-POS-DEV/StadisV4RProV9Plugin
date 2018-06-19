@@ -1,5 +1,4 @@
-﻿Imports CommonV4
-Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
 '   Class: FrmScanTicket
@@ -95,7 +94,7 @@ Friend Class FrmScanTicket
     End Sub  'txtCustomerID_KeyDown
 
     Private Function ValidateScan(ByVal scanText As String) As Boolean
-        If CommonRoutines.ValidateScan(scanText) = False Then
+        If Common.ValidateScan(scanText) = False Then
             MsgBox("Invalid scan content or length." & vbCrLf & "Scan: " & scanText, MsgBoxStyle.Exclamation, "GiftCard")
             Return False
         Else
@@ -117,12 +116,12 @@ Friend Class FrmScanTicket
             .ReferenceNumber = ""
             .VendorID = gVendorID
             .LocationID = gLocationID
-            .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Invoice Workstion")
+            .RegisterID = Common.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Invoice Workstion")
             .ReceiptID = ""
-            .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Cashier")
+            .VendorCashier = Common.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Cashier")
         End With
 
-        Dim status As TicketStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
+        Dim status As TicketStatus = Common.StadisAPI.GetTicketStatus(sr)
         If status.TicketExists = True Then
             mGiftCardExists = True
             mBalance = status.SVA1Balance

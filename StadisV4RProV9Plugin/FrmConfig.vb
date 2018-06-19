@@ -1,9 +1,11 @@
 ﻿Imports Microsoft.Win32
+Imports System.Configuration.ConfigurationManager
 Imports System.Drawing.Printing
 Imports System
 
 Public Class FrmConfig
-    Dim Config As System.Configuration.Configuration = Configuration.ConfigurationManager.OpenExeConfiguration(Configuration.ConfigurationUserLevel.None)
+
+    Dim Config As Configuration.Configuration = Configuration.ConfigurationManager.OpenExeConfiguration(Configuration.ConfigurationUserLevel.None)
 
     Private Sub FrmConfig_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 

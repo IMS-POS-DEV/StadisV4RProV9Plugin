@@ -1,5 +1,4 @@
-﻿Imports CommonV4
-Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports Infragistics.Win
 Imports Infragistics.Win.UltraWinGrid
 Imports System.Drawing
@@ -132,13 +131,13 @@ Friend Class FrmReload
         End If
 
         'Strip out extra characters from scanner
-        Dim extractedScan As String = CommonRoutines.ExtractScan(txtGiftCardID.Text)
+        Dim extractedScan As String = Common.ExtractScan(txtGiftCardID.Text)
         If extractedScan <> txtGiftCardID.Text Then
             txtGiftCardID.Text = extractedScan
         End If
 
         'Validate against our pattern for length / content
-        If CommonRoutines.ValidateScan(extractedScan) = False Then
+        If Common.ValidateScan(extractedScan) = False Then
             MsgBox("Invalid scan content or length." & vbCrLf & "Scan: " & extractedScan, MsgBoxStyle.Exclamation, "GiftCard")
             txtGiftCardID.Text = ""
             txtGiftCardID.Focus()
@@ -156,11 +155,11 @@ Friend Class FrmReload
             .ReferenceNumber = ""
             .VendorID = gVendorID
             .LocationID = gLocationID
-            .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Invoice Workstion")
+            .RegisterID = Common.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Invoice Workstion")
             .ReceiptID = ""
-            .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Cashier")
+            .VendorCashier = Common.BOGetStrAttributeValueByName(mAdapter, invoiceHandle, "Cashier")
         End With
-        mStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
+        mStatus = Common.StadisAPI.GetTicketStatus(sr)
         If mStatus.ReturnCode < 0 Then
             If mStatus.ReturnCode <> -3 Then
                 MsgBox("Unable to validate card...", MsgBoxStyle.Exclamation, "GiftCard")
@@ -239,10 +238,10 @@ Friend Class FrmReload
                 .VendorID = gVendorID
                 .LocationID = gLocationID
                 .RegisterID = gRegisterID
-                .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
+                .ReceiptID = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
                 .VendorCashier = gVendorCashier
             End With
-            Dim sys As StadisReply = CommonRoutines.StadisAPI.GCReload(sr)
+            Dim sys As StadisReply = Common.StadisAPI.GCReload(sr)
             If sys.ReturnCode < 0 Then
                 MsgBox("Gift card reload failed." & vbCrLf & sys.ReturnMessage, MsgBoxStyle.Critical, "Reload")
             End If
@@ -261,42 +260,42 @@ Friend Class FrmReload
             Dim invoiceHandle As Integer = 0
             'Create an item
             Dim itemHandle As Integer = mAdapter.GetReferenceBOForAttribute(invoiceHandle, "Items")
-            CommonRoutines.BOOpen(mAdapter, itemHandle)
-            CommonRoutines.BOInsert(mAdapter, itemHandle)
-            CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Lookup ALU", mGiftCardALU)
-            CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & giftCardID & "\R\" & mCustomerID & "\" & amount)
-            CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Quantity", 1)
-            CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Price", 0D)
-            CommonRoutines.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
-            CommonRoutines.BOPost(mAdapter, itemHandle)
-            CommonRoutines.BORefreshRecord(mAdapter, invoiceHandle)
+            Common.BOOpen(mAdapter, itemHandle)
+            Common.BOInsert(mAdapter, itemHandle)
+            Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Lookup ALU", mGiftCardALU)
+            Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Item Note1", "STADIS\" & giftCardID & "\R\" & mCustomerID & "\" & amount)
+            Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Quantity", 1)
+            Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Price", 0D)
+            Common.BOSetAttributeValueByName(mAdapter, itemHandle, "Tax Amount", 0D)
+            Common.BOPost(mAdapter, itemHandle)
+            Common.BORefreshRecord(mAdapter, invoiceHandle)
             'Create a fee or a tender with an offsetting negative balance
             If amount > 0D Then
                 Select Case gFeeOrTenderForReloadOffset
                     Case "Fee"
-                        CommonRoutines.BOOpen(mAdapter, invoiceHandle)
-                        Dim fee As Decimal = CommonRoutines.BOGetDecAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt")
+                        Common.BOOpen(mAdapter, invoiceHandle)
+                        Dim fee As Decimal = Common.BOGetDecAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt")
                         fee += amount
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt", fee)
+                        Common.BOSetAttributeValueByName(mAdapter, invoiceHandle, "Fee Amt", fee)
                     Case "Tender"
                         Dim tenderHandle As Integer = mAdapter.GetReferenceBOForAttribute(0, "Tenders")
-                        CommonRoutines.BOOpen(mAdapter, tenderHandle)
-                        CommonRoutines.BOInsert(mAdapter, tenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
-                        CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - amount)
-                        If CommonRoutines.IsAGiftCard(mEventID) Then
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@GL #" & txtGiftCardID.Text)
+                        Common.BOOpen(mAdapter, tenderHandle)
+                        Common.BOInsert(mAdapter, tenderHandle)
+                        Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
+                        Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "AMT", 0 - amount)
+                        If Common.IsAGiftCard(mEventID) Then
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@GL #" & txtGiftCardID.Text)
                         Else
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@TL #" & txtGiftCardID.Text)
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "MANUAL_REMARK", "@TL #" & txtGiftCardID.Text)
                         End If
                         If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)
-                            CommonRoutines.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_PRESENT", 1)
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_TYPE", 1)
+                            Common.BOSetAttributeValueByName(mAdapter, tenderHandle, "CRD_PRESENT", 1)
                         End If
-                        CommonRoutines.BOPost(mAdapter, tenderHandle)
-                        CommonRoutines.BORefreshRecord(mAdapter, invoiceHandle)
+                        Common.BOPost(mAdapter, tenderHandle)
+                        Common.BORefreshRecord(mAdapter, invoiceHandle)
                     Case Else
                         MessageBox.Show("Invalid offset option specified.", "STADIS")
                 End Select

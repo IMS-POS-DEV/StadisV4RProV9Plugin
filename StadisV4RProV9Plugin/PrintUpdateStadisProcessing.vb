@@ -1,6 +1,4 @@
-﻿Imports CommonV4
-Imports CommonV4.CommonRoutines
-Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports CustomPluginClasses
 Imports Plugins
 Imports System.Runtime.InteropServices
@@ -114,18 +112,18 @@ Public Class PrintUpdateStadisProcessing
         Try
 
             ' Check items
-            CommonRoutines.BOOpen(fAdapter, itemHandle)
-            CommonRoutines.BOFirst(fAdapter, itemHandle, "PUSP - PrepItemsAndTenders")
+            Common.BOOpen(fAdapter, itemHandle)
+            Common.BOFirst(fAdapter, itemHandle, "PUSP - PrepItemsAndTenders")
             While Not fAdapter.EOF(itemHandle)
                 mItemCount += 1
                 Dim alu As String
                 Try
-                    alu = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Lookup ALU")
+                    alu = Common.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Lookup ALU")
                 Catch ex As Exception
                     alu = "NoALU"
                 End Try
                 If IsAGiftCardALU(alu) Then
-                    Dim Stadis() As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Item Note1").Split("\"c)
+                    Dim Stadis() As String = Common.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Item Note1").Split("\"c)
                     If Stadis(0) = "STADIS" Then
                         Select Case Stadis(2)
                             Case "I"
@@ -139,10 +137,10 @@ Public Class PrintUpdateStadisProcessing
                                 ' Keep reload offsets from hitting error routine
                         End Select
                     Else
-                        CommonRoutines.BOEdit(fAdapter, itemHandle)
-                        CommonRoutines.BODelete(fAdapter, itemHandle)
+                        Common.BOEdit(fAdapter, itemHandle)
+                        Common.BODelete(fAdapter, itemHandle)
                         mItemCount -= 1
-                        CommonRoutines.BORefreshRecord(fAdapter, 0)
+                        Common.BORefreshRecord(fAdapter, 0)
                         MessageBox.Show("Gift cards must be added by using the gift card button.", "STADIS")
                         Return False
                     End If
@@ -151,19 +149,19 @@ Public Class PrintUpdateStadisProcessing
             End While
 
             ' Check tenders
-            CommonRoutines.BOOpen(fAdapter, tenderHandle)
-            mRProTenderCount = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_COUNT")
+            Common.BOOpen(fAdapter, tenderHandle)
+            mRProTenderCount = Common.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_COUNT")
             If mRProTenderCount > 0 Then
-                CommonRoutines.BOFirst(fAdapter, tenderHandle, "PUSP - PrepItemsAndTenders 2")
+                Common.BOFirst(fAdapter, tenderHandle, "PUSP - PrepItemsAndTenders 2")
                 While Not fAdapter.EOF(tenderHandle)
                     mTenderCount += 1
-                    Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
+                    Dim tenderType As Integer = Common.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
                     If tenderType = gTenderDialogTenderType Then
                         Dim tender As New TenderInfo(fAdapter, tenderHandle)
                         If tender.IsAStadisTender Then
                             mTransactionShouldBeWritten = True
                             If tender.IsAnOffset Then
-                                offsetTotal += CommonRoutines.BOGetDecAttributeValueByName(fAdapter, tenderHandle, "AMT")
+                                offsetTotal += Common.BOGetDecAttributeValueByName(fAdapter, tenderHandle, "AMT")
                             End If
                             If tender.ShouldBeCharged AndAlso tender.IsAReturn Then
                                 If gIssueGiftCardForReturn = True Then
@@ -212,17 +210,17 @@ Public Class PrintUpdateStadisProcessing
 
     Private Function ReduceOffsetAmount(ByVal tenderHandle As Integer, ByVal difference As Decimal) As Boolean
         If mRProTenderCount > 0 Then
-            CommonRoutines.BOOpen(fAdapter, tenderHandle)
-            CommonRoutines.BOFirst(fAdapter, tenderHandle, "PUSP - ReduceOffsetAmount")
+            Common.BOOpen(fAdapter, tenderHandle)
+            Common.BOFirst(fAdapter, tenderHandle, "PUSP - ReduceOffsetAmount")
             While Not fAdapter.EOF(tenderHandle)
-                Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
+                Dim tenderType As Integer = Common.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
                 If tenderType = gTenderDialogTenderType Then
                     Dim tender As New TenderInfo(fAdapter, tenderHandle)
                     If tender.IsAnOffset Then
-                        Dim offsetAmount As Decimal = CommonRoutines.BOGetDecAttributeValueByName(fAdapter, tenderHandle, "AMT")
-                        CommonRoutines.BOEdit(fAdapter, tenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "AMT", offsetAmount + difference)
-                        CommonRoutines.BOPost(fAdapter, tenderHandle)
+                        Dim offsetAmount As Decimal = Common.BOGetDecAttributeValueByName(fAdapter, tenderHandle, "AMT")
+                        Common.BOEdit(fAdapter, tenderHandle)
+                        Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "AMT", offsetAmount + difference)
+                        Common.BOPost(fAdapter, tenderHandle)
                         Exit Function
                     End If
                 End If
@@ -271,15 +269,15 @@ Public Class PrintUpdateStadisProcessing
             .TenderTypeID = 1
             .TenderID = ""
             .Amount = 0D
-            .ReferenceNumber = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+            .ReferenceNumber = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
             '.CustomerID =  
             .VendorID = gVendorID
             .LocationID = gLocationID
-            .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
-            .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-            .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
+            .RegisterID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
+            .ReceiptID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+            .VendorCashier = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
         End With
-        Dim sy As StadisReply = CommonRoutines.StadisAPI.GCPurchase(sr, LoadGiftCardsForWSCall(invoiceHandle, itemHandle), CommonRoutines.LoadHeader(fAdapter, "Receipt", invoiceHandle), CommonRoutines.LoadItems(fAdapter, "Receipt", invoiceHandle, itemHandle), CommonRoutines.LoadTenders(fAdapter, "Receipt", invoiceHandle, tenderHandle))
+        Dim sy As StadisReply = Common.StadisAPI.GCPurchase(sr, LoadGiftCardsForWSCall(invoiceHandle, itemHandle), Common.LoadHeader(fAdapter, "Receipt", invoiceHandle), Common.LoadItems(fAdapter, "Receipt", invoiceHandle, itemHandle), Common.LoadTenders(fAdapter, "Receipt", invoiceHandle, tenderHandle))
         If sy.ReturnCode < 0 Then
             MsgBox(sy.ReturnMessage, MsgBoxStyle.Critical, "Error in PurchaseGiftCards.")
             Return GUID.Empty
@@ -291,11 +289,11 @@ Public Class PrintUpdateStadisProcessing
     Private Function LoadGiftCardsForWSCall(ByVal invoiceHandle As Integer, ByVal itemHandle As Integer) As StadisGiftCard()
         Dim mStadisGiftCards(mGiftCardCount - 1) As StadisGiftCard
         Dim indx As Integer = 0
-        CommonRoutines.BOOpen(fAdapter, itemHandle)
-        CommonRoutines.BOFirst(fAdapter, itemHandle, "PUSP - LoadGiftCardsForWSCall")
+        Common.BOOpen(fAdapter, itemHandle)
+        Common.BOFirst(fAdapter, itemHandle, "PUSP - LoadGiftCardsForWSCall")
         While Not fAdapter.EOF(itemHandle)
             ' Stadis() is used to parse the Stadis info we stored in Item Note1: STADIS\GiftCardID\IorA\CustomerID\Amount
-            Dim Stadis() As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Item Note1").Split("\"c)
+            Dim Stadis() As String = Common.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Item Note1").Split("\"c)
             If Stadis(0) = "STADIS" Then
                 Dim itemType As String = Stadis(2)
                 'If itemType = "I" Then mHasInserts = True
@@ -308,7 +306,7 @@ Public Class PrintUpdateStadisProcessing
                         .Amount = CDec(Stadis(4))
                         '.Price = 0D
                         .TransactionKey = " "
-                        .ALU = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Lookup ALU")
+                        .ALU = Common.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Lookup ALU")
                     End With
                     mStadisGiftCards(indx) = mStadisGiftCard
                     indx += 1
@@ -325,14 +323,14 @@ Public Class PrintUpdateStadisProcessing
     Private Function PostTransaction(ByVal invoiceType As String, ByVal invoiceHandle As Integer, ByVal itemHandle As Integer, ByVal tenderHandle As Integer) As Guid
         Dim oRequest As New StadisRequest
         With oRequest
-            .ReferenceNumber = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-            .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
-            .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-            .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
+            .ReferenceNumber = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+            .RegisterID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
+            .ReceiptID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+            .VendorCashier = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
             .TenderTypeID = 1
             .TenderID = ""
         End With
-        Dim oReply As StadisReply = CommonRoutines.StadisAPI.SVPostTransaction(oRequest, CommonRoutines.LoadHeader(fAdapter, "Receipt", invoiceHandle), CommonRoutines.LoadItems(fAdapter, "Receipt", invoiceHandle, itemHandle), CommonRoutines.LoadTenders(fAdapter, "Receipt", invoiceHandle, tenderHandle))
+        Dim oReply As StadisReply = Common.StadisAPI.SVPostTransaction(oRequest, Common.LoadHeader(fAdapter, "Receipt", invoiceHandle), Common.LoadItems(fAdapter, "Receipt", invoiceHandle, itemHandle), Common.LoadTenders(fAdapter, "Receipt", invoiceHandle, tenderHandle))
         If oReply.ReturnCode < 0 Then
             MsgBox(oReply.ReturnMessage, MsgBoxStyle.Critical, "Error in PostTransaction.")
             Return GUID.Empty
@@ -347,32 +345,32 @@ Public Class PrintUpdateStadisProcessing
     Private Sub UpdateRProItemsAndTendersWithTranKey(ByVal trankey As Guid, ByVal itemHandle As Integer, ByVal tenderHandle As Integer)
 
         'Update items
-        CommonRoutines.BOOpen(fAdapter, itemHandle)
-        CommonRoutines.BOFirst(fAdapter, itemHandle, "PUSP - UpdateRProItemsAndTendersWithTranKey I")
+        Common.BOOpen(fAdapter, itemHandle)
+        Common.BOFirst(fAdapter, itemHandle, "PUSP - UpdateRProItemsAndTendersWithTranKey I")
         While Not fAdapter.EOF(itemHandle)
-            Dim stadisString As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Item Note1")
+            Dim stadisString As String = Common.BOGetStrAttributeValueByName(fAdapter, itemHandle, "Item Note1")
             Dim Stadis() As String = stadisString.Split("\"c)
             If Stadis(0) = "STADIS" Then
                 Dim newStadisString As String = stadisString & "\" & trankey.ToString
-                CommonRoutines.BOEdit(fAdapter, itemHandle)
-                CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note1", newStadisString)
-                CommonRoutines.BOPost(fAdapter, itemHandle)
+                Common.BOEdit(fAdapter, itemHandle)
+                Common.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note1", newStadisString)
+                Common.BOPost(fAdapter, itemHandle)
             End If
             fAdapter.BONext(itemHandle)
         End While
 
         'Update tenders
         If mRProTenderCount > 0 Then
-            CommonRoutines.BOOpen(fAdapter, tenderHandle)
-            CommonRoutines.BOFirst(fAdapter, tenderHandle, "PUSP - UpdateRProItemsAndTendersWithTranKey T")
+            Common.BOOpen(fAdapter, tenderHandle)
+            Common.BOFirst(fAdapter, tenderHandle, "PUSP - UpdateRProItemsAndTendersWithTranKey T")
             While Not fAdapter.EOF(tenderHandle)
-                Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
+                Dim tenderType As Integer = Common.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
                 If tenderType = gTenderDialogTenderType Then
                     Dim tender As New TenderInfo(fAdapter, tenderHandle)
                     If tender.IsAStadisTender Then
-                        CommonRoutines.BOEdit(fAdapter, tenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", tender.StadisOpCode & "#" & trankey.ToString)
-                        CommonRoutines.BOPost(fAdapter, tenderHandle)
+                        Common.BOEdit(fAdapter, tenderHandle)
+                        Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", tender.StadisOpCode & "#" & trankey.ToString)
+                        Common.BOPost(fAdapter, tenderHandle)
                     End If
                 End If
                 fAdapter.BONext(tenderHandle)
@@ -434,16 +432,16 @@ Public Class PrintUpdateStadisProcessing
         Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(invoiceHandle, "Tenders")
 
         ' Reverse Stadis tenders
-        CommonRoutines.BOOpen(fAdapter, tenderHandle)
-        mRProTenderCount = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_COUNT")
+        Common.BOOpen(fAdapter, tenderHandle)
+        mRProTenderCount = Common.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_COUNT")
         If mRProTenderCount > 0 Then
-            CommonRoutines.BOFirst(fAdapter, tenderHandle, "PUSP - OnCancel")
+            Common.BOFirst(fAdapter, tenderHandle, "PUSP - OnCancel")
             While Not fAdapter.EOF(tenderHandle)
-                Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
+                Dim tenderType As Integer = Common.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
                 If tenderType = gTenderDialogTenderType Then
-                    Dim remark() As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
+                    Dim remark() As String = Common.BOGetStrAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
                     If remark.Length > 0 AndAlso (remark(0) = "@TK" OrElse remark(0) = "@GC") Then
-                        DoSVAccountReverse(fAdapter, remark(2))
+                        Common.DoSVAccountReverse(fAdapter, remark(2))
                     End If
                 End If
                 fAdapter.BONext(tenderHandle)
@@ -459,14 +457,14 @@ Public Class PrintUpdateStadisProcessing
         Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(invoiceHandle, "Tenders")
 
         ' Find a Stadis tender and get TransactionID from it
-        CommonRoutines.BOOpen(fAdapter, tenderHandle)
-        mRProTenderCount = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_COUNT")
+        Common.BOOpen(fAdapter, tenderHandle)
+        mRProTenderCount = Common.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_COUNT")
         If mRProTenderCount > 0 Then
-            CommonRoutines.BOFirst(fAdapter, tenderHandle, "PUSP - BeforeReversal")
+            Common.BOFirst(fAdapter, tenderHandle, "PUSP - BeforeReversal")
             While Not fAdapter.EOF(tenderHandle)
-                Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
+                Dim tenderType As Integer = Common.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
                 If tenderType = gTenderDialogTenderType Then
-                    Dim remark() As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
+                    Dim remark() As String = Common.BOGetStrAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
                     If remark.Length > 0 AndAlso (remark(0) = "@TK" OrElse remark(0) = "@GC") Then
                         'Set up and do ReverseTransaction
                         Dim sr As New StadisRequest
@@ -479,11 +477,11 @@ Public Class PrintUpdateStadisProcessing
                             .ReferenceNumber = ""
                             .VendorID = gVendorID
                             .LocationID = gLocationID
-                            .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, 0, "Invoice Workstion")
-                            .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, 0, "Invoice Number")
-                            .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, 0, "Cashier")
+                            .RegisterID = Common.BOGetStrAttributeValueByName(fAdapter, 0, "Invoice Workstion")
+                            .ReceiptID = Common.BOGetStrAttributeValueByName(fAdapter, 0, "Invoice Number")
+                            .VendorCashier = Common.BOGetStrAttributeValueByName(fAdapter, 0, "Cashier")
                         End With
-                        Dim sy As StadisReply = CommonRoutines.StadisAPI.SVReverseTransaction(sr)
+                        Dim sy As StadisReply = Common.StadisAPI.SVReverseTransaction(sr)
                         If sy.ReturnCode < 0 Then
                             MsgBox("Unable to reverse transaction in Stadis.", MsgBoxStyle.Exclamation, "Stadis")
                             Return MyBase.BeforeReversal(AEmplId, AComment, AComment2)

@@ -1,6 +1,4 @@
-﻿'Imports CommonV4
-'Imports CommonV4.CommonRoutines
-'Imports CommonV4.WebReference
+﻿'Imports StadisV4RProV9Plugin.WebReference
 'Imports CustomPluginClasses
 'Imports Plugins
 'Imports System

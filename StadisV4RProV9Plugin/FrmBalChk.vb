@@ -1,8 +1,8 @@
-Imports CommonV4
-Imports CommonV4.WebReference
+Imports StadisV4RProV9Plugin.WebReference
 Imports CustomPluginClasses
 Imports Plugins
 Imports System
+Imports System.Drawing
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms
 
@@ -255,13 +255,13 @@ Public Class FrmBalChk
 
 
         'Strip out extra characters from scanner
-        Dim processedScan As String = CommonRoutines.ExtractScan(txtInput.Text)
+        Dim processedScan As String = Common.ExtractScan(txtInput.Text)
         If processedScan <> txtInput.Text Then
             txtInput.Text = processedScan
         End If
 
         'check barcode length and other rules
-        If CommonRoutines.ValidateScan(txtInput.Text) = False Then
+        If Common.ValidateScan(txtInput.Text) = False Then
             MsgBox("Invalid scan or number entry.", MsgBoxStyle.Exclamation, "Card or Ticket Tender")
             Exit Sub
         End If
@@ -286,7 +286,7 @@ Public Class FrmBalChk
             End With
             sbStatus.Text = "Checking Balance..."
             Me.Refresh()
-            Dim ts As TicketStatus = CommonRoutines.StadisAPI.GetTicketStatus(sr)
+            Dim ts As TicketStatus = Common.StadisAPI.GetTicketStatus(sr)
             With ts
                 sbStatus.Text = "Receiving Response..."
                 Me.Refresh()
@@ -302,7 +302,7 @@ Public Class FrmBalChk
                 lblTotlAvail.Text = totlAvail.ToString("""$""#,##0.00")
                 If .TicketExists = False Then
                     lblStatus.Text = "NOT FOUND!"
-                    lblStatus.ForeColor = Color.Red
+                    lblStatus.ForeColor = Drawing.Color.Red
                     SetStatusMessageIcon("Info")
                 Else
                     Select Case .TicketEventTicketStatusID
@@ -312,23 +312,23 @@ Public Class FrmBalChk
                             Else
                                 lblStatus.Text = "Active"
                             End If
-                            lblStatus.ForeColor = Color.Black
+                            lblStatus.ForeColor = Drawing.Color.Black
                             SetStatusMessageIcon("Active")
                         Case 2, 21, 22
                             lblStatus.Text = "CLOSED"
-                            lblStatus.ForeColor = Color.Red
+                            lblStatus.ForeColor = Drawing.Color.Red
                             SetStatusMessageIcon("Inactive")
                         Case 3
                             lblStatus.Text = "PENDING"
-                            lblStatus.ForeColor = Color.Red
+                            lblStatus.ForeColor = Drawing.Color.Red
                             SetStatusMessageIcon("Inactive")
                         Case 4
                             lblStatus.Text = "SUSPENDED"
-                            lblStatus.ForeColor = Color.Red
+                            lblStatus.ForeColor = Drawing.Color.Red
                             SetStatusMessageIcon("Inactive")
                         Case Else
                             lblStatus.Text = ts.ReturnMessage
-                            lblStatus.ForeColor = Color.Black
+                            lblStatus.ForeColor = Drawing.Color.Black
                             SetStatusMessageIcon("None")
                     End Select
                 End If

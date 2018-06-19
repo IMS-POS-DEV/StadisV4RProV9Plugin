@@ -1,6 +1,4 @@
-﻿Imports CommonV4
-Imports CommonV4.CommonRoutines
-Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports CustomPluginClasses
 Imports Plugins
 Imports System
@@ -22,7 +20,7 @@ Public Class TenderDialogue
     Public Overrides Sub Initialize()
         MyBase.Initialize()
         LoadLocalSettings()
-        CommonRoutines.LoadInstallationSettings()
+        Common.LoadInstallationSettings()
         fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
         fDescription = "Stadis tender dialog"
         fGUID = New Guid(Discover.CLASS_TenderDialogue)
@@ -109,7 +107,7 @@ Public Class TenderDialogue
 
                     Return True
                 End If
-                Dim successful As Boolean = DoSVAccountReverse(fAdapter, remark(2))
+                Dim successful As Boolean = Common.DoSVAccountReverse(fAdapter, remark(2))
                 If successful Then
                     Return True
                 Else

@@ -259,7 +259,7 @@ Partial Class FrmBalChk
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnMerge.AutoSize = True
         Me.btnMerge.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnMerge.Image = Global.BalanceCheckV4.My.Resources.Resources.replace21
+        'Me.btnMerge.Image = Global.My.Resources.Resources.replace21
         Me.btnMerge.Location = New System.Drawing.Point(262, 3)
         Me.btnMerge.Name = "btnMerge"
         Me.btnMerge.Size = New System.Drawing.Size(82, 62)

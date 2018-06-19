@@ -1,5 +1,4 @@
-﻿Imports CommonV4
-Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports CustomPluginClasses
 Imports Plugins
 Imports System.Runtime.InteropServices
@@ -92,25 +91,25 @@ Public Class ButtonReturn
             Dim invoiceHandle As Integer = 0
             'Create a tender with an offsetting negative balance
             Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(0, "Tenders")
-            CommonRoutines.BOOpen(fAdapter, tenderHandle)
-            CommonRoutines.BOInsert(fAdapter, tenderHandle)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "GIVEN", amtDueToCust)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "AMT", amtDueToCust)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TRANSACTION_ID", giftCardID)
-            If CommonRoutines.IsAGiftCard(eventID) Then
-                CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@GR #" & giftCardID)
+            Common.BOOpen(fAdapter, tenderHandle)
+            Common.BOInsert(fAdapter, tenderHandle)
+            Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
+            Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "GIVEN", amtDueToCust)
+            Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "AMT", amtDueToCust)
+            Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "TRANSACTION_ID", giftCardID)
+            If Common.IsAGiftCard(eventID) Then
+                Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@GR #" & giftCardID)
             Else
-                CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@TR #" & giftCardID)
+                Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@TR #" & giftCardID)
             End If
             If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
-                CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
-                CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
-                CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_TYPE", 1)
-                CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_PRESENT", 1)
+                Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
+                Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
+                Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_TYPE", 1)
+                Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_PRESENT", 1)
             End If
-            CommonRoutines.BOPost(fAdapter, tenderHandle)
-            CommonRoutines.BORefreshRecord(fAdapter, invoiceHandle)
+            Common.BOPost(fAdapter, tenderHandle)
+            Common.BORefreshRecord(fAdapter, invoiceHandle)
             invoiceHandle = Nothing
             tenderHandle = Nothing
         Catch ex As Exception
@@ -133,7 +132,7 @@ Public Class ButtonReturn
 
             ' Create item for Gift Card
             Dim invoiceHandle As Integer = 0
-            CommonRoutines.BORefreshRecord(fAdapter, invoiceHandle)
+            Common.BORefreshRecord(fAdapter, invoiceHandle)
             Dim itemHandle As Integer = fAdapter.GetReferenceBOForAttribute(invoiceHandle, "Items")
             Dim itemType As String = ""
             If ticketExists Then
@@ -141,48 +140,48 @@ Public Class ButtonReturn
             Else
                 itemType = "I"
             End If
-            CommonRoutines.BOOpen(fAdapter, itemHandle)
-            CommonRoutines.BOInsert(fAdapter, itemHandle)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Lookup ALU", gReturnGiftCardALU)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note1", "STADIS\" & giftCardID & "\" & itemType & "\ \" & amtDueToCust.ToString("""$""#,##0.00"))
+            Common.BOOpen(fAdapter, itemHandle)
+            Common.BOInsert(fAdapter, itemHandle)
+            Common.BOSetAttributeValueByName(fAdapter, itemHandle, "Lookup ALU", gReturnGiftCardALU)
+            Common.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note1", "STADIS\" & giftCardID & "\" & itemType & "\ \" & amtDueToCust.ToString("""$""#,##0.00"))
             Dim len As Integer = giftCardID.Length
             Dim lastfour As String = giftCardID.Substring(len - 4, 4)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note2", lastfour)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note3", amtDueToCust.ToString("""$""#,##0.00"))
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Quantity", 1)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Price", 0D)
-            CommonRoutines.BOSetAttributeValueByName(fAdapter, itemHandle, "Tax Amount", 0D)
-            CommonRoutines.BOPost(fAdapter, itemHandle)
+            Common.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note2", lastfour)
+            Common.BOSetAttributeValueByName(fAdapter, itemHandle, "Item Note3", amtDueToCust.ToString("""$""#,##0.00"))
+            Common.BOSetAttributeValueByName(fAdapter, itemHandle, "Quantity", 1)
+            Common.BOSetAttributeValueByName(fAdapter, itemHandle, "Price", 0D)
+            Common.BOSetAttributeValueByName(fAdapter, itemHandle, "Tax Amount", 0D)
+            Common.BOPost(fAdapter, itemHandle)
 
             ' Create offsetting tender or fee
             Select Case gFeeOrTenderForIssueOffset
                 Case "Fee"
                     If amtDueToCust > 0D Then
-                        CommonRoutines.BOOpen(fAdapter, invoiceHandle)
-                        Dim fee As Decimal = CommonRoutines.BOGetDecAttributeValueByName(fAdapter, invoiceHandle, "Fee Amt")
+                        Common.BOOpen(fAdapter, invoiceHandle)
+                        Dim fee As Decimal = Common.BOGetDecAttributeValueByName(fAdapter, invoiceHandle, "Fee Amt")
                         fee -= amtDueToCust  'since this is a return, fee is negative
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, invoiceHandle, "Fee Amt", fee)
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, invoiceHandle, "Fee Name", "STADIS")
+                        Common.BOSetAttributeValueByName(fAdapter, invoiceHandle, "Fee Amt", fee)
+                        Common.BOSetAttributeValueByName(fAdapter, invoiceHandle, "Fee Name", "STADIS")
                     End If
                 Case "Tender"
                     Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(0, "Tenders")
                     If amtDueToCust > 0D Then
-                        CommonRoutines.BOOpen(fAdapter, tenderHandle)
-                        CommonRoutines.BOInsert(fAdapter, tenderHandle)
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "AMT", amtDueToCust)
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "GIVEN", amtDueToCust)
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "TRANSACTION_ID", "")
-                        CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@OF # Offset for card issue/activate")
+                        Common.BOOpen(fAdapter, tenderHandle)
+                        Common.BOInsert(fAdapter, tenderHandle)
+                        Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE", gTenderDialogTenderType)
+                        Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "AMT", amtDueToCust)
+                        Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "GIVEN", amtDueToCust)
+                        Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "TRANSACTION_ID", "")
+                        Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK", "@OF # Offset for card issue/activate")
                         If gTenderDialogTenderType = Plugins.TenderTypes.ttGiftCard Then
-                            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
-                            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
-                            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_TYPE", 1)
-                            CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_PRESENT", 1)
+                            Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_MONTH", 1)
+                            Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_EXP_YEAR", 1)
+                            Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_TYPE", 1)
+                            Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "CRD_PRESENT", 1)
                         End If
-                        CommonRoutines.BOPost(fAdapter, tenderHandle)
+                        Common.BOPost(fAdapter, tenderHandle)
                     End If
-                    CommonRoutines.BORefreshRecord(fAdapter, invoiceHandle)
+                    Common.BORefreshRecord(fAdapter, invoiceHandle)
                     tenderHandle = Nothing
                 Case Else
                     MessageBox.Show("Invalid offset option specified.", "STADIS")
@@ -210,23 +209,23 @@ Public Class ButtonReturn
                 .TenderTypeID = 3
                 .TenderID = tenderID
                 .Amount = -amount
-                .ReferenceNumber = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+                .ReferenceNumber = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
                 '.CustomerID =  
                 .VendorID = gVendorID
                 .LocationID = gLocationID
-                .RegisterID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
-                .ReceiptID = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
-                .VendorCashier = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
+                .RegisterID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
+                .ReceiptID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+                .VendorCashier = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
             End With
-            Dim sy As StadisReply() = CommonRoutines.StadisAPI.SVAccountCharge(sr, CommonRoutines.LoadHeader(fAdapter, "Receipt", invoiceHandle), CommonRoutines.LoadItems(fAdapter, "Receipt", invoiceHandle, itemHandle), CommonRoutines.LoadTenders(fAdapter, "Receipt", invoiceHandle, tenderHandle))
+            Dim sy As StadisReply() = Common.StadisAPI.SVAccountCharge(sr, Common.LoadHeader(fAdapter, "Receipt", invoiceHandle), Common.LoadItems(fAdapter, "Receipt", invoiceHandle, itemHandle), Common.LoadTenders(fAdapter, "Receipt", invoiceHandle, tenderHandle))
             Select Case sy(0).ReturnCode
                 Case 0, -2
                     'All statuses good - or customer inactive - Update Rpro with AuthID
                     Dim remainingBalance As Decimal = sy(0).FromSVAccountBalance
-                    CommonRoutines.BOEdit(fAdapter, tenderHandle)
+                    Common.BOEdit(fAdapter, tenderHandle)
                     Dim paddedRemAmt As String = Space(8 - Len(sy(0).FromSVAccountBalance.ToString("#0.00"))) & sy(0).FromSVAccountBalance.ToString("#0.00")
-                    CommonRoutines.BOSetAttributeValueByName(fAdapter, tenderHandle, "AUTH", sy(0).StadisAuthorizationID & "\" & paddedRemAmt)
-                    CommonRoutines.BOPost(fAdapter, tenderHandle)
+                    Common.BOSetAttributeValueByName(fAdapter, tenderHandle, "AUTH", sy(0).StadisAuthorizationID & "\" & paddedRemAmt)
+                    Common.BOPost(fAdapter, tenderHandle)
                     Return True
                 Case -1
                     MsgBox("Ticket/Card is Inactive!" & vbCrLf & "Ticket/Card: " & tenderID, MsgBoxStyle.Exclamation, "Ticket Tender")

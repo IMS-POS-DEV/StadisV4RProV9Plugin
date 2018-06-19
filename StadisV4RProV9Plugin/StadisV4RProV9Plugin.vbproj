@@ -49,6 +49,15 @@
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine">
+      <HintPath>bin\Release\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource">
+      <HintPath>bin\Release\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared">
+      <HintPath>bin\Release\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
     <Reference Include="Infragistics4.Win.UltraWinTabControl.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -73,12 +82,17 @@
     <Reference Include="CustomPluginClasses">
       <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\CustomPluginClasses.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.Plugins">
+      <HintPath>obj\Release\Interop.Plugins.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="MSXML, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d968d3c9cb1904b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\..\..\..\..\..\RetailPro9\Plugins\MSXML.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -113,11 +127,15 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BalancePrint.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ButtonBalChk.vb" />
     <Compile Include="ButtonIssue.vb" />
     <Compile Include="ButtonRedeem.vb" />
     <Compile Include="ButtonReload.vb" />
     <Compile Include="ButtonReturn.vb" />
+    <Compile Include="Common.vb" />
     <Compile Include="Configure.vb" />
     <Compile Include="Discover.vb" />
     <Compile Include="DSGiftCard.Designer.vb">
@@ -128,15 +146,64 @@
     <Compile Include="DSGiftCard.vb">
       <DependentUpon>DSGiftCard.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DSGiftCardInfo.Designer.vb">
+      <DependentUpon>DSGiftCardInfo.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DSTender.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DSTender.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DSTran.Designer.vb">
+      <DependentUpon>DSTran.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DSTran.vb">
+      <DependentUpon>DSTran.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBalChk.Designer.vb">
+      <DependentUpon>FrmBalChk.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBalChk.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConfig.Designer.vb">
+      <DependentUpon>FrmConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmConfig.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmFull.Designer.vb">
+      <DependentUpon>FrmFull.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmFull.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmHistory.Designer.vb">
+      <DependentUpon>FrmHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmIssue.Designer.vb">
       <DependentUpon>FrmIssue.vb</DependentUpon>
     </Compile>
     <Compile Include="FrmIssue.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoginMerge.Designer.vb">
+      <DependentUpon>frmLoginMerge.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoginMerge.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMerge.Designer.vb">
+      <DependentUpon>FrmMerge.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMerge.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmRedeem.Designer.vb">
@@ -169,6 +236,7 @@
     <Compile Include="FrmStadisCharge.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GlobalValues.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -185,13 +253,54 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="MyDrawFilter.vb" />
+    <Compile Include="OPOS.vb" />
     <Compile Include="PrintUpdateStadisProcessing.vb" />
     <Compile Include="TenderDialogue.vb" />
+    <Compile Include="TenderInfo.vb" />
     <Compile Include="TenderProcessing.vb" />
+    <Compile Include="TransactionReport.vb">
+      <DependentUpon>TransactionReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="TransactionsReport.vb">
+      <DependentUpon>TransactionsReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Web References\WebReference\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmBalChk.resx">
+      <DependentUpon>FrmBalChk.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmConfig.resx">
+      <DependentUpon>FrmConfig.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmFull.resx">
+      <DependentUpon>FrmFull.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHistory.resx">
+      <DependentUpon>FrmHistory.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmIssue.resx">
       <DependentUpon>FrmIssue.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoginMerge.resx">
+      <DependentUpon>frmLoginMerge.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMerge.resx">
+      <DependentUpon>FrmMerge.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRedeem.resx">
@@ -222,6 +331,29 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="BalancePrint.rpt" />
+    <None Include="DSGiftCardInfo.xsc">
+      <DependentUpon>DSGiftCardInfo.xsd</DependentUpon>
+    </None>
+    <None Include="DSGiftCardInfo.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSGiftCardInfo.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DSGiftCardInfo.xss">
+      <DependentUpon>DSGiftCardInfo.xsd</DependentUpon>
+    </None>
+    <None Include="DSTran.xsc">
+      <DependentUpon>DSTran.xsd</DependentUpon>
+    </None>
+    <None Include="DSTran.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSTran.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DSTran.xss">
+      <DependentUpon>DSTran.xsd</DependentUpon>
+    </None>
     <None Include="IMSKey.snk" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -231,6 +363,64 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="TransactionReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TransactionReport.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionsReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TransactionsReport.vb</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Web References\WebReference\ChargeReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\CustStatus.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\GCOrder.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\GiftCardOrder.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\MessageAndActionSummary.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\MessageAndInstallationSettings.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\MessageAndPOSInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\MessageAndReceiptLines.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\MessageAndSaleItems.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\WebReference\ReturnMessage.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\StadisReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\StadisUserInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\StadisV4Transactions.wsdl" />
+    <None Include="Web References\WebReference\TenderType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\Ticket.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReference\TicketStatus.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -279,15 +469,6 @@
     <None Include="Resources\stadis32.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="Plugins">
-      <Guid>{839F2F14-1599-415D-83DE-AF47853410E2}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>2</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -297,16 +478,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BalanceCheckV4\BalanceCheckV4.vbproj">
-      <Project>{cf257b48-3056-4172-9156-03369aba1342}</Project>
-      <Name>BalanceCheckV4</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonV4\CommonV4.vbproj">
-      <Project>{8c70b7dd-ccf2-406d-a707-29de73eebfd6}</Project>
-      <Name>CommonV4</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="stadislogo.png" />
@@ -340,6 +511,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\keyboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WebReference\</RelPath>
+      <UpdateFromURL>http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>StadisV4RProV9Plugin_WebReference_StadisV4TransactionsService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\WebReference\StadisV4Transactions.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

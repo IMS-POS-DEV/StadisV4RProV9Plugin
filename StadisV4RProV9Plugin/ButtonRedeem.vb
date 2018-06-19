@@ -1,5 +1,4 @@
-﻿Imports CommonV4
-Imports CommonV4.WebReference
+﻿Imports StadisV4RProV9Plugin.WebReference
 Imports CustomPluginClasses
 Imports Plugins
 Imports System.Runtime.InteropServices
@@ -21,7 +20,7 @@ Public Class ButtonRedeem
         MyBase.Initialize()
 
         LoadLocalSettings()
-        CommonRoutines.LoadInstallationSettings()
+        Common.LoadInstallationSettings()
         'MessageBox.Show("Hey there.", "STADIS")
 
         fButtonEnabled = gRedeemButtonEnabled
