@@ -8,6 +8,10 @@ Imports System.Windows.Forms
 '   Class: TenderDialogue
 '    Type: Tender 
 ' Purpose: Called when tender button is pressed on tender screen. 
+' Item Note1: STADIS\GiftCardID\IorA\CustomerID\Amount
+' Item Note1: STADIS\GiftCardID\IorA\CustomerID\Amount\TranKey
+' MANUAL_REMARK: StadisOpCode#CardID#AuthID
+' MANUAL_REMARK: StadisOpCode#TranKey
 '----------------------------------------------------------------------------------------------
 <GuidAttribute(Discover.CLASS_TenderDialogue)> _
 Public Class TenderDialogue
@@ -80,33 +84,33 @@ Public Class TenderDialogue
     Public Overrides Function DeleteTender() As Boolean
         If fTenderType = gTenderDialogTenderType Then
             Dim remark() As String = fRemark.Split("#"c)
-            If remark.Length > 0 Then
-                If remark(0) = "@PR" Then
-                    '' Find Stadis tender this belongs to and reverse it
-                    'Dim invoiceHandle As Integer = 0
-                    'Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(invoiceHandle, "Tenders")
-                    'CommonRoutines.BOOpen(fAdapter, tenderHandle)
-                    'Dim tenderCount As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_COUNT")
-                    'If tenderCount > 0 Then
-                    '    CommonRoutines.BOFirst(fAdapter, tenderHandle, "TD - DeleteTender")
-                    '    While Not fAdapter.EOF(tenderHandle)
-                    '        Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
-                    '        If tenderType = gTenderDialogTenderType Then
-                    '            Dim remark2() As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
-                    '            If remark2.Length > 0 AndAlso remark(1) = remark2(1) AndAlso (remark2(0) = "@TK" OrElse remark2(0) = "@GC") Then
-                    '                DoSVAccountReverse(fAdapter, remark2(2))
-                    '            End If
-                    '            If remark2.Length > 0 AndAlso remark(1) = remark2(1) Then
-                    'delete from rpro 
+            If remark.Length > 1 Then
+                'If remark(0) = "@PR" Then
+                '    '' Find Stadis tender this belongs to and reverse it
+                '    'Dim invoiceHandle As Integer = 0
+                '    'Dim tenderHandle As Integer = fAdapter.GetReferenceBOForAttribute(invoiceHandle, "Tenders")
+                '    'CommonRoutines.BOOpen(fAdapter, tenderHandle)
+                '    'Dim tenderCount As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_COUNT")
+                '    'If tenderCount > 0 Then
+                '    '    CommonRoutines.BOFirst(fAdapter, tenderHandle, "TD - DeleteTender")
+                '    '    While Not fAdapter.EOF(tenderHandle)
+                '    '        Dim tenderType As Integer = CommonRoutines.BOGetIntAttributeValueByName(fAdapter, tenderHandle, "TENDER_TYPE")
+                '    '        If tenderType = gTenderDialogTenderType Then
+                '    '            Dim remark2() As String = CommonRoutines.BOGetStrAttributeValueByName(fAdapter, tenderHandle, "MANUAL_REMARK").Split("#"c)
+                '    '            If remark2.Length > 0 AndAlso remark(1) = remark2(1) AndAlso (remark2(0) = "@TK" OrElse remark2(0) = "@GC") Then
+                '    '                DoSVAccountReverse(fAdapter, remark2(2))
+                '    '            End If
+                '    '            If remark2.Length > 0 AndAlso remark(1) = remark2(1) Then
+                '    'delete from rpro 
 
-                    '            End If
-                    '        End If
-                    '        fAdapter.BONext(tenderHandle)
-                    '    End While
-                    'End If
+                '    '            End If
+                '    '        End If
+                '    '        fAdapter.BONext(tenderHandle)
+                '    '    End While
+                '    'End If
 
-                    Return True
-                End If
+                '    Return True
+                'End If
                 Dim successful As Boolean = Common.DoSVAccountReverse(fAdapter, remark(2))
                 If successful Then
                     Return True

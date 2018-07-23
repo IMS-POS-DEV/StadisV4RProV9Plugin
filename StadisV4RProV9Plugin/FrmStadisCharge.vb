@@ -9,6 +9,10 @@ Imports Infragistics.Win
 '   Class: FrmStadisCharge
 '    Type: Windows Form
 ' Purpose: Collects Stadis tender information.  Invoked from TenderDialogue.
+' Item Note1: STADIS\GiftCardID\IorA\CustomerID\Amount
+' Item Note1: STADIS\GiftCardID\IorA\CustomerID\Amount\TranKey
+' MANUAL_REMARK: StadisOpCode#CardID#AuthID
+' MANUAL_REMARK: StadisOpCode#TranKey
 '----------------------------------------------------------------------------------------------
 Public Class FrmStadisCharge
 

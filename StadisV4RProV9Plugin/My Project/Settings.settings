@@ -27,7 +27,7 @@
       <Value Profile="(Default)">Disabled</Value>
     </Setting>
     <Setting Name="StadisV4WebServiceURL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://192.168.100.10/StadisV4Web/StadisV4Transactions.asmx</Value>
+      <Value Profile="(Default)">http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx</Value>
     </Setting>
     <Setting Name="SiteID" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

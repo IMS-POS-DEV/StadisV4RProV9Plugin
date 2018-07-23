@@ -152,7 +152,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.100.10/StadisV4Web/StadisV4Transactions.asmx")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx")>  _
         Public Property StadisV4WebServiceURL() As String
             Get
                 Return CType(Me("StadisV4WebServiceURL"),String)

@@ -9,17 +9,12 @@ Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
 Public Class Common
 
-#Region " Data Declarations "
-
-    Private Shared mService As StadisV4TransactionsService
-
-#End Region  'Data Declarations
-
 #Region " Methods "
 
     '----------------------------------------------------------------------------------------------
     ' Provides access to web service; creates connection if it doesn't exist
     '----------------------------------------------------------------------------------------------
+    Private Shared mService As StadisV4TransactionsService
     Public Shared Function StadisAPI() As StadisV4TransactionsService
         If mService Is Nothing Then
             ' Create the web service proxy
@@ -121,6 +116,31 @@ Public Class Common
             Return True
         End If
     End Function  'DoSVAccountReverse
+
+    '------------------------------------------------------------------------------
+    ' Reverse an SVAccountCharge
+    '------------------------------------------------------------------------------
+    Public Shared Function DoSVReverseTransaction(ByRef fAdapter As Plugins.IPluginAdapter, ByVal TranKey As String) As Boolean
+        Dim invoiceHandle As Integer = 0
+        Dim sr As New StadisRequest
+        With sr
+            .SiteID = gSiteID
+            .VendorID = gVendorID
+            .LocationID = gLocationID
+            .RegisterID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Workstion")
+            .ReceiptID = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Invoice Number")
+            .VendorCashier = Common.BOGetStrAttributeValueByName(fAdapter, invoiceHandle, "Cashier")
+            .TransactionKey = New Guid(TranKey)
+        End With
+        Dim sy As StadisReply = Common.StadisAPI.SVReverseTransaction(sr)
+        If sy.ReturnCode < 0 Then
+            MsgBox("Unable to reverse transaction " & TranKey, MsgBoxStyle.Exclamation, "Reverse Transaction")
+            Return False
+            'LogStadisEvent(Guid.Empty, "Reverse Charge", "DoReverse", "A", sy.ReturnCode, "Unable to reverse charge for StadisAuthorizationID", "", "", "StadisAuthorizationID = " & sy.StadisAuthorizationID)
+        Else
+            Return True
+        End If
+    End Function  'DoSVReverseTransaction
 
     '----------------------------------------------------------------------------------------------
     ' Get site and WS configuration settings
@@ -314,6 +334,8 @@ Public Class Common
                             gIsPrintingEnabled = CBool(.SettingValue)
                         Case "StadisTenderText"
                             gStadisTenderText = .SettingValue
+                        Case "ReceiptTenderText"
+                            gReceiptTenderText = .SettingValue
                         Case "IsMergeFunctionEnabled"
                             gIsMergeFunctionEnabled = CBool(.SettingValue)
                         Case "ShowSVActionGrid"

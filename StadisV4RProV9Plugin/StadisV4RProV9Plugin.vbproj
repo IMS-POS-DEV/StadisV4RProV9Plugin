@@ -49,15 +49,6 @@
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine">
-      <HintPath>bin\Release\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportSource">
-      <HintPath>bin\Release\CrystalDecisions.ReportSource.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.Shared">
-      <HintPath>bin\Release\CrystalDecisions.Shared.dll</HintPath>
-    </Reference>
     <Reference Include="Infragistics4.Win.UltraWinTabControl.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -127,7 +118,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BalancePrint.vb">
+    <Compile Include="BalChkPrtDoc.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ButtonBalChk.vb" />
@@ -258,18 +249,6 @@
     <Compile Include="TenderDialogue.vb" />
     <Compile Include="TenderInfo.vb" />
     <Compile Include="TenderProcessing.vb" />
-    <Compile Include="TransactionReport.vb">
-      <DependentUpon>TransactionReport.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="TransactionsReport.vb">
-      <DependentUpon>TransactionsReport.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Web References\WebReference\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -331,7 +310,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BalancePrint.rpt" />
     <None Include="DSGiftCardInfo.xsc">
       <DependentUpon>DSGiftCardInfo.xsd</DependentUpon>
     </None>
@@ -364,14 +342,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <EmbeddedResource Include="TransactionReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TransactionReport.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TransactionsReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TransactionsReport.vb</LastGenOutput>
-    </EmbeddedResource>
+    <None Include="Resources\lucon.ttf" />
     <None Include="Web References\WebReference\ChargeReply.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -533,6 +504,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\WebReference\StadisV4Transactions.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\funnel32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\funnel24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book_open224.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scroll24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete232.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_down_blue32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_up_blue32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

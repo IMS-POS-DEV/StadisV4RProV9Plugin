@@ -26,6 +26,12 @@ Partial Class FrmBalChk
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmBalChk))
         Dim Appearance1 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance3 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance4 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance5 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance6 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance7 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance8 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Me.lblHeader = New System.Windows.Forms.Label()
         Me.nIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.cmSysT = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -36,12 +42,12 @@ Partial Class FrmBalChk
         Me.pbInactive = New System.Windows.Forms.PictureBox()
         Me.pbActive = New System.Windows.Forms.PictureBox()
         Me.tblMenu = New System.Windows.Forms.TableLayoutPanel()
-        Me.btnPrint = New System.Windows.Forms.Button()
-        Me.btnBalChk = New System.Windows.Forms.Button()
-        Me.btnClear = New System.Windows.Forms.Button()
-        Me.btnExit = New System.Windows.Forms.Button()
-        Me.btnHistory = New System.Windows.Forms.Button()
-        Me.btnMerge = New System.Windows.Forms.Button()
+        Me.btnExit = New Infragistics.Win.Misc.UltraButton()
+        Me.btnHistory = New Infragistics.Win.Misc.UltraButton()
+        Me.btnBalChk = New Infragistics.Win.Misc.UltraButton()
+        Me.btnMerge = New Infragistics.Win.Misc.UltraButton()
+        Me.btnClear = New Infragistics.Win.Misc.UltraButton()
+        Me.btnPrint = New Infragistics.Win.Misc.UltraButton()
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.lblBackBal = New System.Windows.Forms.Label()
         Me.lblTotlBal = New System.Windows.Forms.Label()
@@ -152,12 +158,12 @@ Partial Class FrmBalChk
         Me.tblMenu.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.0!))
         Me.tblMenu.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.0!))
         Me.tblMenu.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
-        Me.tblMenu.Controls.Add(Me.btnPrint, 1, 0)
-        Me.tblMenu.Controls.Add(Me.btnBalChk, 0, 0)
-        Me.tblMenu.Controls.Add(Me.btnClear, 2, 0)
         Me.tblMenu.Controls.Add(Me.btnExit, 5, 0)
         Me.tblMenu.Controls.Add(Me.btnHistory, 4, 0)
+        Me.tblMenu.Controls.Add(Me.btnBalChk, 0, 0)
         Me.tblMenu.Controls.Add(Me.btnMerge, 3, 0)
+        Me.tblMenu.Controls.Add(Me.btnClear, 2, 0)
+        Me.tblMenu.Controls.Add(Me.btnPrint, 1, 0)
         Me.tblMenu.ForeColor = System.Drawing.Color.DarkSlateGray
         Me.tblMenu.Location = New System.Drawing.Point(14, 411)
         Me.tblMenu.Name = "tblMenu"
@@ -166,108 +172,91 @@ Partial Class FrmBalChk
         Me.tblMenu.Size = New System.Drawing.Size(520, 68)
         Me.tblMenu.TabIndex = 25
         '
-        'btnPrint
-        '
-        Me.btnPrint.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnPrint.AutoSize = True
-        Me.btnPrint.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPrint.Image = CType(resources.GetObject("btnPrint.Image"), System.Drawing.Image)
-        Me.btnPrint.Location = New System.Drawing.Point(95, 3)
-        Me.btnPrint.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(79, 62)
-        Me.btnPrint.TabIndex = 1
-        Me.btnPrint.Text = "&Print"
-        Me.btnPrint.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.btnPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnPrint.UseVisualStyleBackColor = True
-        '
-        'btnBalChk
-        '
-        Me.btnBalChk.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnBalChk.AutoSize = True
-        Me.btnBalChk.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnBalChk.Image = CType(resources.GetObject("btnBalChk.Image"), System.Drawing.Image)
-        Me.btnBalChk.Location = New System.Drawing.Point(3, 3)
-        Me.btnBalChk.Name = "btnBalChk"
-        Me.btnBalChk.Size = New System.Drawing.Size(87, 62)
-        Me.btnBalChk.TabIndex = 0
-        Me.btnBalChk.Text = "&Bal Chk"
-        Me.btnBalChk.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.btnBalChk.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnBalChk.UseVisualStyleBackColor = True
-        '
-        'btnClear
-        '
-        Me.btnClear.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClear.AutoSize = True
-        Me.btnClear.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
-        Me.btnClear.Location = New System.Drawing.Point(179, 3)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(77, 62)
-        Me.btnClear.TabIndex = 2
-        Me.btnClear.Text = "&Clear"
-        Me.btnClear.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnClear.UseVisualStyleBackColor = True
-        '
         'btnExit
         '
-        Me.btnExit.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExit.AutoSize = True
+        Appearance1.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.exit24
+        Appearance1.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance1.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnExit.Appearance = Appearance1
         Me.btnExit.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExit.Image = CType(resources.GetObject("btnExit.Image"), System.Drawing.Image)
+        Me.btnExit.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnExit.Location = New System.Drawing.Point(438, 3)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(79, 62)
         Me.btnExit.TabIndex = 5
         Me.btnExit.Text = "E&xit"
-        Me.btnExit.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.btnExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnExit.UseVisualStyleBackColor = True
         '
         'btnHistory
         '
-        Me.btnHistory.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnHistory.AutoSize = True
+        Appearance2.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.scroll24
+        Appearance2.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance2.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnHistory.Appearance = Appearance2
         Me.btnHistory.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnHistory.Image = CType(resources.GetObject("btnHistory.Image"), System.Drawing.Image)
+        Me.btnHistory.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnHistory.Location = New System.Drawing.Point(350, 3)
         Me.btnHistory.Name = "btnHistory"
-        Me.btnHistory.Size = New System.Drawing.Size(82, 62)
-        Me.btnHistory.TabIndex = 4
+        Me.btnHistory.Size = New System.Drawing.Size(79, 62)
+        Me.btnHistory.TabIndex = 8
         Me.btnHistory.Text = "&History"
-        Me.btnHistory.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.btnHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnHistory.UseVisualStyleBackColor = True
+        '
+        'btnBalChk
+        '
+        Appearance3.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check24
+        Appearance3.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance3.ImageVAlign = Infragistics.Win.VAlign.Top
+        Appearance3.TextHAlignAsString = "Center"
+        Appearance3.TextVAlignAsString = "Middle"
+        Me.btnBalChk.Appearance = Appearance3
+        Me.btnBalChk.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnBalChk.ImageSize = New System.Drawing.Size(24, 24)
+        Me.btnBalChk.Location = New System.Drawing.Point(3, 3)
+        Me.btnBalChk.Name = "btnBalChk"
+        Me.btnBalChk.Size = New System.Drawing.Size(87, 62)
+        Me.btnBalChk.TabIndex = 0
+        Me.btnBalChk.Text = "&Bal Chk"
         '
         'btnMerge
         '
-        Me.btnMerge.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMerge.AutoSize = True
+        Appearance4.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.funnel24
+        Appearance4.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance4.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnMerge.Appearance = Appearance4
         Me.btnMerge.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        'Me.btnMerge.Image = Global.My.Resources.Resources.replace21
+        Me.btnMerge.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnMerge.Location = New System.Drawing.Point(262, 3)
         Me.btnMerge.Name = "btnMerge"
-        Me.btnMerge.Size = New System.Drawing.Size(82, 62)
-        Me.btnMerge.TabIndex = 3
+        Me.btnMerge.Size = New System.Drawing.Size(79, 62)
+        Me.btnMerge.TabIndex = 1
         Me.btnMerge.Text = "&Merge"
-        Me.btnMerge.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.btnMerge.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnMerge.UseVisualStyleBackColor = True
+        '
+        'btnClear
+        '
+        Appearance5.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete24
+        Appearance5.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance5.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnClear.Appearance = Appearance5
+        Me.btnClear.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClear.ImageSize = New System.Drawing.Size(24, 24)
+        Me.btnClear.Location = New System.Drawing.Point(179, 3)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(77, 62)
+        Me.btnClear.TabIndex = 10
+        Me.btnClear.Text = "&Clear"
+        '
+        'btnPrint
+        '
+        Appearance6.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.printer24
+        Appearance6.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance6.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnPrint.Appearance = Appearance6
+        Me.btnPrint.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPrint.ImageSize = New System.Drawing.Size(24, 24)
+        Me.btnPrint.Location = New System.Drawing.Point(96, 3)
+        Me.btnPrint.Name = "btnPrint"
+        Me.btnPrint.Size = New System.Drawing.Size(77, 62)
+        Me.btnPrint.TabIndex = 9
+        Me.btnPrint.Text = "&Print"
         '
         'lblStatus
         '
@@ -369,8 +358,8 @@ Partial Class FrmBalChk
         '
         'sbStatus
         '
-        Appearance1.FontData.Name = "Tahoma"
-        Me.sbStatus.Appearance = Appearance1
+        Appearance7.FontData.Name = "Tahoma"
+        Me.sbStatus.Appearance = Appearance7
         Me.sbStatus.BorderStyle = Infragistics.Win.UIElementBorderStyle.Raised
         Me.sbStatus.Location = New System.Drawing.Point(0, 500)
         Me.sbStatus.Name = "sbStatus"
@@ -389,11 +378,11 @@ Partial Class FrmBalChk
         '
         'txtInput
         '
-        Appearance2.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
-        Appearance2.FontData.BoldAsString = "True"
-        Appearance2.FontData.Name = "Arial"
-        Appearance2.FontData.SizeInPoints = 18.0!
-        Me.txtInput.Appearance = Appearance2
+        Appearance8.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
+        Appearance8.FontData.BoldAsString = "True"
+        Appearance8.FontData.Name = "Arial"
+        Appearance8.FontData.SizeInPoints = 18.0!
+        Me.txtInput.Appearance = Appearance8
         Me.txtInput.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtInput.Location = New System.Drawing.Point(225, 87)
         Me.txtInput.Name = "txtInput"
@@ -518,7 +507,6 @@ Partial Class FrmBalChk
         CType(Me.pbInactive, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbActive, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tblMenu.ResumeLayout(False)
-        Me.tblMenu.PerformLayout()
         CType(Me.sbStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtInput, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -535,11 +523,6 @@ Partial Class FrmBalChk
     Friend WithEvents pbInactive As System.Windows.Forms.PictureBox
     Friend WithEvents pbActive As System.Windows.Forms.PictureBox
     Friend WithEvents tblMenu As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents btnBalChk As System.Windows.Forms.Button
-    Friend WithEvents btnClear As System.Windows.Forms.Button
-    Friend WithEvents btnExit As System.Windows.Forms.Button
-    Friend WithEvents btnHistory As System.Windows.Forms.Button
-    Friend WithEvents btnMerge As System.Windows.Forms.Button
     Friend WithEvents lblStatus As System.Windows.Forms.Label
     Friend WithEvents lblBackBal As System.Windows.Forms.Label
     Friend WithEvents lblTotlBal As System.Windows.Forms.Label
@@ -559,5 +542,10 @@ Partial Class FrmBalChk
     Friend WithEvents lblBackAvail As System.Windows.Forms.Label
     Friend WithEvents lblTotlAvail As System.Windows.Forms.Label
     Friend WithEvents lblMainAvail As System.Windows.Forms.Label
-    Friend WithEvents btnPrint As System.Windows.Forms.Button
+    Friend WithEvents btnExit As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnHistory As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnBalChk As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnMerge As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnClear As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnPrint As Infragistics.Win.Misc.UltraButton
 End Class

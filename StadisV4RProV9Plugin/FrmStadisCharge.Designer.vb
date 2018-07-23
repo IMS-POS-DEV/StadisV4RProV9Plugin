@@ -38,9 +38,10 @@ Partial Class FrmStadisCharge
         Dim Appearance13 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance14 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance15 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Me.btnKeyboard = New System.Windows.Forms.Button()
-        Me.btnOK = New System.Windows.Forms.Button()
-        Me.btnCancel = New System.Windows.Forms.Button()
+        Dim Appearance16 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance17 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance18 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance19 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Me.lblTenderID = New Infragistics.Win.Misc.UltraLabel()
         Me.UltraLabel5 = New Infragistics.Win.Misc.UltraLabel()
         Me.UltraLabel4 = New Infragistics.Win.Misc.UltraLabel()
@@ -57,7 +58,10 @@ Partial Class FrmStadisCharge
         Me.txtAcctBalance = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
         Me.txtRemAmountDue = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
         Me.txtTenderAmount = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
-        Me.btnClear = New System.Windows.Forms.Button()
+        Me.btnCancel = New Infragistics.Win.Misc.UltraButton()
+        Me.btnOK = New Infragistics.Win.Misc.UltraButton()
+        Me.btnClear = New Infragistics.Win.Misc.UltraButton()
+        Me.btnKeyboard = New Infragistics.Win.Misc.UltraButton()
         CType(Me.txtTenderID, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtMessage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAmountDue, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,47 +70,6 @@ Partial Class FrmStadisCharge
         CType(Me.txtRemAmountDue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTenderAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'btnKeyboard
-        '
-        Me.btnKeyboard.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnKeyboard.ForeColor = System.Drawing.Color.Black
-        Me.btnKeyboard.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.keyboard32
-        Me.btnKeyboard.Location = New System.Drawing.Point(79, 332)
-        Me.btnKeyboard.Name = "btnKeyboard"
-        Me.btnKeyboard.Size = New System.Drawing.Size(87, 58)
-        Me.btnKeyboard.TabIndex = 4
-        Me.btnKeyboard.Text = "Keyboard"
-        Me.btnKeyboard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnKeyboard.UseVisualStyleBackColor = True
-        '
-        'btnOK
-        '
-        Me.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnOK.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOK.ForeColor = System.Drawing.Color.Black
-        Me.btnOK.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check32
-        Me.btnOK.Location = New System.Drawing.Point(320, 332)
-        Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(87, 58)
-        Me.btnOK.TabIndex = 2
-        Me.btnOK.Text = "OK"
-        Me.btnOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnOK.UseVisualStyleBackColor = True
-        '
-        'btnCancel
-        '
-        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCancel.ForeColor = System.Drawing.Color.Black
-        Me.btnCancel.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete32
-        Me.btnCancel.Location = New System.Drawing.Point(413, 332)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(87, 58)
-        Me.btnCancel.TabIndex = 3
-        Me.btnCancel.Text = "Cancel"
-        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnCancel.UseVisualStyleBackColor = True
         '
         'lblTenderID
         '
@@ -331,17 +294,65 @@ Partial Class FrmStadisCharge
         Me.txtTenderAmount.Size = New System.Drawing.Size(115, 27)
         Me.txtTenderAmount.TabIndex = 1
         '
+        'btnCancel
+        '
+        Appearance16.FontData.BoldAsString = "True"
+        Appearance16.FontData.SizeInPoints = 10.0!
+        Appearance16.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete32
+        Appearance16.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance16.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnCancel.Appearance = Appearance16
+        Me.btnCancel.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCancel.ImageSize = New System.Drawing.Size(32, 32)
+        Me.btnCancel.Location = New System.Drawing.Point(413, 332)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(87, 58)
+        Me.btnCancel.TabIndex = 28
+        Me.btnCancel.Text = "Cancel"
+        '
+        'btnOK
+        '
+        Appearance17.FontData.BoldAsString = "True"
+        Appearance17.FontData.SizeInPoints = 10.0!
+        Appearance17.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check32
+        Appearance17.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance17.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnOK.Appearance = Appearance17
+        Me.btnOK.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnOK.ImageSize = New System.Drawing.Size(32, 32)
+        Me.btnOK.Location = New System.Drawing.Point(320, 332)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(87, 58)
+        Me.btnOK.TabIndex = 29
+        Me.btnOK.Text = "OK"
+        '
         'btnClear
         '
+        Appearance18.TextHAlignAsString = "Center"
+        Appearance18.TextVAlignAsString = "Bottom"
+        Me.btnClear.Appearance = Appearance18
         Me.btnClear.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClear.ForeColor = System.Drawing.Color.Black
         Me.btnClear.Location = New System.Drawing.Point(172, 332)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(87, 58)
-        Me.btnClear.TabIndex = 27
-        Me.btnClear.Text = "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Clear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Entries"
-        Me.btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnClear.UseVisualStyleBackColor = True
+        Me.btnClear.TabIndex = 32
+        Me.btnClear.Text = "Clear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Entries"
+        '
+        'btnKeyboard
+        '
+        Appearance19.FontData.BoldAsString = "True"
+        Appearance19.FontData.SizeInPoints = 10.0!
+        Appearance19.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.keyboard32
+        Appearance19.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance19.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnKeyboard.Appearance = Appearance19
+        Me.btnKeyboard.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnKeyboard.ImageSize = New System.Drawing.Size(32, 32)
+        Me.btnKeyboard.Location = New System.Drawing.Point(79, 332)
+        Me.btnKeyboard.Name = "btnKeyboard"
+        Me.btnKeyboard.Size = New System.Drawing.Size(87, 58)
+        Me.btnKeyboard.TabIndex = 34
+        Me.btnKeyboard.Text = "Keyboard"
         '
         'FrmStadisCharge
         '
@@ -349,7 +360,10 @@ Partial Class FrmStadisCharge
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(592, 404)
+        Me.Controls.Add(Me.btnKeyboard)
         Me.Controls.Add(Me.btnClear)
+        Me.Controls.Add(Me.btnOK)
+        Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.txtTenderAmount)
         Me.Controls.Add(Me.txtRemAmountDue)
         Me.Controls.Add(Me.txtAcctBalance)
@@ -366,9 +380,6 @@ Partial Class FrmStadisCharge
         Me.Controls.Add(Me.UltraLabel3)
         Me.Controls.Add(Me.UltraLabel2)
         Me.Controls.Add(Me.UltraLabel1)
-        Me.Controls.Add(Me.btnCancel)
-        Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.btnKeyboard)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FrmStadisCharge"
@@ -386,10 +397,6 @@ Partial Class FrmStadisCharge
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnKeyboard As System.Windows.Forms.Button
-    Friend WithEvents btnOK As System.Windows.Forms.Button
-    Friend WithEvents btnCancel As System.Windows.Forms.Button
-    Friend WithEvents btnClear As System.Windows.Forms.Button
     Private WithEvents lblTenderID As Infragistics.Win.Misc.UltraLabel
     Private WithEvents UltraLabel5 As Infragistics.Win.Misc.UltraLabel
     Private WithEvents UltraLabel4 As Infragistics.Win.Misc.UltraLabel
@@ -406,4 +413,8 @@ Partial Class FrmStadisCharge
     Private WithEvents txtAcctBalance As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
     Private WithEvents txtRemAmountDue As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
     Private WithEvents txtTenderAmount As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Friend WithEvents btnCancel As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnOK As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnClear As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnKeyboard As Infragistics.Win.Misc.UltraButton
 End Class

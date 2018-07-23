@@ -50,6 +50,7 @@ Public Module GlobalValues
     Public gIsMergeFunctionEnabled As Boolean = False
     Public gIsPrintingEnabled As Boolean = False
     Public gStadisTenderText As String = ""
+    Public gReceiptTenderText As String = ""
     Public gIssueGiftCardForReturn As Boolean = False
     Public gIsReturnGCIssueOrActivate As String = ""
     Public gPostNonStadisTransactions As Boolean = False

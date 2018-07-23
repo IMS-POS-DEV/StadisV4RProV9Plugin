@@ -55,10 +55,10 @@ Public Class FrmBalChk
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 
-            'If gIsPrintingEnabled = False Then
-            btnPrint.Visible = False
-            tblMenu.ColumnStyles(1).Width = 0
-            'End If
+            If gIsPrintingEnabled = False Then
+                btnPrint.Visible = False
+                tblMenu.ColumnStyles(1).Width = 0
+            End If
 
             If gIsMergeFunctionEnabled = False Then
                 btnMerge.Visible = False
@@ -87,7 +87,7 @@ Public Class FrmBalChk
     End Sub  'btnBalChk_Click
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-
+        PrintBalanceToWindows()
     End Sub  'btnPrint_Click
 
     Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
@@ -149,21 +149,24 @@ Public Class FrmBalChk
 
 #Region " Print Routines "
 
-    'Private Sub PrintBalanceToWindows()
-    '    Windows.Forms.Cursor.Current = Cursors.WaitCursor
-    '    sbStatus.Text = "Printing Balance..."
-    '    Dim balancePrint As New BalancePrint
-    '    With balancePrint
-    '        .SetParameterValue(0, "N/A")
-    '        .SetParameterValue(1, gStadisTenderText)
-    '        .SetParameterValue(2, "xxxxxxxxxx" & Mid(Trim(txtInput.Text), Len(Trim(txtInput.Text)) - 3, 4))
-    '        .SetParameterValue(3, totlBalance.ToString("""$""#,##0.00"))
-    '        .PrintOptions.PrinterName = gWindowsPrinterName
-    '        .PrintToPrinter(1, True, 1, 1)
-    '    End With
-    '    sbStatus.Text = "Ready..."
-    '    Windows.Forms.Cursor.Current = Cursors.Default
-    'End Sub  'PrintBalanceToWindows
+    Private Sub PrintBalanceToWindows()
+        Windows.Forms.Cursor.Current = Cursors.WaitCursor
+        sbStatus.Text = "Printing Balance..."
+        If gWindowsPrinterName <> "Unassigned" Then
+            Dim prtDoc As New BalChkPrtDoc
+            With prtDoc
+                .CardID = Trim(txtInput.Text)
+                .Balance = totlBalance.ToString("""$""#,##0.00")
+                .Available = totlAvail.ToString("""$""#,##0.00")
+                .PrinterSettings.PrinterName = gWindowsPrinterName
+                .Print()
+            End With
+        Else
+            MessageBox.Show("Printer not assigned.", "Balance Print", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+        sbStatus.Text = "Ready..."
+        Windows.Forms.Cursor.Current = Cursors.Default
+    End Sub  'PrintBalanceToWindows
 
     'Private Sub PrintBalanceToStarRaster()
     '    Application.DoEvents()

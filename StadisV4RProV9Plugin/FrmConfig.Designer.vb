@@ -23,6 +23,8 @@ Partial Class FrmConfig
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmConfig))
+        Dim Appearance1 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Me.gbGeneral = New System.Windows.Forms.GroupBox()
         Me.btnLogoFile = New System.Windows.Forms.Button()
         Me.txtTender = New System.Windows.Forms.TextBox()
@@ -50,8 +52,8 @@ Partial Class FrmConfig
         Me.cmbOPOS = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnApply = New System.Windows.Forms.Button()
-        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.btnCancel = New Infragistics.Win.Misc.UltraButton()
+        Me.btnApply = New Infragistics.Win.Misc.UltraButton()
         Me.gbGeneral.SuspendLayout()
         Me.gbPrint.SuspendLayout()
         Me.SuspendLayout()
@@ -331,27 +333,31 @@ Partial Class FrmConfig
         Me.Label1.Text = "OPOS Receipt Printer:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'btnApply
-        '
-        Me.btnApply.Image = CType(resources.GetObject("btnApply.Image"), System.Drawing.Image)
-        Me.btnApply.Location = New System.Drawing.Point(129, 401)
-        Me.btnApply.Name = "btnApply"
-        Me.btnApply.Size = New System.Drawing.Size(96, 40)
-        Me.btnApply.TabIndex = 2
-        Me.btnApply.Text = "&Apply"
-        Me.btnApply.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnApply.UseVisualStyleBackColor = True
-        '
         'btnCancel
         '
-        Me.btnCancel.Image = CType(resources.GetObject("btnCancel.Image"), System.Drawing.Image)
+        Appearance1.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete32
+        Appearance1.ImageHAlign = Infragistics.Win.HAlign.Left
+        Me.btnCancel.Appearance = Appearance1
+        Me.btnCancel.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCancel.ImageSize = New System.Drawing.Size(24, 24)
         Me.btnCancel.Location = New System.Drawing.Point(249, 401)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(96, 40)
-        Me.btnCancel.TabIndex = 3
+        Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "&Cancel"
-        Me.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnCancel.UseVisualStyleBackColor = True
+        '
+        'btnApply
+        '
+        Appearance2.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check32
+        Appearance2.ImageHAlign = Infragistics.Win.HAlign.Left
+        Me.btnApply.Appearance = Appearance2
+        Me.btnApply.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnApply.ImageSize = New System.Drawing.Size(24, 24)
+        Me.btnApply.Location = New System.Drawing.Point(129, 401)
+        Me.btnApply.Name = "btnApply"
+        Me.btnApply.Size = New System.Drawing.Size(96, 40)
+        Me.btnApply.TabIndex = 5
+        Me.btnApply.Text = "&Apply"
         '
         'FrmConfig
         '
@@ -360,8 +366,8 @@ Partial Class FrmConfig
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(473, 450)
         Me.ControlBox = False
-        Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnApply)
+        Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.gbPrint)
         Me.Controls.Add(Me.gbGeneral)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -401,6 +407,6 @@ Partial Class FrmConfig
     Friend WithEvents txtWebPassword As System.Windows.Forms.TextBox
     Friend WithEvents txtWebUser As System.Windows.Forms.TextBox
     Friend WithEvents txtWebURL As System.Windows.Forms.TextBox
-    Friend WithEvents btnApply As System.Windows.Forms.Button
-    Friend WithEvents btnCancel As System.Windows.Forms.Button
+    Friend WithEvents btnCancel As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnApply As Infragistics.Win.Misc.UltraButton
 End Class

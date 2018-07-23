@@ -6,7 +6,11 @@ Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
 '   Class: PrintUpdateStadisProcessing
 '    Type: EntityUpdate / BeforeUpdate on Invoice
-' Purpose: Before invoice is saved, processes Stadis charges, issues/activates, and posts Stadis transactions
+' Purpose: Before invoice is saved, processes issues/activates, and posts Stadis transactions
+' Item Note1: STADIS\GiftCardID\IorA\CustomerID\Amount
+' Item Note1: STADIS\GiftCardID\IorA\CustomerID\Amount\TranKey
+' MANUAL_REMARK: StadisOpCode#CardID#AuthID
+' MANUAL_REMARK: StadisOpCode#TranKey
 '----------------------------------------------------------------------------------------------
 <GuidAttribute(Discover.CLASS_PrintUpdateStadisProcessing)> _
 Public Class PrintUpdateStadisProcessing
