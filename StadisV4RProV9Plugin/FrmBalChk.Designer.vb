@@ -197,7 +197,7 @@ Partial Class FrmBalChk
         Me.btnHistory.Location = New System.Drawing.Point(350, 3)
         Me.btnHistory.Name = "btnHistory"
         Me.btnHistory.Size = New System.Drawing.Size(79, 62)
-        Me.btnHistory.TabIndex = 8
+        Me.btnHistory.TabIndex = 4
         Me.btnHistory.Text = "&History"
         '
         'btnBalChk
@@ -227,7 +227,7 @@ Partial Class FrmBalChk
         Me.btnMerge.Location = New System.Drawing.Point(262, 3)
         Me.btnMerge.Name = "btnMerge"
         Me.btnMerge.Size = New System.Drawing.Size(79, 62)
-        Me.btnMerge.TabIndex = 1
+        Me.btnMerge.TabIndex = 3
         Me.btnMerge.Text = "&Merge"
         '
         'btnClear
@@ -241,7 +241,7 @@ Partial Class FrmBalChk
         Me.btnClear.Location = New System.Drawing.Point(179, 3)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(77, 62)
-        Me.btnClear.TabIndex = 10
+        Me.btnClear.TabIndex = 2
         Me.btnClear.Text = "&Clear"
         '
         'btnPrint
@@ -255,7 +255,7 @@ Partial Class FrmBalChk
         Me.btnPrint.Location = New System.Drawing.Point(96, 3)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(77, 62)
-        Me.btnPrint.TabIndex = 9
+        Me.btnPrint.TabIndex = 1
         Me.btnPrint.Text = "&Print"
         '
         'lblStatus

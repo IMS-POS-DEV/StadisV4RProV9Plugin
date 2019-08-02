@@ -52,8 +52,11 @@ Public Class FrmConfigure
         'cbOPOS.Text = My.Settings.OPOSPrinterName
         'cbRaster.Text = My.Settings.RasterPrinterName
         cbPrinter.Text = My.Settings.WindowsPrinterName
-        chkLog.Checked = My.Settings.Log
-        chkNetworkChecking.Checked = My.Settings.NetworkChecking
+        If My.Settings.UseShortCharge = "True" Then
+            chkUseShortCharge.Checked = True
+        Else
+            chkUseShortCharge.Checked = False
+        End If
     End Sub  'LoadSettings
 
 #End Region  'Form Load and Initialization
@@ -81,10 +84,12 @@ Public Class FrmConfigure
         'gRasterPrinterName = cbRaster.Text
         My.Settings.WindowsPrinterName = cbPrinter.Text
         gWindowsPrinterName = cbPrinter.Text
-        My.Settings.Log = chkLog.Checked
-        gLog = chkLog.Checked
-        My.Settings.NetworkChecking = chkNetworkChecking.Checked
-        gNetworkChecking = chkNetworkChecking.Checked
+        If chkUseShortCharge.Checked = True Then
+            My.Settings.UseShortCharge = "True"
+        Else
+            My.Settings.UseShortCharge = "False"
+        End If
+        gUseShortCharge = chkUseShortCharge.Checked
         My.Settings.Save()
         Me.Close()
     End Sub  'btnSave_Click

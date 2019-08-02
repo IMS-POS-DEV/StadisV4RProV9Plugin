@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.STADIS.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.STADIS.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 7/5/2018 at 1:20 PM ***</wsdl:documentation>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.STADIS.com/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.STADIS.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 7/22/2019 at 2:55 PM ***</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://www.STADIS.com/">
       <s:import namespace="http://microsoft.com/wsdl/types/" />
@@ -189,31 +189,20 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="StadisReply" nillable="true" type="tns:StadisReply" />
         </s:sequence>
       </s:complexType>
-      <s:element name="TestCharge">
+      <s:element name="SVAcctChg">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:StadisRequest" />
-            <s:element minOccurs="0" maxOccurs="1" name="Header" type="tns:StadisTranHeader" />
-            <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfStadisTranItem" />
-            <s:element minOccurs="0" maxOccurs="1" name="Tenders" type="tns:ArrayOfStadisTranTender" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="TestChargeResponse">
+      <s:element name="SVAcctChgResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="TestChargeResult" type="tns:ChargeReply" />
+            <s:element minOccurs="0" maxOccurs="1" name="SVAcctChgResult" type="tns:ArrayOfStadisReply" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ChargeReply">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="RRequest" type="tns:StadisRequest" />
-          <s:element minOccurs="0" maxOccurs="1" name="RHeader" type="tns:StadisTranHeader" />
-          <s:element minOccurs="0" maxOccurs="1" name="RItems" type="tns:ArrayOfStadisTranItem" />
-          <s:element minOccurs="0" maxOccurs="1" name="RTenders" type="tns:ArrayOfStadisTranTender" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="SVAccountCharge">
         <s:complexType>
           <s:sequence>
@@ -1435,13 +1424,13 @@
   <wsdl:message name="SVAccountBalanceCheckPromotionSecurityCredentials">
     <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
   </wsdl:message>
-  <wsdl:message name="TestChargeSoapIn">
-    <wsdl:part name="parameters" element="tns:TestCharge" />
+  <wsdl:message name="SVAcctChgSoapIn">
+    <wsdl:part name="parameters" element="tns:SVAcctChg" />
   </wsdl:message>
-  <wsdl:message name="TestChargeSoapOut">
-    <wsdl:part name="parameters" element="tns:TestChargeResponse" />
+  <wsdl:message name="SVAcctChgSoapOut">
+    <wsdl:part name="parameters" element="tns:SVAcctChgResponse" />
   </wsdl:message>
-  <wsdl:message name="TestChargeSecurityCredentials">
+  <wsdl:message name="SVAcctChgSecurityCredentials">
     <wsdl:part name="SecurityCredentials" element="tns:SecurityCredentials" />
   </wsdl:message>
   <wsdl:message name="SVAccountChargeSoapIn">
@@ -1798,10 +1787,10 @@
       <wsdl:input message="tns:SVAccountBalanceCheckPromotionSoapIn" />
       <wsdl:output message="tns:SVAccountBalanceCheckPromotionSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="TestCharge">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Charge one tender.</wsdl:documentation>
-      <wsdl:input message="tns:TestChargeSoapIn" />
-      <wsdl:output message="tns:TestChargeSoapOut" />
+    <wsdl:operation name="SVAcctChg">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Compact charge, limited promos</wsdl:documentation>
+      <wsdl:input message="tns:SVAcctChgSoapIn" />
+      <wsdl:output message="tns:SVAcctChgSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="SVAccountCharge">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Charge one tender.</wsdl:documentation>
@@ -2031,11 +2020,11 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="TestCharge">
-      <soap:operation soapAction="http://www.STADIS.com/TestCharge" style="document" />
+    <wsdl:operation name="SVAcctChg">
+      <soap:operation soapAction="http://www.STADIS.com/SVAcctChg" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
-        <soap:header message="tns:TestChargeSecurityCredentials" part="SecurityCredentials" use="literal" />
+        <soap:header message="tns:SVAcctChgSecurityCredentials" part="SecurityCredentials" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
@@ -2454,11 +2443,11 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="TestCharge">
-      <soap12:operation soapAction="http://www.STADIS.com/TestCharge" style="document" />
+    <wsdl:operation name="SVAcctChg">
+      <soap12:operation soapAction="http://www.STADIS.com/SVAcctChg" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
-        <soap12:header message="tns:TestChargeSecurityCredentials" part="SecurityCredentials" use="literal" />
+        <soap12:header message="tns:SVAcctChgSecurityCredentials" part="SecurityCredentials" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
@@ -2836,12 +2825,12 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="StadisV4TransactionsService">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 7/5/2018 at 1:20 PM ***</wsdl:documentation>
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transaction-related methods for Point of Sale use, V4.0.10. STADIS © 2015, International Micro Systems, Inc.  *** Updated 7/22/2019 at 2:55 PM ***</wsdl:documentation>
     <wsdl:port name="StadisV4TransactionsServiceSoap" binding="tns:StadisV4TransactionsServiceSoap">
-      <soap:address location="http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx" />
+      <soap:address location="http://192.168.100.13/StadisV4Web/StadisV4Transactions.asmx" />
     </wsdl:port>
     <wsdl:port name="StadisV4TransactionsServiceSoap12" binding="tns:StadisV4TransactionsServiceSoap12">
-      <soap12:address location="http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx" />
+      <soap12:address location="http://192.168.100.13/StadisV4Web/StadisV4Transactions.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

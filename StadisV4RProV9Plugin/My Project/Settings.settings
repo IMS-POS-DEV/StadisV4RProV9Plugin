@@ -11,23 +11,11 @@
     <Setting Name="StadisPassword" Type="System.String" Scope="User">
       <Value Profile="(Default)">password</Value>
     </Setting>
-    <Setting Name="Log" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="NetworkChecking" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="OPOSPrinterName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Disabled</Value>
-    </Setting>
     <Setting Name="RasterPrinterName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Disabled</Value>
     </Setting>
     <Setting Name="WindowsPrinterName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Disabled</Value>
-    </Setting>
-    <Setting Name="StadisV4WebServiceURL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx</Value>
     </Setting>
     <Setting Name="SiteID" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -45,7 +33,16 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="StadisV4RProV9Plugin_WebReference_StadisV4TransactionsService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx</Value>
+      <Value Profile="(Default)">http://192.168.100.13/StadisV4Web/StadisV4Transactions.asmx</Value>
+    </Setting>
+    <Setting Name="UseShortCharge" Type="System.String" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ReturnItemizedPromotions" Type="System.String" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="StadisV4WebServiceURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://192.168.100.13/StadisV4Web/StadisV4Transactions.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

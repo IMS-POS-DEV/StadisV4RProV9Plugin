@@ -287,7 +287,7 @@ Partial Class frmMerge
         Me.btnOK.Location = New System.Drawing.Point(176, 469)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(112, 51)
-        Me.btnOK.TabIndex = 35
+        Me.btnOK.TabIndex = 0
         Me.btnOK.Text = "&Apply"
         '
         'btnCancel
@@ -300,7 +300,7 @@ Partial Class frmMerge
         Me.btnCancel.Location = New System.Drawing.Point(312, 469)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(112, 51)
-        Me.btnCancel.TabIndex = 34
+        Me.btnCancel.TabIndex = 1
         Me.btnCancel.Text = "&Cancel"
         '
         'btnScrollUp

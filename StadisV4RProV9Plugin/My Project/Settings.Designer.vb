@@ -92,42 +92,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property Log() As Boolean
-            Get
-                Return CType(Me("Log"),Boolean)
-            End Get
-            Set
-                Me("Log") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property NetworkChecking() As Boolean
-            Get
-                Return CType(Me("NetworkChecking"),Boolean)
-            End Get
-            Set
-                Me("NetworkChecking") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Disabled")>  _
-        Public Property OPOSPrinterName() As String
-            Get
-                Return CType(Me("OPOSPrinterName"),String)
-            End Get
-            Set
-                Me("OPOSPrinterName") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Disabled")>  _
         Public Property RasterPrinterName() As String
             Get
@@ -147,18 +111,6 @@ Namespace My
             End Get
             Set
                 Me("WindowsPrinterName") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx")>  _
-        Public Property StadisV4WebServiceURL() As String
-            Get
-                Return CType(Me("StadisV4WebServiceURL"),String)
-            End Get
-            Set
-                Me("StadisV4WebServiceURL") = value
             End Set
         End Property
         
@@ -225,11 +177,47 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.100.13/StadisV4Web/StadisV4Transactions.asmx")>  _
         Public ReadOnly Property StadisV4RProV9Plugin_WebReference_StadisV4TransactionsService() As String
             Get
                 Return CType(Me("StadisV4RProV9Plugin_WebReference_StadisV4TransactionsService"),String)
             End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property UseShortCharge() As String
+            Get
+                Return CType(Me("UseShortCharge"),String)
+            End Get
+            Set
+                Me("UseShortCharge") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property ReturnItemizedPromotions() As String
+            Get
+                Return CType(Me("ReturnItemizedPromotions"),String)
+            End Get
+            Set
+                Me("ReturnItemizedPromotions") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.100.13/StadisV4Web/StadisV4Transactions.asmx")>  _
+        Public Property StadisV4WebServiceURL() As String
+            Get
+                Return CType(Me("StadisV4WebServiceURL"),String)
+            End Get
+            Set
+                Me("StadisV4WebServiceURL") = value
+            End Set
         End Property
     End Class
 End Namespace

@@ -1,6 +1,4 @@
 ﻿Imports StadisV4RProV9Plugin.WebReference
-Imports CustomPluginClasses
-Imports Plugins
 Imports System.Drawing
 Imports System.Text
 Imports System.Text.RegularExpressions
@@ -9,10 +7,10 @@ Imports Infragistics.Win
 '   Class: FrmStadisCharge
 '    Type: Windows Form
 ' Purpose: Collects Stadis tender information.  Invoked from TenderDialogue.
-' Item Note1: STADIS\GiftCardID\IorA\CustomerID\Amount
-' Item Note1: STADIS\GiftCardID\IorA\CustomerID\Amount\TranKey
-' MANUAL_REMARK: StadisOpCode#CardID#AuthID
-' MANUAL_REMARK: StadisOpCode#TranKey
+' Item Note1 Before: STADIS\GiftCardID\IorA\CustomerID\Amount
+' Item Note1 After: STADIS\GiftCardID\IorA\CustomerID\Amount\TranKey
+' MANUAL_REMARK Before: StadisOpCode#CardID#AuthID
+' MANUAL_REMARK After: StadisOpCode#TranKey
 '----------------------------------------------------------------------------------------------
 Public Class FrmStadisCharge
 
@@ -25,8 +23,13 @@ Public Class FrmStadisCharge
     Private mAmountDue As Decimal = 0D
     Private mAvailAmount As Decimal = 0D
     Private mAcctBalance As Decimal = 0D
+    'Private mTenderAmount As Decimal = 0D
+    Private mStadisCharge As Decimal = 0D
+    Private mPromoCharge As Decimal = 0D
 
-    Private mReturnCode As Integer = 0
+    Private mIsDuplicate As Boolean = False
+
+    Private mReturnCode As Integer = -99
     Private mReturnMessage As String = ""
 
 #End Region  'Private Data
@@ -76,6 +79,27 @@ Public Class FrmStadisCharge
         Common.BORefreshRecord(mAdapter, 0)
         Common.BOOpen(mAdapter, mTenderHandle)
 
+        'If mAdapter.BOIsAttributeInList(mTenderHandle, "EFTDATA5") = False Then
+        '    Dim result As Integer = mAdapter.BOIncludeAttrIntoList(mTenderHandle, "EFTDATA5", True, False)
+        'End If
+        'If mAdapter.BOIsAttributeInInstance(mTenderHandle, "EFTDATA5") = False Then
+        '    Dim result As Integer = mAdapter.BOIncludeAttrIntoInstance(mTenderHandle, "EFTDATA5", True, False)
+        'End If
+
+        'If mAdapter.BOIsAttributeInList(mTenderHandle, "EFTDATA6") = False Then
+        '    Dim result As Integer = mAdapter.BOIncludeAttrIntoList(mTenderHandle, "EFTDATA6", True, False)
+        'End If
+        'If mAdapter.BOIsAttributeInInstance(mTenderHandle, "EFTDATA6") = False Then
+        '    Dim result As Integer = mAdapter.BOIncludeAttrIntoInstance(mTenderHandle, "EFTDATA6", True, False)
+        'End If
+
+        'If mAdapter.BOIsAttributeInList(mTenderHandle, "EFTDATA7") = False Then
+        '    Dim result As Integer = mAdapter.BOIncludeAttrIntoList(mTenderHandle, "EFTDATA7", True, False)
+        'End If
+        'If mAdapter.BOIsAttributeInInstance(mTenderHandle, "EFTDATA7") = False Then
+        '    Dim result As Integer = mAdapter.BOIncludeAttrIntoInstance(mTenderHandle, "EFTDATA7", True, False)
+        'End If
+
         If mAdapter.BOIsAttributeInList(mTenderHandle, "EFTDATA8") = False Then
             Dim result As Integer = mAdapter.BOIncludeAttrIntoList(mTenderHandle, "EFTDATA8", True, False)
         End If
@@ -89,6 +113,8 @@ Public Class FrmStadisCharge
         If mAdapter.BOIsAttributeInInstance(mTenderHandle, "EFTDATA9") = False Then
             Dim result As Integer = mAdapter.BOIncludeAttrIntoInstance(mTenderHandle, "EFTDATA9", True, False)
         End If
+        mAdapter.BOUpdateListCollections(mTenderHandle)
+        mAdapter.BOUpdateInstanceCollections(mTenderHandle)
     End Sub  'SetUpRetailProConnections
 
     '----------------------------------------------------------------------------------------------
@@ -104,16 +130,30 @@ Public Class FrmStadisCharge
     ' Set on-screen fields to initial values
     '----------------------------------------------------------------------------------------------
     Private Sub InitializeFormFields()
+        If gAllowRedeemAmountChange = True Then
+            txtTenderAmount.ReadOnly = False
+            txtTenderAmount.Appearance.BackColor = Color.White
+        Else
+            txtTenderAmount.ReadOnly = True
+            txtTenderAmount.Appearance.BackColor = Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        End If
         mAdapter = ParentDialog.Adapter
         mAmountDue = ParentDialog.Amount
         txtAmountDue.Value = mAmountDue
         txtTenderID.Text = ""
         txtAvailAmount.Value = 0
-        txtTenderAmount.Value = 0
+        txtTenderAmount.Value = mAmountDue
+        txtStadisCharge.Value = 0
+        txtPromoCharge.Value = 0
         txtAcctBalance.Value = 0
         txtRemAmountDue.Value = mAmountDue
         txtRemAmountDue.Appearance.ForeColor = System.Drawing.Color.Firebrick
         txtMessage.Text = ""
+        mAvailAmount = 0D
+        mAcctBalance = 0D
+        'mTenderAmount = mAmountDue
+        mIsDuplicate = False
+        btnOK.Text = "Process"
     End Sub  'InitializeFields
 
     '----------------------------------------------------------------------------------------------
@@ -143,15 +183,22 @@ Public Class FrmStadisCharge
     '----------------------------------------------------------------------------------------------
     Private Sub txtTenderID_KeyDown(sender As Object, e As KeyEventArgs) Handles txtTenderID.KeyDown
         If e.KeyCode = Keys.Enter Then
-            txtTenderAmount.Focus()
-            txtTenderAmount.PerformAction(UltraWinMaskedEdit.MaskedEditAction.SelectSection, False, False)
-            e.Handled = True
+            If gAllowRedeemAmountChange = True Then
+                txtTenderAmount.Focus()
+                txtTenderAmount.PerformAction(UltraWinMaskedEdit.MaskedEditAction.SelectSection, False, False)
+                e.Handled = True
+            Else
+                btnOK.Focus()
+                OKProcessing()
+                e.Handled = True
+            End If
         End If
     End Sub  'txtTenderID_KeyDown
 
     Private Sub txtTenderAmount_KeyDown(sender As Object, e As KeyEventArgs) Handles txtTenderAmount.KeyDown
         If e.KeyCode = Keys.Enter Then
             btnOK.Focus()
+            OKProcessing()
             e.Handled = True
         End If
     End Sub  'txtTenderAmount_KeyDown
@@ -193,6 +240,7 @@ Public Class FrmStadisCharge
                         If txtTenderID.Text = remark(1) Then
                             MsgBox("Card/Ticket has already been entered.", MsgBoxStyle.Exclamation, "STADIS Tender")
                             txtTenderID.Text = ""
+                            mIsDuplicate = True
                             Exit Sub
                         End If
                     End If
@@ -201,31 +249,38 @@ Public Class FrmStadisCharge
             End While
         End If
 
+        txtMessage.Text = ""
         'Check ticket status
-        Dim sr As New StadisRequest
-        With sr
-            .SiteID = gSiteID
-            .TenderTypeID = 1
-            .TenderID = txtTenderID.Text
-            .Amount = 0
-            .ReferenceNumber = ""
-            .CustomerID = gStadisUserID
-            .VendorID = gVendorID
-            .LocationID = gLocationID
-            .RegisterID = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Workstion")
-            .ReceiptID = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
-            .VendorCashier = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Cashier")
-        End With
-        Dim ts As TicketStatus = Common.StadisAPI.GetTicketStatus(sr)
-        If ts.ReturnCode < 0 Then
-            MsgBox("Unable to validate card...", MsgBoxStyle.Exclamation, "GiftCard")
-            txtTenderID.Text = ""
-            Exit Sub
+        If mIsDuplicate = False Then
+            Dim sr As New StadisRequest
+            With sr
+                .SiteID = gSiteID
+                .TenderTypeID = 1
+                .TenderID = Trim(txtTenderID.Text)
+                .Amount = 0
+                .ReferenceNumber = ""
+                .CustomerID = gStadisUserID
+                .VendorID = gVendorID
+                .LocationID = gLocationID
+                .RegisterID = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Workstion")
+                .ReceiptID = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Invoice Number")
+                .VendorCashier = Common.BOGetStrAttributeValueByName(mAdapter, 0, "Cashier")
+            End With
+            Dim ts As TicketStatus = Common.StadisAPI.GetTicketStatus(sr)
+            If ts.ReturnCode < 0 Then
+                MsgBox("Unable to validate card...", MsgBoxStyle.Exclamation, "GiftCard")
+                txtTenderID.Text = ""
+                Exit Sub
+            End If
+            mAvailAmount = ts.SVATotalAvailable
+            mAcctBalance = ts.SVA1Balance - mAvailAmount
+            txtTenderAmount.Value = mAmountDue
+            CalcRemAmountDue()
+            If ts.SVATotalAvailable = 0D Then
+                txtMessage.Appearance.ForeColor = Drawing.Color.Firebrick
+                txtMessage.Text = "Zero balance on card/ticket."
+            End If
         End If
-        mAvailAmount = ts.SVATotalAvailable
-        mAcctBalance = ts.SVA1Balance
-        txtTenderAmount.Value = mAmountDue
-        CalcRemAmountDue()
     End Sub  'txtTenderID_Leave
 
     '----------------------------------------------------------------------------------------------
@@ -233,6 +288,7 @@ Public Class FrmStadisCharge
     '----------------------------------------------------------------------------------------------
     Private Sub txtTenderAmount_ValueChanged(sender As Object, e As EventArgs) Handles txtTenderAmount.ValueChanged
         CalcRemAmountDue()
+        txtMessage.Text = ""
     End Sub  'txtTenderAmount_ValueChanged
 
     '----------------------------------------------------------------------------------------------
@@ -241,10 +297,11 @@ Public Class FrmStadisCharge
     Private Sub CalcRemAmountDue()
         txtAvailAmount.Value = mAvailAmount
         txtAcctBalance.Value = mAcctBalance
-        If mAvailAmount < txtTenderAmount.Value Then
-            txtTenderAmount.Value = mAvailAmount
-        End If
-        txtRemAmountDue.Value = mAmountDue - txtTenderAmount.Value
+        'If mAvailAmount < mAmountDue Then
+        '    txtTenderAmount.Value = mAvailAmount
+        '    mTenderAmount = mAvailAmount
+        'End If
+        'txtRemAmountDue.Value = mAmountDue - mAvailAmount
         If txtRemAmountDue.Value = 0 Then
             txtRemAmountDue.Appearance.ForeColor = System.Drawing.Color.Black
         Else
@@ -277,22 +334,42 @@ Public Class FrmStadisCharge
     '----------------------------------------------------------------------------------------------
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         txtTenderID.Text = ""
+        txtAvailAmount.Value = 0
         txtTenderAmount.Value = 0
+        txtStadisCharge.Value = 0
+        txtPromoCharge.Value = 0
+        txtAcctBalance.Value = 0
+        txtMessage.Text = ""
         gLastTenderID = ""
         gLastAmount = 0D
+        mIsDuplicate = False
+        btnOK.Text = "Process"
     End Sub  'btnClear_Click
 
     '----------------------------------------------------------------------------------------------
     ' Process SVAccountCharge.  If successful, pause a sec to diaplay message, then exit
     '----------------------------------------------------------------------------------------------
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        Dim chargeSucceeded As Boolean = DoSVAccountCharge()
-        If chargeSucceeded Then
-            Wait(1)
+        OKProcessing()
+    End Sub  'btnOK_Click
+
+    Private Sub OKProcessing()
+        If btnOK.Text = "Exit" Then
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         End If
-    End Sub  'btnOK_Click
+        If mIsDuplicate = False Then
+            Dim chargeSucceeded As Boolean = DoSVAccountCharge()
+            If chargeSucceeded Then
+                btnOK.Text = "Exit"
+                'Wait(1)
+                'Me.DialogResult = Windows.Forms.DialogResult.OK
+                'Me.Close()
+            End If
+        Else
+            MsgBox("Card/Ticket has already been entered.", MsgBoxStyle.Exclamation, "STADIS Tender")
+        End If
+    End Sub  'OKProcessing
 
     '----------------------------------------------------------------------------------------------
     ' Exit without doing anything
@@ -306,15 +383,15 @@ Public Class FrmStadisCharge
 
 #Region " Methods "
 
-    '----------------------------------------------------------------------------------------------
-    ' Pause
-    '----------------------------------------------------------------------------------------------
-    Private Sub Wait(ByVal seconds As Integer)
-        For i As Integer = 0 To seconds * 100
-            System.Threading.Thread.Sleep(10)
-            Application.DoEvents()
-        Next
-    End Sub  'Wait
+    ''----------------------------------------------------------------------------------------------
+    '' Pause
+    ''----------------------------------------------------------------------------------------------
+    'Private Sub Wait(ByVal seconds As Integer)
+    '    For i As Integer = 0 To seconds * 100
+    '        System.Threading.Thread.Sleep(10)
+    '        Application.DoEvents()
+    '    Next
+    'End Sub  'Wait
 
     Private Function DoSVAccountCharge() As Boolean
         Try
@@ -334,6 +411,9 @@ Public Class FrmStadisCharge
                 .VendorCashier = Common.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Cashier")
                 gRegisterID = .RegisterID
                 gVendorCashier = .VendorCashier
+                If gReturnItemizedPromotions = True Then
+                    .StadisAuthorizationID = "*Items"
+                End If
             End With
             Dim invcSID = Common.BOGetStrAttributeValueByName(mAdapter, mInvoiceHandle, "Invoice SID")
             'Check if already processed
@@ -350,7 +430,11 @@ Public Class FrmStadisCharge
             End With
             Dim sys As StadisReply() = Nothing
             Try
-                sys = Common.StadisAPI.SVAccountCharge(sr, Common.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), Common.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), Common.LoadTendersForCharge(mAdapter, "Receipt", mTenderHandle, stt))
+                If gUseShortCharge = True Then
+                    sys = Common.StadisAPI.SVAcctChg(sr)
+                Else
+                    sys = Common.StadisAPI.SVAccountCharge(sr, Common.LoadHeader(mAdapter, "Receipt", mInvoiceHandle), Common.LoadItems(mAdapter, "Receipt", mInvoiceHandle, mItemHandle), Common.LoadTendersForCharge(mAdapter, "Receipt", mTenderHandle, stt))
+                End If
                 mReturnCode = sys(0).ReturnCode
                 mReturnMessage = sys(0).ReturnMessage
             Catch ex As Exception
@@ -398,6 +482,9 @@ Public Class FrmStadisCharge
                                     Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "CRD_PRESENT", 1)
                                 End If
                                 Common.BOPost(mAdapter, mTenderHandle)
+                                txtPromoCharge.Value += sy.ChargedAmount
+                                'Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "EFTDATA6", sy.ChargedAmount)
+                                'Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "EFTDATA7", sy.Comment)
                             Catch ex As Exception
                                 MessageBox.Show("Error while adding promo tender." & vbCrLf & ex.Message, "STADIS")
                                 Exit Function
@@ -439,6 +526,11 @@ Public Class FrmStadisCharge
                                 .Remark = flag & "#" & sy.TenderID & "#" & sy.StadisAuthorizationID
                                 .DATA8 = lastfour
                             End With
+                            txtStadisCharge.Value = sy.ChargedAmount
+                            'Common.BORefreshRecord(mAdapter, 0)
+                            'Common.BOOpen(mAdapter, mTenderHandle)
+                            'Common.BOSetAttributeValueByName(mAdapter, mTenderHandle, "EFTDATA5", sy.ChargedAmount)
+                            'Common.BOPost(mAdapter, mTenderHandle)
                         Case -1, -3, -99   'Charge failed
                             txtMessage.Appearance.ForeColor = Drawing.Color.Firebrick
                             txtMessage.Text = "Charge Failed"
@@ -460,6 +552,12 @@ Public Class FrmStadisCharge
                     Exit For
                 End If
             Next
+            txtRemAmountDue.Value = mAmountDue - (txtStadisCharge.Value + txtPromoCharge.Value)
+            If txtRemAmountDue.Value = 0 Then
+                txtRemAmountDue.Appearance.ForeColor = System.Drawing.Color.Black
+            Else
+                txtRemAmountDue.Appearance.ForeColor = System.Drawing.Color.Firebrick
+            End If
             txtMessage.Appearance.ForeColor = Drawing.Color.Teal
             txtMessage.Text = "Charge Successful"
             Return True

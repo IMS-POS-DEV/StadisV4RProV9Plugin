@@ -1,6 +1,4 @@
 ﻿Imports StadisV4RProV9Plugin.WebReference
-Imports CustomPluginClasses
-Imports Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
@@ -24,7 +22,6 @@ Public Class ButtonReturn
         Else
             fCaption = "Disabled"
         End If
-        fCaption = gReturnButtonCaption
         fPictureFilename = gReturnButtonImage
         fLayoutActionName = "actStadisReturnButton"
         fChecked = True

@@ -87,7 +87,7 @@ Partial Class FrmReload
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Padding = New System.Drawing.Size(4, 0)
         Me.btnCancel.Size = New System.Drawing.Size(103, 53)
-        Me.btnCancel.TabIndex = 3
+        Me.btnCancel.TabIndex = 1
         Me.btnCancel.Text = "Cancel"
         UltraToolTipInfo6.ToolTipText = "Leave without processing."
         Me.UltraToolTipManager1.SetUltraToolTip(Me.btnCancel, UltraToolTipInfo6)
@@ -105,7 +105,7 @@ Partial Class FrmReload
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Padding = New System.Drawing.Size(4, 0)
         Me.btnOK.Size = New System.Drawing.Size(103, 53)
-        Me.btnOK.TabIndex = 2
+        Me.btnOK.TabIndex = 0
         Me.btnOK.Text = "OK"
         UltraToolTipInfo5.ToolTipText = "Add this item to the Receipt."
         Me.UltraToolTipManager1.SetUltraToolTip(Me.btnOK, UltraToolTipInfo5)
@@ -196,7 +196,7 @@ Partial Class FrmReload
         Me.UltraLabel4.TabIndex = 23
         Me.UltraLabel4.Text = "Amount to Add:"
         '
-        'txtAmount
+        'txtReloadAmount
         '
         Appearance6.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Appearance6.FontData.BoldAsString = "True"
@@ -206,7 +206,7 @@ Partial Class FrmReload
         Me.txtReloadAmount.Appearance = Appearance6
         Me.txtReloadAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.txtReloadAmount.Location = New System.Drawing.Point(247, 178)
-        Me.txtReloadAmount.Name = "txtAmount"
+        Me.txtReloadAmount.Name = "txtReloadAmount"
         Me.txtReloadAmount.Size = New System.Drawing.Size(156, 31)
         Me.txtReloadAmount.TabIndex = 1
         UltraToolTipInfo2.ToolTipText = "Amount being added to the gift card."

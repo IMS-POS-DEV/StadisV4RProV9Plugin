@@ -2,6 +2,7 @@
 Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms
+Imports System.Configuration.ConfigurationManager
 '----------------------------------------------------------------------------------------------
 '   Class: Common
 '    Type: Common subroutines
@@ -145,10 +146,31 @@ Public Class Common
     '----------------------------------------------------------------------------------------------
     ' Get site and WS configuration settings
     '----------------------------------------------------------------------------------------------
+    Public Shared Sub LoadLocalSettings()
+        gStadisV4WebServiceURL = My.Settings.StadisV4WebServiceURL
+        gOverrideSettingComponent = My.Settings.OverrideSettingID
+        gStadisUserID = My.Settings.StadisUserID
+        gStadisPassword = My.Settings.StadisPassword
+        If My.Settings.UseShortCharge = "True" Then
+            gUseShortCharge = True
+        Else
+            gUseShortCharge = False
+        End If
+        'gOPOSPrinterName = My.Settings.OPOSPrinterName
+        'gRasterPrinterName = My.Settings.RasterPrinterName
+        gWindowsPrinterName = My.Settings.WindowsPrinterName
+    End Sub  'LoadLocalSettings
+
     Public Shared Sub LoadInstallationSettings()
 
         If gAlreadyLoaded = True Then Exit Sub
         gAlreadyLoaded = True
+
+        If My.Settings.ReturnItemizedPromotions = "True" Then
+            gReturnItemizedPromotions = True
+        Else
+            gReturnItemizedPromotions = False
+        End If
 
         Try
             ' Get installation settings - standard first, then overrides, if any
@@ -165,12 +187,10 @@ Public Class Common
         Catch ex As Exception
             gBalChkButtonActive = False
             gIssueButtonActive = False
-            gRedeemButtonActive = False
             gReturnButtonActive = False
             gReloadButtonActive = False
             gBalChkButtonEnabled = False
             gIssueButtonEnabled = False
-            gRedeemButtonEnabled = False
             gReturnButtonEnabled = False
             gReloadButtonEnabled = False
             MessageBox.Show("Unable to access InstallationSettings." & vbCrLf & ex.Message, "STADIS")
@@ -260,12 +280,10 @@ Public Class Common
         Catch ex As Exception
             gBalChkButtonActive = False
             gIssueButtonActive = False
-            gRedeemButtonActive = False
             gReturnButtonActive = False
             gReloadButtonActive = False
             gBalChkButtonEnabled = False
             gIssueButtonEnabled = False
-            gRedeemButtonEnabled = False
             gReturnButtonEnabled = False
             gReloadButtonEnabled = False
             MessageBox.Show("Error loading Gift Card table." & vbCrLf & ex.Message, "STADIS")
@@ -285,6 +303,8 @@ Public Class Common
                             gStadisRelease = .SettingValue
                         Case "SiteSVType"
                             gSiteSVType = .SettingValue
+                        Case "AllowRedeemAmountChange"
+                            gAllowRedeemAmountChange = CBool(.SettingValue)
                         Case "ArePromotionsActive"
                             gArePromotionsActive = CBool(.SettingValue)
 
@@ -371,25 +391,8 @@ Public Class Common
                         Case "IssueButtonHint"
                             gIssueButtonHint = .SettingValue
 
-                        Case "RedeemButtonActive"
-                            gRedeemButtonActive = CBool(.SettingValue)
-                            If gRedeemButtonActive = True Then
-                                gRedeemButtonEnabled = True
-                            Else
-                                gRedeemButtonEnabled = False
-                            End If
-                        Case "RedeemSideButtonEnabled"
-                            gRedeemButtonEnabled = CBool(.SettingValue)
-                        Case "RedeemButtonCaption"
-                            gRedeemButtonCaption = .SettingValue
-                        Case "RedeemButtonImage"
-                            gRedeemButtonImage = .SettingValue
-                        Case "RedeemButtonHint"
-                            gRedeemButtonHint = .SettingValue
-
                         Case "ReturnButtonActive"
                             gReturnButtonActive = CBool(.SettingValue)
-                            gReturnButtonEnabled = False
                         Case "ReturnButtonEnabled"
                             gReturnButtonEnabled = CBool(.SettingValue)
                         Case "ReturnButtonCaption"

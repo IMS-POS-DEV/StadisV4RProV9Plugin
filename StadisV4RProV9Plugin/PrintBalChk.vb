@@ -3,7 +3,7 @@ Imports System.Drawing
 Imports System.Drawing.Printing
 Imports System.IO
 
-Public Class BalChkPrtDoc
+Public Class PrintBalChk
     Inherits System.Drawing.Printing.PrintDocument
 
 #Region " Private Data "
@@ -56,12 +56,9 @@ Public Class BalChkPrtDoc
 #Region " Initialization "
 
     Public Sub New()
-
         pfc = New System.Drawing.Text.PrivateFontCollection()
         ifc = New System.Drawing.Text.InstalledFontCollection()
-
         LoadPrivateFonts({My.Resources.lucon})
-
     End Sub  'New
 
 #End Region  'Initialization
@@ -134,5 +131,5 @@ Public Class BalChkPrtDoc
 
 #End Region  'Methods
 
-End Class  'BalChkPrtDoc
+End Class  'PrintBalChk
 

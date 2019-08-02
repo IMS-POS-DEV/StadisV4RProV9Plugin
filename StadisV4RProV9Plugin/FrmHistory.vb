@@ -1,8 +1,9 @@
 ﻿Imports StadisV4RProV9Plugin.WebReference
 Imports Infragistics.Win
 Imports Infragistics.Win.UltraWinGrid
-'Imports POS.Devices.OPOSPOSPrinterConstants
-'Imports POS.Devices.OPOS_Constants
+Imports System.IO
+Imports System.Drawing
+Imports System.Drawing.Printing
 '----------------------------------------------------------------------------------------------
 '   Class: FrmHistory
 '    Type: Windows Form
@@ -10,14 +11,14 @@ Imports Infragistics.Win.UltraWinGrid
 '----------------------------------------------------------------------------------------------
 Public Class FrmHistory
 
-#Region " Data Declarations "
+#Region " Private Data "
 
     Private ds As New DSTran
+    Private mTranKey As String
 
-    'Private OPOSPrinter As New POS.Devices.OPOSPOSPrinter
-    Private WithEvents sPrn As New System.Drawing.Printing.PrintDocument
+#End Region  'Private Data
 
-    'Private Const LF As Char = Chr(10)
+#Region " Public Properties "
 
     Private mTicketID As String = ""
     Friend Property TicketID() As String
@@ -69,7 +70,7 @@ Public Class FrmHistory
         End Set
     End Property
 
-#End Region  'Data Declarations
+#End Region  'Public Properties
 
 #Region " Form Load and Initialization "
 
@@ -534,15 +535,57 @@ Public Class FrmHistory
 #Region " Buttons "
 
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
-        If gWindowsPrinterName <> "DISABLED" Then PrintToWindows()
-        'If gOPOSPrinterName <> "DISABLED" Then PrintToOPOS()
-        'If gRasterPrinterName <> "DISABLED" Then PrintToRaster()
+        If gWindowsPrinterName <> "Disabled" Then
+            Dim hasPrintLines As Boolean = False
+            lblPrint.Visible = True
+            Dim tempFile As String = Path.GetTempFileName()
+            Dim sw As StreamWriter = New StreamWriter(tempFile, False)
+            For Each hRow As DSTran.HeaderRow In ds.Header
+                If hRow.TransactionKey = mTranKey Then
+                    CreateReceiptPrintLines(hRow, sw)
+                    hasPrintLines = True
+                End If
+            Next
+            sw.Close()
+            If hasPrintLines = True Then
+                Dim prtDoc As New PrintReceipt
+                With prtDoc
+                    .StrRdr = New StreamReader(tempFile)
+                    .PrinterSettings.PrinterName = gWindowsPrinterName
+                    .Print()
+                End With
+            End If
+            File.Delete(tempFile)
+        Else
+            MessageBox.Show("Printer not assigned.", "Receipt Print", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+        lblPrint.Visible = False
     End Sub  'btnPrint_Click
 
     Private Sub btnPrintAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintAll.Click
-        If gWindowsPrinterName <> "DISABLED" Then PrintAllToWindows()
-        'If gOPOSPrinterName <> "DISABLED" Then PrintAllToOPOS()
-        'If gRasterPrinterName <> "DISABLED" Then PrintAllToRaster()
+        If gWindowsPrinterName <> "Disabled" Then
+            Dim hasPrintLines As Boolean = False
+            lblPrint.Visible = True
+            Dim tempFile As String = Path.GetTempFileName()
+            Dim sw As StreamWriter = New StreamWriter(tempFile, False)
+            For Each hRow As DSTran.HeaderRow In ds.Header
+                CreateReceiptPrintLines(hRow, sw)
+                hasPrintLines = True
+            Next
+            sw.Close()
+            If hasPrintLines = True Then
+                Dim prtDoc As New PrintReceipt
+                With prtDoc
+                    .StrRdr = New StreamReader(tempFile)
+                    .PrinterSettings.PrinterName = gWindowsPrinterName
+                    .Print()
+                End With
+            End If
+            File.Delete(tempFile)
+        Else
+            MessageBox.Show("Printer not assigned.", "Receipt Print", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+        lblPrint.Visible = False
     End Sub  'btnPrintAll_Click
 
     Private Sub btnFinished_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFinished.Click
@@ -554,7 +597,7 @@ Public Class FrmHistory
 
 #Region " Other Methods "
 
-    Private Sub CreateReceipt(ByVal trRow As UltraGridRow)
+    Private Sub DisplayReceipt(ByVal trRow As UltraGridRow)
         If CStr(trRow.Cells("Action").Value) = "Activate" Then
             Exit Sub
         End If
@@ -578,9 +621,9 @@ Public Class FrmHistory
             .Add("Cashier   : " & CStr(trRow.Cells("VendorCashier").Value))
             .Add("----------------------------------------")
             If Len(mTicketID) < 4 Then
-                .Add(gStadisTenderText & "#: " & "xxxxxxxxxxxxx")
+                .Add(gReceiptTenderText & "#: " & "xxxxxxxxxxxxx")
             Else
-                .Add(gStadisTenderText & "#: " & "xxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4))
+                .Add(gReceiptTenderText & "#: " & "xxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4))
             End If
             .Add("----------------------------------------")
             .Add("  Qty  Description               Price")
@@ -611,28 +654,90 @@ Public Class FrmHistory
                 End If
             Next
         End With
-    End Sub  'CreateReceipt
+    End Sub  'DisplayReceipt
+
+    Private Sub CreateReceiptPrintLines(ByRef hRow As DSTran.HeaderRow, ByRef sw As StreamWriter)
+        Dim sQuantity As Integer
+        Dim sQuantityStr As String
+        Dim sDescription As String
+        Dim sPrice As Double
+        Dim sExtPrice As Double
+        Dim mExtPrice As String
+        Dim sGrandTotal As Double = CDbl(hRow.Total)
+        Dim mGrandTotal As String = sGrandTotal.ToString("""$""#,##0.00")
+        Dim sTenderAmount As Double
+        Dim mTenderAmount As String
+        Dim sTenderType As String
+        Dim transactionKey As String = CStr(hRow.TransactionKey)
+
+        Try
+            sw.WriteLine("Date/Time : " & CDate(hRow.CreateDate).ToString())
+            sw.WriteLine("Location  : " & hRow.LocationID)
+            sw.WriteLine("Register #: " & hRow.RegisterID)
+            sw.WriteLine("Receipt # : " & hRow.ReceiptID)
+            sw.WriteLine("Cashier   : " & hRow.VendorCashier)
+            sw.WriteLine("----------------------------------------")
+            If mTicketID.Length < 4 Then
+                sw.WriteLine(gReceiptTenderText & " #: xxxxxxxxxxxxx")
+            Else
+                sw.WriteLine(gReceiptTenderText & " #: " & "xxxxxxxxx" & Mid(mTicketID, mTicketID.Length - 3, 4))
+            End If
+            sw.WriteLine("----------------------------------------")
+            sw.WriteLine("  Qty  Description               Price")
+            sw.WriteLine("----------------------------------------")
+            For Each iRow As DSTran.ItemRow In ds.Item
+                If iRow.TransactionKey = transactionKey Then
+                    sQuantity = iRow.Quantity
+                    sDescription = Trim(iRow.Description)
+                    sPrice = CDbl(iRow.Price)
+                    sExtPrice = sPrice * sQuantity
+                    mExtPrice = sExtPrice.ToString("""$""#,##0.00")
+                    sQuantityStr = CStr(sQuantity)
+                    If iRow.Description.Length > 20 Then
+                        sw.WriteLine(Space(4 - sQuantityStr.Length) & sQuantityStr & Space(3) & Mid(sDescription, 1, 20) & Space(1) & Space(10 - mExtPrice.Length) & mExtPrice)
+                    Else
+                        sw.WriteLine(Space(4 - sQuantityStr.Length) & sQuantityStr & Space(3) & sDescription & Space(20 - sDescription.Length) & Space(1) & Space(10 - mExtPrice.Length) & mExtPrice)
+                    End If
+                End If
+            Next
+            sw.WriteLine("----------------------------------------")
+            sw.WriteLine("                  TOTAL: " & Space(13 - mGrandTotal.Length) & mGrandTotal)
+            sw.WriteLine("----------------------------------------")
+            For Each tRow As DSTran.TenderRow In ds.Tender
+                If tRow.TransactionKey = transactionKey Then
+                    sTenderType = Trim(tRow.TenderType)
+                    sTenderAmount = CDbl(tRow.PostedAmount)
+                    mTenderAmount = sTenderAmount.ToString("""$""#,##0.00")
+                    sw.WriteLine(Space(23 - sTenderType.Length) & sTenderType & ": " & Space(13 - mTenderAmount.Length) & mTenderAmount)
+                End If
+            Next
+            sw.WriteLine("----------------------------------------")
+            sw.WriteLine(" ")
+        Catch ex As Exception
+            Console.WriteLine("The process failed: {0}", ex.ToString())
+        End Try
+    End Sub  'CreateReceiptPrintLines
 
     Private Sub grdTran_ClickCell(ByVal sender As Object, ByVal e As Infragistics.Win.UltraWinGrid.ClickCellEventArgs) Handles grdTran.ClickCell
         lstReceipt.Items.Clear()
         grdAction.ActiveRow = Nothing
-        Dim grdTranKey As String = CStr(e.Cell.Row.Cells("TransactionKey").Value)
+        mTranKey = CStr(e.Cell.Row.Cells("TransactionKey").Value)
         Dim enumerator As IEnumerable = grdAction.Rows.GetRowEnumerator(GridRowType.DataRow, Nothing, Nothing)
         For Each aRow As UltraWinGrid.UltraGridRow In enumerator
-            If (CStr(aRow.Cells("TransactionKey").Value) = grdTranKey) AndAlso (Not aRow.IsFilteredOut) Then
+            If (CStr(aRow.Cells("TransactionKey").Value) = mTranKey) AndAlso (Not aRow.IsFilteredOut) Then
                 grdAction.ActiveRow = aRow
                 grdAction.ActiveRow.Selected = True
                 Exit For
             End If
         Next
         If e.Cell.Row.Band.Index = 0 Then
-            CreateReceipt(e.Cell.Row)
+            DisplayReceipt(e.Cell.Row)
         Else
             Dim saveRow As UltraGridRow = grdTran.ActiveRow
             Do While grdTran.ActiveRow.HasParent = True
                 grdTran.ActiveRow = grdTran.ActiveRow.ParentRow
             Loop
-            CreateReceipt(grdTran.ActiveRow)
+            DisplayReceipt(grdTran.ActiveRow)
             grdTran.ActiveRow = saveRow
         End If
     End Sub  'grdTran_ClickCell
@@ -640,14 +745,14 @@ Public Class FrmHistory
     Private Sub grdAction_ClickCell(ByVal sender As Object, ByVal e As Infragistics.Win.UltraWinGrid.ClickCellEventArgs) Handles grdAction.ClickCell
         lstReceipt.Items.Clear()
         grdTran.ActiveRow = Nothing
-        Dim grdTranKey As String = CStr(e.Cell.Row.Cells("TransactionKey").Value)
+        Dim mTranKey As String = CStr(e.Cell.Row.Cells("TransactionKey").Value)
         Dim enumerator As IEnumerable = grdTran.Rows.GetRowEnumerator(GridRowType.DataRow, Nothing, Nothing)
         For Each trRow As UltraWinGrid.UltraGridRow In enumerator
             If (trRow.Band.Index = 0) AndAlso (Not trRow.IsFilteredOut) Then
-                If CStr(trRow.Cells("TransactionKey").Value) = grdTranKey Then
+                If CStr(trRow.Cells("TransactionKey").Value) = mTranKey Then
                     grdTran.ActiveRow = trRow
                     grdTran.ActiveRow.Selected = True
-                    CreateReceipt(trRow)
+                    DisplayReceipt(trRow)
                     Exit For
                 End If
             End If
@@ -735,154 +840,5 @@ Public Class FrmHistory
     End Sub  'grdAction_InitializeRow
 
 #End Region  'Other Methods
-
-#Region " Print to Windows "
-
-    Private Sub PrintToWindows()
-        'With TransactionReport1
-        '    .SetDataSource(ds)
-        '    .SetParameterValue(0, Me.grdTran.ActiveRow.Cells("TransactionKey").Value)
-        '    .SetParameterValue(1, mBalance)
-        '    .SetParameterValue(2, gStadisTenderText)
-        '    .SetParameterValue(3, "xxxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4))
-        '    .SetParameterValue(4, "N/A")
-        '    .PrintOptions.PrinterName = gWindowsPrinterName
-        '    .PrintToPrinter(1, True, 1, 1)
-        'End With
-    End Sub  'PrintToWindows
-
-    Private Sub PrintAllToWindows()
-        'With TransactionsReport1
-        '    .SetDataSource(ds)
-        '    .SetParameterValue(0, Me.grdTran.ActiveRow.Cells("TransactionKey").Value)
-        '    .PrintOptions.PrinterName = gWindowsPrinterName
-        '    .PrintToPrinter(1, True, 1, 1)
-        'End With
-    End Sub  'PrintAllToWindows
-
-#End Region  'Print to Windows
-
-#Region " Print to OPOS "
-
-    '    Private Sub PrintToOPOS()
-    '        lblPrint.Visible = True
-    '        Application.DoEvents()
-    '        lblPrint.Refresh()
-    '        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
-    '        Try
-    '            With OPOSPrinter
-    '                .Open(gOPOSPrinterName)
-    '                .ClaimDevice(10000)
-    '                .DeviceEnabled = True
-    '                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_TRANSACTION)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|2C" & ESC & "|bC" & "** NOT A RECEIPT **" & LF & LF)
-    '                Dim i As Integer
-    '                For i = 0 To lstReceipt.Items.Count - 1
-    '                    If CBool(InStr(lstReceipt.Items(i).ToString, "TOTAL:", CompareMethod.Text)) Then
-    '                        .PrintNormal(PTR_S_RECEIPT, ESC & "|3C" & ESC & "|bC" & lstReceipt.Items(i).ToString & LF)
-    '                    Else
-    '                        .PrintNormal(PTR_S_RECEIPT, lstReceipt.Items(i).ToString & LF)
-    '                    End If
-    '                Next
-    '                .PrintNormal(PTR_S_RECEIPT, LF)
-    '                .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|3C" & "BALANCE AS OF " & mScanTimeStamp & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|4C" & mBalance & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* THIS IS NOT AN ACTUAL RECEIPT *" & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* MAY NOT BE USED FOR REFUNDS/EXCHANGES *" & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, LF & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, Chr(&H1BS) + "|100fP")
-    '                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_NORMAL)
-    '                .DeviceEnabled = False
-    '                .ReleaseDevice()
-    '                .Close()
-    '            End With
-    '        Catch ex As Exception
-    '            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
-    '            lblPrint.Visible = False
-    '        End Try
-    '        lblPrint.Visible = False
-    '    End Sub  'PrintToOPOS
-
-    '    Private Sub PrintAllToOPOS()
-    '        Dim sQuantity As Integer
-    '        Dim sDescription As String
-    '        Dim sPrice As Double
-    '        Dim sExtPrice As Double
-    '        Dim sGrandTotal As Double
-    '        Dim sTenderAmount As Double
-    '        Dim sTenderType As String
-    '        lblPrint.Visible = True
-    '        Application.DoEvents()
-    '        lblPrint.Refresh()
-    '        Dim ESC As String = Mid(Chr(&H1B), 1, 1)
-    '        Try
-    '            With OPOSPrinter
-    '                .Open(gOPOSPrinterName)
-    '                .ClaimDevice(10000)
-    '                .DeviceEnabled = True
-    '                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_TRANSACTION)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|2C" & ESC & "|bC" & "** NOT A RECEIPT **" & LF & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "History for " & gSTADISTenderText & "#:" & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|4C" & ESC & "|bC" & "xxxxxxxxx" & Mid(mTicketID, Len(mTicketID) - 3, 4) & LF & LF)
-    '                Dim t As Integer
-    '                For t = 0 To grdTran.Rows.Count - 1
-    '                    .PrintNormal(PTR_S_RECEIPT, "========================================" & LF)
-    '                    .PrintNormal(PTR_S_RECEIPT, "Date/Time : " & CDate(grdTran.Rows(t).Cells("CreateDate").Value).ToString & LF)
-    '                    .PrintNormal(PTR_S_RECEIPT, "Location  : " & grdTran.Rows(t).Cells("LocationID").Value.ToString & LF)
-    '                    .PrintNormal(PTR_S_RECEIPT, "Register #: " & grdTran.Rows(t).Cells("RegisterID").Value.ToString & LF)
-    '                    .PrintNormal(PTR_S_RECEIPT, "Receipt  #: " & grdTran.Rows(t).Cells("ReceiptID").Value.ToString & LF)
-    '                    .PrintNormal(PTR_S_RECEIPT, "Cashier   : " & grdTran.Rows(t).Cells("VendorCashier").Value.ToString & LF)
-    '                    sGrandTotal = CDbl(grdTran.Rows(t).Cells("Total").Value)
-    '                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-    '                    .PrintNormal(PTR_S_RECEIPT, "  Qty  Description               Price" & LF)
-    '                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-    '                    For Each iRow As DataRow In ds.Item
-    '                        If iRow.Item("TransactionKey").ToString = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
-    '                            sQuantity = CInt(iRow.Item("Quantity"))
-    '                            sDescription = Trim(iRow.Item("Description").ToString)
-    '                            sPrice = CDbl(iRow.Item("Price"))
-    '                            sExtPrice = sPrice * sQuantity
-    '                            If Len(iRow.Item("Description")) > 20 Then
-    '                                .PrintNormal(PTR_S_RECEIPT, Space(7 - Len(sQuantity)) & sQuantity & Space(3) & Mid(sDescription, 1, 20) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
-    '                            Else
-    '                                .PrintNormal(PTR_S_RECEIPT, Space(7 - Len(sQuantity)) & sQuantity & Space(3) & sDescription & Space(20 - Len(sDescription)) & Space(1) & Space(10 - Len("$" & sExtPrice.ToString("0.00"))) & "$" & sExtPrice.ToString("0.00") & LF)
-    '                            End If
-    '                        End If
-    '                    Next
-    '                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-    '                    .PrintNormal(PTR_S_RECEIPT, "                  TOTAL: " & Space(13 - Len(sGrandTotal.ToString("""$""#,##0.00"))) & sGrandTotal.ToString("""$""#,##0.00") & LF)
-    '                    .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-    '                    For Each tRow As DataRow In ds.Tender
-    '                        If tRow.Item("TransactionKey").ToString = grdTran.Rows(t).Cells("TransactionKey").Value.ToString Then
-    '                            sTenderType = Trim(CStr(tRow.Item("TenderType")))
-    '                            sTenderAmount = CDbl(tRow.Item("PostedAmount"))
-    '                            .PrintNormal(PTR_S_RECEIPT, Space(23 - Len(sTenderType)) & sTenderType & ": " & Space(13 - Len(sTenderAmount.ToString("""$""#,##0.00"))) & sTenderAmount.ToString("""$""#,##0.00") & LF)
-    '                        End If
-    '                    Next
-    '                Next
-    '                .PrintNormal(PTR_S_RECEIPT, LF)
-    '                .PrintNormal(PTR_S_RECEIPT, "----------------------------------------" & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|3C" & "BALANCE AS OF " & mScanTimeStamp & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & ESC & "|4C" & mBalance & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* THIS IS NOT AN ACTUAL RECEIPT *" & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, ESC & "|cA" & ESC & "|bC" & "* MAY NOT BE USED FOR REFUNDS/EXCHANGES *")
-    '                .PrintNormal(PTR_S_RECEIPT, LF & LF)
-    '                .PrintNormal(PTR_S_RECEIPT, Chr(&H1BS) + "|100fP")
-    '                .TransactionPrint(PTR_S_RECEIPT, PTR_TP_NORMAL)
-    '                .DeviceEnabled = False
-    '                .ReleaseDevice()
-    '                .Close()
-    '            End With
-    '        Catch ex As Exception
-    '            MsgBox("Error Printing:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Print Receipt")
-    '            lblPrint.Visible = False
-    '        End Try
-    '        lblPrint.Visible = False
-    '    End Sub  'PrintAllToOPOS
-
-#End Region  'Print to OPOS
 
 End Class  'FrmHistory

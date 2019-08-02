@@ -1,6 +1,4 @@
 ﻿Imports StadisV4RProV9Plugin.WebReference
-Imports CustomPluginClasses
-Imports Plugins
 '-----------------------------------------------------------------------------------------------
 '   Class: TenderInfo
 '    Type: Class to hold multiple return values

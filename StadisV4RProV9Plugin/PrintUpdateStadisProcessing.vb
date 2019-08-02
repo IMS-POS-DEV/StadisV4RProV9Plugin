@@ -1,6 +1,4 @@
 ﻿Imports StadisV4RProV9Plugin.WebReference
-Imports CustomPluginClasses
-Imports Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
@@ -241,26 +239,28 @@ Public Class PrintUpdateStadisProcessing
     ' Identify if we have any Issues, Activates or Reloads to be processed
     '----------------------------------------------------------------------------------------------
     Private Function ProcessReceipt(ByVal invoiceHandle As Integer, ByVal itemHandle As Integer, ByVal tenderHandle As Integer) As Boolean
-        Try
-
-            ' Post transaction
-            Dim tranKey As Guid = GUID.Empty
-            If mGiftCardCount > 0 Then
+        ' Post transaction
+        Dim tranKey As Guid = GUID.Empty
+        If mGiftCardCount > 0 Then
+            Try
                 tranKey = PostGCPurchase(invoiceHandle, itemHandle, tenderHandle)
                 If tranKey = GUID.Empty Then Return False
                 UpdateRProItemsAndTendersWithTranKey(tranKey, itemHandle, tenderHandle)
-            ElseIf mTransactionShouldBeWritten = True OrElse gPostNonStadisTransactions = True Then
+            Catch ex As Exception
+                MessageBox.Show("015 Error while processing STADIS gift card purchase." & vbCrLf & ex.Message, "STADIS")
+                Return False
+            End Try
+        ElseIf mTransactionShouldBeWritten = True OrElse gPostNonStadisTransactions = True Then
+            Try
                 tranKey = PostTransaction("Receipt", invoiceHandle, itemHandle, tenderHandle)
                 If tranKey = GUID.Empty Then Return False
                 UpdateRProItemsAndTendersWithTranKey(tranKey, itemHandle, tenderHandle)
-            End If
-
-            Return True
-
-        Catch ex As Exception
-            MessageBox.Show("015 Error while processing STADIS transaction." & vbCrLf & ex.Message, "STADIS")
-            Return False
-        End Try
+            Catch ex As Exception
+                MessageBox.Show("016 Error while processing STADIS transaction." & vbCrLf & ex.Message, "STADIS")
+                Return False
+            End Try
+        End If
+        Return True
     End Function  'ProcessReceipt
 
     '----------------------------------------------------------------------------------------------

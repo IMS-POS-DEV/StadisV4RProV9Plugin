@@ -27,9 +27,9 @@ Partial Class FrmStadisCharge
         Dim Appearance3 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance4 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance5 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStadisCharge))
         Dim Appearance6 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance7 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStadisCharge))
         Dim Appearance8 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance9 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance10 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
@@ -42,33 +42,43 @@ Partial Class FrmStadisCharge
         Dim Appearance17 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance18 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Dim Appearance19 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance20 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance21 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance22 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
+        Dim Appearance23 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
         Me.lblTenderID = New Infragistics.Win.Misc.UltraLabel()
-        Me.UltraLabel5 = New Infragistics.Win.Misc.UltraLabel()
         Me.UltraLabel4 = New Infragistics.Win.Misc.UltraLabel()
-        Me.UltraLabel3 = New Infragistics.Win.Misc.UltraLabel()
         Me.UltraLabel2 = New Infragistics.Win.Misc.UltraLabel()
         Me.UltraLabel1 = New Infragistics.Win.Misc.UltraLabel()
         Me.lblHeader = New Infragistics.Win.Misc.UltraLabel()
         Me.pbLogo = New Infragistics.Win.UltraWinEditors.UltraPictureBox()
         Me.txtTenderID = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
-        Me.txtMessage = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
-        Me.UltraLabel7 = New Infragistics.Win.Misc.UltraLabel()
         Me.txtAmountDue = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
         Me.txtAvailAmount = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
-        Me.txtAcctBalance = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
-        Me.txtRemAmountDue = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
         Me.txtTenderAmount = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
-        Me.btnCancel = New Infragistics.Win.Misc.UltraButton()
-        Me.btnOK = New Infragistics.Win.Misc.UltraButton()
-        Me.btnClear = New Infragistics.Win.Misc.UltraButton()
+        Me.txtPromoCharge = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
+        Me.txtStadisCharge = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
+        Me.UltraLabel3 = New Infragistics.Win.Misc.UltraLabel()
+        Me.UltraLabel6 = New Infragistics.Win.Misc.UltraLabel()
         Me.btnKeyboard = New Infragistics.Win.Misc.UltraButton()
+        Me.btnClear = New Infragistics.Win.Misc.UltraButton()
+        Me.btnOK = New Infragistics.Win.Misc.UltraButton()
+        Me.btnCancel = New Infragistics.Win.Misc.UltraButton()
+        Me.txtRemAmountDue = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
+        Me.txtAcctBalance = New Infragistics.Win.UltraWinEditors.UltraCurrencyEditor()
+        Me.txtMessage = New Infragistics.Win.UltraWinEditors.UltraTextEditor()
+        Me.UltraLabel7 = New Infragistics.Win.Misc.UltraLabel()
+        Me.UltraLabel5 = New Infragistics.Win.Misc.UltraLabel()
+        Me.UltraLabel8 = New Infragistics.Win.Misc.UltraLabel()
         CType(Me.txtTenderID, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtMessage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAmountDue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAvailAmount, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtAcctBalance, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtRemAmountDue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTenderAmount, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtPromoCharge, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtStadisCharge, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtRemAmountDue, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAcctBalance, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtMessage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblTenderID
@@ -83,23 +93,11 @@ Partial Class FrmStadisCharge
         Me.lblTenderID.TabIndex = 12
         Me.lblTenderID.Text = "Gift Card ID / Ticket Barcode"
         '
-        'UltraLabel5
+        'UltraLabel4
         '
         Appearance2.ForeColor = System.Drawing.Color.Teal
         Appearance2.TextHAlignAsString = "Right"
-        Me.UltraLabel5.Appearance = Appearance2
-        Me.UltraLabel5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UltraLabel5.Location = New System.Drawing.Point(79, 244)
-        Me.UltraLabel5.Name = "UltraLabel5"
-        Me.UltraLabel5.Size = New System.Drawing.Size(218, 23)
-        Me.UltraLabel5.TabIndex = 11
-        Me.UltraLabel5.Text = "Remaining Amount Due"
-        '
-        'UltraLabel4
-        '
-        Appearance3.ForeColor = System.Drawing.Color.Teal
-        Appearance3.TextHAlignAsString = "Right"
-        Me.UltraLabel4.Appearance = Appearance3
+        Me.UltraLabel4.Appearance = Appearance2
         Me.UltraLabel4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UltraLabel4.Location = New System.Drawing.Point(99, 182)
         Me.UltraLabel4.Name = "UltraLabel4"
@@ -107,23 +105,11 @@ Partial Class FrmStadisCharge
         Me.UltraLabel4.TabIndex = 10
         Me.UltraLabel4.Text = "Tender Amount"
         '
-        'UltraLabel3
-        '
-        Appearance4.ForeColor = System.Drawing.Color.Teal
-        Appearance4.TextHAlignAsString = "Right"
-        Me.UltraLabel3.Appearance = Appearance4
-        Me.UltraLabel3.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UltraLabel3.Location = New System.Drawing.Point(50, 213)
-        Me.UltraLabel3.Name = "UltraLabel3"
-        Me.UltraLabel3.Size = New System.Drawing.Size(247, 23)
-        Me.UltraLabel3.TabIndex = 9
-        Me.UltraLabel3.Text = "Account Balance After Charge"
-        '
         'UltraLabel2
         '
-        Appearance5.ForeColor = System.Drawing.Color.Teal
-        Appearance5.TextHAlignAsString = "Right"
-        Me.UltraLabel2.Appearance = Appearance5
+        Appearance3.ForeColor = System.Drawing.Color.Teal
+        Appearance3.TextHAlignAsString = "Right"
+        Me.UltraLabel2.Appearance = Appearance3
         Me.UltraLabel2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UltraLabel2.Location = New System.Drawing.Point(99, 151)
         Me.UltraLabel2.Name = "UltraLabel2"
@@ -133,9 +119,9 @@ Partial Class FrmStadisCharge
         '
         'UltraLabel1
         '
-        Appearance6.ForeColor = System.Drawing.Color.Teal
-        Appearance6.TextHAlignAsString = "Right"
-        Me.UltraLabel1.Appearance = Appearance6
+        Appearance4.ForeColor = System.Drawing.Color.Teal
+        Appearance4.TextHAlignAsString = "Right"
+        Me.UltraLabel1.Appearance = Appearance4
         Me.UltraLabel1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UltraLabel1.Location = New System.Drawing.Point(99, 89)
         Me.UltraLabel1.Name = "UltraLabel1"
@@ -145,12 +131,12 @@ Partial Class FrmStadisCharge
         '
         'lblHeader
         '
-        Appearance7.FontData.BoldAsString = "True"
-        Appearance7.FontData.Name = "Arial Black"
-        Appearance7.FontData.SizeInPoints = 14.0!
-        Appearance7.ForeColor = System.Drawing.Color.Teal
-        Appearance7.TextHAlignAsString = "Center"
-        Me.lblHeader.Appearance = Appearance7
+        Appearance5.FontData.BoldAsString = "True"
+        Appearance5.FontData.Name = "Arial Black"
+        Appearance5.FontData.SizeInPoints = 14.0!
+        Appearance5.ForeColor = System.Drawing.Color.Teal
+        Appearance5.TextHAlignAsString = "Center"
+        Me.lblHeader.Appearance = Appearance5
         Me.lblHeader.Location = New System.Drawing.Point(89, 16)
         Me.lblHeader.Name = "lblHeader"
         Me.lblHeader.Size = New System.Drawing.Size(440, 23)
@@ -170,12 +156,12 @@ Partial Class FrmStadisCharge
         '
         'txtTenderID
         '
-        Appearance8.BackColor = System.Drawing.Color.White
-        Appearance8.FontData.BoldAsString = "True"
-        Appearance8.FontData.Name = "Arial"
-        Appearance8.FontData.SizeInPoints = 12.0!
-        Appearance8.TextHAlignAsString = "Left"
-        Me.txtTenderID.Appearance = Appearance8
+        Appearance6.BackColor = System.Drawing.Color.White
+        Appearance6.FontData.BoldAsString = "True"
+        Appearance6.FontData.Name = "Arial"
+        Appearance6.FontData.SizeInPoints = 12.0!
+        Appearance6.TextHAlignAsString = "Left"
+        Me.txtTenderID.Appearance = Appearance6
         Me.txtTenderID.BackColor = System.Drawing.Color.White
         Me.txtTenderID.BorderStyle = Infragistics.Win.UIElementBorderStyle.Inset
         Me.txtTenderID.Location = New System.Drawing.Point(303, 116)
@@ -184,42 +170,13 @@ Partial Class FrmStadisCharge
         Me.txtTenderID.TabIndex = 0
         Me.txtTenderID.Text = "12345678901234567890"
         '
-        'txtMessage
-        '
-        Appearance9.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Appearance9.FontData.BoldAsString = "True"
-        Appearance9.FontData.Name = "Arial"
-        Appearance9.FontData.SizeInPoints = 14.0!
-        Appearance9.ForeColor = System.Drawing.Color.Firebrick
-        Appearance9.TextHAlignAsString = "Left"
-        Me.txtMessage.Appearance = Appearance9
-        Me.txtMessage.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Me.txtMessage.Location = New System.Drawing.Point(303, 271)
-        Me.txtMessage.Name = "txtMessage"
-        Me.txtMessage.ReadOnly = True
-        Me.txtMessage.Size = New System.Drawing.Size(263, 31)
-        Me.txtMessage.TabIndex = 21
-        Me.txtMessage.Text = "Message Here"
-        '
-        'UltraLabel7
-        '
-        Appearance10.ForeColor = System.Drawing.Color.Teal
-        Appearance10.TextHAlignAsString = "Right"
-        Me.UltraLabel7.Appearance = Appearance10
-        Me.UltraLabel7.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UltraLabel7.Location = New System.Drawing.Point(79, 275)
-        Me.UltraLabel7.Name = "UltraLabel7"
-        Me.UltraLabel7.Size = New System.Drawing.Size(218, 23)
-        Me.UltraLabel7.TabIndex = 20
-        Me.UltraLabel7.Text = "Charge Result"
-        '
         'txtAmountDue
         '
-        Appearance11.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Appearance11.FontData.BoldAsString = "True"
-        Appearance11.FontData.Name = "Arial"
-        Appearance11.FontData.SizeInPoints = 12.0!
-        Me.txtAmountDue.Appearance = Appearance11
+        Appearance7.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Appearance7.FontData.BoldAsString = "True"
+        Appearance7.FontData.Name = "Arial"
+        Appearance7.FontData.SizeInPoints = 12.0!
+        Me.txtAmountDue.Appearance = Appearance7
         Me.txtAmountDue.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.txtAmountDue.FormatProvider = New System.Globalization.CultureInfo("en-US")
         Me.txtAmountDue.FormatString = """$""#,##0.00"
@@ -232,11 +189,11 @@ Partial Class FrmStadisCharge
         '
         'txtAvailAmount
         '
-        Appearance12.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Appearance12.FontData.BoldAsString = "True"
-        Appearance12.FontData.Name = "Arial"
-        Appearance12.FontData.SizeInPoints = 12.0!
-        Me.txtAvailAmount.Appearance = Appearance12
+        Appearance8.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Appearance8.FontData.BoldAsString = "True"
+        Appearance8.FontData.Name = "Arial"
+        Appearance8.FontData.SizeInPoints = 12.0!
+        Me.txtAvailAmount.Appearance = Appearance8
         Me.txtAvailAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.txtAvailAmount.FormatProvider = New System.Globalization.CultureInfo("en-US")
         Me.txtAvailAmount.FormatString = """$""#,##0.00"
@@ -247,46 +204,13 @@ Partial Class FrmStadisCharge
         Me.txtAvailAmount.TabIndex = 23
         Me.txtAvailAmount.TabStop = False
         '
-        'txtAcctBalance
-        '
-        Appearance13.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Appearance13.FontData.BoldAsString = "True"
-        Appearance13.FontData.Name = "Arial"
-        Appearance13.FontData.SizeInPoints = 12.0!
-        Me.txtAcctBalance.Appearance = Appearance13
-        Me.txtAcctBalance.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Me.txtAcctBalance.FormatProvider = New System.Globalization.CultureInfo("en-US")
-        Me.txtAcctBalance.FormatString = """$""#,##0.00"
-        Me.txtAcctBalance.Location = New System.Drawing.Point(303, 209)
-        Me.txtAcctBalance.Name = "txtAcctBalance"
-        Me.txtAcctBalance.ReadOnly = True
-        Me.txtAcctBalance.Size = New System.Drawing.Size(115, 27)
-        Me.txtAcctBalance.TabIndex = 25
-        Me.txtAcctBalance.TabStop = False
-        '
-        'txtRemAmountDue
-        '
-        Appearance14.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Appearance14.FontData.BoldAsString = "True"
-        Appearance14.FontData.Name = "Arial"
-        Appearance14.FontData.SizeInPoints = 12.0!
-        Me.txtRemAmountDue.Appearance = Appearance14
-        Me.txtRemAmountDue.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Me.txtRemAmountDue.FormatProvider = New System.Globalization.CultureInfo("en-US")
-        Me.txtRemAmountDue.FormatString = """$""#,##0.00"
-        Me.txtRemAmountDue.Location = New System.Drawing.Point(303, 240)
-        Me.txtRemAmountDue.Name = "txtRemAmountDue"
-        Me.txtRemAmountDue.ReadOnly = True
-        Me.txtRemAmountDue.Size = New System.Drawing.Size(115, 27)
-        Me.txtRemAmountDue.TabIndex = 26
-        Me.txtRemAmountDue.TabStop = False
-        '
         'txtTenderAmount
         '
-        Appearance15.FontData.BoldAsString = "True"
-        Appearance15.FontData.Name = "Arial"
-        Appearance15.FontData.SizeInPoints = 12.0!
-        Me.txtTenderAmount.Appearance = Appearance15
+        Appearance9.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Appearance9.FontData.BoldAsString = "True"
+        Appearance9.FontData.Name = "Arial"
+        Appearance9.FontData.SizeInPoints = 12.0!
+        Me.txtTenderAmount.Appearance = Appearance9
         Me.txtTenderAmount.FormatProvider = New System.Globalization.CultureInfo("en-US")
         Me.txtTenderAmount.FormatString = """$""#,##0.00"
         Me.txtTenderAmount.Location = New System.Drawing.Point(303, 178)
@@ -294,127 +218,282 @@ Partial Class FrmStadisCharge
         Me.txtTenderAmount.Size = New System.Drawing.Size(115, 27)
         Me.txtTenderAmount.TabIndex = 1
         '
-        'btnCancel
+        'txtPromoCharge
         '
-        Appearance16.FontData.BoldAsString = "True"
-        Appearance16.FontData.SizeInPoints = 10.0!
-        Appearance16.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete32
-        Appearance16.ImageHAlign = Infragistics.Win.HAlign.Center
-        Appearance16.ImageVAlign = Infragistics.Win.VAlign.Top
-        Me.btnCancel.Appearance = Appearance16
-        Me.btnCancel.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCancel.ImageSize = New System.Drawing.Size(32, 32)
-        Me.btnCancel.Location = New System.Drawing.Point(413, 332)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(87, 58)
-        Me.btnCancel.TabIndex = 28
-        Me.btnCancel.Text = "Cancel"
+        Appearance10.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Appearance10.FontData.BoldAsString = "True"
+        Appearance10.FontData.Name = "Arial"
+        Appearance10.FontData.SizeInPoints = 12.0!
+        Me.txtPromoCharge.Appearance = Appearance10
+        Me.txtPromoCharge.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Me.txtPromoCharge.FormatProvider = New System.Globalization.CultureInfo("en-US")
+        Me.txtPromoCharge.FormatString = """$""#,##0.00"
+        Me.txtPromoCharge.Location = New System.Drawing.Point(303, 240)
+        Me.txtPromoCharge.Name = "txtPromoCharge"
+        Me.txtPromoCharge.ReadOnly = True
+        Me.txtPromoCharge.Size = New System.Drawing.Size(115, 27)
+        Me.txtPromoCharge.TabIndex = 72
+        Me.txtPromoCharge.TabStop = False
         '
-        'btnOK
+        'txtStadisCharge
         '
-        Appearance17.FontData.BoldAsString = "True"
-        Appearance17.FontData.SizeInPoints = 10.0!
-        Appearance17.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check32
-        Appearance17.ImageHAlign = Infragistics.Win.HAlign.Center
-        Appearance17.ImageVAlign = Infragistics.Win.VAlign.Top
-        Me.btnOK.Appearance = Appearance17
-        Me.btnOK.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOK.ImageSize = New System.Drawing.Size(32, 32)
-        Me.btnOK.Location = New System.Drawing.Point(320, 332)
-        Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(87, 58)
-        Me.btnOK.TabIndex = 29
-        Me.btnOK.Text = "OK"
+        Appearance11.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Appearance11.FontData.BoldAsString = "True"
+        Appearance11.FontData.Name = "Arial"
+        Appearance11.FontData.SizeInPoints = 12.0!
+        Me.txtStadisCharge.Appearance = Appearance11
+        Me.txtStadisCharge.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Me.txtStadisCharge.FormatProvider = New System.Globalization.CultureInfo("en-US")
+        Me.txtStadisCharge.FormatString = """$""#,##0.00"
+        Me.txtStadisCharge.Location = New System.Drawing.Point(303, 209)
+        Me.txtStadisCharge.Name = "txtStadisCharge"
+        Me.txtStadisCharge.ReadOnly = True
+        Me.txtStadisCharge.Size = New System.Drawing.Size(115, 27)
+        Me.txtStadisCharge.TabIndex = 71
+        Me.txtStadisCharge.TabStop = False
         '
-        'btnClear
+        'UltraLabel3
         '
-        Appearance18.TextHAlignAsString = "Center"
-        Appearance18.TextVAlignAsString = "Bottom"
-        Me.btnClear.Appearance = Appearance18
-        Me.btnClear.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClear.Location = New System.Drawing.Point(172, 332)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(87, 58)
-        Me.btnClear.TabIndex = 32
-        Me.btnClear.Text = "Clear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Entries"
+        Appearance12.ForeColor = System.Drawing.Color.Teal
+        Appearance12.TextHAlignAsString = "Right"
+        Me.UltraLabel3.Appearance = Appearance12
+        Me.UltraLabel3.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UltraLabel3.Location = New System.Drawing.Point(12, 244)
+        Me.UltraLabel3.Name = "UltraLabel3"
+        Me.UltraLabel3.Size = New System.Drawing.Size(285, 23)
+        Me.UltraLabel3.TabIndex = 70
+        Me.UltraLabel3.Text = "Amount Covered by Promotions"
+        '
+        'UltraLabel6
+        '
+        Appearance13.ForeColor = System.Drawing.Color.Teal
+        Appearance13.TextHAlignAsString = "Right"
+        Me.UltraLabel6.Appearance = Appearance13
+        Me.UltraLabel6.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UltraLabel6.Location = New System.Drawing.Point(12, 213)
+        Me.UltraLabel6.Name = "UltraLabel6"
+        Me.UltraLabel6.Size = New System.Drawing.Size(285, 23)
+        Me.UltraLabel6.TabIndex = 69
+        Me.UltraLabel6.Text = "Amount Charged to Card/Ticket"
         '
         'btnKeyboard
         '
-        Appearance19.FontData.BoldAsString = "True"
-        Appearance19.FontData.SizeInPoints = 10.0!
-        Appearance19.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.keyboard32
-        Appearance19.ImageHAlign = Infragistics.Win.HAlign.Center
-        Appearance19.ImageVAlign = Infragistics.Win.VAlign.Top
-        Me.btnKeyboard.Appearance = Appearance19
+        Appearance14.FontData.BoldAsString = "True"
+        Appearance14.FontData.SizeInPoints = 10.0!
+        Appearance14.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.keyboard32
+        Appearance14.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance14.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnKeyboard.Appearance = Appearance14
         Me.btnKeyboard.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnKeyboard.ImageSize = New System.Drawing.Size(32, 32)
-        Me.btnKeyboard.Location = New System.Drawing.Point(79, 332)
+        Me.btnKeyboard.Location = New System.Drawing.Point(85, 395)
         Me.btnKeyboard.Name = "btnKeyboard"
         Me.btnKeyboard.Size = New System.Drawing.Size(87, 58)
-        Me.btnKeyboard.TabIndex = 34
+        Me.btnKeyboard.TabIndex = 68
         Me.btnKeyboard.Text = "Keyboard"
+        '
+        'btnClear
+        '
+        Appearance15.TextHAlignAsString = "Center"
+        Appearance15.TextVAlignAsString = "Bottom"
+        Me.btnClear.Appearance = Appearance15
+        Me.btnClear.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClear.Location = New System.Drawing.Point(178, 395)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(87, 58)
+        Me.btnClear.TabIndex = 67
+        Me.btnClear.Text = "Clear" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Entries"
+        '
+        'btnOK
+        '
+        Appearance16.FontData.BoldAsString = "True"
+        Appearance16.FontData.SizeInPoints = 10.0!
+        Appearance16.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.check32
+        Appearance16.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance16.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnOK.Appearance = Appearance16
+        Me.btnOK.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnOK.ImageSize = New System.Drawing.Size(32, 32)
+        Me.btnOK.Location = New System.Drawing.Point(326, 395)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(87, 58)
+        Me.btnOK.TabIndex = 59
+        Me.btnOK.Text = "Process"
+        '
+        'btnCancel
+        '
+        Appearance17.FontData.BoldAsString = "True"
+        Appearance17.FontData.SizeInPoints = 10.0!
+        Appearance17.Image = Global.StadisV4RProV9Plugin.My.Resources.Resources.delete32
+        Appearance17.ImageHAlign = Infragistics.Win.HAlign.Center
+        Appearance17.ImageVAlign = Infragistics.Win.VAlign.Top
+        Me.btnCancel.Appearance = Appearance17
+        Me.btnCancel.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCancel.ImageSize = New System.Drawing.Size(32, 32)
+        Me.btnCancel.Location = New System.Drawing.Point(419, 395)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(87, 58)
+        Me.btnCancel.TabIndex = 60
+        Me.btnCancel.Text = "Cancel"
+        '
+        'txtRemAmountDue
+        '
+        Appearance18.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Appearance18.FontData.BoldAsString = "True"
+        Appearance18.FontData.Name = "Arial"
+        Appearance18.FontData.SizeInPoints = 12.0!
+        Me.txtRemAmountDue.Appearance = Appearance18
+        Me.txtRemAmountDue.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Me.txtRemAmountDue.FormatProvider = New System.Globalization.CultureInfo("en-US")
+        Me.txtRemAmountDue.FormatString = """$""#,##0.00"
+        Me.txtRemAmountDue.Location = New System.Drawing.Point(303, 303)
+        Me.txtRemAmountDue.Name = "txtRemAmountDue"
+        Me.txtRemAmountDue.ReadOnly = True
+        Me.txtRemAmountDue.Size = New System.Drawing.Size(115, 27)
+        Me.txtRemAmountDue.TabIndex = 66
+        Me.txtRemAmountDue.TabStop = False
+        '
+        'txtAcctBalance
+        '
+        Appearance19.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Appearance19.FontData.BoldAsString = "True"
+        Appearance19.FontData.Name = "Arial"
+        Appearance19.FontData.SizeInPoints = 12.0!
+        Me.txtAcctBalance.Appearance = Appearance19
+        Me.txtAcctBalance.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Me.txtAcctBalance.FormatProvider = New System.Globalization.CultureInfo("en-US")
+        Me.txtAcctBalance.FormatString = """$""#,##0.00"
+        Me.txtAcctBalance.Location = New System.Drawing.Point(303, 272)
+        Me.txtAcctBalance.Name = "txtAcctBalance"
+        Me.txtAcctBalance.ReadOnly = True
+        Me.txtAcctBalance.Size = New System.Drawing.Size(115, 27)
+        Me.txtAcctBalance.TabIndex = 65
+        Me.txtAcctBalance.TabStop = False
+        '
+        'txtMessage
+        '
+        Appearance20.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Appearance20.FontData.BoldAsString = "True"
+        Appearance20.FontData.Name = "Arial"
+        Appearance20.FontData.SizeInPoints = 14.0!
+        Appearance20.ForeColor = System.Drawing.Color.Firebrick
+        Appearance20.TextHAlignAsString = "Left"
+        Me.txtMessage.Appearance = Appearance20
+        Me.txtMessage.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
+        Me.txtMessage.Location = New System.Drawing.Point(303, 334)
+        Me.txtMessage.Name = "txtMessage"
+        Me.txtMessage.ReadOnly = True
+        Me.txtMessage.Size = New System.Drawing.Size(263, 31)
+        Me.txtMessage.TabIndex = 64
+        Me.txtMessage.Text = "Message Here"
+        '
+        'UltraLabel7
+        '
+        Appearance21.ForeColor = System.Drawing.Color.Teal
+        Appearance21.TextHAlignAsString = "Right"
+        Me.UltraLabel7.Appearance = Appearance21
+        Me.UltraLabel7.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UltraLabel7.Location = New System.Drawing.Point(79, 338)
+        Me.UltraLabel7.Name = "UltraLabel7"
+        Me.UltraLabel7.Size = New System.Drawing.Size(218, 23)
+        Me.UltraLabel7.TabIndex = 63
+        Me.UltraLabel7.Text = "Charge Result"
+        '
+        'UltraLabel5
+        '
+        Appearance22.ForeColor = System.Drawing.Color.Teal
+        Appearance22.TextHAlignAsString = "Right"
+        Me.UltraLabel5.Appearance = Appearance22
+        Me.UltraLabel5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UltraLabel5.Location = New System.Drawing.Point(79, 307)
+        Me.UltraLabel5.Name = "UltraLabel5"
+        Me.UltraLabel5.Size = New System.Drawing.Size(218, 23)
+        Me.UltraLabel5.TabIndex = 62
+        Me.UltraLabel5.Text = "Remaining Amount Due"
+        '
+        'UltraLabel8
+        '
+        Appearance23.ForeColor = System.Drawing.Color.Teal
+        Appearance23.TextHAlignAsString = "Right"
+        Me.UltraLabel8.Appearance = Appearance23
+        Me.UltraLabel8.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UltraLabel8.Location = New System.Drawing.Point(50, 276)
+        Me.UltraLabel8.Name = "UltraLabel8"
+        Me.UltraLabel8.Size = New System.Drawing.Size(247, 23)
+        Me.UltraLabel8.TabIndex = 61
+        Me.UltraLabel8.Text = "Account Balance After Charge"
         '
         'FrmStadisCharge
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(210, Byte), Integer), CType(CType(203, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(592, 404)
+        Me.ClientSize = New System.Drawing.Size(592, 471)
+        Me.Controls.Add(Me.txtPromoCharge)
+        Me.Controls.Add(Me.txtStadisCharge)
+        Me.Controls.Add(Me.UltraLabel3)
+        Me.Controls.Add(Me.UltraLabel6)
         Me.Controls.Add(Me.btnKeyboard)
         Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.btnCancel)
-        Me.Controls.Add(Me.txtTenderAmount)
         Me.Controls.Add(Me.txtRemAmountDue)
         Me.Controls.Add(Me.txtAcctBalance)
-        Me.Controls.Add(Me.txtAvailAmount)
-        Me.Controls.Add(Me.txtAmountDue)
         Me.Controls.Add(Me.txtMessage)
         Me.Controls.Add(Me.UltraLabel7)
+        Me.Controls.Add(Me.UltraLabel5)
+        Me.Controls.Add(Me.UltraLabel8)
+        Me.Controls.Add(Me.txtTenderAmount)
+        Me.Controls.Add(Me.txtAvailAmount)
+        Me.Controls.Add(Me.txtAmountDue)
         Me.Controls.Add(Me.lblHeader)
         Me.Controls.Add(Me.txtTenderID)
         Me.Controls.Add(Me.pbLogo)
         Me.Controls.Add(Me.lblTenderID)
-        Me.Controls.Add(Me.UltraLabel5)
         Me.Controls.Add(Me.UltraLabel4)
-        Me.Controls.Add(Me.UltraLabel3)
         Me.Controls.Add(Me.UltraLabel2)
         Me.Controls.Add(Me.UltraLabel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FrmStadisCharge"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Tender:  Stadis"
         CType(Me.txtTenderID, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtMessage, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtAmountDue, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtAvailAmount, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtAcctBalance, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtRemAmountDue, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTenderAmount, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtPromoCharge, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtStadisCharge, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtRemAmountDue, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAcctBalance, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtMessage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Private WithEvents lblTenderID As Infragistics.Win.Misc.UltraLabel
-    Private WithEvents UltraLabel5 As Infragistics.Win.Misc.UltraLabel
     Private WithEvents UltraLabel4 As Infragistics.Win.Misc.UltraLabel
-    Private WithEvents UltraLabel3 As Infragistics.Win.Misc.UltraLabel
     Private WithEvents UltraLabel2 As Infragistics.Win.Misc.UltraLabel
     Private WithEvents UltraLabel1 As Infragistics.Win.Misc.UltraLabel
     Private WithEvents lblHeader As Infragistics.Win.Misc.UltraLabel
     Private WithEvents pbLogo As Infragistics.Win.UltraWinEditors.UltraPictureBox
     Private WithEvents txtTenderID As Infragistics.Win.UltraWinEditors.UltraTextEditor
-    Private WithEvents txtMessage As Infragistics.Win.UltraWinEditors.UltraTextEditor
-    Private WithEvents UltraLabel7 As Infragistics.Win.Misc.UltraLabel
     Private WithEvents txtAmountDue As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
     Private WithEvents txtAvailAmount As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
-    Private WithEvents txtAcctBalance As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
-    Private WithEvents txtRemAmountDue As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
     Private WithEvents txtTenderAmount As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
-    Friend WithEvents btnCancel As Infragistics.Win.Misc.UltraButton
-    Friend WithEvents btnOK As Infragistics.Win.Misc.UltraButton
-    Friend WithEvents btnClear As Infragistics.Win.Misc.UltraButton
+    Private WithEvents txtPromoCharge As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Private WithEvents txtStadisCharge As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Private WithEvents UltraLabel3 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents UltraLabel6 As Infragistics.Win.Misc.UltraLabel
     Friend WithEvents btnKeyboard As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnClear As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnOK As Infragistics.Win.Misc.UltraButton
+    Friend WithEvents btnCancel As Infragistics.Win.Misc.UltraButton
+    Private WithEvents txtRemAmountDue As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Private WithEvents txtAcctBalance As Infragistics.Win.UltraWinEditors.UltraCurrencyEditor
+    Private WithEvents txtMessage As Infragistics.Win.UltraWinEditors.UltraTextEditor
+    Private WithEvents UltraLabel7 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents UltraLabel5 As Infragistics.Win.Misc.UltraLabel
+    Private WithEvents UltraLabel8 As Infragistics.Win.Misc.UltraLabel
 End Class

@@ -1,6 +1,4 @@
 ﻿Imports StadisV4RProV9Plugin.WebReference
-Imports CustomPluginClasses
-Imports Plugins
 Imports System
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
@@ -112,7 +110,7 @@ Public Class TenderProcessing
     End Function  'RemoveTender
 
     '----------------------------------------------------------------------------------------------
-    ' Use the list we were keeping to back out charges.
+    ' Back out charges.
     '----------------------------------------------------------------------------------------------
     Public Overrides Function CancelTransaction() As Boolean
 

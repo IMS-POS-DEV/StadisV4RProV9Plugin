@@ -1,6 +1,4 @@
 ﻿Imports StadisV4RProV9Plugin.WebReference
-Imports CustomPluginClasses
-Imports Plugins
 Imports System
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
@@ -23,26 +21,12 @@ Public Class TenderDialogue
     '----------------------------------------------------------------------------------------------
     Public Overrides Sub Initialize()
         MyBase.Initialize()
-        LoadLocalSettings()
-        Common.LoadInstallationSettings()
         fBusinessObjectType = Plugins.BusinessObjectType.btInvoice
         fDescription = "Stadis tender dialog"
         fGUID = New Guid(Discover.CLASS_TenderDialogue)
         fTenderType = gTenderDialogTenderType
         fUseDefaultDialog = False
     End Sub  'Initialize
-
-    Private Sub LoadLocalSettings()
-        gStadisV4WebServiceURL = My.Settings.StadisV4WebServiceURL
-        gOverrideSettingComponent = My.Settings.OverrideSettingID
-        gStadisUserID = My.Settings.StadisUserID
-        gStadisPassword = My.Settings.StadisPassword
-        gLog = My.Settings.Log
-        gNetworkChecking = My.Settings.NetworkChecking
-        'gOPOSPrinterName = My.Settings.OPOSPrinterName
-        'gRasterPrinterName = My.Settings.RasterPrinterName
-        gWindowsPrinterName = My.Settings.WindowsPrinterName
-    End Sub  'LoadLocalSettings
 
     '----------------------------------------------------------------------------------------------
     ' Called when Sales/Receipts selected from menu (2)
@@ -113,6 +97,8 @@ Public Class TenderDialogue
                 'End If
                 Dim successful As Boolean = Common.DoSVAccountReverse(fAdapter, remark(2))
                 If successful Then
+                    gLastTenderID = ""
+                    gLastAuthID = ""
                     Return True
                 Else
                     MsgBox("Unable to delete tender from Stadis.", MsgBoxStyle.Exclamation, "STADIS Tender")

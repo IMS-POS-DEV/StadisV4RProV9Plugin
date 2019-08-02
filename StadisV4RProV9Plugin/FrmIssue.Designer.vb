@@ -117,7 +117,7 @@ Partial Class FrmIssue
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Padding = New System.Drawing.Size(4, 0)
         Me.btnCancel.Size = New System.Drawing.Size(103, 53)
-        Me.btnCancel.TabIndex = 10
+        Me.btnCancel.TabIndex = 1
         Me.btnCancel.Text = "Cancel"
         UltraToolTipInfo2.ToolTipText = "Leave without adding these gift cards."
         Me.UltraToolTipManager1.SetUltraToolTip(Me.btnCancel, UltraToolTipInfo2)
@@ -199,7 +199,7 @@ Partial Class FrmIssue
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Padding = New System.Drawing.Size(4, 0)
         Me.btnOK.Size = New System.Drawing.Size(103, 53)
-        Me.btnOK.TabIndex = 8
+        Me.btnOK.TabIndex = 0
         Me.btnOK.Text = "OK"
         UltraToolTipInfo1.ToolTipText = "Add these gift cards to the Invoice."
         Me.UltraToolTipManager1.SetUltraToolTip(Me.btnOK, UltraToolTipInfo1)

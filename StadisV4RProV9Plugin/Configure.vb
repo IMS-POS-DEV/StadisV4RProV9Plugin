@@ -1,6 +1,4 @@
-﻿Imports CustomPluginClasses
-Imports Plugins
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 '----------------------------------------------------------------------------------------------
 '   Class: Configure
 '    Type: Configure

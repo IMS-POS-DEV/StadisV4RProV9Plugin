@@ -1,6 +1,4 @@
 ﻿Imports System
-Imports CustomPluginClasses
-Imports Plugins
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 '----------------------------------------------------------------------------------------------
@@ -17,6 +15,8 @@ Public Class ButtonIssue
     '----------------------------------------------------------------------------------------------
     Public Overrides Sub Initialize()
         MyBase.Initialize()
+        Common.LoadLocalSettings()
+        Common.LoadInstallationSettings()
         fButtonEnabled = gIssueButtonEnabled
         fHint = gIssueButtonHint
         If gIssueButtonEnabled = True Then

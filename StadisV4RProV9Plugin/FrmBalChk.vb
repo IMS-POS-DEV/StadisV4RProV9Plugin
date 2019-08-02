@@ -1,6 +1,4 @@
 Imports StadisV4RProV9Plugin.WebReference
-Imports CustomPluginClasses
-Imports Plugins
 Imports System
 Imports System.Drawing
 Imports System.Text.RegularExpressions
@@ -153,7 +151,7 @@ Public Class FrmBalChk
         Windows.Forms.Cursor.Current = Cursors.WaitCursor
         sbStatus.Text = "Printing Balance..."
         If gWindowsPrinterName <> "Unassigned" Then
-            Dim prtDoc As New BalChkPrtDoc
+            Dim prtDoc As New PrintBalChk
             With prtDoc
                 .CardID = Trim(txtInput.Text)
                 .Balance = totlBalance.ToString("""$""#,##0.00")

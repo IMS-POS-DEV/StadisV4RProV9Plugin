@@ -4,19 +4,23 @@
 Public Module GlobalValues
 
     '----------------------------------------------------------------------------------------------
+    ' From Config File
+    '----------------------------------------------------------------------------------------------
+    Public gReturnItemizedPromotions As Boolean = False
+
+    '----------------------------------------------------------------------------------------------
     ' Note: WS settings are NOT stored in the config file.  The config file only contains defaults
     ' used to create the settings if they don't exist.  Settings are stored in the user's app data.
     '----------------------------------------------------------------------------------------------
     Public gSiteID As String = ""
     Public gWSID As String = ""
     Public gLocationID As String = ""
-    Public gStadisV4WebServiceURL As String = "http://192.168.100.14/StadisV4Web/StadisV4Transactions.asmx"
+    Public gStadisV4WebServiceURL As String = "http://192.168.100.13/StadisV4Web/StadisV4Transactions.asmx"
     Public gStandardSettingComponent As String = "RPro9WS"
     Public gOverrideSettingComponent As String = ""
     Public gStadisUserID As String = "Test1"
     Public gStadisPassword As String = "password"
-    Public gLog As Boolean = False
-    Public gNetworkChecking As Boolean = False
+    Public gUseShortCharge As Boolean = False
 
     'Public gOPOSPrinterName As String
     'Public gRasterPrinterName As String
@@ -37,6 +41,7 @@ Public Module GlobalValues
     Public gStadisVersion As String = "4"
     Public gStadisRelease As String = "0"
 
+    Public gAllowRedeemAmountChange As Boolean = True
     Public gArePromotionsActive As Boolean = False
     Public gAllowReturnCreditToCard As Boolean = False
     Public gAskForTicketOnIssue As Boolean = False
@@ -85,11 +90,11 @@ Public Module GlobalValues
     Public gIssueButtonHint As String = "Issue STADIS Gift Card(s)."
     Public gIssueButtonImage As String = "stadis32.bmp"
 
-    Public gRedeemButtonActive As Boolean = False
-    Public gRedeemButtonCaption As String = "Redeem"
-    Public gRedeemButtonEnabled As Boolean = False
-    Public gRedeemButtonHint As String = "Redeem a STADIS gift card or ticket."
-    Public gRedeemButtonImage As String = "stadis32.bmp"
+    'Public gRedeemButtonActive As Boolean = False
+    'Public gRedeemButtonCaption As String = "Redeem"
+    'Public gRedeemButtonEnabled As Boolean = False
+    'Public gRedeemButtonHint As String = "Redeem a STADIS gift card or ticket."
+    'Public gRedeemButtonImage As String = "stadis32.bmp"
 
     Public gReloadButtonActive As Boolean = False
     Public gReloadButtonCaption As String = "Reload"
@@ -124,7 +129,7 @@ Public Module GlobalValues
     '----------------------------------------------------------------------------------------------
     ' Flags
     '----------------------------------------------------------------------------------------------
-    Public gIsAReturn As Boolean = False
+    Public gIsAReturn As Boolean = True
     Public gAlreadyLoaded As Boolean = False
 
 End Module  'GlobalValues

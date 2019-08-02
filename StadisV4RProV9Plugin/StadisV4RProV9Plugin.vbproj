@@ -104,10 +104,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Import Include="CustomPluginClasses" />
     <Import Include="Infragistics.Win.UltraWinEditors" />
     <Import Include="Infragistics.Win.UltraWinForm" />
     <Import Include="Infragistics.Win.UltraWinGrid" />
     <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Plugins" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
@@ -118,12 +120,16 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BalChkPrtDoc.vb">
+    <Compile Include="DSPrintLines.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSPrintLines.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PrintBalChk.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ButtonBalChk.vb" />
     <Compile Include="ButtonIssue.vb" />
-    <Compile Include="ButtonRedeem.vb" />
     <Compile Include="ButtonReload.vb" />
     <Compile Include="ButtonReturn.vb" />
     <Compile Include="Common.vb" />
@@ -197,12 +203,6 @@
     <Compile Include="FrmMerge.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmRedeem.Designer.vb">
-      <DependentUpon>FrmRedeem.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmRedeem.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FrmReload.Designer.vb">
       <DependentUpon>FrmReload.vb</DependentUpon>
     </Compile>
@@ -245,7 +245,12 @@
     </Compile>
     <Compile Include="MyDrawFilter.vb" />
     <Compile Include="OPOS.vb" />
+    <Compile Include="PrintReceipt.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PrintUpdateStadisProcessing.vb" />
+    <Compile Include="RetCheck.vb" />
+    <Compile Include="Settings.vb" />
     <Compile Include="TenderDialogue.vb" />
     <Compile Include="TenderInfo.vb" />
     <Compile Include="TenderProcessing.vb" />
@@ -280,10 +285,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMerge.resx">
       <DependentUpon>FrmMerge.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmRedeem.resx">
-      <DependentUpon>FrmRedeem.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmReload.resx">
@@ -321,6 +322,17 @@
     <None Include="DSGiftCardInfo.xss">
       <DependentUpon>DSGiftCardInfo.xsd</DependentUpon>
     </None>
+    <None Include="DSPrintLines.xsc">
+      <DependentUpon>DSPrintLines.xsd</DependentUpon>
+    </None>
+    <None Include="DSPrintLines.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSPrintLines.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DSPrintLines.xss">
+      <DependentUpon>DSPrintLines.xsd</DependentUpon>
+    </None>
     <None Include="DSTran.xsc">
       <DependentUpon>DSTran.xsd</DependentUpon>
     </None>
@@ -343,9 +355,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="Resources\lucon.ttf" />
-    <None Include="Web References\WebReference\ChargeReply.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\WebReference\CustStatus.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -460,9 +469,6 @@
     <None Include="nav_plain_blue.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\nav_plain_blue.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\nav_plain_blue_nH7_icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -481,19 +487,16 @@
     <None Include="Resources\stadislogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\keyboard.png" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx">
+    <WebReferenceUrl Include="http://192.168.100.13/StadisV4Web/StadisV4Transactions.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\WebReference\</RelPath>
-      <UpdateFromURL>http://192.168.101.10/StadisV4Web/StadisV4Transactions.asmx</UpdateFromURL>
+      <UpdateFromURL>http://192.168.100.13/StadisV4Web/StadisV4Transactions.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -531,6 +534,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow_up_blue32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer324.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer_add24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

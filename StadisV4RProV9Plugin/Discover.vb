@@ -1,6 +1,4 @@
-﻿Imports CustomPluginClasses
-Imports Plugins
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 '----------------------------------------------------------------------------------------------
 '   Class: Discover
 '    Type: Plugin Discovery
@@ -13,27 +11,27 @@ Public Class Discover
     Inherits TCustomDiscoverPlugin
 
     Public Const CLASS_Discover As String = "4503F830-6A80-4d07-A76A-B1096A89675E"
-    Public Const CLASS_ButtonRedeem As String = "8870F2ED-4D7B-400e-BCF3-A9F31EF6862A"
+    Public Const CLASS_Configure As String = "2C6467F5-5011-43ce-8361-7F9E9044D293"
     Public Const CLASS_ButtonIssue As String = "6A78660B-4F9C-4930-A26B-20E34B8CF0FA"
     Public Const CLASS_ButtonReturn As String = "DDF40097-F0A7-4482-AAE2-5063F053717F"
     Public Const CLASS_ButtonBalChk As String = "20E62D4C-A4F6-4e3c-8012-B2450C9980B8"
     Public Const CLASS_ButtonReload As String = "286028C9-64CA-4743-A845-4EF380882079"
-    Public Const CLASS_PrintUpdateStadisProcessing As String = "1AE665F6-3DDB-4c4e-8EB1-E18B3A9465A8"
-    Public Const CLASS_Configure As String = "2C6467F5-5011-43ce-8361-7F9E9044D293"
     Public Const CLASS_TenderDialogue As String = "44E9242D-1DF6-4699-9325-3D463FA204C7"
     Public Const CLASS_TenderProcessing As String = "DDF465F6-400e-4c4e-8EB1-E18B3A9465A8"
+    Public Const CLASS_PrintUpdateStadisProcessing As String = "1AE665F6-3DDB-4c4e-8EB1-E18B3A9465A8"
+    Public Const CLASS_RetCheck As String = "88D7F1FB-9BBD-4810-A062-7C2565D9E856"
 
     Public Overrides Function PluginGUIDs() As Object
         Dim classIDs(8) As String
-        classIDs(0) = CLASS_ButtonRedeem
+        classIDs(0) = CLASS_Configure
         classIDs(1) = CLASS_ButtonIssue
         classIDs(2) = CLASS_ButtonReturn
         classIDs(3) = CLASS_ButtonBalChk
         classIDs(4) = CLASS_ButtonReload
-        classIDs(5) = CLASS_PrintUpdateStadisProcessing
-        classIDs(6) = CLASS_Configure
-        classIDs(7) = CLASS_TenderDialogue
-        classIDs(8) = CLASS_TenderProcessing
+        classIDs(5) = CLASS_TenderDialogue
+        classIDs(6) = CLASS_TenderProcessing
+        classIDs(7) = CLASS_PrintUpdateStadisProcessing
+        classIDs(8) = CLASS_RetCheck
         Return classIDs
     End Function  'PluginGUIDs
 

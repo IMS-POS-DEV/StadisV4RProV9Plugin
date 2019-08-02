@@ -24,7 +24,7 @@ Imports System.Xml.Serialization
 Namespace WebReference
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
      System.Web.Services.WebServiceBindingAttribute(Name:="StadisV4TransactionsServiceSoap", [Namespace]:="http://www.STADIS.com/"),  _
@@ -42,7 +42,7 @@ Namespace WebReference
         
         Private SVAccountBalanceCheckPromotionOperationCompleted As System.Threading.SendOrPostCallback
         
-        Private TestChargeOperationCompleted As System.Threading.SendOrPostCallback
+        Private SVAcctChgOperationCompleted As System.Threading.SendOrPostCallback
         
         Private SVAccountChargeOperationCompleted As System.Threading.SendOrPostCallback
         
@@ -178,7 +178,7 @@ Namespace WebReference
         Public Event SVAccountBalanceCheckPromotionCompleted As SVAccountBalanceCheckPromotionCompletedEventHandler
         
         '''<remarks/>
-        Public Event TestChargeCompleted As TestChargeCompletedEventHandler
+        Public Event SVAcctChgCompleted As SVAcctChgCompletedEventHandler
         
         '''<remarks/>
         Public Event SVAccountChargeCompleted As SVAccountChargeCompletedEventHandler
@@ -405,29 +405,29 @@ Namespace WebReference
         
         '''<remarks/>
         <System.Web.Services.Protocols.SoapHeaderAttribute("SecurityCredentialsValue"),  _
-         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/TestCharge", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
-        Public Function TestCharge(ByVal Request As StadisRequest, ByVal Header As StadisTranHeader, ByVal Items() As StadisTranItem, ByVal Tenders() As StadisTranTender) As ChargeReply
-            Dim results() As Object = Me.Invoke("TestCharge", New Object() {Request, Header, Items, Tenders})
-            Return CType(results(0),ChargeReply)
+         System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.STADIS.com/SVAcctChg", RequestNamespace:="http://www.STADIS.com/", ResponseNamespace:="http://www.STADIS.com/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function SVAcctChg(ByVal Request As StadisRequest) As StadisReply()
+            Dim results() As Object = Me.Invoke("SVAcctChg", New Object() {Request})
+            Return CType(results(0),StadisReply())
         End Function
         
         '''<remarks/>
-        Public Overloads Sub TestChargeAsync(ByVal Request As StadisRequest, ByVal Header As StadisTranHeader, ByVal Items() As StadisTranItem, ByVal Tenders() As StadisTranTender)
-            Me.TestChargeAsync(Request, Header, Items, Tenders, Nothing)
+        Public Overloads Sub SVAcctChgAsync(ByVal Request As StadisRequest)
+            Me.SVAcctChgAsync(Request, Nothing)
         End Sub
         
         '''<remarks/>
-        Public Overloads Sub TestChargeAsync(ByVal Request As StadisRequest, ByVal Header As StadisTranHeader, ByVal Items() As StadisTranItem, ByVal Tenders() As StadisTranTender, ByVal userState As Object)
-            If (Me.TestChargeOperationCompleted Is Nothing) Then
-                Me.TestChargeOperationCompleted = AddressOf Me.OnTestChargeOperationCompleted
+        Public Overloads Sub SVAcctChgAsync(ByVal Request As StadisRequest, ByVal userState As Object)
+            If (Me.SVAcctChgOperationCompleted Is Nothing) Then
+                Me.SVAcctChgOperationCompleted = AddressOf Me.OnSVAcctChgOperationCompleted
             End If
-            Me.InvokeAsync("TestCharge", New Object() {Request, Header, Items, Tenders}, Me.TestChargeOperationCompleted, userState)
+            Me.InvokeAsync("SVAcctChg", New Object() {Request}, Me.SVAcctChgOperationCompleted, userState)
         End Sub
         
-        Private Sub OnTestChargeOperationCompleted(ByVal arg As Object)
-            If (Not (Me.TestChargeCompletedEvent) Is Nothing) Then
+        Private Sub OnSVAcctChgOperationCompleted(ByVal arg As Object)
+            If (Not (Me.SVAcctChgCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
-                RaiseEvent TestChargeCompleted(Me, New TestChargeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+                RaiseEvent SVAcctChgCompleted(Me, New SVAcctChgCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -1487,7 +1487,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1535,7 +1535,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1628,7 +1628,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -1709,7 +1709,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2258,7 +2258,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2495,7 +2495,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2780,7 +2780,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -2826,7 +2826,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3327,7 +3327,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3432,7 +3432,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3513,7 +3513,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3678,7 +3678,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3723,7 +3723,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3804,7 +3804,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3837,7 +3837,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3870,7 +3870,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3941,7 +3941,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(ReceiptLine)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3963,7 +3963,7 @@ Namespace WebReference
      System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfInstallationSetting)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -3985,7 +3985,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -4055,7 +4055,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
     Public Enum RuleSeverity
@@ -4090,7 +4090,7 @@ Namespace WebReference
      System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfInstallationSetting)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -4113,7 +4113,7 @@ Namespace WebReference
      System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfInstallationSetting)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -4136,7 +4136,7 @@ Namespace WebReference
      System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(BusinessBaseOfInstallationSetting)),  _
      System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -4147,7 +4147,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(Ticket)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -4157,7 +4157,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -5248,7 +5248,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(TicketStatus)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -5258,7 +5258,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -5965,7 +5965,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(SaleItem)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -5975,7 +5975,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -6334,7 +6334,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(POS)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -6344,7 +6344,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -6427,7 +6427,7 @@ Namespace WebReference
     
     '''<remarks/>
     <System.Xml.Serialization.XmlIncludeAttribute(GetType(InstallationSetting)),  _
-     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -6437,7 +6437,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -6507,7 +6507,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -6540,7 +6540,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -6573,7 +6573,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -6606,7 +6606,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -6771,71 +6771,20 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
      System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
-    Partial Public Class ChargeReply
+    Partial Public Class StadisTranTender
         
-        Private rRequestField As StadisRequest
+        Private tenderKeyField As System.Guid
         
-        Private rHeaderField As StadisTranHeader
+        Private transactionKeyField As System.Guid
         
-        Private rItemsField() As StadisTranItem
+        Private isStadisTenderField As Boolean
         
-        Private rTendersField() As StadisTranTender
-        
-        '''<remarks/>
-        Public Property RRequest() As StadisRequest
-            Get
-                Return Me.rRequestField
-            End Get
-            Set
-                Me.rRequestField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property RHeader() As StadisTranHeader
-            Get
-                Return Me.rHeaderField
-            End Get
-            Set
-                Me.rHeaderField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property RItems() As StadisTranItem()
-            Get
-                Return Me.rItemsField
-            End Get
-            Set
-                Me.rItemsField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property RTenders() As StadisTranTender()
-            Get
-                Return Me.rTendersField
-            End Get
-            Set
-                Me.rTendersField = value
-            End Set
-        End Property
-    End Class
-    
-    '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
-     System.SerializableAttribute(),  _
-     System.Diagnostics.DebuggerStepThroughAttribute(),  _
-     System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
-    Partial Public Class StadisRequest
-        
-        Private siteIDField As String
+        Private stadisAuthorizationIDField As String
         
         Private tenderTypeIDField As Integer
         
@@ -6843,35 +6792,47 @@ Namespace WebReference
         
         Private amountField As Decimal
         
-        Private referenceNumberField As String
+        Private field1Field As String
         
-        Private stadisAuthorizationIDField As String
-        
-        Private customerIDField As String
-        
-        Private vendorIDField As String
-        
-        Private locationIDField As String
-        
-        Private registerIDField As String
-        
-        Private receiptIDField As String
-        
-        Private vendorCashierField As String
-        
-        Private fromSVAccountIDField As Integer
-        
-        Private toSVAccountIDField As Integer
-        
-        Private transactionKeyField As System.Guid
+        Private field2Field As String
         
         '''<remarks/>
-        Public Property SiteID() As String
+        Public Property TenderKey() As System.Guid
             Get
-                Return Me.siteIDField
+                Return Me.tenderKeyField
             End Get
             Set
-                Me.siteIDField = value
+                Me.tenderKeyField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property TransactionKey() As System.Guid
+            Get
+                Return Me.transactionKeyField
+            End Get
+            Set
+                Me.transactionKeyField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property IsStadisTender() As Boolean
+            Get
+                Return Me.isStadisTenderField
+            End Get
+            Set
+                Me.isStadisTenderField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisAuthorizationID() As String
+            Get
+                Return Me.stadisAuthorizationIDField
+            End Get
+            Set
+                Me.stadisAuthorizationIDField = value
             End Set
         End Property
         
@@ -6906,273 +6867,6 @@ Namespace WebReference
         End Property
         
         '''<remarks/>
-        Public Property ReferenceNumber() As String
-            Get
-                Return Me.referenceNumberField
-            End Get
-            Set
-                Me.referenceNumberField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property StadisAuthorizationID() As String
-            Get
-                Return Me.stadisAuthorizationIDField
-            End Get
-            Set
-                Me.stadisAuthorizationIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property CustomerID() As String
-            Get
-                Return Me.customerIDField
-            End Get
-            Set
-                Me.customerIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property VendorID() As String
-            Get
-                Return Me.vendorIDField
-            End Get
-            Set
-                Me.vendorIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property LocationID() As String
-            Get
-                Return Me.locationIDField
-            End Get
-            Set
-                Me.locationIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property RegisterID() As String
-            Get
-                Return Me.registerIDField
-            End Get
-            Set
-                Me.registerIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property ReceiptID() As String
-            Get
-                Return Me.receiptIDField
-            End Get
-            Set
-                Me.receiptIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property VendorCashier() As String
-            Get
-                Return Me.vendorCashierField
-            End Get
-            Set
-                Me.vendorCashierField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property FromSVAccountID() As Integer
-            Get
-                Return Me.fromSVAccountIDField
-            End Get
-            Set
-                Me.fromSVAccountIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property ToSVAccountID() As Integer
-            Get
-                Return Me.toSVAccountIDField
-            End Get
-            Set
-                Me.toSVAccountIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property TransactionKey() As System.Guid
-            Get
-                Return Me.transactionKeyField
-            End Get
-            Set
-                Me.transactionKeyField = value
-            End Set
-        End Property
-    End Class
-    
-    '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
-     System.SerializableAttribute(),  _
-     System.Diagnostics.DebuggerStepThroughAttribute(),  _
-     System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
-    Partial Public Class StadisTranHeader
-        
-        Private transactionKeyField As System.Guid
-        
-        Private locationIDField As String
-        
-        Private registerIDField As String
-        
-        Private receiptIDField As String
-        
-        Private vendorIDField As String
-        
-        Private vendorCashierField As String
-        
-        Private vendorDiscountPctField As String
-        
-        Private vendorDiscountField As Decimal
-        
-        Private vendorTaxField As Decimal
-        
-        Private vendorTipField As Decimal
-        
-        Private subTotalField As Decimal
-        
-        Private totalField As Decimal
-        
-        Private field1Field As String
-        
-        Private field2Field As String
-        
-        '''<remarks/>
-        Public Property TransactionKey() As System.Guid
-            Get
-                Return Me.transactionKeyField
-            End Get
-            Set
-                Me.transactionKeyField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property LocationID() As String
-            Get
-                Return Me.locationIDField
-            End Get
-            Set
-                Me.locationIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property RegisterID() As String
-            Get
-                Return Me.registerIDField
-            End Get
-            Set
-                Me.registerIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property ReceiptID() As String
-            Get
-                Return Me.receiptIDField
-            End Get
-            Set
-                Me.receiptIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property VendorID() As String
-            Get
-                Return Me.vendorIDField
-            End Get
-            Set
-                Me.vendorIDField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property VendorCashier() As String
-            Get
-                Return Me.vendorCashierField
-            End Get
-            Set
-                Me.vendorCashierField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property VendorDiscountPct() As String
-            Get
-                Return Me.vendorDiscountPctField
-            End Get
-            Set
-                Me.vendorDiscountPctField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property VendorDiscount() As Decimal
-            Get
-                Return Me.vendorDiscountField
-            End Get
-            Set
-                Me.vendorDiscountField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property VendorTax() As Decimal
-            Get
-                Return Me.vendorTaxField
-            End Get
-            Set
-                Me.vendorTaxField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property VendorTip() As Decimal
-            Get
-                Return Me.vendorTipField
-            End Get
-            Set
-                Me.vendorTipField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property SubTotal() As Decimal
-            Get
-                Return Me.subTotalField
-            End Get
-            Set
-                Me.subTotalField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        Public Property Total() As Decimal
-            Get
-                Return Me.totalField
-            End Get
-            Set
-                Me.totalField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
         Public Property Field1() As String
             Get
                 Return Me.field1Field
@@ -7194,7 +6888,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -7383,40 +7077,40 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
      System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
-    Partial Public Class StadisTranTender
-        
-        Private tenderKeyField As System.Guid
+    Partial Public Class StadisTranHeader
         
         Private transactionKeyField As System.Guid
         
-        Private isStadisTenderField As Boolean
+        Private locationIDField As String
         
-        Private stadisAuthorizationIDField As String
+        Private registerIDField As String
         
-        Private tenderTypeIDField As Integer
+        Private receiptIDField As String
         
-        Private tenderIDField As String
+        Private vendorIDField As String
         
-        Private amountField As Decimal
+        Private vendorCashierField As String
+        
+        Private vendorDiscountPctField As String
+        
+        Private vendorDiscountField As Decimal
+        
+        Private vendorTaxField As Decimal
+        
+        Private vendorTipField As Decimal
+        
+        Private subTotalField As Decimal
+        
+        Private totalField As Decimal
         
         Private field1Field As String
         
         Private field2Field As String
-        
-        '''<remarks/>
-        Public Property TenderKey() As System.Guid
-            Get
-                Return Me.tenderKeyField
-            End Get
-            Set
-                Me.tenderKeyField = value
-            End Set
-        End Property
         
         '''<remarks/>
         Public Property TransactionKey() As System.Guid
@@ -7429,52 +7123,112 @@ Namespace WebReference
         End Property
         
         '''<remarks/>
-        Public Property IsStadisTender() As Boolean
+        Public Property LocationID() As String
             Get
-                Return Me.isStadisTenderField
+                Return Me.locationIDField
             End Get
             Set
-                Me.isStadisTenderField = value
+                Me.locationIDField = value
             End Set
         End Property
         
         '''<remarks/>
-        Public Property StadisAuthorizationID() As String
+        Public Property RegisterID() As String
             Get
-                Return Me.stadisAuthorizationIDField
+                Return Me.registerIDField
             End Get
             Set
-                Me.stadisAuthorizationIDField = value
+                Me.registerIDField = value
             End Set
         End Property
         
         '''<remarks/>
-        Public Property TenderTypeID() As Integer
+        Public Property ReceiptID() As String
             Get
-                Return Me.tenderTypeIDField
+                Return Me.receiptIDField
             End Get
             Set
-                Me.tenderTypeIDField = value
+                Me.receiptIDField = value
             End Set
         End Property
         
         '''<remarks/>
-        Public Property TenderID() As String
+        Public Property VendorID() As String
             Get
-                Return Me.tenderIDField
+                Return Me.vendorIDField
             End Get
             Set
-                Me.tenderIDField = value
+                Me.vendorIDField = value
             End Set
         End Property
         
         '''<remarks/>
-        Public Property Amount() As Decimal
+        Public Property VendorCashier() As String
             Get
-                Return Me.amountField
+                Return Me.vendorCashierField
             End Get
             Set
-                Me.amountField = value
+                Me.vendorCashierField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VendorDiscountPct() As String
+            Get
+                Return Me.vendorDiscountPctField
+            End Get
+            Set
+                Me.vendorDiscountPctField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VendorDiscount() As Decimal
+            Get
+                Return Me.vendorDiscountField
+            End Get
+            Set
+                Me.vendorDiscountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VendorTax() As Decimal
+            Get
+                Return Me.vendorTaxField
+            End Get
+            Set
+                Me.vendorTaxField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VendorTip() As Decimal
+            Get
+                Return Me.vendorTipField
+            End Get
+            Set
+                Me.vendorTipField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property SubTotal() As Decimal
+            Get
+                Return Me.subTotalField
+            End Get
+            Set
+                Me.subTotalField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Total() As Decimal
+            Get
+                Return Me.totalField
+            End Get
+            Set
+                Me.totalField = value
             End Set
         End Property
         
@@ -7500,7 +7254,7 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
@@ -7761,11 +7515,200 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3221.0"),  _
+     System.SerializableAttribute(),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://www.STADIS.com/")>  _
+    Partial Public Class StadisRequest
+        
+        Private siteIDField As String
+        
+        Private tenderTypeIDField As Integer
+        
+        Private tenderIDField As String
+        
+        Private amountField As Decimal
+        
+        Private referenceNumberField As String
+        
+        Private stadisAuthorizationIDField As String
+        
+        Private customerIDField As String
+        
+        Private vendorIDField As String
+        
+        Private locationIDField As String
+        
+        Private registerIDField As String
+        
+        Private receiptIDField As String
+        
+        Private vendorCashierField As String
+        
+        Private fromSVAccountIDField As Integer
+        
+        Private toSVAccountIDField As Integer
+        
+        Private transactionKeyField As System.Guid
+        
+        '''<remarks/>
+        Public Property SiteID() As String
+            Get
+                Return Me.siteIDField
+            End Get
+            Set
+                Me.siteIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property TenderTypeID() As Integer
+            Get
+                Return Me.tenderTypeIDField
+            End Get
+            Set
+                Me.tenderTypeIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property TenderID() As String
+            Get
+                Return Me.tenderIDField
+            End Get
+            Set
+                Me.tenderIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Amount() As Decimal
+            Get
+                Return Me.amountField
+            End Get
+            Set
+                Me.amountField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ReferenceNumber() As String
+            Get
+                Return Me.referenceNumberField
+            End Get
+            Set
+                Me.referenceNumberField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property StadisAuthorizationID() As String
+            Get
+                Return Me.stadisAuthorizationIDField
+            End Get
+            Set
+                Me.stadisAuthorizationIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property CustomerID() As String
+            Get
+                Return Me.customerIDField
+            End Get
+            Set
+                Me.customerIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VendorID() As String
+            Get
+                Return Me.vendorIDField
+            End Get
+            Set
+                Me.vendorIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property LocationID() As String
+            Get
+                Return Me.locationIDField
+            End Get
+            Set
+                Me.locationIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property RegisterID() As String
+            Get
+                Return Me.registerIDField
+            End Get
+            Set
+                Me.registerIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ReceiptID() As String
+            Get
+                Return Me.receiptIDField
+            End Get
+            Set
+                Me.receiptIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property VendorCashier() As String
+            Get
+                Return Me.vendorCashierField
+            End Get
+            Set
+                Me.vendorCashierField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property FromSVAccountID() As Integer
+            Get
+                Return Me.fromSVAccountIDField
+            End Get
+            Set
+                Me.fromSVAccountIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property ToSVAccountID() As Integer
+            Get
+                Return Me.toSVAccountIDField
+            End Get
+            Set
+                Me.toSVAccountIDField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property TransactionKey() As System.Guid
+            Get
+                Return Me.transactionKeyField
+            End Get
+            Set
+                Me.transactionKeyField = value
+            End Set
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub ValidateLoginCompletedEventHandler(ByVal sender As Object, ByVal e As ValidateLoginCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class ValidateLoginCompletedEventArgs
@@ -7788,11 +7731,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub ChangePasswordCompletedEventHandler(ByVal sender As Object, ByVal e As ChangePasswordCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class ChangePasswordCompletedEventArgs
@@ -7815,11 +7758,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVAccountBalanceCheckCompletedEventHandler(ByVal sender As Object, ByVal e As SVAccountBalanceCheckCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVAccountBalanceCheckCompletedEventArgs
@@ -7842,11 +7785,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVAccountBalanceCheckPromotionCompletedEventHandler(ByVal sender As Object, ByVal e As SVAccountBalanceCheckPromotionCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVAccountBalanceCheckPromotionCompletedEventArgs
@@ -7869,14 +7812,14 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
-    Public Delegate Sub TestChargeCompletedEventHandler(ByVal sender As Object, ByVal e As TestChargeCompletedEventArgs)
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
+    Public Delegate Sub SVAcctChgCompletedEventHandler(ByVal sender As Object, ByVal e As SVAcctChgCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
-    Partial Public Class TestChargeCompletedEventArgs
+    Partial Public Class SVAcctChgCompletedEventArgs
         Inherits System.ComponentModel.AsyncCompletedEventArgs
         
         Private results() As Object
@@ -7887,20 +7830,20 @@ Namespace WebReference
         End Sub
         
         '''<remarks/>
-        Public ReadOnly Property Result() As ChargeReply
+        Public ReadOnly Property Result() As StadisReply()
             Get
                 Me.RaiseExceptionIfNecessary
-                Return CType(Me.results(0),ChargeReply)
+                Return CType(Me.results(0),StadisReply())
             End Get
         End Property
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVAccountChargeCompletedEventHandler(ByVal sender As Object, ByVal e As SVAccountChargeCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVAccountChargeCompletedEventArgs
@@ -7923,11 +7866,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVAccountReverseCompletedEventHandler(ByVal sender As Object, ByVal e As SVAccountReverseCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVAccountReverseCompletedEventArgs
@@ -7950,11 +7893,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVPostTransactionCompletedEventHandler(ByVal sender As Object, ByVal e As SVPostTransactionCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVPostTransactionCompletedEventArgs
@@ -7977,11 +7920,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVReverseTransactionCompletedEventHandler(ByVal sender As Object, ByVal e As SVReverseTransactionCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVReverseTransactionCompletedEventArgs
@@ -8004,11 +7947,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVAccountDepositCompletedEventHandler(ByVal sender As Object, ByVal e As SVAccountDepositCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVAccountDepositCompletedEventArgs
@@ -8031,11 +7974,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVAccountWithdrawalCompletedEventHandler(ByVal sender As Object, ByVal e As SVAccountWithdrawalCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVAccountWithdrawalCompletedEventArgs
@@ -8058,11 +8001,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVAccountTransferCompletedEventHandler(ByVal sender As Object, ByVal e As SVAccountTransferCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVAccountTransferCompletedEventArgs
@@ -8085,11 +8028,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVAccountMergeCompletedEventHandler(ByVal sender As Object, ByVal e As SVAccountMergeCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVAccountMergeCompletedEventArgs
@@ -8112,11 +8055,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetStadisVersionCompletedEventHandler(ByVal sender As Object, ByVal e As GetStadisVersionCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetStadisVersionCompletedEventArgs
@@ -8139,11 +8082,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVEventLogCompletedEventHandler(ByVal sender As Object, ByVal e As SVEventLogCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVEventLogCompletedEventArgs
@@ -8166,11 +8109,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetInstallationSettingsCompletedEventHandler(ByVal sender As Object, ByVal e As GetInstallationSettingsCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetInstallationSettingsCompletedEventArgs
@@ -8193,11 +8136,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetPOSInfoCompletedEventHandler(ByVal sender As Object, ByVal e As GetPOSInfoCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetPOSInfoCompletedEventArgs
@@ -8220,11 +8163,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetSaleItemsForRProCompletedEventHandler(ByVal sender As Object, ByVal e As GetSaleItemsForRProCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetSaleItemsForRProCompletedEventArgs
@@ -8247,11 +8190,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetSaleItemsForStadisPOSCompletedEventHandler(ByVal sender As Object, ByVal e As GetSaleItemsForStadisPOSCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetSaleItemsForStadisPOSCompletedEventArgs
@@ -8274,11 +8217,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetReceiptPrintLinesCompletedEventHandler(ByVal sender As Object, ByVal e As GetReceiptPrintLinesCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetReceiptPrintLinesCompletedEventArgs
@@ -8301,11 +8244,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetActionSummaryForTicketCompletedEventHandler(ByVal sender As Object, ByVal e As GetActionSummaryForTicketCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetActionSummaryForTicketCompletedEventArgs
@@ -8328,11 +8271,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetTenderTypesCompletedEventHandler(ByVal sender As Object, ByVal e As GetTenderTypesCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetTenderTypesCompletedEventArgs
@@ -8355,11 +8298,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetTicketStatusCompletedEventHandler(ByVal sender As Object, ByVal e As GetTicketStatusCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetTicketStatusCompletedEventArgs
@@ -8382,11 +8325,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetCustomerStatusCompletedEventHandler(ByVal sender As Object, ByVal e As GetCustomerStatusCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetCustomerStatusCompletedEventArgs
@@ -8409,11 +8352,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub UpdateCustomerStatusCompletedEventHandler(ByVal sender As Object, ByVal e As UpdateCustomerStatusCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class UpdateCustomerStatusCompletedEventArgs
@@ -8436,11 +8379,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GetCustomerTicketStatusCompletedEventHandler(ByVal sender As Object, ByVal e As GetCustomerTicketStatusCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetCustomerTicketStatusCompletedEventArgs
@@ -8463,11 +8406,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub SVTicketTransferCompletedEventHandler(ByVal sender As Object, ByVal e As SVTicketTransferCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SVTicketTransferCompletedEventArgs
@@ -8490,11 +8433,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCAddUserProfileCompletedEventHandler(ByVal sender As Object, ByVal e As GCAddUserProfileCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCAddUserProfileCompletedEventArgs
@@ -8517,11 +8460,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCGetUserProfileCompletedEventHandler(ByVal sender As Object, ByVal e As GCGetUserProfileCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCGetUserProfileCompletedEventArgs
@@ -8544,11 +8487,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCUpdateUserProfileCompletedEventHandler(ByVal sender As Object, ByVal e As GCUpdateUserProfileCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCUpdateUserProfileCompletedEventArgs
@@ -8571,11 +8514,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCOrderGiftCardsCompletedEventHandler(ByVal sender As Object, ByVal e As GCOrderGiftCardsCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCOrderGiftCardsCompletedEventArgs
@@ -8598,11 +8541,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCGetGiftCardOrdersCompletedEventHandler(ByVal sender As Object, ByVal e As GCGetGiftCardOrdersCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCGetGiftCardOrdersCompletedEventArgs
@@ -8625,11 +8568,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCGetGiftCardOrderCompletedEventHandler(ByVal sender As Object, ByVal e As GCGetGiftCardOrderCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCGetGiftCardOrderCompletedEventArgs
@@ -8652,11 +8595,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCUpdateGiftCardOrderCompletedEventHandler(ByVal sender As Object, ByVal e As GCUpdateGiftCardOrderCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCUpdateGiftCardOrderCompletedEventArgs
@@ -8679,11 +8622,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCFulfillGiftCardOrderCompletedEventHandler(ByVal sender As Object, ByVal e As GCFulfillGiftCardOrderCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCFulfillGiftCardOrderCompletedEventArgs
@@ -8706,11 +8649,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCGetCardsForUserCompletedEventHandler(ByVal sender As Object, ByVal e As GCGetCardsForUserCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCGetCardsForUserCompletedEventArgs
@@ -8733,11 +8676,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCPurchaseCompletedEventHandler(ByVal sender As Object, ByVal e As GCPurchaseCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCPurchaseCompletedEventArgs
@@ -8760,11 +8703,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCIssueActivateCompletedEventHandler(ByVal sender As Object, ByVal e As GCIssueActivateCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCIssueActivateCompletedEventArgs
@@ -8787,11 +8730,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCActivateCompletedEventHandler(ByVal sender As Object, ByVal e As GCActivateCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCActivateCompletedEventArgs
@@ -8814,11 +8757,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCDeactivateCompletedEventHandler(ByVal sender As Object, ByVal e As GCDeactivateCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCDeactivateCompletedEventArgs
@@ -8841,11 +8784,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCReloadCompletedEventHandler(ByVal sender As Object, ByVal e As GCReloadCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCReloadCompletedEventArgs
@@ -8868,11 +8811,11 @@ Namespace WebReference
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")>  _
     Public Delegate Sub GCRegisterCardCompletedEventHandler(ByVal sender As Object, ByVal e As GCRegisterCardCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2558.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GCRegisterCardCompletedEventArgs
