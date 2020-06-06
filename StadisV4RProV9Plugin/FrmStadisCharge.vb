@@ -7,8 +7,10 @@ Imports Infragistics.Win
 '   Class: FrmStadisCharge
 '    Type: Windows Form
 ' Purpose: Collects Stadis tender information.  Invoked from TenderDialogue.
+'
 ' Item Note1 Before: STADIS\GiftCardID\IorA\CustomerID\Amount
 ' Item Note1 After: STADIS\GiftCardID\IorA\CustomerID\Amount\TranKey
+'
 ' MANUAL_REMARK Before: StadisOpCode#CardID#AuthID
 ' MANUAL_REMARK After: StadisOpCode#TranKey
 '----------------------------------------------------------------------------------------------
@@ -381,7 +383,7 @@ Public Class FrmStadisCharge
 
 #End Region  'Buttons
 
-#Region " Methods "
+#Region " Private Methods "
 
     ''----------------------------------------------------------------------------------------------
     '' Pause
@@ -567,6 +569,6 @@ Public Class FrmStadisCharge
         End Try
     End Function  'DoSVAccountCharge
 
-#End Region  'Methods
+#End Region  'Private Methods
 
 End Class  'FrmStadisCharge

@@ -1,5 +1,5 @@
-﻿Imports CommonV4
-Imports CommonV4.WebReference
+﻿'Imports CommonV4
+'Imports StadisV4RProV9Plugin.WebReference
 Imports Infragistics.Win
 Imports Infragistics.Win.UltraWinGrid
 'Imports POS.Devices.OPOSPOSPrinterConstants
@@ -105,7 +105,7 @@ Public Class FrmHistory
         Try
             Windows.Forms.Cursor.Current = Cursors.WaitCursor
             ds.Clear()
-            Dim mas As MessageAndActionSummary = CommonRoutines.StadisAPI.GetActionSummaryForTicket(TicketBarcode)
+            Dim mas As MessageAndActionSummary = Common.StadisAPI.GetActionSummaryForTicket(TicketBarcode)
             grdTran.DataSource = FillTransactionDS(mas.ActionHeader, mas.ActionItem, mas.ActionTender, mas.ActionSVAction)
             grdAction.DataSource = ds.Action
             Windows.Forms.Cursor.Current = Cursors.Default
@@ -708,7 +708,7 @@ Public Class FrmHistory
                     .ReceiptID = ""
                     .VendorCashier = gVendorCashier
                 End With
-                Dim sy As StadisReply() = CommonRoutines.StadisAPI.SVAccountReverse(sr)
+                Dim sy As StadisReply() = Common.StadisAPI.SVAccountReverse(sr)
                 Select Case sy(0).ReturnCode
                     Case 0
                         MsgBox("Operation successful.", MsgBoxStyle.OkOnly, "Reverse")

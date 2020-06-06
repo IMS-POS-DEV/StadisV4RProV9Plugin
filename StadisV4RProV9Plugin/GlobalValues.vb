@@ -6,6 +6,7 @@ Public Module GlobalValues
     '----------------------------------------------------------------------------------------------
     ' From Config File
     '----------------------------------------------------------------------------------------------
+    Public gIsItemDiscount As Boolean = False
     Public gReturnItemizedPromotions As Boolean = False
 
     '----------------------------------------------------------------------------------------------
@@ -129,7 +130,7 @@ Public Module GlobalValues
     '----------------------------------------------------------------------------------------------
     ' Flags
     '----------------------------------------------------------------------------------------------
-    Public gIsAReturn As Boolean = True
+    Public gIsAReturn As Boolean = False
     Public gAlreadyLoaded As Boolean = False
 
 End Module  'GlobalValues

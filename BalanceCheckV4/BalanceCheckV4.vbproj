@@ -124,52 +124,10 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BalancePrint.vb">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DSTran.vb">
-      <DependentUpon>DSTran.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="FrmConfig.Designer.vb">
-      <DependentUpon>FrmConfig.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmConfig.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DSTran.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DSTran.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="FrmFull.Designer.vb">
-      <DependentUpon>FrmFull.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmFull.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmBalChk.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmBalChk.Designer.vb">
-      <DependentUpon>FrmBalChk.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FrmHistory.Designer.vb">
       <DependentUpon>FrmHistory.vb</DependentUpon>
     </Compile>
     <Compile Include="FrmHistory.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmLoginMerge.Designer.vb">
-      <DependentUpon>frmLoginMerge.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmLoginMerge.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmMerge.Designer.vb">
-      <DependentUpon>FrmMerge.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmMerge.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -187,42 +145,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="OPOS.vb" />
-    <Compile Include="TransactionReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TransactionReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TransactionsReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TransactionsReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FrmConfig.resx">
-      <DependentUpon>FrmConfig.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmFull.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FrmFull.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmBalChk.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FrmBalChk.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmHistory.resx">
       <DependentUpon>FrmHistory.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmLoginMerge.resx">
-      <DependentUpon>frmLoginMerge.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMerge.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FrmMerge.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -231,17 +158,8 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TransactionReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TransactionReport.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TransactionsReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TransactionsReport.vb</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BalancePrint.rpt" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -257,17 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="DSTran.xsc">
-      <DependentUpon>DSTran.xsd</DependentUpon>
-    </None>
-    <None Include="DSTran.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DSTran.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DSTran.xss">
-      <DependentUpon>DSTran.xsd</DependentUpon>
-    </None>
     <None Include="IMSKey.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -305,12 +212,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CommonV4\CommonV4.vbproj">
-      <Project>{8C70B7DD-CCF2-406D-A707-29DE73EEBFD6}</Project>
-      <Name>CommonV4</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Plugins">

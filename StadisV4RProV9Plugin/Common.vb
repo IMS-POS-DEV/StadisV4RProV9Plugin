@@ -311,6 +311,8 @@ Public Class Common
                             'RPro settings
                             'Case "TenderTypeForStadis"
                             '    gTenderTypeForStadis = .SettingValue
+                        Case "IsItemDiscount"
+                            gIsItemDiscount = CBool(.SettingValue)
                         Case "FeeOrTenderForIssueOffset"
                             gFeeOrTenderForIssueOffset = .SettingValue
                         Case "FeeOrTenderForReloadOffset"
