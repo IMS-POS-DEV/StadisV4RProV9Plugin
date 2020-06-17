@@ -49,25 +49,25 @@
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Infragistics4.Win.UltraWinTabControl.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Shared.v19.2, Version=19.2.20192.302, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.Misc.v19.2, Version=19.2.20192.302, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v19.2, Version=19.2.20192.302, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.UltraWinGrid.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v19.2, Version=19.2.20192.302, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.UltraWinEditors.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v19.2, Version=19.2.20192.302, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Win.Misc.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.v19.2, Version=19.2.20192.302, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Infragistics4.Shared.v17.1, Version=17.1.20171.2032, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v19.2, Version=19.2.20192.302, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
     <Reference Include="CustomPluginClasses">
@@ -311,6 +311,24 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Doc\Plugin Tender Options.xlsx" />
+    <None Include="Doc\PluginAttributes.xlsx" />
+    <None Include="Doc\Retail Pro V9 STADIS Plugin Installation Manual.docx" />
+    <None Include="Doc\Retail Pro V9 STADIS Plugin Manual %28Old%29.docx" />
+    <None Include="Doc\Retail Pro V9 StadisV4 Plugin Installation Manual.docx" />
+    <None Include="Doc\Retail_Pro_9_Series_Database_and_Custom.pdf" />
+    <None Include="Doc\Retail_Pro_9_XML_Files.pdf" />
+    <None Include="Doc\RP9_Custom_Plugin_Classes.pdf" />
+    <None Include="Doc\RP9_PlugIn_Programmers_Guide %282%29.pdf" />
+    <None Include="Doc\RP9_PlugIn_Programmers_Guide.pdf" />
+    <None Include="Doc\RproV9API.docx" />
+    <None Include="Doc\StadisV4RProV9Plugin.mnf" />
+    <None Include="Doc\V8 Plugin.docx" />
+    <None Include="Doc\v9_2_Standard_Table_Views.pdf" />
+    <None Include="Doc\v9_A_Interface_Design.pdf" />
+    <None Include="Doc\V9_PlugIn_Programmers_Guide.pdf" />
+    <None Include="Doc\v9_Standard_Table_Views.pdf" />
+    <None Include="Doc\xStadisRProV9Plugin.mnf" />
     <None Include="DSGiftCardInfo.xsc">
       <DependentUpon>DSGiftCardInfo.xsd</DependentUpon>
     </None>
@@ -345,6 +363,12 @@
       <DependentUpon>DSTran.xsd</DependentUpon>
     </None>
     <None Include="IMSKey.snk" />
+    <None Include="Install\CustomPluginClasses.tlb" />
+    <None Include="Install\lucon.ttf" />
+    <None Include="Install\RegAsm.bat" />
+    <None Include="Install\StadisV4RProV9Plugin.dll.config" />
+    <None Include="Install\StadisV4RProV9Plugin.mnf" />
+    <None Include="Install\StadisV4RProV9Plugin.tlb" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -541,6 +565,45 @@
   <ItemGroup>
     <None Include="Resources\printer_add24.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Doc\GiftCardInfoTable.txt" />
+    <Content Include="Doc\Interop.OposPOSPrinter_1_11_Lib.dll" />
+    <Content Include="Doc\PluginSettings.txt" />
+    <Content Include="Doc\POS.Devices.OPOSPOSPrinter.dll" />
+    <Content Include="Doc\POS.Devices.Opos_Constants.dll" />
+    <Content Include="Doc\RegAsm.exe" />
+    <Content Include="Doc\RProReceipt1.png" />
+    <Content Include="Doc\RProTender1.png" />
+    <Content Include="Doc\StarComm.dll" />
+    <Content Include="Install\CustomPluginClasses.dll" />
+    <Content Include="Install\CustomPluginClasses.pdb" />
+    <Content Include="Install\Infragistics4.Shared.v19.2.dll" />
+    <Content Include="Install\Infragistics4.Shared.v19.2.xml" />
+    <Content Include="Install\Infragistics4.Win.Misc.v19.2.dll" />
+    <Content Include="Install\Infragistics4.Win.Misc.v19.2.xml" />
+    <Content Include="Install\Infragistics4.Win.UltraWinEditors.v19.2.dll" />
+    <Content Include="Install\Infragistics4.Win.UltraWinEditors.v19.2.xml" />
+    <Content Include="Install\Infragistics4.Win.UltraWinGrid.v19.2.dll" />
+    <Content Include="Install\Infragistics4.Win.UltraWinGrid.v19.2.xml" />
+    <Content Include="Install\Infragistics4.Win.UltraWinStatusBar.v19.2.dll" />
+    <Content Include="Install\Infragistics4.Win.UltraWinStatusBar.v19.2.xml" />
+    <Content Include="Install\Infragistics4.Win.UltraWinTabControl.v19.2.dll" />
+    <Content Include="Install\Infragistics4.Win.UltraWinTabControl.v19.2.xml" />
+    <Content Include="Install\Infragistics4.Win.v19.2.dll" />
+    <Content Include="Install\Infragistics4.Win.v19.2.xml" />
+    <Content Include="Install\Interop.Plugins.dll" />
+    <Content Include="Install\MSXML.dll" />
+    <Content Include="Install\RegAsm.exe" />
+    <Content Include="Install\RetailPro.Plugins.dll" />
+    <Content Include="Install\STADIS-LOGO140x90.bmp" />
+    <Content Include="Install\STADIS-LOGO140x90.gif" />
+    <Content Include="Install\stadis32.bmp" />
+    <Content Include="Install\stadislogo.png" />
+    <Content Include="Install\StadisV4RProV9Plugin.dll" />
+    <Content Include="Install\StadisV4RProV9Plugin.pdb" />
+    <Content Include="Install\StadisV4RProV9Plugin.XmlSerializers.dll" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
