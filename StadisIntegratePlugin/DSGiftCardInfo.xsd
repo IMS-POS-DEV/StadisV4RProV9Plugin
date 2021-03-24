@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSGiftCardInfo" targetNamespace="http://tempuri.org/DSGiftCardInfo.xsd" xmlns:mstns="http://tempuri.org/DSGiftCardInfo.xsd" xmlns="http://tempuri.org/DSGiftCardInfo.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="STADIS_V3ConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="STADIS_V3ConnectionString (MySettings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.StadisIntegratePlugin.My.MySettings.GlobalReference.Default.STADIS_V3ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSGiftCardInfo" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DSGiftCardInfo" msprop:Generator_UserDSName="DSGiftCardInfo">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="GiftCardInfo" msprop:Generator_UserTableName="GiftCardInfo" msprop:Generator_RowEvArgName="GiftCardInfoRowChangeEvent" msprop:Generator_TableVarName="tableGiftCardInfo" msprop:Generator_TablePropName="GiftCardInfo" msprop:Generator_RowDeletingName="GiftCardInfoRowDeleting" msprop:Generator_RowChangingName="GiftCardInfoRowChanging" msprop:Generator_RowDeletedName="GiftCardInfoRowDeleted" msprop:Generator_RowEvHandlerName="GiftCardInfoRowChangeEventHandler" msprop:Generator_TableClassName="GiftCardInfoDataTable" msprop:Generator_RowChangedName="GiftCardInfoRowChanged" msprop:Generator_RowClassName="GiftCardInfoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="GiftCardInfoID" msprop:Generator_ColumnVarNameInTable="columnGiftCardInfoID" msprop:Generator_ColumnPropNameInRow="GiftCardInfoID" msprop:Generator_ColumnPropNameInTable="GiftCardInfoIDColumn" msprop:Generator_UserColumnName="GiftCardInfoID" type="xs:int" />
+              <xs:element name="GiftCardName" msprop:Generator_ColumnVarNameInTable="columnGiftCardName" msprop:Generator_ColumnPropNameInRow="GiftCardName" msprop:Generator_ColumnPropNameInTable="GiftCardNameColumn" msprop:Generator_UserColumnName="GiftCardName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RProLookupALU" msprop:Generator_ColumnVarNameInTable="columnRProLookupALU" msprop:Generator_ColumnPropNameInRow="RProLookupALU" msprop:Generator_ColumnPropNameInTable="RProLookupALUColumn" msprop:Generator_UserColumnName="RProLookupALU">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EventID" msprop:Generator_ColumnVarNameInTable="columnEventID" msprop:Generator_ColumnPropNameInRow="EventID" msprop:Generator_ColumnPropNameInTable="EventIDColumn" msprop:Generator_UserColumnName="EventID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ButtonPosition" msprop:Generator_ColumnVarNameInTable="columnButtonPosition" msprop:Generator_ColumnPropNameInRow="ButtonPosition" msprop:Generator_ColumnPropNameInTable="ButtonPositionColumn" msprop:Generator_UserColumnName="ButtonPosition" type="xs:int" />
+              <xs:element name="ButtonCaption" msprop:Generator_ColumnVarNameInTable="columnButtonCaption" msprop:Generator_ColumnPropNameInRow="ButtonCaption" msprop:Generator_ColumnPropNameInTable="ButtonCaptionColumn" msprop:Generator_UserColumnName="ButtonCaption">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DropdownCaption" msprop:Generator_ColumnVarNameInTable="columnDropdownCaption" msprop:Generator_ColumnPropNameInRow="DropdownCaption" msprop:Generator_ColumnPropNameInTable="DropdownCaptionColumn" msprop:Generator_UserColumnName="DropdownCaption">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ReceiptCaption" msprop:Generator_ColumnVarNameInTable="columnReceiptCaption" msprop:Generator_ColumnPropNameInRow="ReceiptCaption" msprop:Generator_ColumnPropNameInTable="ReceiptCaptionColumn" msprop:Generator_UserColumnName="ReceiptCaption">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FixedOrVariable" msprop:Generator_ColumnVarNameInTable="columnFixedOrVariable" msprop:Generator_ColumnPropNameInRow="FixedOrVariable" msprop:Generator_ColumnPropNameInTable="FixedOrVariableColumn" msprop:Generator_UserColumnName="FixedOrVariable">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AllowIssue" msprop:Generator_ColumnVarNameInTable="columnAllowIssue" msprop:Generator_ColumnPropNameInRow="AllowIssue" msprop:Generator_ColumnPropNameInTable="AllowIssueColumn" msprop:Generator_UserColumnName="AllowIssue" type="xs:boolean" />
+              <xs:element name="AllowActivate" msprop:Generator_ColumnVarNameInTable="columnAllowActivate" msprop:Generator_ColumnPropNameInRow="AllowActivate" msprop:Generator_ColumnPropNameInTable="AllowActivateColumn" msprop:Generator_UserColumnName="AllowActivate" type="xs:boolean" />
+              <xs:element name="IAMinAmount" msprop:Generator_ColumnVarNameInTable="columnIAMinAmount" msprop:Generator_ColumnPropNameInRow="IAMinAmount" msprop:Generator_ColumnPropNameInTable="IAMinAmountColumn" msprop:Generator_UserColumnName="IAMinAmount" type="xs:decimal" />
+              <xs:element name="IAMaxAmount" msprop:Generator_ColumnVarNameInTable="columnIAMaxAmount" msprop:Generator_ColumnPropNameInRow="IAMaxAmount" msprop:Generator_ColumnPropNameInTable="IAMaxAmountColumn" msprop:Generator_UserColumnName="IAMaxAmount" type="xs:decimal" />
+              <xs:element name="AllowReload" msprop:Generator_ColumnVarNameInTable="columnAllowReload" msprop:Generator_ColumnPropNameInRow="AllowReload" msprop:Generator_ColumnPropNameInTable="AllowReloadColumn" msprop:Generator_UserColumnName="AllowReload" type="xs:boolean" />
+              <xs:element name="RMinAmount" msprop:Generator_ColumnVarNameInTable="columnRMinAmount" msprop:Generator_ColumnPropNameInRow="RMinAmount" msprop:Generator_ColumnPropNameInTable="RMinAmountColumn" msprop:Generator_UserColumnName="RMinAmount" type="xs:decimal" />
+              <xs:element name="RMaxAmount" msprop:Generator_ColumnVarNameInTable="columnRMaxAmount" msprop:Generator_ColumnPropNameInRow="RMaxAmount" msprop:Generator_ColumnPropNameInTable="RMaxAmountColumn" msprop:Generator_UserColumnName="RMaxAmount" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ReloadInfo" msprop:Generator_TableClassName="ReloadInfoDataTable" msprop:Generator_TableVarName="tableReloadInfo" msprop:Generator_RowChangedName="ReloadInfoRowChanged" msprop:Generator_TablePropName="ReloadInfo" msprop:Generator_RowDeletingName="ReloadInfoRowDeleting" msprop:Generator_RowChangingName="ReloadInfoRowChanging" msprop:Generator_RowEvHandlerName="ReloadInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="ReloadInfoRowDeleted" msprop:Generator_RowClassName="ReloadInfoRow" msprop:Generator_UserTableName="ReloadInfo" msprop:Generator_RowEvArgName="ReloadInfoRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="GiftCardInfoID" msprop:Generator_ColumnVarNameInTable="columnGiftCardInfoID" msprop:Generator_ColumnPropNameInRow="GiftCardInfoID" msprop:Generator_ColumnPropNameInTable="GiftCardInfoIDColumn" msprop:Generator_UserColumnName="GiftCardInfoID" type="xs:int" />
+              <xs:element name="GiftCardName" msprop:Generator_ColumnVarNameInTable="columnGiftCardName" msprop:Generator_ColumnPropNameInRow="GiftCardName" msprop:Generator_ColumnPropNameInTable="GiftCardNameColumn" msprop:Generator_UserColumnName="GiftCardName" type="xs:string" minOccurs="0" />
+              <xs:element name="RProLookupALU" msprop:Generator_ColumnVarNameInTable="columnRProLookupALU" msprop:Generator_ColumnPropNameInRow="RProLookupALU" msprop:Generator_ColumnPropNameInTable="RProLookupALUColumn" msprop:Generator_UserColumnName="RProLookupALU" type="xs:string" minOccurs="0" />
+              <xs:element name="EventID" msprop:Generator_ColumnVarNameInTable="columnEventID" msprop:Generator_ColumnPropNameInRow="EventID" msprop:Generator_ColumnPropNameInTable="EventIDColumn" msprop:Generator_UserColumnName="EventID" type="xs:string" minOccurs="0" />
+              <xs:element name="ButtonPosition" msprop:Generator_ColumnVarNameInTable="columnButtonPosition" msprop:Generator_ColumnPropNameInRow="ButtonPosition" msprop:Generator_ColumnPropNameInTable="ButtonPositionColumn" msprop:Generator_UserColumnName="ButtonPosition" type="xs:int" minOccurs="0" />
+              <xs:element name="ButtonCaption" msprop:Generator_ColumnVarNameInTable="columnButtonCaption" msprop:Generator_ColumnPropNameInRow="ButtonCaption" msprop:Generator_ColumnPropNameInTable="ButtonCaptionColumn" msprop:Generator_UserColumnName="ButtonCaption" type="xs:string" minOccurs="0" />
+              <xs:element name="DropdownCaption" msprop:Generator_ColumnVarNameInTable="columnDropdownCaption" msprop:Generator_ColumnPropNameInRow="DropdownCaption" msprop:Generator_ColumnPropNameInTable="DropdownCaptionColumn" msprop:Generator_UserColumnName="DropdownCaption" type="xs:string" minOccurs="0" />
+              <xs:element name="ReceiptCaption" msprop:Generator_ColumnVarNameInTable="columnReceiptCaption" msprop:Generator_ColumnPropNameInRow="ReceiptCaption" msprop:Generator_ColumnPropNameInTable="ReceiptCaptionColumn" msprop:Generator_UserColumnName="ReceiptCaption" type="xs:string" minOccurs="0" />
+              <xs:element name="FixedOrVariable" msprop:Generator_ColumnVarNameInTable="columnFixedOrVariable" msprop:Generator_ColumnPropNameInRow="FixedOrVariable" msprop:Generator_ColumnPropNameInTable="FixedOrVariableColumn" msprop:Generator_UserColumnName="FixedOrVariable" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AllowIssue" msprop:Generator_ColumnVarNameInTable="columnAllowIssue" msprop:Generator_ColumnPropNameInRow="AllowIssue" msprop:Generator_ColumnPropNameInTable="AllowIssueColumn" msprop:Generator_UserColumnName="AllowIssue" type="xs:boolean" minOccurs="0" />
+              <xs:element name="AllowActivate" msprop:Generator_ColumnVarNameInTable="columnAllowActivate" msprop:Generator_ColumnPropNameInRow="AllowActivate" msprop:Generator_ColumnPropNameInTable="AllowActivateColumn" msprop:Generator_UserColumnName="AllowActivate" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IAMinAmount" msprop:Generator_ColumnVarNameInTable="columnIAMinAmount" msprop:Generator_ColumnPropNameInRow="IAMinAmount" msprop:Generator_ColumnPropNameInTable="IAMinAmountColumn" msprop:Generator_UserColumnName="IAMinAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IAMaxAmount" msprop:Generator_ColumnVarNameInTable="columnIAMaxAmount" msprop:Generator_ColumnPropNameInRow="IAMaxAmount" msprop:Generator_ColumnPropNameInTable="IAMaxAmountColumn" msprop:Generator_UserColumnName="IAMaxAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AllowReload" msprop:Generator_ColumnVarNameInTable="columnAllowReload" msprop:Generator_ColumnPropNameInRow="AllowReload" msprop:Generator_ColumnPropNameInTable="AllowReloadColumn" msprop:Generator_UserColumnName="AllowReload" type="xs:boolean" minOccurs="0" />
+              <xs:element name="RMinAmount" msprop:Generator_ColumnVarNameInTable="columnRMinAmount" msprop:Generator_ColumnPropNameInRow="RMinAmount" msprop:Generator_ColumnPropNameInTable="RMinAmountColumn" msprop:Generator_UserColumnName="RMinAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RMaxAmount" msprop:Generator_ColumnVarNameInTable="columnRMaxAmount" msprop:Generator_ColumnPropNameInRow="RMaxAmount" msprop:Generator_ColumnPropNameInTable="RMaxAmountColumn" msprop:Generator_UserColumnName="RMaxAmount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:GiftCardInfo" />
+      <xs:field xpath="mstns:GiftCardInfoID" />
+    </xs:unique>
+    <xs:unique name="ReloadInfo_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:ReloadInfo" />
+      <xs:field xpath="mstns:GiftCardInfoID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

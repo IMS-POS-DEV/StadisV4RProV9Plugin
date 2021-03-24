@@ -1,0 +1,280 @@
+USE [STADIS]
+
+GO
+/****** Object:  Table [dbo].[GiftCardInfo]    Script Date: 12/01/2010 13:12:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[GiftCardInfo](
+	[GiftCardInfoID] [uniqueidentifier] NOT NULL CONSTRAINT [DF_GiftCardInfo_GiftCardInfoID]  DEFAULT (newid()),
+	[GiftCardName] [varchar](50) NOT NULL CONSTRAINT [DF_GiftCardInfo_GiftCardName]  DEFAULT (' '),
+	[RProLookupALU] [varchar](50) NOT NULL CONSTRAINT [DF_GiftCardInfo_RProLookupALU]  DEFAULT ('GiftCardALU'),
+	[EventID] [varchar](50) NOT NULL CONSTRAINT [DF_GiftCardInfo_EventID]  DEFAULT ('9999'),
+	[ButtonPosition] [int] NOT NULL CONSTRAINT [DF_GiftCardInfo_ButtonPosition]  DEFAULT ((0)),
+	[ButtonCaption] [varchar](50) NOT NULL CONSTRAINT [DF_GiftCardInfo_ButtonCaption]  DEFAULT (' '),
+	[DropdownCaption] [varchar](50) NOT NULL CONSTRAINT [DF_GiftCardInfo_DropdownCaption]  DEFAULT (' '),
+	[ReceiptCaption] [varchar](20) NOT NULL CONSTRAINT [DF_GiftCardInfo_ReceiptCaption]  DEFAULT (' '),
+	[FixedOrVariable] [char](1) NOT NULL CONSTRAINT [DF_GiftCardInfo_FixedOrVariable]  DEFAULT ('V'),
+	[AllowIssue] [bit] NOT NULL CONSTRAINT [DF_GiftCardInfo_AllowIssue]  DEFAULT ((0)),
+	[AllowActivate] [bit] NOT NULL CONSTRAINT [DF_GiftCardInfo_AllowActivate]  DEFAULT ((0)),
+	[IAMinAmount] [money] NOT NULL CONSTRAINT [DF_GiftCardInfo_IAMinAmount]  DEFAULT ((0)),
+	[IAMaxAmount] [money] NOT NULL CONSTRAINT [DF_GiftCardInfo_IAMaxAmount]  DEFAULT ((9999)),
+	[AllowReload] [bit] NOT NULL CONSTRAINT [DF_GiftCardInfo_AllowReload]  DEFAULT ((0)),
+	[RMinAmount] [money] NOT NULL CONSTRAINT [DF_GiftCardInfo_RMinAmount]  DEFAULT ((0)),
+	[RMaxAmount] [money] NOT NULL CONSTRAINT [DF_GiftCardInfo_RMaxAmount]  DEFAULT ((9999)),
+ CONSTRAINT [PK_GiftCardInfo] PRIMARY KEY CLUSTERED 
+(
+	[GiftCardInfoID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'ALU of item in Retail Pro used for this card' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'GiftCardInfo', @level2type=N'COLUMN',@level2name=N'RProLookupALU'
+
+INSERT INTO GiftCardInfo 
+	(GiftCardName, RProLookupALU, EventID, 
+	ButtonPosition, ButtonCaption, 
+	DropdownCaption, ReceiptCaption, 
+	FixedOrVariable, AllowIssue, AllowActivate, 
+	IAMinAmount, IAMaxAmount, 
+	AllowReload, RMinAmount, RMaxAmount) 
+VALUES 
+	('Gift Card', 'GiftCardALU1', '9999', 
+	1, 'Button', 
+	'Dropdown', 'Receipt', 
+	'V', 0, 0, 
+	0, 9999, 
+	0, 0, 9999)
+GO
+
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'USP_AddGiftCardInfo')
+	BEGIN
+		PRINT 'Dropping Procedure USP_AddGiftCardInfo'
+		DROP  Procedure  USP_AddGiftCardInfo
+	END
+GO
+
+PRINT 'Creating Procedure USP_AddGiftCardInfo'
+GO
+
+CREATE Procedure [dbo].[USP_AddGiftCardInfo]
+	(
+		@GiftCardInfoID uniqueidentifier,
+		@GiftCardName varchar(50),
+		@RProLookupALU varchar(50),
+		@EventID varchar(50),
+		@ButtonPosition int,
+		@ButtonCaption varchar(50),
+		@DropdownCaption varchar(50),
+		@ReceiptCaption varchar(20),
+		@FixedOrVariable varchar(50),
+		@AllowIssue bit,
+		@AllowActivate bit,
+		@IAMinAmount money,
+		@IAMaxAmount money,
+		@AllowReload bit,
+		@RMinAmount money,
+		@RMaxAmount money
+	)
+AS
+	INSERT INTO GiftCardInfo
+	(
+		GiftCardInfoID,
+		GiftCardName,
+		RProLookupALU,
+		EventID,
+		ButtonPosition,
+		ButtonCaption,
+		DropdownCaption,
+		ReceiptCaption,
+		FixedOrVariable,
+		AllowIssue,
+		AllowActivate,
+		IAMinAmount,
+		IAMaxAmount,
+		AllowReload,
+		RMinAmount,
+		RMaxAmount
+	)
+	VALUES
+	(
+		@GiftCardInfoID,
+		@GiftCardName,
+		@RProLookupALU,
+		@EventID,
+		@ButtonPosition,
+		@ButtonCaption,
+		@DropdownCaption,
+		@ReceiptCaption,
+		@FixedOrVariable,
+		@AllowIssue,
+		@AllowActivate,
+		@IAMinAmount,
+		@IAMaxAmount,
+		@AllowReload,
+		@RMinAmount,
+		@RMaxAmount
+	)RETURN
+GO
+
+GRANT EXEC ON USP_AddGiftCardInfo TO PUBLIC
+GO 
+
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'USP_DeleteGiftCardInfo')
+	BEGIN
+		PRINT 'Dropping Procedure USP_DeleteGiftCardInfo'
+		DROP  Procedure  USP_DeleteGiftCardInfo
+	END
+GO
+
+PRINT 'Creating Procedure USP_DeleteGiftCardInfo'
+GO
+
+CREATE PROCEDURE dbo.USP_DeleteGiftCardInfo
+	(
+		@GiftCardInfoID uniqueidentifier
+	)
+AS
+	DELETE GiftCardInfo
+	WHERE GiftCardInfoID=@GiftCardInfoID
+	RETURN
+GO
+
+GRANT EXEC ON USP_DeleteGiftCardInfo TO PUBLIC
+GO 
+
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'USP_GetGiftCardInfo')
+	BEGIN
+		PRINT 'Dropping Procedure USP_GetGiftCardInfo'
+		DROP  Procedure  USP_GetGiftCardInfo
+	END
+GO
+
+PRINT 'Creating Procedure USP_GetGiftCardInfo'
+GO
+
+CREATE PROCEDURE dbo.USP_GetGiftCardInfo
+	(
+		@GiftCardInfoID uniqueidentifier
+	)
+AS
+	SELECT *
+	FROM GiftCardInfo
+	WHERE GiftCardInfoID=@GiftCardInfoID
+	RETURN
+GO
+
+GRANT EXEC ON USP_GetGiftCardInfo TO PUBLIC
+GO
+
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'USP_GetGiftCardInfos')
+	BEGIN
+		PRINT 'Dropping Procedure USP_GetGiftCardInfos'
+		DROP  Procedure  USP_GetGiftCardInfos
+	END
+GO
+
+PRINT 'Creating Procedure USP_GetGiftCardInfos'
+GO
+
+CREATE PROCEDURE dbo.USP_GetGiftCardInfos
+AS
+	SELECT *
+	FROM GiftCardInfo
+	ORDER BY ButtonPosition 
+	RETURN
+GO
+
+GRANT EXEC ON USP_GetGiftCardInfos TO PUBLIC
+GO
+
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'USP_UpdateGiftCardInfo')
+	BEGIN
+		PRINT 'Dropping Procedure USP_UpdateGiftCardInfo'
+		DROP  Procedure  USP_UpdateGiftCardInfo
+	END
+GO
+
+PRINT 'Creating Procedure USP_UpdateGiftCardInfo'
+GO
+
+CREATE Procedure dbo.USP_UpdateGiftCardInfo
+	(
+		@GiftCardInfoID uniqueidentifier,
+		@GiftCardName varchar(50),
+		@RProLookupALU varchar(50),
+		@EventID varchar(50),
+		@ButtonPosition int,
+		@ButtonCaption varchar(50),
+		@DropdownCaption varchar(50),
+		@ReceiptCaption varchar(20),
+		@FixedOrVariable varchar(50),
+		@AllowIssue bit,
+		@AllowActivate bit,
+		@IAMinAmount money,
+		@IAMaxAmount money,
+		@AllowReload bit,
+		@RMinAmount money,
+		@RMaxAmount money
+	)
+AS
+	UPDATE GiftCardInfo
+	SET
+		GiftCardName=@GiftCardName,
+		RProLookupALU=@RProLookupALU,
+		EventID=@EventID,
+		ButtonPosition=@ButtonPosition,
+		ButtonCaption=@ButtonCaption,
+		DropdownCaption=@DropdownCaption,
+		ReceiptCaption=@ReceiptCaption,
+		FixedOrVariable=@FixedOrVariable,
+		AllowIssue=@AllowIssue,
+		AllowActivate=@AllowActivate,
+		IAMinAmount=@IAMinAmount,
+		IAMaxAmount=@IAMaxAmount,
+		AllowReload=@AllowReload,
+		RMinAmount=@RMinAmount,
+		RMaxAmount=@RMaxAmount
+	WHERE GiftCardInfoID=@GiftCardInfoID
+	RETURN
+GO
+
+GRANT EXEC ON USP_UpdateGiftCardInfo TO PUBLIC
+GO
+
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'USP_GetTicketStatus')
+	BEGIN
+		PRINT 'Dropping Procedure USP_GetTicketStatus'
+		DROP  Procedure  USP_GetTicketStatus
+	END
+GO
+
+PRINT 'Creating Procedure USP_GetTicketStatus'
+GO
+
+CREATE PROCEDURE dbo.USP_GetTicketStatus
+	(
+		@TicketBarcode varchar(50)
+	)
+AS
+	SELECT t.EventStatusID, t.EventTicketStatusID, t.StadisRemainingAmount, t.StadisEventRemainingAmount, t.Status1, t.Status2, t.Status3, t.Status4, t.Status5, t.Status6, t.Status7, t.Status8, t.Status9, t.Status0, t.CustomerID, t.UpdateDate, et.EventStatusID, et.EventTicketStatusID, et.StadisRemainingAmount, et.UpdateDate, c.StadisRemainingAmount, c.StadisEventRemainingAmount, t.UDF3, t.EventID, c.UpdateDate
+	FROM Ticket t
+	LEFT JOIN EventTicket et ON et.TicketBarcode = t.TicketBarcode
+	LEFT JOIN Customer c ON c.CustomerID = t.CustomerID
+	WHERE t.TicketBarcode = @TicketBarcode
+	RETURN
+GO
+
+GRANT EXEC ON USP_GetTicketStatus TO PUBLIC
+GO

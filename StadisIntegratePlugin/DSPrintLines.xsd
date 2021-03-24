@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSPrintLines" targetNamespace="http://tempuri.org/DSPrintLines.xsd" xmlns:mstns="http://tempuri.org/DSPrintLines.xsd" xmlns="http://tempuri.org/DSPrintLines.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSPrintLines" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DSPrintLines" msprop:Generator_UserDSName="DSPrintLines">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PrintLines" msprop:Generator_TableClassName="PrintLinesDataTable" msprop:Generator_TableVarName="tablePrintLines" msprop:Generator_TablePropName="PrintLines" msprop:Generator_RowDeletingName="PrintLinesRowDeleting" msprop:Generator_RowChangingName="PrintLinesRowChanging" msprop:Generator_RowEvHandlerName="PrintLinesRowChangeEventHandler" msprop:Generator_RowDeletedName="PrintLinesRowDeleted" msprop:Generator_UserTableName="PrintLines" msprop:Generator_RowChangedName="PrintLinesRowChanged" msprop:Generator_RowEvArgName="PrintLinesRowChangeEvent" msprop:Generator_RowClassName="PrintLinesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PrintLine" msprop:Generator_ColumnVarNameInTable="columnPrintLine" msprop:Generator_ColumnPropNameInRow="PrintLine" msprop:Generator_ColumnPropNameInTable="PrintLineColumn" msprop:Generator_UserColumnName="PrintLine" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

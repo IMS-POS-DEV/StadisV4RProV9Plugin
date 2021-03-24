@@ -36,7 +36,7 @@ Public Class TCustomAttributeCalculationPlugin
     Public Property AttributeName2 As String Implements IAttributeCalculationPlugin.AttributeName
 
     Public Function AttrPermissionEnabled2(APermission As Integer, APermType As Integer) As Integer Implements IAttributeCalculationPlugin.AttrPermissionEnabled
-
+        AttrPermissionEnabled2 = True
     End Function
 
     Public ReadOnly Property BusinessObjectType2 As Integer Implements IAttributeCalculationPlugin.BusinessObjectType
